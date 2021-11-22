@@ -1,8 +1,13 @@
 {
     "compilerOptions": {
         "allowJs": true,
+//        "declaration": true,
+//        "declarationMap": true,
+//        "emitDeclarationOnly": false,
+//        "declarationDir": "./types",
         "allowSyntheticDefaultImports": true,
-        "lib": ["dom", "es2017"],
+        "jsx": "react",
+        "lib": ["dom", "es2020"],
         "noEmit": true,
         "module": "esnext",
         "moduleResolution": "node",
@@ -16,8 +21,9 @@
         "target": "esnext",
         "baseUrl": ".",
         "paths": {
-            "*": ["*", "resources/js/*"]
+            "*": ["*", "src/*"]
         }
     },
-    "include": ["resources/**/*"]
+    "include": ["src/**/*", "node_modules/microbundle/index.d.ts"],
+    "exclude": ["**/dist/**"]
 }
