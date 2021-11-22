@@ -2,7 +2,7 @@
   "name": "@flareapp/ignition-ui",
   "version": "2.0.0",
   "description": "UI components for Laravel's Ignition error page",
-  "main": "dist/index.js",
+  "main": "dist/index.modern.js",
   "repository": "git@github.com:spatie/ignition-ui.git",
   "scripts": {
     "bundle": "microbundle -i src/index.ts -o dist/index.js --jsx React.createElement -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='production'",
@@ -34,7 +34,7 @@
   "prepublishOnly": "bundle",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn bundle && git add dist/index.js"
+      "pre-commit": "lint-staged && yarn bundle && git add dist/index.modern.js"
     }
   }
 }

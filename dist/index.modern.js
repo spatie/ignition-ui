@@ -1,7 +1,1 @@
-import React from 'react';
-
-function Stacktrace() {
-  return React.createElement("p", null, "stacktrace");
-}
-
-export { Stacktrace };
+import t from"react";function e(){return t.createElement("p",null,"stacktrace")}export{e as Stacktrace};
