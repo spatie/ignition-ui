@@ -7852,36 +7852,20 @@ function ErrorMessage() {
   }))));
 }
 
-function ErrorCard() {
-  const errorOccurrence = useContext(ErrorOccurrenceContext);
-  return /*#__PURE__*/React.createElement("section", {
-    className: "mt-20 grid grid-cols-1 lg:grid-cols-5 2xl:grid-cols-1 items-stretch ~bg-white shadow-lg"
-  }, /*#__PURE__*/React.createElement("main", {
-    id: "exception",
-    className: "z-10 lg:col-span-3 2xl:col-span-1"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "overflow-hidden"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-6 sm:px-10 py-8 overflow-x-auto"
-  }, /*#__PURE__*/React.createElement("header", {
-    className: "flex items-center justify-between"
-  }, /*#__PURE__*/React.createElement("nav", {
-    className: "group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "flex flex-wrap leading-tight"
-  }, /*#__PURE__*/React.createElement("span", null, "Illuminate", /*#__PURE__*/React.createElement("span", {
+function RelaxedPath({
+  path,
+  divider = '/'
+}) {
+  const parts = path.split(divider);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, parts.map((part, index) => /*#__PURE__*/React.createElement("span", {
+    key: part
+  }, part, index !== parts.length - 1 && /*#__PURE__*/React.createElement("span", {
     className: "mx-0.5"
-  }, "\\"), /*#__PURE__*/React.createElement("wbr", null)), /*#__PURE__*/React.createElement("span", null, "Database", /*#__PURE__*/React.createElement("span", {
-    className: "mx-0.5"
-  }, "\\"), /*#__PURE__*/React.createElement("wbr", null)), /*#__PURE__*/React.createElement("span", null, "QueryException", /*#__PURE__*/React.createElement("wbr", null))), /*#__PURE__*/React.createElement("button", null, /*#__PURE__*/React.createElement("i", {
-    className: "ml-3 fas fa-angle-down group-hover:text-red-500 text-sm"
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500"
-  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
-    className: "tracking-wider"
-  }, "PHP"), ' ', errorOccurrence.language_version), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", {
-    className: "fab fa-laravel"
-  }), ' ', errorOccurrence.framework_version))), /*#__PURE__*/React.createElement(ErrorMessage, null)))), /*#__PURE__*/React.createElement("aside", {
+  }, divider))));
+}
+
+function Solutions() {
+  return /*#__PURE__*/React.createElement("aside", {
     id: "solution",
     className: "flex flex-col w-full lg:col-span-2 2xl:col-span-1"
   }, /*#__PURE__*/React.createElement("div", {
@@ -7922,7 +7906,39 @@ function ErrorCard() {
     href: "https://laravel.com/docs/master/migrations#running-migrations",
     target: "_blank",
     className: "underline text-green-700 dark:text-green-800"
-  }, "CLI: Artisan Migrate")))))));
+  }, "CLI: Artisan Migrate"))))));
+}
+
+function ErrorCard() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const hasSolutions = errorOccurrence.solutions.length > 0;
+  return /*#__PURE__*/React.createElement("section", {
+    className: "mt-20 grid grid-cols-1 lg:grid-cols-5 2xl:grid-cols-1 items-stretch ~bg-white shadow-lg"
+  }, /*#__PURE__*/React.createElement("main", {
+    id: "exception",
+    className: `z-10 ${hasSolutions ? 'lg:col-span-3 2xl:col-span-1' : 'col-span-full'}`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "overflow-hidden"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "px-6 sm:px-10 py-8 overflow-x-auto"
+  }, /*#__PURE__*/React.createElement("header", {
+    className: "flex items-center justify-between"
+  }, /*#__PURE__*/React.createElement("nav", {
+    className: "group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "flex flex-wrap leading-tight"
+  }, /*#__PURE__*/React.createElement(RelaxedPath, {
+    path: errorOccurrence.exception_class,
+    divider: "\\"
+  })), /*#__PURE__*/React.createElement("button", null, /*#__PURE__*/React.createElement("i", {
+    className: "ml-3 fas fa-angle-down group-hover:text-red-500 text-sm"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500"
+  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
+    className: "tracking-wider"
+  }, "PHP"), ' ', errorOccurrence.language_version), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", {
+    className: "fab fa-laravel"
+  }), ' ', errorOccurrence.framework_version))), /*#__PURE__*/React.createElement(ErrorMessage, null)))), /*#__PURE__*/React.createElement(Solutions, null));
 }
 
 function Context() {
