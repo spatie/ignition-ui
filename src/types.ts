@@ -1,7 +1,3 @@
-export type ErrorOccurrenceWithFrames = ErrorOccurrence & {
-    frames: Array<ErrorFrame>;
-};
-
 export type ErrorFrame = {
     class?: string;
     method: string;
@@ -36,6 +32,7 @@ export type ErrorOccurrence = {
     group_last_seen_at?: string;
     glows: Array<ErrorGlow>;
     solutions: Array<ErrorSolution>;
+    frames: Array<ErrorFrame>;
     links: {
         show: string;
         share: string;

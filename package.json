@@ -5,10 +5,10 @@
   "main": "dist/index.modern.js",
   "repository": "git@github.com:spatie/ignition-ui.git",
   "scripts": {
-    "bundle": "microbundle -i src/index.ts -o dist/index.js --jsx React.createElement -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='production'",
-    "dev": "NODE_ENV=development concurrently -n \"dev,typescript\" -c \",green\" \"microbundle watch -i src/index.ts -o dist/index.js --jsx React.createElement -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='development' --no-compress\" \"yarn typecheck\"",
+    "bundle": "microbundle -i src/index.ts -o dist/index.js --tsconfig tsconfig.bundle.json --jsx React.createElement --jsxFragment React.Fragment -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='production'",
+    "dev": "NODE_ENV=development concurrently -n \"dev,typescript\" -c \",green\" \"microbundle watch -i src/index.ts -o dist/index.js --tsconfig tsconfig.dev.json --jsx React.createElement --jsxFragment React.Fragment -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='development' --no-compress\" \"yarn typecheck\"",
     "format": "prettier --write 'src/**/*.{css,js,ts,tsx}'",
-    "typecheck": "tsc -w --preserveWatchOutput"
+    "typecheck": "tsc -w --preserveWatchOutput --p tsconfig.bundle.json"
   },
   "types": "./types/index.d.ts",
   "dependencies": {
@@ -16,7 +16,7 @@
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "shiki": "^0.9.12"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.0",
