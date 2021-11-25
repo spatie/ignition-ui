@@ -7864,7 +7864,121 @@ function RelaxedPath({
   }, divider))));
 }
 
+function SolutionRunner({
+  solution
+}) {
+  const [isRunningSolution, setIsRunningSolution] = useState(false);
+  const [wasExecutionSuccessful, setWasExecutionSuccessful] = useState(null);
+
+  async function executeSolution() {
+    if (isRunningSolution) {
+      return;
+    }
+
+    try {
+      setIsRunningSolution(true);
+
+      if (!solution.execute_endpoint) {
+        return;
+      }
+
+      const response = await fetch(solution.execute_endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          solution: solution.class,
+          parameters: solution.run_parameters
+        })
+      });
+      setWasExecutionSuccessful(response.status >= 200 && response.status < 300);
+    } catch (error) {
+      console.error(error);
+      setWasExecutionSuccessful(false);
+    } finally {
+      setIsRunningSolution(false);
+    }
+  }
+
+  function refresh(event) {
+    event.preventDefault();
+    location.reload();
+  }
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, wasExecutionSuccessful === null && /*#__PURE__*/React.createElement("button", {
+    className: "ml-4 px-4 h-8 bg-white/20 text-white whitespace-nowrap border-b border-gray-500/25 text-xs uppercase tracking-wider font-bold rounded-sm shadow-md hover:shadow-lg active:shadow-none",
+    onClick: executeSolution,
+    disabled: isRunningSolution
+  }, isRunningSolution ? /*#__PURE__*/React.createElement("span", null, "Running...") : /*#__PURE__*/React.createElement("span", null, solution.run_button_text || 'Run')), wasExecutionSuccessful === true && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", {
+    className: "font-semibold"
+  }, "The solution was executed successfully."), /*#__PURE__*/React.createElement("a", {
+    className: "ml-2",
+    href: "#",
+    onClick: refresh
+  }, "Refresh now.")), wasExecutionSuccessful === false && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", {
+    className: "font-semibold"
+  }, "Something went wrong when executing the solution. Please try refreshing the page and try again."), /*#__PURE__*/React.createElement("a", {
+    className: "ml-2",
+    href: "#",
+    onClick: refresh
+  }, "Refresh now.")));
+}
+
+function Solution({
+  solution,
+  isOpen: initialIsOpen = false,
+  canExecute = false
+}) {
+  const [isOpen, setIsOpen] = React.useState(initialIsOpen);
+  return /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("button", {
+    className: "group mb-4 flex items-center justify-start",
+    onClick: () => setIsOpen(!isOpen)
+  }, /*#__PURE__*/React.createElement("i", {
+    className: `-ml-6 w-6 fas group-hover:opacity-40 opacity-0 text-sm ${isOpen ? 'fa-angle-down' : 'fa-angle-right'}`
+  }), /*#__PURE__*/React.createElement("h2", {
+    className: "min-w-0 truncate font-semibold leading-snug"
+  }, solution.title)), /*#__PURE__*/React.createElement("div", {
+    className: `${isOpen ? '' : 'hidden'}`
+  }, solution.description && /*#__PURE__*/React.createElement("p", null, solution.description), /*#__PURE__*/React.createElement("div", {
+    className: "my-4 max-w-max flex items-stretch pl-4 pr-2 py-2 bg-gray-800/60 rounded-sm"
+  }, /*#__PURE__*/React.createElement("code", {
+    className: "flex items-center flex-grow text-gray-100 font-mono text-sm"
+  }, solution.action_description), solution.is_runnable && canExecute && /*#__PURE__*/React.createElement(SolutionRunner, {
+    solution: solution
+  })), /*#__PURE__*/React.createElement("ul", {
+    className: "grid grid-cols-1 gap-y-1 text-sm"
+  }, Object.entries(solution.links).map(([title, link], index) => /*#__PURE__*/React.createElement("li", {
+    key: index
+  }, /*#__PURE__*/React.createElement("a", {
+    href: link,
+    target: "_blank",
+    className: "underline text-green-700 dark:text-green-800"
+  }, title))))));
+}
+
 function Solutions() {
+  const {
+    solutions
+  } = useContext(ErrorOccurrenceContext);
+  const [canExecuteSolutions, setCanExecuteSolutions] = useState(false);
+  useEffect(() => {
+    try {
+      (async () => {
+        var _solutions$;
+
+        if (!((_solutions$ = solutions[0]) != null && _solutions$.execute_endpoint)) {
+          return;
+        }
+
+        const healthCheck = await (await fetch(solutions[0].execute_endpoint.replace('execute-solution', 'health-check'))).json();
+        setCanExecuteSolutions(healthCheck.can_execute_commands); // TODO: rename to can_execute_solutions (in laravel-ignition as well)
+      })();
+    } catch (error) {
+      setCanExecuteSolutions(false);
+    }
+  }, []);
   return /*#__PURE__*/React.createElement("aside", {
     id: "solution",
     className: "flex flex-col w-full lg:col-span-2 2xl:col-span-1"
@@ -7874,39 +7988,13 @@ function Solutions() {
     className: "absolute top-4 right-4 leading-none opacity-50 hover:opacity-75 text-sm"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fas fa-times"
-  })), /*#__PURE__*/React.createElement("section", {
-    className: "mt-2 (optical-correction)"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "mb-4 group flex items-center justify-start "
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "-ml-6 w-6 fas fa-angle-down opacity-0 group-hover:opacity-40 text-sm"
-  }), /*#__PURE__*/React.createElement("h2", {
-    className: "min-w-0 truncate font-semibold leading-snug"
-  }, "Have you set up your database?"))), /*#__PURE__*/React.createElement("hr", {
-    className: "mb-4 border-t border-gray-800/20"
-  }), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("button", {
-    className: "group mb-4 flex items-center justify-start"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "-ml-6 w-6 far fa-angle-up opacity-0 group-hover:opacity-40 text-sm"
-  }), /*#__PURE__*/React.createElement("h2", {
-    className: "min-w-0 truncate font-semibold leading-snug"
-  }, "Have you ran migrations?")), /*#__PURE__*/React.createElement("div", {
-    className: "my-4 max-w-max flex items-stretch pl-4 pr-2 py-2 bg-gray-800/60 rounded-sm"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "flex items-center flex-grow text-gray-100 font-mono text-sm"
-  }, "php artisan migrate"), /*#__PURE__*/React.createElement("button", {
-    className: " ml-4 px-4 h-8 bg-white/20 text-white whitespace-nowrap border-b border-gray-500/25 text-xs uppercase tracking-wider font-bold rounded-sm shadow-md hover:shadow-lg active:shadow-none "
-  }, "Run")), /*#__PURE__*/React.createElement("ul", {
-    className: "grid grid-cols-1 gap-y-1 text-sm"
-  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://laravel.com/docs/master/migrations#running-migrations",
-    target: "_blank",
-    className: "underline text-green-700 dark:text-green-800"
-  }, "Database: Running Migrations")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://laravel.com/docs/master/migrations#running-migrations",
-    target: "_blank",
-    className: "underline text-green-700 dark:text-green-800"
-  }, "CLI: Artisan Migrate"))))));
+  })), solutions.map((solution, index) => /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Solution, {
+    solution: solution,
+    canExecute: canExecuteSolutions,
+    isOpen: index === 0
+  }), index !== solutions.length - 1 && /*#__PURE__*/React.createElement("hr", {
+    className: "my-4 border-t border-gray-800/20"
+  })))));
 }
 
 function ErrorCard() {
