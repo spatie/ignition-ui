@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import ErrorMessage from "components/ui/ErrorMessage";
-import ErrorOccurrenceContext from "components/contexts/ErrorOccurrenceContext";
-import RelaxedPath from "components/ui/RelaxedPath";
-import Solutions from "./Solutions";
+import ErrorMessage from 'components/ui/ErrorMessage';
+import ErrorOccurrenceContext from 'components/contexts/ErrorOccurrenceContext';
+import RelaxedPath from 'components/ui/RelaxedPath';
+import Solutions from './Solutions';
 
 export default function ErrorCard() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -20,17 +20,15 @@ export default function ErrorCard() {
                                     <RelaxedPath path={errorOccurrence.exception_class} divider="\" />
                                 </p>
                                 <button>
-                                    <i className="ml-3 fas fa-angle-down group-hover:text-red-500 text-sm"/>
+                                    <i className="ml-3 fas fa-angle-down group-hover:text-red-500 text-sm" />
                                 </button>
                             </nav>
                             <div className="grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500">
                                 <span>
-                                    <span className="tracking-wider">PHP</span>
-                                    {' '}{errorOccurrence.language_version}
+                                    <span className="tracking-wider">PHP</span> {errorOccurrence.language_version}
                                 </span>
                                 <span>
-                                    <i className="fab fa-laravel"/>
-                                    {' '}{errorOccurrence.framework_version}
+                                    <i className="fab fa-laravel" /> {errorOccurrence.framework_version}
                                 </span>
                             </div>
                         </header>
@@ -56,5 +54,5 @@ export default function ErrorCard() {
 
             <Solutions />
         </section>
-    )
+    );
 }

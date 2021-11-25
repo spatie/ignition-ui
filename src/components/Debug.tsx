@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Debug () {
+export default function Debug() {
     return (
         <section className="mt-20 2xl:col-start-2">
             <a id="debug" className="z-50 absolute top-[-7.5rem]" />
@@ -79,7 +79,41 @@ export default function Debug () {
                             <div className="max-h-64 overflow-hidden mask-fade-y">
                                 <div className="px-4 py-2 mask-fade-x">
                                     <code className="font-mono leading-relaxed text-sm font-normal">
-                                        <pre>curl "https://medialibrary.pro/demo-customized-collection" \{"\n"}{"    "}-X POST \{"\n"}{"    "}-H 'cookie: XSRF-TOKEN=eyJpdiI6IjM1cTRDMzlBUmx2OUw4UXd1MUtoaGc9PSIsInZhbHVlIjoiSGhPejVGTnlTbEY0UFlJYThHUHBKOERoVmU4MDFpUVV4aWdsOW16SnFvUEVvMmZXdlpMci9Sc3hTeDJkSldnTW9xc2IwSWEvWnJLeVpsQWNzVTBROG1rQXkzaExQaU5XWWROeWZYcHJBZkFFM092SXZOd0c0NzZYdEFoUXNZUUYiLCJtYWMiOiIxNzU0ZjViMDljMmEzZTM1YjljYWY2NDk5ZjcwM2UyNzI0MWZkYThkNmZiMmZkNmVlZDZmZmMyNGQ2YWJlYzY2In0%3D; medialibrarypro_session=eyJpdiI6IjlkVUNHQlVQZHc4cUVxa05SN200dEE9PSIsInZhbHVlIjoibXZaMzdjVzk4OXcvQjZTL2V1dVRJbHZuU3p5VmFYbFBUTWVoSVRtYnZ6bDRVS1lmd2QwenVLTERreGh6d2FZZDdmTnl5MU1nR3d3cnNMLzBiL0FtRXVHQ2NYTkdabVB0bXNoc2F4dkZOcUpjRkFUWUZKTDV4ckwwZ04wZmQwTHoiLCJtYWMiOiI0MjA1NzEzOWFjMDhlMWE3MTgwZDdmMmRiYmEzOTQ3MGEwODQ3OWIxYjYyMjRmYTdmOTNmOGU3ZGI5ODY0M2I1In0%3D' \{"\n"}{"    "}-H 'accept-language: en-GB,en-US;q=0.9,en;q=0.8,bn;q=0.7,fr;q=0.6' \{"\n"}{"    "}-H 'accept-encoding: gzip, deflate, br' \{"\n"}{"    "}-H 'referer: https://medialibrary.pro/demo-customized-collection' \{"\n"}{"    "}-H 'sec-fetch-dest: document' \{"\n"}{"    "}-H 'sec-fetch-user: ?1' \{"\n"}{"    "}-H 'sec-fetch-mode: navigate' \{"\n"}{"    "}-H 'sec-fetch-site: same-origin' \{"\n"}{"    "}-H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \{"\n"}{"    "}-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36' \{"\n"}{"    "}-H 'content-type: application/x-www-form-urlencoded' \{"\n"}{"    "}-H 'origin: https://medialibrary.pro' \{"\n"}{"    "}-H 'upgrade-insecure-requests: 1' \{"\n"}{"    "}-H 'sec-ch-ua-platform: "Windows"' \{"\n"}{"    "}-H 'sec-ch-ua-mobile: ?0' \{"\n"}{"    "}-H 'sec-ch-ua: "Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"' \{"\n"}{"    "}-H 'cache-control: max-age=0' \{"\n"}{"    "}-H 'content-length: 1394' \{"\n"}{"    "}-H 'host: medialibrary.pro' \{"\n"}{"    "}-F '_token=7uzRjLOwiqLEgOvXpKKDXyl70FHlHtblkjY0vkDk' -F 'downloads=[object Object]'</pre>
+                                        <pre>
+                                            curl "https://medialibrary.pro/demo-customized-collection" \{'\n'}
+                                            {'    '}-X POST \{'\n'}
+                                            {'    '}-H 'cookie:
+                                            XSRF-TOKEN=eyJpdiI6IjM1cTRDMzlBUmx2OUw4UXd1MUtoaGc9PSIsInZhbHVlIjoiSGhPejVGTnlTbEY0UFlJYThHUHBKOERoVmU4MDFpUVV4aWdsOW16SnFvUEVvMmZXdlpMci9Sc3hTeDJkSldnTW9xc2IwSWEvWnJLeVpsQWNzVTBROG1rQXkzaExQaU5XWWROeWZYcHJBZkFFM092SXZOd0c0NzZYdEFoUXNZUUYiLCJtYWMiOiIxNzU0ZjViMDljMmEzZTM1YjljYWY2NDk5ZjcwM2UyNzI0MWZkYThkNmZiMmZkNmVlZDZmZmMyNGQ2YWJlYzY2In0%3D;
+                                            medialibrarypro_session=eyJpdiI6IjlkVUNHQlVQZHc4cUVxa05SN200dEE9PSIsInZhbHVlIjoibXZaMzdjVzk4OXcvQjZTL2V1dVRJbHZuU3p5VmFYbFBUTWVoSVRtYnZ6bDRVS1lmd2QwenVLTERreGh6d2FZZDdmTnl5MU1nR3d3cnNMLzBiL0FtRXVHQ2NYTkdabVB0bXNoc2F4dkZOcUpjRkFUWUZKTDV4ckwwZ04wZmQwTHoiLCJtYWMiOiI0MjA1NzEzOWFjMDhlMWE3MTgwZDdmMmRiYmEzOTQ3MGEwODQ3OWIxYjYyMjRmYTdmOTNmOGU3ZGI5ODY0M2I1In0%3D'
+                                            \{'\n'}
+                                            {'    '}-H 'accept-language: en-GB,en-US;q=0.9,en;q=0.8,bn;q=0.7,fr;q=0.6' \
+                                            {'\n'}
+                                            {'    '}-H 'accept-encoding: gzip, deflate, br' \{'\n'}
+                                            {'    '}-H 'referer: https://medialibrary.pro/demo-customized-collection' \
+                                            {'\n'}
+                                            {'    '}-H 'sec-fetch-dest: document' \{'\n'}
+                                            {'    '}-H 'sec-fetch-user: ?1' \{'\n'}
+                                            {'    '}-H 'sec-fetch-mode: navigate' \{'\n'}
+                                            {'    '}-H 'sec-fetch-site: same-origin' \{'\n'}
+                                            {'    '}-H 'accept:
+                                            text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+                                            \{'\n'}
+                                            {'    '}-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+                                            AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36' \
+                                            {'\n'}
+                                            {'    '}-H 'content-type: application/x-www-form-urlencoded' \{'\n'}
+                                            {'    '}-H 'origin: https://medialibrary.pro' \{'\n'}
+                                            {'    '}-H 'upgrade-insecure-requests: 1' \{'\n'}
+                                            {'    '}-H 'sec-ch-ua-platform: "Windows"' \{'\n'}
+                                            {'    '}-H 'sec-ch-ua-mobile: ?0' \{'\n'}
+                                            {'    '}-H 'sec-ch-ua: "Chromium";v="94", "Google Chrome";v="94", ";Not A
+                                            Brand";v="99"' \{'\n'}
+                                            {'    '}-H 'cache-control: max-age=0' \{'\n'}
+                                            {'    '}-H 'content-length: 1394' \{'\n'}
+                                            {'    '}-H 'host: medialibrary.pro' \{'\n'}
+                                            {'    '}-F '_token=7uzRjLOwiqLEgOvXpKKDXyl70FHlHtblkjY0vkDk' -F
+                                            'downloads=[object Object]'
+                                        </pre>
                                     </code>
                                 </div>
                             </div>
@@ -89,8 +123,10 @@ export default function Debug () {
                             <button className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs ">
                                 <i className="fas fa-angle-down" />
                             </button>
-                        </dd></dl></div>
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </section>
-    )
+    );
 }

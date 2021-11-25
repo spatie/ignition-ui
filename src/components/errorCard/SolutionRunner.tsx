@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import {ErrorSolution} from "../../types";
+import { ErrorSolution } from '../../types';
 
 type Props = {
     solution: ErrorSolution;
 };
 
-export default function SolutionRunner({solution}: Props) {
-
+export default function SolutionRunner({ solution }: Props) {
     const [isRunningSolution, setIsRunningSolution] = useState(false);
     const [wasExecutionSuccessful, setWasExecutionSuccessful] = useState<boolean | null>(null);
 
@@ -24,8 +23,8 @@ export default function SolutionRunner({solution}: Props) {
 
             const response = await fetch(solution.execute_endpoint, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json', Accept: 'application/json'},
-                body: JSON.stringify({solution: solution.class, parameters: solution.run_parameters}),
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({ solution: solution.class, parameters: solution.run_parameters }),
             });
 
             setWasExecutionSuccessful(response.status >= 200 && response.status < 300);
@@ -51,11 +50,7 @@ export default function SolutionRunner({solution}: Props) {
                     onClick={executeSolution}
                     disabled={isRunningSolution}
                 >
-                    {isRunningSolution ? (
-                        <span>Running...</span>
-                    ) : (
-                        <span>{solution.run_button_text || 'Run'}</span>
-                    )}
+                    {isRunningSolution ? <span>Running...</span> : <span>{solution.run_button_text || 'Run'}</span>}
                 </button>
             )}
 
@@ -70,7 +65,9 @@ export default function SolutionRunner({solution}: Props) {
 
             {wasExecutionSuccessful === false && (
                 <p>
-                    <strong className="font-semibold">Something went wrong when executing the solution. Please try refreshing the page and try again.</strong>
+                    <strong className="font-semibold">
+                        Something went wrong when executing the solution. Please try refreshing the page and try again.
+                    </strong>
                     <a className="ml-2" href="#" onClick={refresh}>
                         Refresh now.
                     </a>

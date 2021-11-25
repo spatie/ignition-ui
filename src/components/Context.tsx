@@ -67,11 +67,14 @@ export default function Context() {
                     </div>
                 </nav>
                 <div className="overflow-hidden grid grid-cols-1 gap-px">
-                    <section className="shadow-lg
-              ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden">
+                    <section
+                        className="shadow-lg
+              ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
+                    >
                         <dl className="grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2">
                             <h2 className="mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider">
-                                Request</h2>
+                                Request
+                            </h2>
                             <div className="py-2 col-span-2 text-lg font-semibold flex items-center">
                                 <span>https://medialibrary.pro/demo-customized-collection</span>
                                 <span className="ml-2 px-1.5 rounded-sm  border border-indigo-500/20 ~text-indigo-600 text-xs uppercase tracking-wider">
@@ -82,7 +85,41 @@ export default function Context() {
                                 <div className="max-h-32 overflow-hidden mask-fade-y">
                                     <div className="px-4 py-2 mask-fade-x">
                                         <code className="font-mono leading-relaxed text-sm font-normal">
-                                            <pre>curl "https://medialibrary.pro/demo-customized-collection" \{"\n"}{"    "}-X POST \{"\n"}{"    "}-H 'cookie: XSRF-TOKEN=eyJpdiI6IjM1cTRDMzlBUmx2OUw4UXd1MUtoaGc9PSIsInZhbHVlIjoiSGhPejVGTnlTbEY0UFlJYThHUHBKOERoVmU4MDFpUVV4aWdsOW16SnFvUEVvMmZXdlpMci9Sc3hTeDJkSldnTW9xc2IwSWEvWnJLeVpsQWNzVTBROG1rQXkzaExQaU5XWWROeWZYcHJBZkFFM092SXZOd0c0NzZYdEFoUXNZUUYiLCJtYWMiOiIxNzU0ZjViMDljMmEzZTM1YjljYWY2NDk5ZjcwM2UyNzI0MWZkYThkNmZiMmZkNmVlZDZmZmMyNGQ2YWJlYzY2In0%3D; medialibrarypro_session=eyJpdiI6IjlkVUNHQlVQZHc4cUVxa05SN200dEE9PSIsInZhbHVlIjoibXZaMzdjVzk4OXcvQjZTL2V1dVRJbHZuU3p5VmFYbFBUTWVoSVRtYnZ6bDRVS1lmd2QwenVLTERreGh6d2FZZDdmTnl5MU1nR3d3cnNMLzBiL0FtRXVHQ2NYTkdabVB0bXNoc2F4dkZOcUpjRkFUWUZKTDV4ckwwZ04wZmQwTHoiLCJtYWMiOiI0MjA1NzEzOWFjMDhlMWE3MTgwZDdmMmRiYmEzOTQ3MGEwODQ3OWIxYjYyMjRmYTdmOTNmOGU3ZGI5ODY0M2I1In0%3D' \{"\n"}{"    "}-H 'accept-language: en-GB,en-US;q=0.9,en;q=0.8,bn;q=0.7,fr;q=0.6' \{"\n"}{"    "}-H 'accept-encoding: gzip, deflate, br' \{"\n"}{"    "}-H 'referer: https://medialibrary.pro/demo-customized-collection' \{"\n"}{"    "}-H 'sec-fetch-dest: document' \{"\n"}{"    "}-H 'sec-fetch-user: ?1' \{"\n"}{"    "}-H 'sec-fetch-mode: navigate' \{"\n"}{"    "}-H 'sec-fetch-site: same-origin' \{"\n"}{"    "}-H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \{"\n"}{"    "}-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36' \{"\n"}{"    "}-H 'content-type: application/x-www-form-urlencoded' \{"\n"}{"    "}-H 'origin: https://medialibrary.pro' \{"\n"}{"    "}-H 'upgrade-insecure-requests: 1' \{"\n"}{"    "}-H 'sec-ch-ua-platform: "Windows"' \{"\n"}{"    "}-H 'sec-ch-ua-mobile: ?0' \{"\n"}{"    "}-H 'sec-ch-ua: "Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"' \{"\n"}{"    "}-H 'cache-control: max-age=0' \{"\n"}{"    "}-H 'content-length: 1394' \{"\n"}{"    "}-H 'host: medialibrary.pro' \{"\n"}{"    "}-F '_token=7uzRjLOwiqLEgOvXpKKDXyl70FHlHtblkjY0vkDk' -F 'downloads=[object Object]'</pre>
+                                            <pre>
+                                                curl "https://medialibrary.pro/demo-customized-collection" \{'\n'}
+                                                {'    '}-X POST \{'\n'}
+                                                {'    '}-H 'cookie:
+                                                XSRF-TOKEN=eyJpdiI6IjM1cTRDMzlBUmx2OUw4UXd1MUtoaGc9PSIsInZhbHVlIjoiSGhPejVGTnlTbEY0UFlJYThHUHBKOERoVmU4MDFpUVV4aWdsOW16SnFvUEVvMmZXdlpMci9Sc3hTeDJkSldnTW9xc2IwSWEvWnJLeVpsQWNzVTBROG1rQXkzaExQaU5XWWROeWZYcHJBZkFFM092SXZOd0c0NzZYdEFoUXNZUUYiLCJtYWMiOiIxNzU0ZjViMDljMmEzZTM1YjljYWY2NDk5ZjcwM2UyNzI0MWZkYThkNmZiMmZkNmVlZDZmZmMyNGQ2YWJlYzY2In0%3D;
+                                                medialibrarypro_session=eyJpdiI6IjlkVUNHQlVQZHc4cUVxa05SN200dEE9PSIsInZhbHVlIjoibXZaMzdjVzk4OXcvQjZTL2V1dVRJbHZuU3p5VmFYbFBUTWVoSVRtYnZ6bDRVS1lmd2QwenVLTERreGh6d2FZZDdmTnl5MU1nR3d3cnNMLzBiL0FtRXVHQ2NYTkdabVB0bXNoc2F4dkZOcUpjRkFUWUZKTDV4ckwwZ04wZmQwTHoiLCJtYWMiOiI0MjA1NzEzOWFjMDhlMWE3MTgwZDdmMmRiYmEzOTQ3MGEwODQ3OWIxYjYyMjRmYTdmOTNmOGU3ZGI5ODY0M2I1In0%3D'
+                                                \{'\n'}
+                                                {'    '}-H 'accept-language:
+                                                en-GB,en-US;q=0.9,en;q=0.8,bn;q=0.7,fr;q=0.6' \{'\n'}
+                                                {'    '}-H 'accept-encoding: gzip, deflate, br' \{'\n'}
+                                                {'    '}-H 'referer:
+                                                https://medialibrary.pro/demo-customized-collection' \{'\n'}
+                                                {'    '}-H 'sec-fetch-dest: document' \{'\n'}
+                                                {'    '}-H 'sec-fetch-user: ?1' \{'\n'}
+                                                {'    '}-H 'sec-fetch-mode: navigate' \{'\n'}
+                                                {'    '}-H 'sec-fetch-site: same-origin' \{'\n'}
+                                                {'    '}-H 'accept:
+                                                text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+                                                \{'\n'}
+                                                {'    '}-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+                                                AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81
+                                                Safari/537.36' \{'\n'}
+                                                {'    '}-H 'content-type: application/x-www-form-urlencoded' \{'\n'}
+                                                {'    '}-H 'origin: https://medialibrary.pro' \{'\n'}
+                                                {'    '}-H 'upgrade-insecure-requests: 1' \{'\n'}
+                                                {'    '}-H 'sec-ch-ua-platform: "Windows"' \{'\n'}
+                                                {'    '}-H 'sec-ch-ua-mobile: ?0' \{'\n'}
+                                                {'    '}-H 'sec-ch-ua: "Chromium";v="94", "Google Chrome";v="94", ";Not
+                                                A Brand";v="99"' \{'\n'}
+                                                {'    '}-H 'cache-control: max-age=0' \{'\n'}
+                                                {'    '}-H 'content-length: 1394' \{'\n'}
+                                                {'    '}-H 'host: medialibrary.pro' \{'\n'}
+                                                {'    '}-F '_token=7uzRjLOwiqLEgOvXpKKDXyl70FHlHtblkjY0vkDk' -F
+                                                'downloads=[object Object]'
+                                            </pre>
                                         </code>
                                     </div>
                                 </div>
@@ -138,8 +175,10 @@ export default function Context() {
                             </h1>
                         </dl>
                     </section>
-                    <section className="shadow-lg
-              ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden">
+                    <section
+                        className="shadow-lg
+              ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
+                    >
                         <dl className="grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2">
                             <h2 className="mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider">
                                 App
@@ -152,7 +191,9 @@ export default function Context() {
                             <dd className="group overflow-hidden ~bg-gray-500/5">
                                 <div className="px-4 py-2 mask-fade-x">
                                     <code className="font-mono leading-relaxed text-sm font-normal">
-                                        <pre>App\Http\Front\Controllers\Demo\CustomizedCollectionDemoController@store</pre>
+                                        <pre>
+                                            App\Http\Front\Controllers\Demo\CustomizedCollectionDemoController@store
+                                        </pre>
                                     </code>
                                 </div>
                                 <button className="absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
@@ -199,15 +240,20 @@ export default function Context() {
                             </dd>
                         </dl>
                     </section>
-                    <section className="shadow-lg
-              ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden">
+                    <section
+                        className="shadow-lg
+              ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
+                    >
                         <dl className="grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2">
                             <h2 className="mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider">
                                 User
                             </h2>
                             <div className="py-2 col-span-2 text-lg font-semibold flex items-center">
                                 <div className="flex-none w-8 h-8 rounded-full overflow-hidden mr-2">
-                                    <img alt="alex@spatie.be" src="https://gravatar.com/avatar/c46a1f02a0fa51179c5bee5e42c587e1?s=240" />
+                                    <img
+                                        alt="alex@spatie.be"
+                                        src="https://gravatar.com/avatar/c46a1f02a0fa51179c5bee5e42c587e1?s=240"
+                                    />
                                 </div>
                                 alex@spatie.be
                             </div>
@@ -223,9 +269,7 @@ export default function Context() {
                                 </button>
                             </dd>
                             <hr className="my-2 col-span-2 border-t ~border-gray-200" />
-                            <h1 className="py-2 col-span-2 font-semibold text-lg">
-                                …
-                            </h1>
+                            <h1 className="py-2 col-span-2 font-semibold text-lg">…</h1>
                             <dt className="py-2 truncate">This is a very long label</dt>
                             <dd className="group overflow-hidden ~bg-gray-500/5">
                                 <div className="px-4 py-2 mask-fade-x">
@@ -253,5 +297,5 @@ export default function Context() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
