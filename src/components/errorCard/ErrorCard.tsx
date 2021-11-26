@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import ErrorMessage from 'components/ui/ErrorMessage';
-import ErrorOccurrenceContext from 'components/contexts/ErrorOccurrenceContext';
-import RelaxedPath from 'components/ui/RelaxedPath';
+import ErrorMessage from '../../components/ui/ErrorMessage';
+import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
+import RelaxedPath from '../../components/ui/RelaxedPath';
 import Solutions from './Solutions';
 
 export default function ErrorCard() {

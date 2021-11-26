@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ErrorOccurrenceContext from 'components/contexts/ErrorOccurrenceContext';
+import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 
 export default function ErrorMessage() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);

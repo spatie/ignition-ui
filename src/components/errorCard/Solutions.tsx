@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ErrorOccurrenceContext from '../contexts/ErrorOccurrenceContext';
+import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 import Solution from './Solution';
 
 export default function Solutions() {
@@ -32,11 +32,11 @@ export default function Solutions() {
                 </button>
 
                 {solutions.map((solution, index) => (
-                    <>
+                    <div key={index}>
                         <Solution solution={solution} canExecute={canExecuteSolutions} isOpen={index === 0} />
 
                         {index !== solutions.length - 1 && <hr className="my-4 border-t border-gray-800/20" />}
-                    </>
+                    </div>
                 ))}
             </div>
         </aside>
