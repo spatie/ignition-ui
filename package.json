@@ -16,7 +16,7 @@
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "react": "^17.0.2",
-    "shiki": "^0.9.12"
+    "shiki": "^0.9.13"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.0",

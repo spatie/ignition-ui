@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useMemo, useReducer, useState } from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useMemo, useReducer, useState} from 'react';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
 import FrameCodeSnippet from "./FrameCodeSnippet";
 import useKeyboardShortcut from "../../../hooks/useKeyboardShortcut";
@@ -7,13 +7,16 @@ import allVendorFramesAreExpanded from "../selectors/allVendorFramesAreExpanded"
 import getFrameGroups from "../selectors/getFrameGroups";
 import getSelectedFrame from "../selectors/getSelectedFrame";
 import FrameGroup from "./FrameGroup";
+import RelaxedFullyQualifiedClassName from "../../ui/RelaxedFullyQualifiedClassName";
+import RelaxedFilePath from "../../ui/RelaxedFilePath";
+import useOpenEditorUrl from "../../../hooks/useOpenEditorUrl";
 
 type Props = {
     openFrameIndex?: number;
 };
 
-export default function StackTrace({ openFrameIndex }: Props) {
-    const { frames } = useContext(ErrorOccurrenceContext);
+export default function StackTrace({openFrameIndex}: Props) {
+    const {frames} = useContext(ErrorOccurrenceContext);
 
     const initialState = useMemo(() => {
         let selectedFrame = frames.length;
@@ -21,7 +24,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
         if (openFrameIndex) {
             selectedFrame = frames.length - openFrameIndex;
         }
-        return stackReducer({ frames, expanded: [], selected: selectedFrame }, { type: 'COLLAPSE_ALL_VENDOR_FRAMES' });
+        return stackReducer({frames, expanded: [], selected: selectedFrame}, {type: 'COLLAPSE_ALL_VENDOR_FRAMES'});
     }, [frames]);
 
     const [state, dispatch] = useReducer(stackReducer, initialState);
@@ -31,11 +34,11 @@ export default function StackTrace({ openFrameIndex }: Props) {
     const selectedFrame = useMemo(() => getSelectedFrame(state), [state]);
 
     useKeyboardShortcut('j', () => {
-        dispatch({ type: 'SELECT_NEXT_FRAME' });
+        dispatch({type: 'SELECT_NEXT_FRAME'});
     });
 
     useKeyboardShortcut('k', () => {
-        dispatch({ type: 'SELECT_PREVIOUS_FRAME' });
+        dispatch({type: 'SELECT_PREVIOUS_FRAME'});
     });
 
     const [selectedRange, setSelectedRange] = useState<[number, number] | null>(null);
@@ -50,7 +53,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
         if (frameMatches) {
             const frameNumber = parseInt(frameMatches[1]);
 
-            dispatch({ type: 'SELECT_FRAME', frame: frameNumber });
+            dispatch({type: 'SELECT_FRAME', frame: frameNumber});
         }
 
         if (lineMatches) {
@@ -75,9 +78,11 @@ export default function StackTrace({ openFrameIndex }: Props) {
         );
     }, [state.selected, selectedRange]);
 
+    const openEditorUrl = useOpenEditorUrl({ file: selectedFrame.file, lineNumber: selectedFrame.line_number})
+
     return (
         <section className="mt-20 grid 2xl:row-span-3 2xl:row-start-1 2xl:col-start-2">
-            <a id="stack" className="z-50 absolute top-[-7.5rem]" />
+            <a id="stack" className="z-50 absolute top-[-7.5rem]"/>
             <div
                 className="
                   grid grid-cols-1
@@ -94,297 +99,47 @@ export default function StackTrace({ openFrameIndex }: Props) {
                     className="z-30 lg:col-span-2 flex flex-col border-r ~border-gray-200 lg:max-h-[calc(100vh-10rem)]
               2xl:max-h-[calc(100vh-7.5rem)]"
                 >
-                    <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
-                        <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
+                    <div
+                        className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white"
+                    >
+                        <header
+                            className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200"
+                        >
                             {vendorFramesExpanded ? (
                                 <button
                                     className="h-6 px-2 rounded-sm ~bg-gray-500/5 hover:text-red-500 text-xs font-medium whitespace-nowrap"
-                                    onClick={() => dispatch({ type: 'COLLAPSE_ALL_VENDOR_FRAMES' })}
+                                    onClick={() => dispatch({type: 'COLLAPSE_ALL_VENDOR_FRAMES'})}
                                 >
                                     Collapse vendor frames
                                 </button>
                             ) : (
                                 <button
                                     className="h-6 px-2 rounded-sm ~bg-gray-500/5 hover:text-red-500 text-xs font-medium whitespace-nowrap"
-                                    onClick={() => dispatch({ type: 'EXPAND_ALL_VENDOR_FRAMES' })}
+                                    onClick={() => dispatch({type: 'EXPAND_ALL_VENDOR_FRAMES'})}
                                 >
                                     Expand vendor frames
                                 </button>
                             )}
                         </header>
                         <div id="frames" className="flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames">
-                            {frameGroups.map((frameGroup, i) => (
-                                <FrameGroup
-                                    key={i}
-                                    frameGroup={frameGroup}
-                                    onExpand={() =>
-                                        dispatch({
-                                            type: 'EXPAND_FRAMES',
-                                            frames: frameGroup.frames.map((frame) => frame.frame_number),
-                                        })
-                                    }
-                                    onSelect={(frameNumber) => {
-                                        dispatch({ type: 'SELECT_FRAME', frame: frameNumber });
-                                        setSelectedRange(null);
-                                    }}
-                                />
-                            ))}
-                            {/*<ol className="text-sm">*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    Illuminate*/}
-                            {/*                    <span className="mx-0.5">\</span>*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    Database*/}
-                            {/*                    <span className="mx-0.5">\</span>*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    Connection*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:346</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">runQueryCallback</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 bg-red-500 text-white">*/}
-                            {/*        <div className="ml-[-4px] flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    Illuminate*/}
-                            {/*                    <span className="mx-0.5">\</span>*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    Database*/}
-                            {/*                    <span className="mx-0.5">\</span>*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    Connection*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:346</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="ml-[-4px] font-semibold">runQueryCallback</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="z-10 mt-[-4px] sticky top-0 bg-red-500 h-[4px]"></li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    Illuminate*/}
-                            {/*                    <span className="mx-0.5">\</span>*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    Database*/}
-                            {/*                    <span className="mx-0.5">\</span>*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    Connection*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:346</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">runQueryCallback</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li*/}
-                            {/*        className="*/}
-                            {/*      group*/}
-                            {/*          px-6 sm:px-10*/}
-                            {/*          py-4*/}
-                            {/*          flex*/}
-                            {/*          lg:justify-start*/}
-                            {/*          border-b ~border-gray-200*/}
-                            {/*          hover:~bg-red-500/10*/}
-                            {/*      "*/}
-                            {/*    >*/}
-                            {/*        <button className="flex items-center">*/}
-                            {/*            10 vendor frames*/}
-                            {/*            <i className="ml-2 fas fa-angle-down ~text-gray-500 group-hover:text-red-500" />*/}
-                            {/*        </button>*/}
-                            {/*    </li>*/}
-                            {/*    <li*/}
-                            {/*        className="*/}
-                            {/*      px-6 sm:px-10*/}
-                            {/*          py-4*/}
-                            {/*          border-b ~border-gray-200*/}
-                            {/*          flex*/}
-                            {/*          lg:justify-start*/}
-                            {/*      "*/}
-                            {/*    >*/}
-                            {/*        <span className="~text-gray-500">1 unknown frame</span>*/}
-                            {/*    </li>*/}
-                            {/*    <li*/}
-                            {/*        className="*/}
-                            {/*      group*/}
-                            {/*      px-6 sm:px-10*/}
-                            {/*          py-4*/}
-                            {/*          flex*/}
-                            {/*          lg:justify-start*/}
-                            {/*          border-b ~border-gray-200*/}
-                            {/*          hover:~bg-red-500/10*/}
-                            {/*      "*/}
-                            {/*    >*/}
-                            {/*        <button className="flex items-center">*/}
-                            {/*            10 vendor frames*/}
-                            {/*            <i className="ml-2 fas fa-angle-down ~text-gray-500 group-hover:text-red-500" />*/}
-                            {/*        </button>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*    <li className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">*/}
-                            {/*        <div className="flex items-baseline">*/}
-                            {/*            <span className="inline-flex">*/}
-                            {/*                <span>*/}
-                            {/*                    index*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*                <span>*/}
-                            {/*                    .php*/}
-                            {/*                    <wbr />*/}
-                            {/*                </span>*/}
-                            {/*            </span>*/}
-                            {/*            <span className="px-1 font-mono text-xs">:3</span>*/}
-                            {/*        </div>*/}
-                            {/*        <div className="font-semibold">bootstrap</div>*/}
-                            {/*    </li>*/}
-                            {/*</ol>*/}
+                            <ol className="text-sm">
+                                {frameGroups.map((frameGroup, i) => (
+                                    <FrameGroup
+                                        key={i}
+                                        frameGroup={frameGroup}
+                                        onExpand={() =>
+                                            dispatch({
+                                                type: 'EXPAND_FRAMES',
+                                                frames: frameGroup.frames.map((frame) => frame.frame_number),
+                                            })
+                                        }
+                                        onSelect={(frameNumber) => {
+                                            dispatch({type: 'SELECT_FRAME', frame: frameNumber});
+                                            setSelectedRange(null);
+                                        }}
+                                    />
+                                ))}
+                            </ol>
                         </div>
                     </div>
                 </aside>
@@ -393,24 +148,15 @@ export default function StackTrace({ openFrameIndex }: Props) {
               2xl:max-h-[calc(100vh-7.5rem)] flex flex-col lg:col-span-4 border-t lg:border-t-0 ~border-gray-200"
                 >
                     <header className="~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end">
-                        <a href="#" className="group flex items-center text-sm">
-                            <span>
-                                …<span className="px-0.5">/</span>
-                            </span>
-                            <span className="group-hover:underline">
-                                Illuminate
-                                <span className="px-0.5">/</span>
-                            </span>
-                            <span className="group-hover:underline">
-                                Database
-                                <span className="px-0.5">/</span>
-                            </span>
-                            <span className="group-hover:underline font-semibold">Connection</span>
-                            <span>.php</span>
-                        </a>
+                        {openEditorUrl && (
+                            <a href={openEditorUrl} className="flex items-center text-sm">
+                                <RelaxedFilePath path={selectedFrame?.relative_file} />
+                            </a>
+                        )}
+                        {!openEditorUrl && <RelaxedFilePath path={selectedFrame?.relative_file} />}
                     </header>
 
-                    <FrameCodeSnippet frame={selectedFrame} />
+                    <FrameCodeSnippet frame={selectedFrame}/>
                 </section>
             </div>
         </section>

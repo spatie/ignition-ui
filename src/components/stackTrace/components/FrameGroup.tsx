@@ -1,6 +1,6 @@
 import React from 'react'
 import {StackFrameGroupType} from "../../../types";
-import RelaxedPath from "../../ui/RelaxedPath";
+import RelaxedFullyQualifiedClassName from "../../ui/RelaxedFullyQualifiedClassName";
 
 type Props = {
     frameGroup: StackFrameGroupType;
@@ -9,13 +9,31 @@ type Props = {
 };
 
 export default function FrameGroup({frameGroup, onExpand, onSelect}: Props) {
+    if (frameGroup.type === 'vendor' && !frameGroup.expanded) {
+        return (
+            <li
+                className="group px-6 sm:px-10 py-4 flex lg:justify-start border-b ~border-gray-200 hover:~bg-red-500/10 flex items-center"
+                onClick={onExpand}
+            >
+                {frameGroup.frames.length > 1
+                    ? `${frameGroup.frames.length} vendor frames`
+                    : '1 vendor frame'}
+                <i className="ml-2 fas fa-angle-down ~text-gray-500 group-hover:text-red-500"></i>
+            </li>
+        )
+    }
+
     return (
         <>
             {frameGroup.frames.map(frame => (
-                <li key={frame.frame_number} className="px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10">
+                <li
+                    key={frame.frame_number}
+                    className={`px-6 sm:px-10 py-4 ${frame.selected ? 'bg-red-500 text-white' : 'border-b ~border-gray-200 hover:~bg-red-500/10'}`}
+                    onClick={() => onSelect(frame.frame_number)}
+                >
                     <div className="flex items-baseline">
                         <span className="inline-flex">
-                            <RelaxedPath path={frame.class || ''} divider="\" />
+                            <RelaxedFullyQualifiedClassName path={frame.class || ''} />
                         </span>
                         <span className="px-1 font-mono text-xs">:{frame.line_number}</span>
                     </div>

@@ -5,6 +5,7 @@ export type ErrorFrame = {
     file: string;
     relative_file: string;
     line_number: number;
+    application_frame: boolean;
 };
 
 export type ErrorOccurrence = {

@@ -11,2196 +11,587 @@ function createCommonjsModule(fn) {
 	return fn(module, module.exports), module.exports;
 }
 
-var onigasm = createCommonjsModule(function (module, exports) {
-  var Onigasm = function () {
-
-    return function (Onigasm) {
-      Onigasm = Onigasm || {};
-      var Module = typeof Onigasm !== "undefined" ? Onigasm : {};
-      var moduleOverrides = {};
-      var key;
-
-      for (key in Module) {
-        if (Module.hasOwnProperty(key)) {
-          moduleOverrides[key] = Module[key];
-        }
-      }
-      var ENVIRONMENT_IS_WORKER = false;
-      var scriptDirectory = "";
-
-      function locateFile(path) {
-        if (Module["locateFile"]) {
-          return Module["locateFile"](path, scriptDirectory);
-        }
-
-        return scriptDirectory + path;
-      }
-
-      var readBinary;
-
-      {
-
-        readBinary = function readBinary(f) {
-          var data;
-
-          if (typeof readbuffer === "function") {
-            return new Uint8Array(readbuffer(f));
-          }
-
-          data = read(f, "binary");
-          assert(typeof data === "object");
-          return data;
-        };
-
-        if (typeof scriptArgs != "undefined") {
-          scriptArgs;
-        }
-
-        if (typeof print !== "undefined") {
-          if (typeof console === "undefined") console = {};
-          console.log = print;
-          console.warn = console.error = typeof printErr !== "undefined" ? printErr : print;
-        }
-      }
-
-      var out = Module["print"] || console.log.bind(console);
-      var err = Module["printErr"] || console.warn.bind(console);
-
-      for (key in moduleOverrides) {
-        if (moduleOverrides.hasOwnProperty(key)) {
-          Module[key] = moduleOverrides[key];
-        }
-      }
-
-      moduleOverrides = null;
-
-      var wasmBinary;
-      if (Module["wasmBinary"]) wasmBinary = Module["wasmBinary"];
-
-      if (typeof WebAssembly !== "object") {
-        err("no native wasm support detected");
-      }
-
-      var wasmMemory;
-      var wasmTable = new WebAssembly.Table({
-        "initial": 244,
-        "maximum": 244 + 0,
-        "element": "anyfunc"
-      });
-      var ABORT = false;
-
-      function assert(condition, text) {
-        if (!condition) {
-          abort("Assertion failed: " + text);
-        }
-      }
-
-      function getCFunc(ident) {
-        var func = Module["_" + ident];
-        assert(func, "Cannot call unknown function " + ident + ", make sure it is exported");
-        return func;
-      }
-
-      function ccall(ident, returnType, argTypes, args, opts) {
-        var toC = {
-          "string": function (str) {
-            var ret = 0;
-
-            if (str !== null && str !== undefined && str !== 0) {
-              var len = (str.length << 2) + 1;
-              ret = stackAlloc(len);
-              stringToUTF8(str, ret, len);
-            }
-
-            return ret;
-          },
-          "array": function (arr) {
-            var ret = stackAlloc(arr.length);
-            writeArrayToMemory(arr, ret);
-            return ret;
-          }
-        };
-
-        function convertReturnValue(ret) {
-          if (returnType === "string") return UTF8ToString(ret);
-          if (returnType === "boolean") return Boolean(ret);
-          return ret;
-        }
-
-        var func = getCFunc(ident);
-        var cArgs = [];
-        var stack = 0;
-
-        if (args) {
-          for (var i = 0; i < args.length; i++) {
-            var converter = toC[argTypes[i]];
-
-            if (converter) {
-              if (stack === 0) stack = stackSave();
-              cArgs[i] = converter(args[i]);
-            } else {
-              cArgs[i] = args[i];
-            }
-          }
-        }
-
-        var ret = func.apply(null, cArgs);
-        ret = convertReturnValue(ret);
-        if (stack !== 0) stackRestore(stack);
-        return ret;
-      }
-      var UTF8Decoder = typeof TextDecoder !== "undefined" ? new TextDecoder("utf8") : undefined;
-
-      function UTF8ArrayToString(u8Array, idx, maxBytesToRead) {
-        var endIdx = idx + maxBytesToRead;
-        var endPtr = idx;
-
-        while (u8Array[endPtr] && !(endPtr >= endIdx)) ++endPtr;
-
-        if (endPtr - idx > 16 && u8Array.subarray && UTF8Decoder) {
-          return UTF8Decoder.decode(u8Array.subarray(idx, endPtr));
-        } else {
-          var str = "";
-
-          while (idx < endPtr) {
-            var u0 = u8Array[idx++];
-
-            if (!(u0 & 128)) {
-              str += String.fromCharCode(u0);
-              continue;
-            }
-
-            var u1 = u8Array[idx++] & 63;
-
-            if ((u0 & 224) == 192) {
-              str += String.fromCharCode((u0 & 31) << 6 | u1);
-              continue;
-            }
-
-            var u2 = u8Array[idx++] & 63;
-
-            if ((u0 & 240) == 224) {
-              u0 = (u0 & 15) << 12 | u1 << 6 | u2;
-            } else {
-              u0 = (u0 & 7) << 18 | u1 << 12 | u2 << 6 | u8Array[idx++] & 63;
-            }
-
-            if (u0 < 65536) {
-              str += String.fromCharCode(u0);
-            } else {
-              var ch = u0 - 65536;
-              str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023);
-            }
-          }
-        }
-
-        return str;
-      }
-
-      function UTF8ToString(ptr, maxBytesToRead) {
-        return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : "";
-      }
-
-      function stringToUTF8Array(str, outU8Array, outIdx, maxBytesToWrite) {
-        if (!(maxBytesToWrite > 0)) return 0;
-        var startIdx = outIdx;
-        var endIdx = outIdx + maxBytesToWrite - 1;
-
-        for (var i = 0; i < str.length; ++i) {
-          var u = str.charCodeAt(i);
-
-          if (u >= 55296 && u <= 57343) {
-            var u1 = str.charCodeAt(++i);
-            u = 65536 + ((u & 1023) << 10) | u1 & 1023;
-          }
-
-          if (u <= 127) {
-            if (outIdx >= endIdx) break;
-            outU8Array[outIdx++] = u;
-          } else if (u <= 2047) {
-            if (outIdx + 1 >= endIdx) break;
-            outU8Array[outIdx++] = 192 | u >> 6;
-            outU8Array[outIdx++] = 128 | u & 63;
-          } else if (u <= 65535) {
-            if (outIdx + 2 >= endIdx) break;
-            outU8Array[outIdx++] = 224 | u >> 12;
-            outU8Array[outIdx++] = 128 | u >> 6 & 63;
-            outU8Array[outIdx++] = 128 | u & 63;
-          } else {
-            if (outIdx + 3 >= endIdx) break;
-            outU8Array[outIdx++] = 240 | u >> 18;
-            outU8Array[outIdx++] = 128 | u >> 12 & 63;
-            outU8Array[outIdx++] = 128 | u >> 6 & 63;
-            outU8Array[outIdx++] = 128 | u & 63;
-          }
-        }
-
-        outU8Array[outIdx] = 0;
-        return outIdx - startIdx;
-      }
-
-      function stringToUTF8(str, outPtr, maxBytesToWrite) {
-        return stringToUTF8Array(str, HEAPU8, outPtr, maxBytesToWrite);
-      }
-
-      typeof TextDecoder !== "undefined" ? new TextDecoder("utf-16le") : undefined;
-
-      function writeArrayToMemory(array, buffer) {
-        HEAP8.set(array, buffer);
-      }
-
-      var WASM_PAGE_SIZE = 65536;
-
-      function alignUp(x, multiple) {
-        if (x % multiple > 0) {
-          x += multiple - x % multiple;
-        }
-
-        return x;
-      }
-
-      var buffer, HEAP8, HEAPU8, HEAP32;
-
-      function updateGlobalBufferAndViews(buf) {
-        buffer = buf;
-        Module["HEAP8"] = HEAP8 = new Int8Array(buf);
-        Module["HEAP16"] = new Int16Array(buf);
-        Module["HEAP32"] = HEAP32 = new Int32Array(buf);
-        Module["HEAPU8"] = HEAPU8 = new Uint8Array(buf);
-        Module["HEAPU16"] = new Uint16Array(buf);
-        Module["HEAPU32"] = new Uint32Array(buf);
-        Module["HEAPF32"] = new Float32Array(buf);
-        Module["HEAPF64"] = new Float64Array(buf);
-      }
-
-      var DYNAMIC_BASE = 5507664,
-          DYNAMICTOP_PTR = 264624;
-      var INITIAL_TOTAL_MEMORY = Module["TOTAL_MEMORY"] || 157286400;
-
-      if (Module["wasmMemory"]) {
-        wasmMemory = Module["wasmMemory"];
-      } else {
-        wasmMemory = new WebAssembly.Memory({
-          "initial": INITIAL_TOTAL_MEMORY / WASM_PAGE_SIZE
-        });
-      }
-
-      if (wasmMemory) {
-        buffer = wasmMemory.buffer;
-      }
-
-      INITIAL_TOTAL_MEMORY = buffer.byteLength;
-      updateGlobalBufferAndViews(buffer);
-      HEAP32[DYNAMICTOP_PTR >> 2] = DYNAMIC_BASE;
-
-      function callRuntimeCallbacks(callbacks) {
-        while (callbacks.length > 0) {
-          var callback = callbacks.shift();
-
-          if (typeof callback == "function") {
-            callback();
-            continue;
-          }
-
-          var func = callback.func;
-
-          if (typeof func === "number") {
-            if (callback.arg === undefined) {
-              Module["dynCall_v"](func);
-            } else {
-              Module["dynCall_vi"](func, callback.arg);
-            }
-          } else {
-            func(callback.arg === undefined ? null : callback.arg);
-          }
-        }
-      }
-
-      var __ATPRERUN__ = [];
-      var __ATINIT__ = [];
-      var __ATMAIN__ = [];
-      var __ATPOSTRUN__ = [];
-
-      function preRun() {
-        if (Module["preRun"]) {
-          if (typeof Module["preRun"] == "function") Module["preRun"] = [Module["preRun"]];
-
-          while (Module["preRun"].length) {
-            addOnPreRun(Module["preRun"].shift());
-          }
-        }
-
-        callRuntimeCallbacks(__ATPRERUN__);
-      }
-
-      function initRuntime() {
-        callRuntimeCallbacks(__ATINIT__);
-      }
-
-      function preMain() {
-        callRuntimeCallbacks(__ATMAIN__);
-      }
-
-      function postRun() {
-        if (Module["postRun"]) {
-          if (typeof Module["postRun"] == "function") Module["postRun"] = [Module["postRun"]];
-
-          while (Module["postRun"].length) {
-            addOnPostRun(Module["postRun"].shift());
-          }
-        }
-
-        callRuntimeCallbacks(__ATPOSTRUN__);
-      }
-
-      function addOnPreRun(cb) {
-        __ATPRERUN__.unshift(cb);
-      }
-
-      function addOnPostRun(cb) {
-        __ATPOSTRUN__.unshift(cb);
-      }
-      var runDependencies = 0;
-      var dependenciesFulfilled = null;
-
-      function addRunDependency(id) {
-        runDependencies++;
-
-        if (Module["monitorRunDependencies"]) {
-          Module["monitorRunDependencies"](runDependencies);
-        }
-      }
-
-      function removeRunDependency(id) {
-        runDependencies--;
-
-        if (Module["monitorRunDependencies"]) {
-          Module["monitorRunDependencies"](runDependencies);
-        }
-
-        if (runDependencies == 0) {
-
-          if (dependenciesFulfilled) {
-            var callback = dependenciesFulfilled;
-            dependenciesFulfilled = null;
-            callback();
-          }
-        }
-      }
-
-      Module["preloadedImages"] = {};
-      Module["preloadedAudios"] = {};
-
-      function abort(what) {
-        if (Module["onAbort"]) {
-          Module["onAbort"](what);
-        }
-
-        what += "";
-        out(what);
-        err(what);
-        ABORT = true;
-        what = "abort(" + what + "). Build with -s ASSERTIONS=1 for more info.";
-        throw new WebAssembly.RuntimeError(what);
-      }
-
-      var dataURIPrefix = "data:application/octet-stream;base64,";
-
-      function isDataURI(filename) {
-        return String.prototype.startsWith ? filename.startsWith(dataURIPrefix) : filename.indexOf(dataURIPrefix) === 0;
-      }
-
-      var wasmBinaryFile = "onigasm.wasm";
-
-      if (!isDataURI(wasmBinaryFile)) {
-        wasmBinaryFile = locateFile(wasmBinaryFile);
-      }
-
-      function getBinary() {
-        try {
-          if (wasmBinary) {
-            return new Uint8Array(wasmBinary);
-          }
-
-          if (readBinary) {
-            return readBinary(wasmBinaryFile);
-          } else {
-            throw "both async and sync fetching of the wasm failed";
-          }
-        } catch (err) {
-          abort(err);
-        }
-      }
-
-      function getBinaryPromise() {
-        if (!wasmBinary && (ENVIRONMENT_IS_WORKER) && typeof fetch === "function") {
-          return fetch(wasmBinaryFile, {
-            credentials: "same-origin"
-          }).then(function (response) {
-            if (!response["ok"]) {
-              throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
-            }
-
-            return response["arrayBuffer"]();
-          }).catch(function () {
-            return getBinary();
-          });
-        }
-
-        return new Promise(function (resolve, reject) {
-          resolve(getBinary());
-        });
-      }
-
-      function createWasm() {
-        var info = {
-          "env": asmLibraryArg,
-          "wasi_unstable": asmLibraryArg
-        };
-
-        function receiveInstance(instance, module) {
-          var exports = instance.exports;
-          Module["asm"] = exports;
-          removeRunDependency();
-        }
-
-        addRunDependency();
-
-        function receiveInstantiatedSource(output) {
-          receiveInstance(output["instance"]);
-        }
-
-        function instantiateArrayBuffer(receiver) {
-          return getBinaryPromise().then(function (binary) {
-            return WebAssembly.instantiate(binary, info);
-          }).then(receiver, function (reason) {
-            err("failed to asynchronously prepare wasm: " + reason);
-            abort(reason);
-          });
-        }
-
-        function instantiateAsync() {
-          if (!wasmBinary && typeof WebAssembly.instantiateStreaming === "function" && !isDataURI(wasmBinaryFile) && typeof fetch === "function") {
-            fetch(wasmBinaryFile, {
-              credentials: "same-origin"
-            }).then(function (response) {
-              var result = WebAssembly.instantiateStreaming(response, info);
-              return result.then(receiveInstantiatedSource, function (reason) {
-                err("wasm streaming compile failed: " + reason);
-                err("falling back to ArrayBuffer instantiation");
-                instantiateArrayBuffer(receiveInstantiatedSource);
-              });
-            });
-          } else {
-            return instantiateArrayBuffer(receiveInstantiatedSource);
-          }
-        }
-
-        if (Module["instantiateWasm"]) {
-          try {
-            var exports = Module["instantiateWasm"](info, receiveInstance);
-            return exports;
-          } catch (e) {
-            err("Module.instantiateWasm callback failed with error: " + e);
-            return false;
-          }
-        }
-
-        instantiateAsync();
-        return {};
-      }
-
-      __ATINIT__.push({
-        func: function () {
-          ___wasm_call_ctors();
-        }
-      });
-
-      function _abort() {
-        abort();
-      }
-
-      function _emscripten_get_heap_size() {
-        return HEAP8.length;
-      }
-
-      function _emscripten_get_sbrk_ptr() {
-        return 264624;
-      }
-
-      function _emscripten_memcpy_big(dest, src, num) {
-        HEAPU8.set(HEAPU8.subarray(src, src + num), dest);
-      }
-
-      function emscripten_realloc_buffer(size) {
-        try {
-          wasmMemory.grow(size - buffer.byteLength + 65535 >> 16);
-          updateGlobalBufferAndViews(wasmMemory.buffer);
-          return 1;
-        } catch (e) {}
-      }
-
-      function _emscripten_resize_heap(requestedSize) {
-        var oldSize = _emscripten_get_heap_size();
-
-        var PAGE_MULTIPLE = 65536;
-        var LIMIT = 2147483648 - PAGE_MULTIPLE;
-
-        if (requestedSize > LIMIT) {
-          return false;
-        }
-
-        var MIN_TOTAL_MEMORY = 16777216;
-        var newSize = Math.max(oldSize, MIN_TOTAL_MEMORY);
-
-        while (newSize < requestedSize) {
-          if (newSize <= 536870912) {
-            newSize = alignUp(2 * newSize, PAGE_MULTIPLE);
-          } else {
-            newSize = Math.min(alignUp((3 * newSize + 2147483648) / 4, PAGE_MULTIPLE), LIMIT);
-          }
-        }
-
-        var replacement = emscripten_realloc_buffer(newSize);
-
-        if (!replacement) {
-          return false;
-        }
-
-        return true;
-      }
-      var SYSCALLS = {
-        buffers: [null, [], []],
-        printChar: function (stream, curr) {
-          var buffer = SYSCALLS.buffers[stream];
-
-          if (curr === 0 || curr === 10) {
-            (stream === 1 ? out : err)(UTF8ArrayToString(buffer, 0));
-            buffer.length = 0;
-          } else {
-            buffer.push(curr);
-          }
-        },
-        varargs: 0,
-        get: function (varargs) {
-          SYSCALLS.varargs += 4;
-          var ret = HEAP32[SYSCALLS.varargs - 4 >> 2];
-          return ret;
-        },
-        getStr: function () {
-          var ret = UTF8ToString(SYSCALLS.get());
-          return ret;
-        },
-        get64: function () {
-          var low = SYSCALLS.get();
-              SYSCALLS.get();
-          return low;
-        },
-        getZero: function () {
-          SYSCALLS.get();
-        }
-      };
-
-      function _fd_close(fd) {
-        try {
-          return 0;
-        } catch (e) {
-          if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError)) abort(e);
-          return e.errno;
-        }
-      }
-
-      function _fd_seek(fd, offset_low, offset_high, whence, newOffset) {
-        try {
-          return 0;
-        } catch (e) {
-          if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError)) abort(e);
-          return e.errno;
-        }
-      }
-
-      function _fd_write(fd, iov, iovcnt, pnum) {
-        try {
-          var num = 0;
-
-          for (var i = 0; i < iovcnt; i++) {
-            var ptr = HEAP32[iov + i * 8 >> 2];
-            var len = HEAP32[iov + (i * 8 + 4) >> 2];
-
-            for (var j = 0; j < len; j++) {
-              SYSCALLS.printChar(fd, HEAPU8[ptr + j]);
-            }
-
-            num += len;
-          }
-
-          HEAP32[pnum >> 2] = num;
-          return 0;
-        } catch (e) {
-          if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError)) abort(e);
-          return e.errno;
-        }
-      }
-
-      function _setTempRet0($i) {
-      }
-      var asmLibraryArg = {
-        "abort": _abort,
-        "emscripten_get_sbrk_ptr": _emscripten_get_sbrk_ptr,
-        "emscripten_memcpy_big": _emscripten_memcpy_big,
-        "emscripten_resize_heap": _emscripten_resize_heap,
-        "fd_close": _fd_close,
-        "fd_seek": _fd_seek,
-        "fd_write": _fd_write,
-        "memory": wasmMemory,
-        "setTempRet0": _setTempRet0,
-        "table": wasmTable
-      };
-      var asm = createWasm();
-      Module["asm"] = asm;
-
-      var ___wasm_call_ctors = Module["___wasm_call_ctors"] = function () {
-        return Module["asm"]["__wasm_call_ctors"].apply(null, arguments);
-      };
-
-      Module["_malloc"] = function () {
-        return Module["asm"]["malloc"].apply(null, arguments);
-      };
-
-      Module["_free"] = function () {
-        return Module["asm"]["free"].apply(null, arguments);
-      };
-
-      Module["_getLastError"] = function () {
-        return Module["asm"]["getLastError"].apply(null, arguments);
-      };
-
-      Module["_compilePattern"] = function () {
-        return Module["asm"]["compilePattern"].apply(null, arguments);
-      };
-
-      Module["_disposeCompiledPatterns"] = function () {
-        return Module["asm"]["disposeCompiledPatterns"].apply(null, arguments);
-      };
-
-      Module["_findBestMatch"] = function () {
-        return Module["asm"]["findBestMatch"].apply(null, arguments);
-      };
-
-      Module["___cxa_demangle"] = function () {
-        return Module["asm"]["__cxa_demangle"].apply(null, arguments);
-      };
-
-      Module["_setThrew"] = function () {
-        return Module["asm"]["setThrew"].apply(null, arguments);
-      };
-
-      var stackSave = Module["stackSave"] = function () {
-        return Module["asm"]["stackSave"].apply(null, arguments);
-      };
-
-      var stackAlloc = Module["stackAlloc"] = function () {
-        return Module["asm"]["stackAlloc"].apply(null, arguments);
-      };
-
-      var stackRestore = Module["stackRestore"] = function () {
-        return Module["asm"]["stackRestore"].apply(null, arguments);
-      };
-
-      Module["__growWasmMemory"] = function () {
-        return Module["asm"]["__growWasmMemory"].apply(null, arguments);
-      };
-
-      Module["dynCall_vi"] = function () {
-        return Module["asm"]["dynCall_vi"].apply(null, arguments);
-      };
-
-      Module["dynCall_iiii"] = function () {
-        return Module["asm"]["dynCall_iiii"].apply(null, arguments);
-      };
-
-      Module["dynCall_iiiii"] = function () {
-        return Module["asm"]["dynCall_iiiii"].apply(null, arguments);
-      };
-
-      Module["dynCall_iii"] = function () {
-        return Module["asm"]["dynCall_iii"].apply(null, arguments);
-      };
-
-      Module["dynCall_iidiiii"] = function () {
-        return Module["asm"]["dynCall_iidiiii"].apply(null, arguments);
-      };
-
-      Module["dynCall_vii"] = function () {
-        return Module["asm"]["dynCall_vii"].apply(null, arguments);
-      };
-
-      Module["dynCall_ii"] = function () {
-        return Module["asm"]["dynCall_ii"].apply(null, arguments);
-      };
-
-      Module["dynCall_i"] = function () {
-        return Module["asm"]["dynCall_i"].apply(null, arguments);
-      };
-
-      Module["dynCall_v"] = function () {
-        return Module["asm"]["dynCall_v"].apply(null, arguments);
-      };
-
-      Module["dynCall_viiiiii"] = function () {
-        return Module["asm"]["dynCall_viiiiii"].apply(null, arguments);
-      };
-
-      Module["dynCall_viiiii"] = function () {
-        return Module["asm"]["dynCall_viiiii"].apply(null, arguments);
-      };
-
-      Module["dynCall_viiii"] = function () {
-        return Module["asm"]["dynCall_viiii"].apply(null, arguments);
-      };
-
-      Module["dynCall_jiji"] = function () {
-        return Module["asm"]["dynCall_jiji"].apply(null, arguments);
-      };
-
-      Module["asm"] = asm;
-      Module["ccall"] = ccall;
-      var calledRun;
-
-      Module["then"] = function (func) {
-        if (calledRun) {
-          func(Module);
-        } else {
-          var old = Module["onRuntimeInitialized"];
-
-          Module["onRuntimeInitialized"] = function () {
-            if (old) old();
-            func(Module);
+var main$1 = createCommonjsModule(function (module, exports) {
+  !function (t, n) {
+    module.exports = n() ;
+  }(commonjsGlobal, function () {
+    return t = {
+      770: function (t, n, e) {
+
+        var r = this && this.__importDefault || function (t) {
+          return t && t.__esModule ? t : {
+            default: t
           };
-        }
-
-        return Module;
-      };
-
-      dependenciesFulfilled = function runCaller() {
-        if (!calledRun) run();
-        if (!calledRun) dependenciesFulfilled = runCaller;
-      };
-
-      function run(args) {
-
-        if (runDependencies > 0) {
-          return;
-        }
-
-        preRun();
-        if (runDependencies > 0) return;
-
-        function doRun() {
-          if (calledRun) return;
-          calledRun = true;
-          if (ABORT) return;
-          initRuntime();
-          preMain();
-          if (Module["onRuntimeInitialized"]) Module["onRuntimeInitialized"]();
-          postRun();
-        }
-
-        if (Module["setStatus"]) {
-          Module["setStatus"]("Running...");
-          setTimeout(function () {
-            setTimeout(function () {
-              Module["setStatus"]("");
-            }, 1);
-            doRun();
-          }, 1);
-        } else {
-          doRun();
-        }
-      }
-
-      Module["run"] = run;
-
-      if (Module["preInit"]) {
-        if (typeof Module["preInit"] == "function") Module["preInit"] = [Module["preInit"]];
-
-        while (Module["preInit"].length > 0) {
-          Module["preInit"].pop()();
-        }
-      }
-      run();
-      return Onigasm;
-    };
-  }();
-
-  module.exports = Onigasm;
-});
-
-var onigasmH = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  async function initModule(bytes) {
-    return new Promise((resolve, reject) => {
-      const {
-        log,
-        warn,
-        error
-      } = console;
-      onigasm({
-        instantiateWasm(imports, successCallback) {
-          WebAssembly.instantiate(bytes, imports).then(output => {
-            successCallback(output.instance);
-          }).catch(e => {
-            throw e;
-          });
-          return {};
-        }
-
-      }).then(moduleH => {
-        exports.onigasmH = moduleH;
-        resolve();
-      });
-
-      if (typeof print !== 'undefined') {
-        // can be removed when https://github.com/emscripten-core/emscripten/issues/9829 is fixed.
-        // tslint:disable-next-line:no-console
-        console.log = log; // tslint:disable-next-line:no-console
-
-        console.error = error; // tslint:disable-next-line:no-console
-
-        console.warn = warn;
-      }
-    });
-  }
-
-  let isInitialized = false;
-  /**
-   * Mount the .wasm file that will act as library's "backend"
-   * @param data Path to .wasm file or it's ArrayBuffer
-   */
-
-  async function loadWASM(data) {
-    if (isInitialized) {
-      throw new Error(`Onigasm#init has been called and was succesful, subsequent calls are not allowed once initialized`);
-    }
-
-    if (typeof data === 'string') {
-      const arrayBuffer = await (await fetch(data)).arrayBuffer();
-      await initModule(arrayBuffer);
-    } else if (data instanceof ArrayBuffer) {
-      await initModule(data);
-    } else {
-      throw new TypeError(`Expected a string (URL of .wasm file) or ArrayBuffer (.wasm file itself) as first parameter`);
-    }
-
-    isInitialized = true;
-  }
-
-  exports.loadWASM = loadWASM;
-});
-
-var iterator = function iterator(Yallist) {
-  Yallist.prototype[Symbol.iterator] = function* () {
-    for (let walker = this.head; walker; walker = walker.next) {
-      yield walker.value;
-    }
-  };
-};
-
-var yallist = Yallist;
-Yallist.Node = Node;
-Yallist.create = Yallist;
-
-function Yallist(list) {
-  var self = this;
-
-  if (!(self instanceof Yallist)) {
-    self = new Yallist();
-  }
-
-  self.tail = null;
-  self.head = null;
-  self.length = 0;
-
-  if (list && typeof list.forEach === 'function') {
-    list.forEach(function (item) {
-      self.push(item);
-    });
-  } else if (arguments.length > 0) {
-    for (var i = 0, l = arguments.length; i < l; i++) {
-      self.push(arguments[i]);
-    }
-  }
-
-  return self;
-}
-
-Yallist.prototype.removeNode = function (node) {
-  if (node.list !== this) {
-    throw new Error('removing node which does not belong to this list');
-  }
-
-  var next = node.next;
-  var prev = node.prev;
-
-  if (next) {
-    next.prev = prev;
-  }
-
-  if (prev) {
-    prev.next = next;
-  }
-
-  if (node === this.head) {
-    this.head = next;
-  }
-
-  if (node === this.tail) {
-    this.tail = prev;
-  }
-
-  node.list.length--;
-  node.next = null;
-  node.prev = null;
-  node.list = null;
-  return next;
-};
-
-Yallist.prototype.unshiftNode = function (node) {
-  if (node === this.head) {
-    return;
-  }
-
-  if (node.list) {
-    node.list.removeNode(node);
-  }
-
-  var head = this.head;
-  node.list = this;
-  node.next = head;
-
-  if (head) {
-    head.prev = node;
-  }
-
-  this.head = node;
-
-  if (!this.tail) {
-    this.tail = node;
-  }
-
-  this.length++;
-};
-
-Yallist.prototype.pushNode = function (node) {
-  if (node === this.tail) {
-    return;
-  }
-
-  if (node.list) {
-    node.list.removeNode(node);
-  }
-
-  var tail = this.tail;
-  node.list = this;
-  node.prev = tail;
-
-  if (tail) {
-    tail.next = node;
-  }
-
-  this.tail = node;
-
-  if (!this.head) {
-    this.head = node;
-  }
-
-  this.length++;
-};
-
-Yallist.prototype.push = function () {
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    push(this, arguments[i]);
-  }
-
-  return this.length;
-};
-
-Yallist.prototype.unshift = function () {
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    unshift(this, arguments[i]);
-  }
-
-  return this.length;
-};
-
-Yallist.prototype.pop = function () {
-  if (!this.tail) {
-    return undefined;
-  }
-
-  var res = this.tail.value;
-  this.tail = this.tail.prev;
-
-  if (this.tail) {
-    this.tail.next = null;
-  } else {
-    this.head = null;
-  }
-
-  this.length--;
-  return res;
-};
-
-Yallist.prototype.shift = function () {
-  if (!this.head) {
-    return undefined;
-  }
-
-  var res = this.head.value;
-  this.head = this.head.next;
-
-  if (this.head) {
-    this.head.prev = null;
-  } else {
-    this.tail = null;
-  }
-
-  this.length--;
-  return res;
-};
-
-Yallist.prototype.forEach = function (fn, thisp) {
-  thisp = thisp || this;
-
-  for (var walker = this.head, i = 0; walker !== null; i++) {
-    fn.call(thisp, walker.value, i, this);
-    walker = walker.next;
-  }
-};
-
-Yallist.prototype.forEachReverse = function (fn, thisp) {
-  thisp = thisp || this;
-
-  for (var walker = this.tail, i = this.length - 1; walker !== null; i--) {
-    fn.call(thisp, walker.value, i, this);
-    walker = walker.prev;
-  }
-};
-
-Yallist.prototype.get = function (n) {
-  for (var i = 0, walker = this.head; walker !== null && i < n; i++) {
-    // abort out of the list early if we hit a cycle
-    walker = walker.next;
-  }
-
-  if (i === n && walker !== null) {
-    return walker.value;
-  }
-};
-
-Yallist.prototype.getReverse = function (n) {
-  for (var i = 0, walker = this.tail; walker !== null && i < n; i++) {
-    // abort out of the list early if we hit a cycle
-    walker = walker.prev;
-  }
-
-  if (i === n && walker !== null) {
-    return walker.value;
-  }
-};
-
-Yallist.prototype.map = function (fn, thisp) {
-  thisp = thisp || this;
-  var res = new Yallist();
-
-  for (var walker = this.head; walker !== null;) {
-    res.push(fn.call(thisp, walker.value, this));
-    walker = walker.next;
-  }
-
-  return res;
-};
-
-Yallist.prototype.mapReverse = function (fn, thisp) {
-  thisp = thisp || this;
-  var res = new Yallist();
-
-  for (var walker = this.tail; walker !== null;) {
-    res.push(fn.call(thisp, walker.value, this));
-    walker = walker.prev;
-  }
-
-  return res;
-};
-
-Yallist.prototype.reduce = function (fn, initial) {
-  var acc;
-  var walker = this.head;
-
-  if (arguments.length > 1) {
-    acc = initial;
-  } else if (this.head) {
-    walker = this.head.next;
-    acc = this.head.value;
-  } else {
-    throw new TypeError('Reduce of empty list with no initial value');
-  }
-
-  for (var i = 0; walker !== null; i++) {
-    acc = fn(acc, walker.value, i);
-    walker = walker.next;
-  }
-
-  return acc;
-};
-
-Yallist.prototype.reduceReverse = function (fn, initial) {
-  var acc;
-  var walker = this.tail;
-
-  if (arguments.length > 1) {
-    acc = initial;
-  } else if (this.tail) {
-    walker = this.tail.prev;
-    acc = this.tail.value;
-  } else {
-    throw new TypeError('Reduce of empty list with no initial value');
-  }
-
-  for (var i = this.length - 1; walker !== null; i--) {
-    acc = fn(acc, walker.value, i);
-    walker = walker.prev;
-  }
-
-  return acc;
-};
-
-Yallist.prototype.toArray = function () {
-  var arr = new Array(this.length);
-
-  for (var i = 0, walker = this.head; walker !== null; i++) {
-    arr[i] = walker.value;
-    walker = walker.next;
-  }
-
-  return arr;
-};
-
-Yallist.prototype.toArrayReverse = function () {
-  var arr = new Array(this.length);
-
-  for (var i = 0, walker = this.tail; walker !== null; i++) {
-    arr[i] = walker.value;
-    walker = walker.prev;
-  }
-
-  return arr;
-};
-
-Yallist.prototype.slice = function (from, to) {
-  to = to || this.length;
-
-  if (to < 0) {
-    to += this.length;
-  }
-
-  from = from || 0;
-
-  if (from < 0) {
-    from += this.length;
-  }
-
-  var ret = new Yallist();
-
-  if (to < from || to < 0) {
-    return ret;
-  }
-
-  if (from < 0) {
-    from = 0;
-  }
-
-  if (to > this.length) {
-    to = this.length;
-  }
-
-  for (var i = 0, walker = this.head; walker !== null && i < from; i++) {
-    walker = walker.next;
-  }
-
-  for (; walker !== null && i < to; i++, walker = walker.next) {
-    ret.push(walker.value);
-  }
-
-  return ret;
-};
-
-Yallist.prototype.sliceReverse = function (from, to) {
-  to = to || this.length;
-
-  if (to < 0) {
-    to += this.length;
-  }
-
-  from = from || 0;
-
-  if (from < 0) {
-    from += this.length;
-  }
-
-  var ret = new Yallist();
-
-  if (to < from || to < 0) {
-    return ret;
-  }
-
-  if (from < 0) {
-    from = 0;
-  }
-
-  if (to > this.length) {
-    to = this.length;
-  }
-
-  for (var i = this.length, walker = this.tail; walker !== null && i > to; i--) {
-    walker = walker.prev;
-  }
-
-  for (; walker !== null && i > from; i--, walker = walker.prev) {
-    ret.push(walker.value);
-  }
-
-  return ret;
-};
-
-Yallist.prototype.splice = function (start, deleteCount
-/*, ...nodes */
-) {
-  if (start > this.length) {
-    start = this.length - 1;
-  }
-
-  if (start < 0) {
-    start = this.length + start;
-  }
-
-  for (var i = 0, walker = this.head; walker !== null && i < start; i++) {
-    walker = walker.next;
-  }
-
-  var ret = [];
-
-  for (var i = 0; walker && i < deleteCount; i++) {
-    ret.push(walker.value);
-    walker = this.removeNode(walker);
-  }
-
-  if (walker === null) {
-    walker = this.tail;
-  }
-
-  if (walker !== this.head && walker !== this.tail) {
-    walker = walker.prev;
-  }
-
-  for (var i = 2; i < arguments.length; i++) {
-    walker = insert(this, walker, arguments[i]);
-  }
-
-  return ret;
-};
-
-Yallist.prototype.reverse = function () {
-  var head = this.head;
-  var tail = this.tail;
-
-  for (var walker = head; walker !== null; walker = walker.prev) {
-    var p = walker.prev;
-    walker.prev = walker.next;
-    walker.next = p;
-  }
-
-  this.head = tail;
-  this.tail = head;
-  return this;
-};
-
-function insert(self, node, value) {
-  var inserted = node === self.head ? new Node(value, null, node, self) : new Node(value, node, node.next, self);
-
-  if (inserted.next === null) {
-    self.tail = inserted;
-  }
-
-  if (inserted.prev === null) {
-    self.head = inserted;
-  }
-
-  self.length++;
-  return inserted;
-}
-
-function push(self, item) {
-  self.tail = new Node(item, self.tail, null, self);
-
-  if (!self.head) {
-    self.head = self.tail;
-  }
-
-  self.length++;
-}
-
-function unshift(self, item) {
-  self.head = new Node(item, null, self.head, self);
-
-  if (!self.tail) {
-    self.tail = self.head;
-  }
-
-  self.length++;
-}
-
-function Node(value, prev, next, list) {
-  if (!(this instanceof Node)) {
-    return new Node(value, prev, next, list);
-  }
-
-  this.list = list;
-  this.value = value;
-
-  if (prev) {
-    prev.next = this;
-    this.prev = prev;
-  } else {
-    this.prev = null;
-  }
-
-  if (next) {
-    next.prev = this;
-    this.next = next;
-  } else {
-    this.next = null;
-  }
-}
-
-try {
-  // add if support for Symbol.iterator is present
-  iterator(Yallist);
-} catch (er) {}
-
-const MAX = Symbol('max');
-const LENGTH = Symbol('length');
-const LENGTH_CALCULATOR = Symbol('lengthCalculator');
-const ALLOW_STALE = Symbol('allowStale');
-const MAX_AGE = Symbol('maxAge');
-const DISPOSE = Symbol('dispose');
-const NO_DISPOSE_ON_SET = Symbol('noDisposeOnSet');
-const LRU_LIST = Symbol('lruList');
-const CACHE = Symbol('cache');
-const UPDATE_AGE_ON_GET = Symbol('updateAgeOnGet');
-
-const naiveLength = () => 1; // lruList is a yallist where the head is the youngest
-// item, and the tail is the oldest.  the list contains the Hit
-// objects as the entries.
-// Each Hit object has a reference to its Yallist.Node.  This
-// never changes.
-//
-// cache is a Map (or PseudoMap) that matches the keys to
-// the Yallist.Node object.
-
-
-class LRUCache {
-  constructor(options) {
-    if (typeof options === 'number') options = {
-      max: options
-    };
-    if (!options) options = {};
-    if (options.max && (typeof options.max !== 'number' || options.max < 0)) throw new TypeError('max must be a non-negative number'); // Kind of weird to have a default max of Infinity, but oh well.
-
-    this[MAX] = options.max || Infinity;
-    const lc = options.length || naiveLength;
-    this[LENGTH_CALCULATOR] = typeof lc !== 'function' ? naiveLength : lc;
-    this[ALLOW_STALE] = options.stale || false;
-    if (options.maxAge && typeof options.maxAge !== 'number') throw new TypeError('maxAge must be a number');
-    this[MAX_AGE] = options.maxAge || 0;
-    this[DISPOSE] = options.dispose;
-    this[NO_DISPOSE_ON_SET] = options.noDisposeOnSet || false;
-    this[UPDATE_AGE_ON_GET] = options.updateAgeOnGet || false;
-    this.reset();
-  } // resize the cache when the max changes.
-
-
-  set max(mL) {
-    if (typeof mL !== 'number' || mL < 0) throw new TypeError('max must be a non-negative number');
-    this[MAX] = mL || Infinity;
-    trim(this);
-  }
-
-  get max() {
-    return this[MAX];
-  }
-
-  set allowStale(allowStale) {
-    this[ALLOW_STALE] = !!allowStale;
-  }
-
-  get allowStale() {
-    return this[ALLOW_STALE];
-  }
-
-  set maxAge(mA) {
-    if (typeof mA !== 'number') throw new TypeError('maxAge must be a non-negative number');
-    this[MAX_AGE] = mA;
-    trim(this);
-  }
-
-  get maxAge() {
-    return this[MAX_AGE];
-  } // resize the cache when the lengthCalculator changes.
-
-
-  set lengthCalculator(lC) {
-    if (typeof lC !== 'function') lC = naiveLength;
-
-    if (lC !== this[LENGTH_CALCULATOR]) {
-      this[LENGTH_CALCULATOR] = lC;
-      this[LENGTH] = 0;
-      this[LRU_LIST].forEach(hit => {
-        hit.length = this[LENGTH_CALCULATOR](hit.value, hit.key);
-        this[LENGTH] += hit.length;
-      });
-    }
-
-    trim(this);
-  }
-
-  get lengthCalculator() {
-    return this[LENGTH_CALCULATOR];
-  }
-
-  get length() {
-    return this[LENGTH];
-  }
-
-  get itemCount() {
-    return this[LRU_LIST].length;
-  }
-
-  rforEach(fn, thisp) {
-    thisp = thisp || this;
-
-    for (let walker = this[LRU_LIST].tail; walker !== null;) {
-      const prev = walker.prev;
-      forEachStep(this, fn, walker, thisp);
-      walker = prev;
-    }
-  }
-
-  forEach(fn, thisp) {
-    thisp = thisp || this;
-
-    for (let walker = this[LRU_LIST].head; walker !== null;) {
-      const next = walker.next;
-      forEachStep(this, fn, walker, thisp);
-      walker = next;
-    }
-  }
-
-  keys() {
-    return this[LRU_LIST].toArray().map(k => k.key);
-  }
-
-  values() {
-    return this[LRU_LIST].toArray().map(k => k.value);
-  }
-
-  reset() {
-    if (this[DISPOSE] && this[LRU_LIST] && this[LRU_LIST].length) {
-      this[LRU_LIST].forEach(hit => this[DISPOSE](hit.key, hit.value));
-    }
-
-    this[CACHE] = new Map(); // hash of items by key
-
-    this[LRU_LIST] = new yallist(); // list of items in order of use recency
-
-    this[LENGTH] = 0; // length of items in the list
-  }
-
-  dump() {
-    return this[LRU_LIST].map(hit => isStale(this, hit) ? false : {
-      k: hit.key,
-      v: hit.value,
-      e: hit.now + (hit.maxAge || 0)
-    }).toArray().filter(h => h);
-  }
-
-  dumpLru() {
-    return this[LRU_LIST];
-  }
-
-  set(key, value, maxAge) {
-    maxAge = maxAge || this[MAX_AGE];
-    if (maxAge && typeof maxAge !== 'number') throw new TypeError('maxAge must be a number');
-    const now = maxAge ? Date.now() : 0;
-    const len = this[LENGTH_CALCULATOR](value, key);
-
-    if (this[CACHE].has(key)) {
-      if (len > this[MAX]) {
-        del(this, this[CACHE].get(key));
-        return false;
-      }
-
-      const node = this[CACHE].get(key);
-      const item = node.value; // dispose of the old one before overwriting
-      // split out into 2 ifs for better coverage tracking
-
-      if (this[DISPOSE]) {
-        if (!this[NO_DISPOSE_ON_SET]) this[DISPOSE](key, item.value);
-      }
-
-      item.now = now;
-      item.maxAge = maxAge;
-      item.value = value;
-      this[LENGTH] += len - item.length;
-      item.length = len;
-      this.get(key);
-      trim(this);
-      return true;
-    }
-
-    const hit = new Entry(key, value, len, now, maxAge); // oversized objects fall out of cache automatically.
-
-    if (hit.length > this[MAX]) {
-      if (this[DISPOSE]) this[DISPOSE](key, value);
-      return false;
-    }
-
-    this[LENGTH] += hit.length;
-    this[LRU_LIST].unshift(hit);
-    this[CACHE].set(key, this[LRU_LIST].head);
-    trim(this);
-    return true;
-  }
-
-  has(key) {
-    if (!this[CACHE].has(key)) return false;
-    const hit = this[CACHE].get(key).value;
-    return !isStale(this, hit);
-  }
-
-  get(key) {
-    return get(this, key, true);
-  }
-
-  peek(key) {
-    return get(this, key, false);
-  }
-
-  pop() {
-    const node = this[LRU_LIST].tail;
-    if (!node) return null;
-    del(this, node);
-    return node.value;
-  }
-
-  del(key) {
-    del(this, this[CACHE].get(key));
-  }
-
-  load(arr) {
-    // reset the cache
-    this.reset();
-    const now = Date.now(); // A previous serialized cache has the most recent items first
-
-    for (let l = arr.length - 1; l >= 0; l--) {
-      const hit = arr[l];
-      const expiresAt = hit.e || 0;
-      if (expiresAt === 0) // the item was created without expiration in a non aged cache
-        this.set(hit.k, hit.v);else {
-        const maxAge = expiresAt - now; // dont add already expired items
-
-        if (maxAge > 0) {
-          this.set(hit.k, hit.v, maxAge);
-        }
-      }
-    }
-  }
-
-  prune() {
-    this[CACHE].forEach((value, key) => get(this, key, false));
-  }
-
-}
-
-const get = (self, key, doUse) => {
-  const node = self[CACHE].get(key);
-
-  if (node) {
-    const hit = node.value;
-
-    if (isStale(self, hit)) {
-      del(self, node);
-      if (!self[ALLOW_STALE]) return undefined;
-    } else {
-      if (doUse) {
-        if (self[UPDATE_AGE_ON_GET]) node.value.now = Date.now();
-        self[LRU_LIST].unshiftNode(node);
-      }
-    }
-
-    return hit.value;
-  }
-};
-
-const isStale = (self, hit) => {
-  if (!hit || !hit.maxAge && !self[MAX_AGE]) return false;
-  const diff = Date.now() - hit.now;
-  return hit.maxAge ? diff > hit.maxAge : self[MAX_AGE] && diff > self[MAX_AGE];
-};
-
-const trim = self => {
-  if (self[LENGTH] > self[MAX]) {
-    for (let walker = self[LRU_LIST].tail; self[LENGTH] > self[MAX] && walker !== null;) {
-      // We know that we're about to delete this one, and also
-      // what the next least recently used key will be, so just
-      // go ahead and set it now.
-      const prev = walker.prev;
-      del(self, walker);
-      walker = prev;
-    }
-  }
-};
-
-const del = (self, node) => {
-  if (node) {
-    const hit = node.value;
-    if (self[DISPOSE]) self[DISPOSE](hit.key, hit.value);
-    self[LENGTH] -= hit.length;
-    self[CACHE].delete(hit.key);
-    self[LRU_LIST].removeNode(node);
-  }
-};
-
-class Entry {
-  constructor(key, value, length, now, maxAge) {
-    this.key = key;
-    this.value = value;
-    this.length = length;
-    this.now = now;
-    this.maxAge = maxAge || 0;
-  }
-
-}
-
-const forEachStep = (self, fn, node, thisp) => {
-  let hit = node.value;
-
-  if (isStale(self, hit)) {
-    del(self, node);
-    if (!self[ALLOW_STALE]) hit = undefined;
-  }
-
-  if (hit) fn.call(thisp, hit.value, hit.key, self);
-};
-
-var lruCache = LRUCache;
-
-class OnigString$1 {
-  constructor(content) {
-    this.substring = (start, end) => {
-      return this.source.substring(start, end);
-    };
-
-    this.toString = (start, end) => {
-      return this.source;
-    };
-
-    if (typeof content !== 'string') {
-      throw new TypeError('Argument must be a string');
-    }
-
-    this.source = content;
-    this._utf8Bytes = null;
-    this._utf8Indexes = null;
-  }
-
-  get utf8Bytes() {
-    if (!this._utf8Bytes) {
-      this.encode();
-    }
-
-    return this._utf8Bytes;
-  }
-  /**
-   * Returns `null` if all utf8 offsets match utf-16 offset (content has no multi byte characters)
-   */
-
-
-  get utf8Indexes() {
-    if (!this._utf8Bytes) {
-      this.encode();
-    }
-
-    return this._utf8Indexes;
-  }
-
-  get content() {
-    return this.source;
-  }
-
-  get length() {
-    return this.source.length;
-  }
-
-  get hasMultiByteCharacters() {
-    return this.utf8Indexes !== null;
-  }
-
-  convertUtf8OffsetToUtf16(utf8Offset) {
-    if (utf8Offset < 0) {
-      return 0;
-    }
-
-    const utf8Array = this._utf8Bytes;
-
-    if (utf8Offset >= utf8Array.length - 1) {
-      return this.source.length;
-    }
-
-    const utf8OffsetMap = this.utf8Indexes;
-
-    if (utf8OffsetMap && utf8Offset >= this._mappingTableStartOffset) {
-      return findFirstInSorted(utf8OffsetMap, utf8Offset - this._mappingTableStartOffset) + this._mappingTableStartOffset;
-    }
-
-    return utf8Offset;
-  }
-
-  convertUtf16OffsetToUtf8(utf16Offset) {
-    if (utf16Offset < 0) {
-      return 0;
-    }
-
-    const utf8Array = this._utf8Bytes;
-
-    if (utf16Offset >= this.source.length) {
-      return utf8Array.length - 1;
-    }
-
-    const utf8OffsetMap = this.utf8Indexes;
-
-    if (utf8OffsetMap && utf16Offset >= this._mappingTableStartOffset) {
-      return utf8OffsetMap[utf16Offset - this._mappingTableStartOffset] + this._mappingTableStartOffset;
-    }
-
-    return utf16Offset;
-  }
-
-  encode() {
-    const str = this.source;
-    const n = str.length;
-    let utf16OffsetToUtf8;
-    let utf8Offset = 0;
-    let mappingTableStartOffset = 0;
-
-    function createOffsetTable(startOffset) {
-      const maxUtf8Len = (n - startOffset) * 3;
-
-      if (maxUtf8Len <= 0xff) {
-        utf16OffsetToUtf8 = new Uint8Array(n - startOffset);
-      } else if (maxUtf8Len <= 0xffff) {
-        utf16OffsetToUtf8 = new Uint16Array(n - startOffset);
-      } else {
-        utf16OffsetToUtf8 = new Uint32Array(n - startOffset);
-      }
-
-      mappingTableStartOffset = startOffset;
-      utf16OffsetToUtf8[utf8Offset++] = 0;
-    }
-
-    const u8view = new Uint8Array(n * 3
-    /* alloc max now, trim later*/
-    + 1
-    /** null termination character */
-    );
-    let ptrHead = 0;
-    let i = 0; // for some reason, v8 is faster with str.length than using a variable (might be illusion)
-
-    while (i < str.length) {
-      let codepoint;
-      const c = str.charCodeAt(i);
-
-      if (utf16OffsetToUtf8) {
-        utf16OffsetToUtf8[utf8Offset++] = ptrHead - mappingTableStartOffset;
-      }
-
-      if (c < 0xD800 || c > 0xDFFF) {
-        codepoint = c;
-      } else if (c >= 0xDC00) {
-        codepoint = 0xFFFD;
-      } else {
-        if (i === n - 1) {
-          codepoint = 0xFFFD;
-        } else {
-          const d = str.charCodeAt(i + 1);
-
-          if (0xDC00 <= d && d <= 0xDFFF) {
-            if (!utf16OffsetToUtf8) {
-              createOffsetTable(i);
+        };
+
+        Object.defineProperty(n, "__esModule", {
+          value: !0
+        }), n.setDefaultDebugCall = n.createOnigScanner = n.createOnigString = n.loadWASM = n.OnigScanner = n.OnigString = void 0;
+        const i = r(e(418));
+        let o = null,
+            a = !1;
+
+        class f {
+          constructor(t) {
+            const n = t.length,
+                  e = f._utf8ByteLength(t),
+                  r = e !== n,
+                  i = r ? new Uint32Array(n + 1) : null;
+
+            r && (i[n] = e);
+            const o = r ? new Uint32Array(e + 1) : null;
+            r && (o[e] = n);
+            const a = new Uint8Array(e);
+            let s = 0;
+
+            for (let _e = 0; _e < n; _e++) {
+              const f = t.charCodeAt(_e);
+              let u = f,
+                  c = !1;
+
+              if (f >= 55296 && f <= 56319 && _e + 1 < n) {
+                const _n = t.charCodeAt(_e + 1);
+
+                _n >= 56320 && _n <= 57343 && (u = 65536 + (f - 55296 << 10) | _n - 56320, c = !0);
+              }
+
+              r && (i[_e] = s, c && (i[_e + 1] = s), u <= 127 ? o[s + 0] = _e : u <= 2047 ? (o[s + 0] = _e, o[s + 1] = _e) : u <= 65535 ? (o[s + 0] = _e, o[s + 1] = _e, o[s + 2] = _e) : (o[s + 0] = _e, o[s + 1] = _e, o[s + 2] = _e, o[s + 3] = _e)), u <= 127 ? a[s++] = u : u <= 2047 ? (a[s++] = 192 | (1984 & u) >>> 6, a[s++] = 128 | (63 & u) >>> 0) : u <= 65535 ? (a[s++] = 224 | (61440 & u) >>> 12, a[s++] = 128 | (4032 & u) >>> 6, a[s++] = 128 | (63 & u) >>> 0) : (a[s++] = 240 | (1835008 & u) >>> 18, a[s++] = 128 | (258048 & u) >>> 12, a[s++] = 128 | (4032 & u) >>> 6, a[s++] = 128 | (63 & u) >>> 0), c && _e++;
             }
 
-            const a = c & 0x3FF;
-            const b = d & 0x3FF;
-            codepoint = 0x10000 + (a << 10) + b;
-            i += 1;
-            utf16OffsetToUtf8[utf8Offset++] = ptrHead - mappingTableStartOffset;
-          } else {
-            codepoint = 0xFFFD;
+            this.utf16Length = n, this.utf8Length = e, this.utf16Value = t, this.utf8Value = a, this.utf16OffsetToUtf8 = i, this.utf8OffsetToUtf16 = o;
           }
-        }
-      }
 
-      let bytesRequiredToEncode;
-      let offset;
+          static _utf8ByteLength(t) {
+            let n = 0;
 
-      if (codepoint <= 0x7F) {
-        bytesRequiredToEncode = 1;
-        offset = 0;
-      } else if (codepoint <= 0x07FF) {
-        bytesRequiredToEncode = 2;
-        offset = 0xC0;
-      } else if (codepoint <= 0xFFFF) {
-        bytesRequiredToEncode = 3;
-        offset = 0xE0;
-      } else {
-        bytesRequiredToEncode = 4;
-        offset = 0xF0;
-      }
+            for (let e = 0, r = t.length; e < r; e++) {
+              const i = t.charCodeAt(e);
+              let o = i,
+                  a = !1;
 
-      if (bytesRequiredToEncode === 1) {
-        u8view[ptrHead++] = codepoint;
-      } else {
-        if (!utf16OffsetToUtf8) {
-          createOffsetTable(ptrHead);
-        }
+              if (i >= 55296 && i <= 56319 && e + 1 < r) {
+                const _n2 = t.charCodeAt(e + 1);
 
-        u8view[ptrHead++] = (codepoint >> 6 * --bytesRequiredToEncode) + offset;
+                _n2 >= 56320 && _n2 <= 57343 && (o = 65536 + (i - 55296 << 10) | _n2 - 56320, a = !0);
+              }
 
-        while (bytesRequiredToEncode > 0) {
-          const temp = codepoint >> 6 * (bytesRequiredToEncode - 1);
-          u8view[ptrHead++] = 0x80 | temp & 0x3F;
-          bytesRequiredToEncode -= 1;
-        }
-      }
+              n += o <= 127 ? 1 : o <= 2047 ? 2 : o <= 65535 ? 3 : 4, a && e++;
+            }
 
-      i += 1;
-    }
+            return n;
+          }
 
-    const utf8 = u8view.slice(0, ptrHead + 1);
-    utf8[ptrHead] = 0x00;
-    this._utf8Bytes = utf8;
+          createString(t) {
+            const n = t._omalloc(this.utf8Length);
 
-    if (utf16OffsetToUtf8) {
-      // set if UTF-16 surrogate chars or multi-byte characters found
-      this._utf8Indexes = utf16OffsetToUtf8;
-      this._mappingTableStartOffset = mappingTableStartOffset;
-    }
-  }
+            return t.HEAPU8.set(this.utf8Value, n), n;
+          }
 
-}
-
-function findFirstInSorted(array, i) {
-  let low = 0;
-  let high = array.length;
-
-  if (high === 0) {
-    return 0; // no children
-  }
-
-  while (low < high) {
-    const mid = Math.floor((low + high) / 2);
-
-    if (array[mid] >= i) {
-      high = mid;
-    } else {
-      low = mid + 1;
-    }
-  } // low is on the index of the first value >= i or array.length. Decrement low until we find array[low] <= i
-
-
-  while (low > 0 && (low >= array.length || array[low] > i)) {
-    low--;
-  } // check whether we are on the second index of a utf-16 surrogate char. If so, go to the first index.
-
-
-  if (low > 0 && array[low] === array[low - 1]) {
-    low--;
-  }
-
-  return low;
-}
-
-var _default$1 = OnigString$1;
-var OnigString_1 = /*#__PURE__*/Object.defineProperty({
-  default: _default$1
-}, '__esModule', {
-  value: true
-});
-
-/**
- * Allocates space on the heap and copies the string bytes on to it
- * @param str
- * @returns pointer to the first byte's address on heap
- */
-
-
-function mallocAndWriteString(str) {
-  const ptr = onigasmH.onigasmH._malloc(str.utf8Bytes.length);
-
-  onigasmH.onigasmH.HEAPU8.set(str.utf8Bytes, ptr);
-  return ptr;
-}
-
-function convertUTF8BytesFromPtrToString(ptr) {
-  const chars = [];
-  let i = 0;
-
-  while (onigasmH.onigasmH.HEAPU8[ptr] !== 0x00) {
-    chars[i++] = onigasmH.onigasmH.HEAPU8[ptr++];
-  }
-
-  return chars.join();
-}
-
-const cache = new lruCache({
-  dispose: (scanner, info) => {
-    const regexTPtrsPtr = onigasmH.onigasmH._malloc(info.regexTPtrs.length);
-
-    onigasmH.onigasmH.HEAPU8.set(info.regexTPtrs, regexTPtrsPtr);
-
-    const status = onigasmH.onigasmH._disposeCompiledPatterns(regexTPtrsPtr, scanner.patterns.length);
-
-    if (status !== 0) {
-      const errMessage = convertUTF8BytesFromPtrToString(onigasmH.onigasmH._getLastError());
-      throw new Error(errMessage);
-    }
-
-    onigasmH.onigasmH._free(regexTPtrsPtr);
-  },
-  max: 1000
-});
-
-class OnigScanner$1 {
-  /**
-   * Create a new scanner with the given patterns
-   * @param patterns  An array of string patterns
-   */
-  constructor(patterns) {
-    if (onigasmH.onigasmH === null) {
-      throw new Error(`Onigasm has not been initialized, call loadWASM from 'onigasm' exports before using any other API`);
-    }
-
-    for (let i = 0; i < patterns.length; i++) {
-      const pattern = patterns[i];
-
-      if (typeof pattern !== 'string') {
-        throw new TypeError(`First parameter to OnigScanner constructor must be array of (pattern) strings`);
-      }
-    }
-
-    this.sources = patterns.slice();
-  }
-
-  get patterns() {
-    return this.sources.slice();
-  }
-  /**
-   * Find the next match from a given position
-   * @param string The string to search
-   * @param startPosition The optional position to start at, defaults to 0
-   * @param callback The (error, match) function to call when done, match will null when there is no match
-   */
-
-
-  findNextMatch(string, startPosition, callback) {
-    if (startPosition == null) {
-      startPosition = 0;
-    }
-
-    if (typeof startPosition === 'function') {
-      callback = startPosition;
-      startPosition = 0;
-    }
-
-    try {
-      const match = this.findNextMatchSync(string, startPosition);
-      callback(null, match);
-    } catch (error) {
-      callback(error);
-    }
-  }
-  /**
-   * Find the next match from a given position
-   * @param string The string to search
-   * @param startPosition The optional position to start at, defaults to 0
-   */
-
-
-  findNextMatchSync(string, startPosition) {
-    if (startPosition == null) {
-      startPosition = 0;
-    }
-
-    startPosition = this.convertToNumber(startPosition);
-    let onigNativeInfo = cache.get(this);
-    let status = 0;
-
-    if (!onigNativeInfo) {
-      const regexTAddrRecieverPtr = onigasmH.onigasmH._malloc(4);
-
-      const regexTPtrs = [];
-
-      for (let i = 0; i < this.sources.length; i++) {
-        const pattern = this.sources[i];
-        const patternStrPtr = mallocAndWriteString(new OnigString_1.default(pattern));
-        status = onigasmH.onigasmH._compilePattern(patternStrPtr, regexTAddrRecieverPtr);
-
-        if (status !== 0) {
-          const errMessage = convertUTF8BytesFromPtrToString(onigasmH.onigasmH._getLastError());
-          throw new Error(errMessage);
         }
 
-        const regexTAddress = onigasmH.onigasmH.HEAP32[regexTAddrRecieverPtr / 4];
-        regexTPtrs.push(regexTAddress);
+        class s {
+          constructor(t) {
+            if (this.id = ++s.LAST_ID, !o) throw new Error("Must invoke loadWASM first.");
+            this._onigBinding = o, this.content = t;
+            const n = new f(t);
+            this.utf16Length = n.utf16Length, this.utf8Length = n.utf8Length, this.utf16OffsetToUtf8 = n.utf16OffsetToUtf8, this.utf8OffsetToUtf16 = n.utf8OffsetToUtf16, this.utf8Length < 1e4 && !s._sharedPtrInUse ? (s._sharedPtr || (s._sharedPtr = o._omalloc(1e4)), s._sharedPtrInUse = !0, o.HEAPU8.set(n.utf8Value, s._sharedPtr), this.ptr = s._sharedPtr) : this.ptr = n.createString(o);
+          }
 
-        onigasmH.onigasmH._free(patternStrPtr);
-      }
+          convertUtf8OffsetToUtf16(t) {
+            return this.utf8OffsetToUtf16 ? t < 0 ? 0 : t > this.utf8Length ? this.utf16Length : this.utf8OffsetToUtf16[t] : t;
+          }
 
-      onigNativeInfo = {
-        regexTPtrs: new Uint8Array(Uint32Array.from(regexTPtrs).buffer)
-      };
+          convertUtf16OffsetToUtf8(t) {
+            return this.utf16OffsetToUtf8 ? t < 0 ? 0 : t > this.utf16Length ? this.utf8Length : this.utf16OffsetToUtf8[t] : t;
+          }
 
-      onigasmH.onigasmH._free(regexTAddrRecieverPtr);
+          dispose() {
+            this.ptr === s._sharedPtr ? s._sharedPtrInUse = !1 : this._onigBinding._ofree(this.ptr);
+          }
 
-      cache.set(this, onigNativeInfo);
-    }
-
-    const onigString = string instanceof OnigString_1.default ? string : new OnigString_1.default(this.convertToString(string));
-    const strPtr = mallocAndWriteString(onigString);
-
-    const resultInfoReceiverPtr = onigasmH.onigasmH._malloc(8);
-
-    const regexTPtrsPtr = onigasmH.onigasmH._malloc(onigNativeInfo.regexTPtrs.length);
-
-    onigasmH.onigasmH.HEAPU8.set(onigNativeInfo.regexTPtrs, regexTPtrsPtr);
-    status = onigasmH.onigasmH._findBestMatch( // regex_t **patterns
-    regexTPtrsPtr, // int patternCount
-    this.sources.length, // UChar *utf8String
-    strPtr, // int strLen
-    onigString.utf8Bytes.length - 1, // int startOffset
-    onigString.convertUtf16OffsetToUtf8(startPosition), // int *resultInfo
-    resultInfoReceiverPtr);
-
-    if (status !== 0) {
-      const errMessage = convertUTF8BytesFromPtrToString(onigasmH.onigasmH._getLastError());
-      throw new Error(errMessage);
-    }
-
-    const [// The index of pattern which matched the string at least offset from 0 (start)
-    bestPatternIdx, // Begin address of capture info encoded as pairs
-    // like [start, end, start, end, start, end, ...]
-    //  - first start-end pair is entire match (index 0 and 1)
-    //  - subsequent pairs are capture groups (2, 3 = first capture group, 4, 5 = second capture group and so on)
-    encodedResultBeginAddress, // Length of the [start, end, ...] sequence so we know how much memory to read (will always be 0 or multiple of 2)
-    encodedResultLength] = new Uint32Array(onigasmH.onigasmH.HEAPU32.buffer, resultInfoReceiverPtr, 3);
-
-    onigasmH.onigasmH._free(strPtr);
-
-    onigasmH.onigasmH._free(resultInfoReceiverPtr);
-
-    onigasmH.onigasmH._free(regexTPtrsPtr);
-
-    if (encodedResultLength > 0) {
-      const encodedResult = new Uint32Array(onigasmH.onigasmH.HEAPU32.buffer, encodedResultBeginAddress, encodedResultLength);
-      const captureIndices = [];
-      let i = 0;
-      let captureIdx = 0;
-
-      while (i < encodedResultLength) {
-        const index = captureIdx++;
-        let start = encodedResult[i++];
-        let end = encodedResult[i++];
-
-        if (onigString.hasMultiByteCharacters) {
-          start = onigString.convertUtf8OffsetToUtf16(start);
-          end = onigString.convertUtf8OffsetToUtf16(end);
         }
 
-        captureIndices.push({
-          end,
-          index,
-          length: end - start,
-          start
+        n.OnigString = s, s.LAST_ID = 0, s._sharedPtr = 0, s._sharedPtrInUse = !1;
+
+        class u {
+          constructor(t) {
+            if (!o) throw new Error("Must invoke loadWASM first.");
+            const n = [],
+                  e = [];
+
+            for (let _r = 0, _i = t.length; _r < _i; _r++) {
+              const _i2 = new f(t[_r]);
+
+              n[_r] = _i2.createString(o), e[_r] = _i2.utf8Length;
+            }
+
+            const r = o._omalloc(4 * t.length);
+
+            o.HEAPU32.set(n, r / 4);
+
+            const i = o._omalloc(4 * t.length);
+
+            o.HEAPU32.set(e, i / 4);
+
+            const a = o._createOnigScanner(r, i, t.length);
+
+            for (let _e2 = 0, _r2 = t.length; _e2 < _r2; _e2++) o._ofree(n[_e2]);
+
+            o._ofree(i), o._ofree(r), 0 === a && function (t) {
+              throw new Error(t.UTF8ToString(t._getLastOnigError()));
+            }(o), this._onigBinding = o, this._ptr = a;
+          }
+
+          dispose() {
+            this._onigBinding._freeOnigScanner(this._ptr);
+          }
+
+          findNextMatchSync(t, n, e) {
+            let r = a,
+                i = 0;
+
+            if ("number" == typeof e ? (8 & e && (r = !0), i = e) : "boolean" == typeof e && (r = e), "string" == typeof t) {
+              t = new s(t);
+
+              const _e3 = this._findNextMatchSync(t, n, r, i);
+
+              return t.dispose(), _e3;
+            }
+
+            return this._findNextMatchSync(t, n, r, i);
+          }
+
+          _findNextMatchSync(t, n, e, r) {
+            const i = this._onigBinding;
+            let o;
+            if (o = e ? i._findNextOnigScannerMatchDbg(this._ptr, t.id, t.ptr, t.utf8Length, t.convertUtf16OffsetToUtf8(n), r) : i._findNextOnigScannerMatch(this._ptr, t.id, t.ptr, t.utf8Length, t.convertUtf16OffsetToUtf8(n), r), 0 === o) return null;
+            const a = i.HEAPU32;
+            let f = o / 4;
+            const s = a[f++],
+                  u = a[f++];
+            let c = [];
+
+            for (let _n3 = 0; _n3 < u; _n3++) {
+              const _e4 = t.convertUtf8OffsetToUtf16(a[f++]),
+                    _r3 = t.convertUtf8OffsetToUtf16(a[f++]);
+
+              c[_n3] = {
+                start: _e4,
+                end: _r3,
+                length: _r3 - _e4
+              };
+            }
+
+            return {
+              index: s,
+              captureIndices: c
+            };
+          }
+
+        }
+
+        n.OnigScanner = u;
+        let c = !1,
+            l = null;
+        n.loadWASM = function (t) {
+          if (c) return l;
+          let n, e, r, a;
+          if (c = !0, function (t) {
+            return "function" == typeof t.instantiator;
+          }(t)) n = t.instantiator, e = t.print;else {
+            let _r4;
+
+            t instanceof ArrayBuffer || t instanceof Response ? _r4 = t : (_r4 = t.data, e = t.print), n = _r4 instanceof ArrayBuffer ? function (t) {
+              return n => WebAssembly.instantiate(t, n);
+            }(_r4) : _r4 instanceof Response && "function" == typeof WebAssembly.instantiateStreaming ? function (t) {
+              return n => WebAssembly.instantiateStreaming(t, n);
+            }(_r4) : function (t) {
+              return async n => {
+                const e = await t.arrayBuffer();
+                return WebAssembly.instantiate(e, n);
+              };
+            }(_r4);
+          }
+          return l = new Promise((t, n) => {
+            r = t, a = n;
+          }), function (t, n, e, r) {
+            i.default({
+              print: n,
+              instantiateWasm: (n, e) => {
+                if ("undefined" == typeof performance) {
+                  const t = () => Date.now();
+
+                  n.env.emscripten_get_now = t, n.wasi_snapshot_preview1.emscripten_get_now = t;
+                }
+
+                return t(n).then(t => e(t.instance), r), {};
+              }
+            }).then(t => {
+              o = t, e();
+            });
+          }(n, e, r, a), l;
+        }, n.createOnigString = function (t) {
+          return new s(t);
+        }, n.createOnigScanner = function (t) {
+          return new u(t);
+        }, n.setDefaultDebugCall = function (t) {
+          a = t;
+        };
+      },
+      418: t => {
+        var n = (function (t) {
+          var n,
+              e,
+              r = void 0 !== (t = t || {}) ? t : {};
+          r.ready = new Promise(function (t, r) {
+            n = t, e = r;
+          });
+          var i,
+              o = {};
+
+          for (i in r) r.hasOwnProperty(i) && (o[i] = r[i]);
+
+          var a,
+              u = !1,
+              l = "";
+
+          function p(t) {
+            return r.locateFile ? r.locateFile(t, l) : l + t;
+          }
+
+          (a = function (t) {
+            var n;
+            return "function" == typeof readbuffer ? new Uint8Array(readbuffer(t)) : (v("object" == typeof (n = read(t, "binary"))), n);
+          }, "undefined" != typeof scriptArgs ? scriptArgs : void 0 !== arguments && (arguments), "undefined" != typeof onig_print && ("undefined" == typeof console && (console = {}), console.log = onig_print, console.warn = console.error = "undefined" != typeof printErr ? printErr : onig_print));
+          var h = r.print || console.log.bind(console),
+              g = r.printErr || console.warn.bind(console);
+
+          for (i in o) o.hasOwnProperty(i) && (r[i] = o[i]);
+
+          o = null;
+
+          var d,
+              _;
+
+          r.wasmBinary && (d = r.wasmBinary), "object" != typeof WebAssembly && z("no native wasm support detected");
+          var y = !1;
+
+          function v(t, n) {
+            t || z("Assertion failed: " + n);
+          }
+
+          var w,
+              S,
+              A,
+              b = "undefined" != typeof TextDecoder ? new TextDecoder("utf8") : void 0;
+
+          function O(t, n, e) {
+            for (var r = n + e, i = n; t[i] && !(i >= r);) ++i;
+
+            if (i - n > 16 && t.subarray && b) return b.decode(t.subarray(n, i));
+
+            for (var o = ""; n < i;) {
+              var a = t[n++];
+
+              if (128 & a) {
+                var f = 63 & t[n++];
+
+                if (192 != (224 & a)) {
+                  var s = 63 & t[n++];
+                  if ((a = 224 == (240 & a) ? (15 & a) << 12 | f << 6 | s : (7 & a) << 18 | f << 12 | s << 6 | 63 & t[n++]) < 65536) o += String.fromCharCode(a);else {
+                    var u = a - 65536;
+                    o += String.fromCharCode(55296 | u >> 10, 56320 | 1023 & u);
+                  }
+                } else o += String.fromCharCode((31 & a) << 6 | f);
+              } else o += String.fromCharCode(a);
+            }
+
+            return o;
+          }
+
+          function U(t, n) {
+            return t ? O(S, t, n) : "";
+          }
+
+          function x(t, n) {
+            return t % n > 0 && (t += n - t % n), t;
+          }
+
+          function P(t) {
+            w = t, r.HEAP8 = new Int8Array(t), r.HEAP16 = new Int16Array(t), r.HEAP32 = A = new Int32Array(t), r.HEAPU8 = S = new Uint8Array(t), r.HEAPU16 = new Uint16Array(t), r.HEAPU32 = new Uint32Array(t), r.HEAPF32 = new Float32Array(t), r.HEAPF64 = new Float64Array(t);
+          }
+
+          "undefined" != typeof TextDecoder && new TextDecoder("utf-16le");
+          var T,
+              R = [],
+              E = [],
+              M = [],
+              L = [];
+
+          function I() {
+            if (r.preRun) for ("function" == typeof r.preRun && (r.preRun = [r.preRun]); r.preRun.length;) N(r.preRun.shift());
+            $(R);
+          }
+
+          function D() {
+            $(E);
+          }
+
+          function W() {
+            $(M);
+          }
+
+          function C() {
+            if (r.postRun) for ("function" == typeof r.postRun && (r.postRun = [r.postRun]); r.postRun.length;) B(r.postRun.shift());
+            $(L);
+          }
+
+          function N(t) {
+            R.unshift(t);
+          }
+
+          function B(t) {
+            L.unshift(t);
+          }
+
+          E.push({
+            func: function () {
+              ut();
+            }
+          });
+          var k = 0,
+              j = null;
+
+          function F(t) {
+            k++, r.monitorRunDependencies && r.monitorRunDependencies(k);
+          }
+
+          function V(t) {
+            if (k--, r.monitorRunDependencies && r.monitorRunDependencies(k), 0 == k && (j)) {
+              var n = j;
+              j = null, n();
+            }
+          }
+
+          function z(t) {
+            r.onAbort && r.onAbort(t), g(t += ""), y = !0, t = "abort(" + t + "). Build with -s ASSERTIONS=1 for more info.";
+            var n = new WebAssembly.RuntimeError(t);
+            throw e(n), n;
+          }
+
+          function q(t, n) {
+            return String.prototype.startsWith ? t.startsWith(n) : 0 === t.indexOf(n);
+          }
+
+          r.preloadedImages = {}, r.preloadedAudios = {};
+          var Y = "data:application/octet-stream;base64,";
+
+          function G(t) {
+            return q(t, Y);
+          }
+
+          var J,
+              K = "onig.wasm";
+
+          function Q(t) {
+            try {
+              if (t == K && d) return new Uint8Array(d);
+              if (a) return a(t);
+              throw "both async and sync fetching of the wasm failed";
+            } catch (t) {
+              z(t);
+            }
+          }
+
+          function X() {
+            return d || !u || "function" != typeof fetch ? Promise.resolve().then(function () {
+              return Q(K);
+            }) : fetch(K, {
+              credentials: "same-origin"
+            }).then(function (t) {
+              if (!t.ok) throw "failed to load wasm binary file at '" + K + "'";
+              return t.arrayBuffer();
+            }).catch(function () {
+              return Q(K);
+            });
+          }
+
+          function Z() {
+            var t = {
+              env: st,
+              wasi_snapshot_preview1: st
+            };
+
+            function n(t, n) {
+              var e = t.exports;
+              r.asm = e, P((_ = r.asm.memory).buffer), T = r.asm.__indirect_function_table, V();
+            }
+
+            function i(t) {
+              n(t.instance);
+            }
+
+            function o(n) {
+              return X().then(function (n) {
+                return WebAssembly.instantiate(n, t);
+              }).then(n, function (t) {
+                g("failed to asynchronously prepare wasm: " + t), z(t);
+              });
+            }
+
+            if (F(), r.instantiateWasm) try {
+              return r.instantiateWasm(t, n);
+            } catch (t) {
+              return g("Module.instantiateWasm callback failed with error: " + t), !1;
+            }
+            return (d || "function" != typeof WebAssembly.instantiateStreaming || G(K) || "function" != typeof fetch ? o(i) : fetch(K, {
+              credentials: "same-origin"
+            }).then(function (n) {
+              return WebAssembly.instantiateStreaming(n, t).then(i, function (t) {
+                return g("wasm streaming compile failed: " + t), g("falling back to ArrayBuffer instantiation"), o(i);
+              });
+            })).catch(e), {};
+          }
+
+          function $(t) {
+            for (; t.length > 0;) {
+              var n = t.shift();
+
+              if ("function" != typeof n) {
+                var e = n.func;
+                "number" == typeof e ? void 0 === n.arg ? T.get(e)() : T.get(e)(n.arg) : e(void 0 === n.arg ? null : n.arg);
+              } else n(r);
+            }
+          }
+
+          function tt(t, n, e) {
+            S.copyWithin(t, n, n + e);
+          }
+
+          function nt() {
+            return S.length;
+          }
+
+          function et(t) {
+            try {
+              return _.grow(t - w.byteLength + 65535 >>> 16), P(_.buffer), 1;
+            } catch (t) {}
+          }
+
+          function rt(t) {
+            var n = nt(),
+                e = 2147483648;
+            if (t > e) return !1;
+
+            for (var r = 1; r <= 4; r *= 2) {
+              var i = n * (1 + .2 / r);
+              if (i = Math.min(i, t + 100663296), et(Math.min(e, x(Math.max(t, i), 65536)))) return !0;
+            }
+
+            return !1;
+          }
+
+          G(K) || (K = p(K)), J = "undefined" != typeof dateNow ? dateNow : function () {
+            return performance.now();
+          };
+          var it = {
+            mappings: {},
+            buffers: [null, [], []],
+            printChar: function (t, n) {
+              var e = it.buffers[t];
+              0 === n || 10 === n ? ((1 === t ? h : g)(O(e, 0)), e.length = 0) : e.push(n);
+            },
+            varargs: void 0,
+            get: function () {
+              return it.varargs += 4, A[it.varargs - 4 >> 2];
+            },
+            getStr: function (t) {
+              return U(t);
+            },
+            get64: function (t, n) {
+              return t;
+            }
+          };
+
+          function ot(t, n, e, r) {
+            for (var i = 0, o = 0; o < e; o++) {
+              for (var a = A[n + 8 * o >> 2], f = A[n + (8 * o + 4) >> 2], s = 0; s < f; s++) it.printChar(t, S[a + s]);
+
+              i += f;
+            }
+
+            return A[r >> 2] = i, 0;
+          }
+
+          function at(t) {
+          }
+
+          var ft,
+              st = {
+            emscripten_get_now: J,
+            emscripten_memcpy_big: tt,
+            emscripten_resize_heap: rt,
+            fd_write: ot,
+            setTempRet0: at
+          },
+              ut = (Z(), r.___wasm_call_ctors = function () {
+            return (ut = r.___wasm_call_ctors = r.asm.__wasm_call_ctors).apply(null, arguments);
+          });
+
+          function ct(t) {
+            function e() {
+              ft || (ft = !0, r.calledRun = !0, y || (D(), W(), n(r), r.onRuntimeInitialized && r.onRuntimeInitialized(), C()));
+            }
+
+            k > 0 || (I(), k > 0 || (r.setStatus ? (r.setStatus("Running..."), setTimeout(function () {
+              setTimeout(function () {
+                r.setStatus("");
+              }, 1), e();
+            }, 1)) : e()));
+          }
+
+          if (r.___errno_location = function () {
+            return (r.___errno_location = r.asm.__errno_location).apply(null, arguments);
+          }, r._omalloc = function () {
+            return (r._omalloc = r.asm.omalloc).apply(null, arguments);
+          }, r._ofree = function () {
+            return (r._ofree = r.asm.ofree).apply(null, arguments);
+          }, r._getLastOnigError = function () {
+            return (r._getLastOnigError = r.asm.getLastOnigError).apply(null, arguments);
+          }, r._createOnigScanner = function () {
+            return (r._createOnigScanner = r.asm.createOnigScanner).apply(null, arguments);
+          }, r._freeOnigScanner = function () {
+            return (r._freeOnigScanner = r.asm.freeOnigScanner).apply(null, arguments);
+          }, r._findNextOnigScannerMatch = function () {
+            return (r._findNextOnigScannerMatch = r.asm.findNextOnigScannerMatch).apply(null, arguments);
+          }, r._findNextOnigScannerMatchDbg = function () {
+            return (r._findNextOnigScannerMatchDbg = r.asm.findNextOnigScannerMatchDbg).apply(null, arguments);
+          }, r.stackSave = function () {
+            return (r.stackSave = r.asm.stackSave).apply(null, arguments);
+          }, r.stackRestore = function () {
+            return (r.stackRestore = r.asm.stackRestore).apply(null, arguments);
+          }, r.stackAlloc = function () {
+            return (r.stackAlloc = r.asm.stackAlloc).apply(null, arguments);
+          }, r.dynCall_jiji = function () {
+            return (r.dynCall_jiji = r.asm.dynCall_jiji).apply(null, arguments);
+          }, r.UTF8ToString = U, j = function t() {
+            ft || ct(), ft || (j = t);
+          }, r.run = ct, r.preInit) for ("function" == typeof r.preInit && (r.preInit = [r.preInit]); r.preInit.length > 0;) r.preInit.pop()();
+          return ct(), t.ready;
         });
+        t.exports = n;
       }
-
-      onigasmH.onigasmH._free(encodedResultBeginAddress);
-
-      return {
-        captureIndices,
-        index: bestPatternIdx,
-        scanner: this
+    }, n = {}, function e(r) {
+      var i = n[r];
+      if (void 0 !== i) return i.exports;
+      var o = n[r] = {
+        exports: {}
       };
-    }
-
-    return null;
-  }
-
-  convertToString(value) {
-    if (value === undefined) {
-      return 'undefined';
-    }
-
-    if (value === null) {
-      return 'null';
-    }
-
-    if (value instanceof OnigString_1.default) {
-      return value.content;
-    }
-
-    return value.toString();
-  }
-
-  convertToNumber(value) {
-    value = parseInt(value, 10);
-
-    if (!isFinite(value)) {
-      value = 0;
-    }
-
-    value = Math.max(value, 0);
-    return value;
-  }
-
-}
-
-var OnigScanner_2 = OnigScanner$1;
-var _default = OnigScanner$1;
-var OnigScanner_1 = /*#__PURE__*/Object.defineProperty({
-  OnigScanner: OnigScanner_2,
-  default: _default
-}, '__esModule', {
-  value: true
+      return t[r].call(o.exports, o, o.exports, e), o.exports;
+    }(770);
+    var t, n;
+  });
 });
-
-var loadWASM = onigasmH.loadWASM;
-var OnigScanner = OnigScanner_1.default;
-var OnigString = OnigString_1.default;
 
 var main = createCommonjsModule(function (module, exports) {
   !function (e, t) {
@@ -6815,40 +5206,44 @@ function setCDN(root) {
   CDN_ROOT = root;
 }
 
-let _onigasmPromise = null;
+let _onigurumaPromise = null;
 
-async function getOnigasm() {
-  if (!_onigasmPromise) {
+async function getOniguruma() {
+  if (!_onigurumaPromise) {
     let loader;
 
     if (isBrowser) {
-      loader = loadWASM(_resolvePath('dist/onigasm.wasm'));
+      {
+        loader = main$1.loadWASM({
+          data: await fetch(_resolvePath('dist/onig.wasm')).then(r => r.arrayBuffer())
+        });
+      }
     } else {
       const path = require('path');
 
-      const onigasmPath = path.join(require.resolve('onigasm'), '../onigasm.wasm');
+      const wasmPath = path.join(require.resolve('vscode-oniguruma'), '../onig.wasm');
 
       const fs = require('fs');
 
-      const wasmBin = fs.readFileSync(onigasmPath).buffer;
-      loader = loadWASM(wasmBin);
+      const wasmBin = fs.readFileSync(wasmPath).buffer;
+      loader = main$1.loadWASM(wasmBin);
     }
 
-    _onigasmPromise = loader.then(() => {
+    _onigurumaPromise = loader.then(() => {
       return {
         createOnigScanner(patterns) {
-          return new OnigScanner(patterns);
+          return main$1.createOnigScanner(patterns);
         },
 
         createOnigString(s) {
-          return new OnigString(s);
+          return main$1.createOnigString(s);
         }
 
       };
     });
   }
 
-  return _onigasmPromise;
+  return _onigurumaPromise;
 }
 
 function _resolvePath(filepath) {
@@ -7343,7 +5738,7 @@ class Registry extends main.Registry {
     return Object.keys(this._resolvedThemes);
   }
 
-  getGrammer(name) {
+  getGrammar(name) {
     return this._resolvedGrammars[name];
   }
 
@@ -7415,7 +5810,7 @@ async function getHighlighter(options) {
     _themes
   } = resolveOptions(options);
 
-  const _resolver = new Resolver(getOnigasm(), 'onigasm');
+  const _resolver = new Resolver(getOniguruma(), 'vscode-oniguruma');
 
   const _registry = new Registry(_resolver);
 
@@ -7488,15 +5883,15 @@ async function getHighlighter(options) {
     };
   }
 
-  function getGrammer(lang) {
-    const _grammer = _registry.getGrammer(lang);
+  function getGrammar(lang) {
+    const _grammar = _registry.getGrammar(lang);
 
-    if (!_grammer) {
+    if (!_grammar) {
       throw Error(`No language registration for ${lang}`);
     }
 
     return {
-      _grammer
+      _grammar
     };
   }
 
@@ -7510,13 +5905,13 @@ async function getHighlighter(options) {
     }
 
     const {
-      _grammer
-    } = getGrammer(lang);
+      _grammar
+    } = getGrammar(lang);
     const {
       _theme,
       _colorMap
     } = getTheme(theme);
-    return tokenizeWithTheme(_theme, _colorMap, code, _grammer, options);
+    return tokenizeWithTheme(_theme, _colorMap, code, _grammar, options);
   }
 
   function codeToHtml(code, lang = 'text', theme) {
@@ -7588,37 +5983,25 @@ function isPlaintext(lang) {
 function FrameCodeSnippet({
   frame
 }) {
-  const [highlightedCode, setHighlightedCode] = useState();
-  const lineNumbers = Object.keys(frame.code_snippet); // TODO: bundle themes and language definitions. Don't rely on CDN.
+  const [tokenizedCode, setTokenizedCode] = useState([]);
+  const lineNumbers = Object.keys(frame.code_snippet);
+  const highlightedIndex = lineNumbers.indexOf(frame.line_number.toString()); // TODO: bundle themes and language definitions. Don't rely on CDN.
 
   setCDN('https://unpkg.com/shiki/');
   useEffect(() => {
+    // Set un-highlighted code tokens first.
+    setTokenizedCode(Object.values(frame.code_snippet).map(line => [{
+      content: line
+    }]));
     getHighlighter({
       theme: 'github-light',
       langs: ['php'] // TODO: blade?
 
     }).then(highlighter => {
       const code = Object.values(frame.code_snippet).join('\n');
-      const highlightedIndex = lineNumbers.indexOf(frame.line_number.toString());
-      const lines = highlighter.codeToThemedTokens(code, 'php');
-      const highlightedLines = lines.map((tokens, index) => /*#__PURE__*/React.createElement("span", {
-        className: `
-                block group pl-3 leading-loose hover:~bg-red-500/10
-                ${index === highlightedIndex ? ' ~bg-red-500/20' : ''}
-                `
-      }, !tokens.length && /*#__PURE__*/React.createElement(React.Fragment, null, "\xA0"), !!tokens.length && tokens.map(token => {
-        return /*#__PURE__*/React.createElement("span", {
-          style: {
-            color: token.color
-          }
-        }, token.content);
-      }), /*#__PURE__*/React.createElement("a", {
-        href: "#",
-        className: "sticky left-8 -mt-6 -ml-5 z-30 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-red-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
-      }, /*#__PURE__*/React.createElement("i", {
-        className: "fas fa-pencil-alt"
-      }))));
-      setHighlightedCode(highlightedLines);
+      const lines = highlighter.codeToThemedTokens(code, 'php'); // TODO: Somehow remember these highlighted tokens per frame?
+
+      setTokenizedCode(lines);
     });
   }, [frame]);
   return /*#__PURE__*/React.createElement("main", {
@@ -7637,7 +6020,23 @@ function FrameCodeSnippet({
     className: "~text-gray-500"
   }, number))))), /*#__PURE__*/React.createElement("div", {
     className: "flex-grow pr-10"
-  }, /*#__PURE__*/React.createElement("pre", null, /*#__PURE__*/React.createElement("code", null, highlightedCode))));
+  }, /*#__PURE__*/React.createElement("pre", null, /*#__PURE__*/React.createElement("code", null, tokenizedCode.map((tokens, index) => /*#__PURE__*/React.createElement("span", {
+    className: `
+                                    block group pl-3 leading-loose hover:~bg-red-500/10
+                                    ${index === highlightedIndex ? ' ~bg-red-500/20' : ''}
+                                `
+  }, !tokens.length && /*#__PURE__*/React.createElement(React.Fragment, null, "\xA0"), !!tokens.length && tokens.map(token => {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: token.color
+      }
+    }, token.content || /*#__PURE__*/React.createElement(React.Fragment, null, "\xA0"));
+  }), /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    className: "sticky left-8 -mt-6 -ml-5 z-30 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-red-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fas fa-pencil-alt"
+  }))))))));
 }
 
 function useKeyboardShortcut(key, callback) {
@@ -17310,16 +15709,15 @@ function getSelectedFrame(state) {
   return addFrameNumbers(state.frames).find(frame => frame.frame_number === state.selected);
 }
 
-function RelaxedPath({
-  path,
-  divider = '/'
+function RelaxedFullyQualifiedClassName({
+  path
 }) {
-  const parts = path.split(divider);
+  const parts = path.split('\\');
   return /*#__PURE__*/React.createElement(React.Fragment, null, parts.map((part, index) => /*#__PURE__*/React.createElement("span", {
-    key: part
+    key: index
   }, part, index !== parts.length - 1 && /*#__PURE__*/React.createElement("span", {
     className: "mx-0.5"
-  }, divider))));
+  }, "\\"), /*#__PURE__*/React.createElement("wbr", null))));
 }
 
 function FrameGroup({
@@ -17327,21 +15725,87 @@ function FrameGroup({
   onExpand,
   onSelect
 }) {
+  if (frameGroup.type === 'vendor' && !frameGroup.expanded) {
+    return /*#__PURE__*/React.createElement("li", {
+      className: "group px-6 sm:px-10 py-4 flex lg:justify-start border-b ~border-gray-200 hover:~bg-red-500/10 flex items-center",
+      onClick: onExpand
+    }, frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame', /*#__PURE__*/React.createElement("i", {
+      className: "ml-2 fas fa-angle-down ~text-gray-500 group-hover:text-red-500"
+    }));
+  }
+
   return /*#__PURE__*/React.createElement(React.Fragment, null, frameGroup.frames.map(frame => /*#__PURE__*/React.createElement("li", {
     key: frame.frame_number,
-    className: "px-6 sm:px-10 py-4 border-b ~border-gray-200 hover:~bg-red-500/10"
+    className: `px-6 sm:px-10 py-4 ${frame.selected ? 'bg-red-500 text-white' : 'border-b ~border-gray-200 hover:~bg-red-500/10'}`,
+    onClick: () => onSelect(frame.frame_number)
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-baseline"
   }, /*#__PURE__*/React.createElement("span", {
     className: "inline-flex"
-  }, /*#__PURE__*/React.createElement(RelaxedPath, {
-    path: frame.class || '',
-    divider: "\\"
+  }, /*#__PURE__*/React.createElement(RelaxedFullyQualifiedClassName, {
+    path: frame.class || ''
   })), /*#__PURE__*/React.createElement("span", {
     className: "px-1 font-mono text-xs"
   }, ":", frame.line_number)), /*#__PURE__*/React.createElement("div", {
     className: "font-semibold"
   }, frame.method))));
+}
+
+function RelaxedFilePath({
+  path
+}) {
+  var _parts$pop;
+
+  const parts = path.split('/');
+  const fileParts = ((_parts$pop = parts.pop()) == null ? void 0 : _parts$pop.split('.')) || [];
+  const extension = fileParts.pop();
+  const fileName = fileParts.join('.');
+  return /*#__PURE__*/React.createElement("span", {
+    className: "group"
+  }, parts.map((part, index) => /*#__PURE__*/React.createElement("span", {
+    key: index,
+    className: "group-hover:underline"
+  }, part, /*#__PURE__*/React.createElement("span", {
+    className: "mx-0.5"
+  }, "/"), /*#__PURE__*/React.createElement("wbr", null))), /*#__PURE__*/React.createElement("span", {
+    className: "group-hover:underline font-semibold"
+  }, fileName), /*#__PURE__*/React.createElement("span", {
+    className: "group-hover:underline"
+  }, ".", extension));
+}
+
+function useOpenEditorUrl({
+  file,
+  lineNumber = 1
+}) {
+  const editor = 'vscode';
+  const editors = {
+    sublime: 'subl://open?url=file://%path&line=%line',
+    textmate: 'txmt://open?url=file://%path&line=%line',
+    emacs: 'emacs://open?url=file://%path&line=%line',
+    macvim: 'mvim://open/?url=file://%path&line=%line',
+    phpstorm: 'phpstorm://open?file=%path&line=%line',
+    idea: 'idea://open?file=%path&line=%line',
+    vscode: 'vscode://file/%path:%line',
+    'vscode-insiders': 'vscode-insiders://file/%path:%line',
+    'vscode-remote': 'vscode://vscode-remote/%path:%line',
+    'vscode-insiders-remote': 'vscode-insiders://vscode-remote/%path:%line',
+    atom: 'atom://core/open/file?filename=%path&line=%line',
+    nova: 'nova://core/open/file?filename=%path&line=%line',
+    netbeans: 'netbeans://open/?f=%path:%line',
+    xdebug: 'xdebug://%path@%line'
+  }; // TODO: fix this with config context provider
+  // file =
+  //     (config.remoteSitesPath || '').length > 0 && (config.localSitesPath || '').length > 0
+  //         ? file.replace(config.remoteSitesPath, config.localSitesPath)
+  //         : file;
+
+  if (!Object.keys(editors).includes(editor)) {
+    console.error(`'${editor}' is not supported. Support editors are: ${Object.keys(editors).join(', ')}`);
+    return null;
+  }
+
+  return editors[editor].replace('%path', encodeURIComponent(file)).replace('%line', encodeURIComponent(lineNumber));
 }
 
 function StackTrace({
@@ -17404,6 +15868,10 @@ function StackTrace({
     const lineNumber = selectedRange ? selectedRange[0] === selectedRange[1] ? selectedRange[0] : `${selectedRange[0]}-${selectedRange[1]}` : null;
     window.history.replaceState(window.history.state, '', `#F${state.selected}${lineNumber ? 'L' + lineNumber : ''}`);
   }, [state.selected, selectedRange]);
+  const openEditorUrl = useOpenEditorUrl({
+    file: selectedFrame.file,
+    lineNumber: selectedFrame.line_number
+  });
   return /*#__PURE__*/React.createElement("section", {
     className: "mt-20 grid 2xl:row-span-3 2xl:row-start-1 2xl:col-start-2"
   }, /*#__PURE__*/React.createElement("a", {
@@ -17430,6 +15898,8 @@ function StackTrace({
   }, "Expand vendor frames")), /*#__PURE__*/React.createElement("div", {
     id: "frames",
     className: "flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames"
+  }, /*#__PURE__*/React.createElement("ol", {
+    className: "text-sm"
   }, frameGroups.map((frameGroup, i) => /*#__PURE__*/React.createElement(FrameGroup, {
     key: i,
     frameGroup: frameGroup,
@@ -17444,26 +15914,18 @@ function StackTrace({
       });
       setSelectedRange(null);
     }
-  }))))), /*#__PURE__*/React.createElement("section", {
+  })))))), /*#__PURE__*/React.createElement("section", {
     className: "lg:max-h-[calc(100vh-10rem)] 2xl:max-h-[calc(100vh-7.5rem)] flex flex-col lg:col-span-4 border-t lg:border-t-0 ~border-gray-200"
   }, /*#__PURE__*/React.createElement("header", {
     className: "~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    className: "group flex items-center text-sm"
-  }, /*#__PURE__*/React.createElement("span", null, "\u2026", /*#__PURE__*/React.createElement("span", {
-    className: "px-0.5"
-  }, "/")), /*#__PURE__*/React.createElement("span", {
-    className: "group-hover:underline"
-  }, "Illuminate", /*#__PURE__*/React.createElement("span", {
-    className: "px-0.5"
-  }, "/")), /*#__PURE__*/React.createElement("span", {
-    className: "group-hover:underline"
-  }, "Database", /*#__PURE__*/React.createElement("span", {
-    className: "px-0.5"
-  }, "/")), /*#__PURE__*/React.createElement("span", {
-    className: "group-hover:underline font-semibold"
-  }, "Connection"), /*#__PURE__*/React.createElement("span", null, ".php"))), /*#__PURE__*/React.createElement(FrameCodeSnippet, {
+  }, openEditorUrl && /*#__PURE__*/React.createElement("a", {
+    href: openEditorUrl,
+    className: "flex items-center text-sm"
+  }, /*#__PURE__*/React.createElement(RelaxedFilePath, {
+    path: selectedFrame == null ? void 0 : selectedFrame.relative_file
+  })), !openEditorUrl && /*#__PURE__*/React.createElement(RelaxedFilePath, {
+    path: selectedFrame == null ? void 0 : selectedFrame.relative_file
+  })), /*#__PURE__*/React.createElement(FrameCodeSnippet, {
     frame: selectedFrame
   }))));
 }
@@ -17644,9 +16106,8 @@ function ErrorCard() {
     className: "group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5"
   }, /*#__PURE__*/React.createElement("p", {
     className: "flex flex-wrap leading-tight"
-  }, /*#__PURE__*/React.createElement(RelaxedPath, {
-    path: errorOccurrence.exception_class,
-    divider: "\\"
+  }, /*#__PURE__*/React.createElement(RelaxedFullyQualifiedClassName, {
+    path: errorOccurrence.exception_class
   })), /*#__PURE__*/React.createElement("button", null, /*#__PURE__*/React.createElement("i", {
     className: "ml-3 fas fa-angle-down group-hover:text-red-500 text-sm"
   }))), /*#__PURE__*/React.createElement("div", {

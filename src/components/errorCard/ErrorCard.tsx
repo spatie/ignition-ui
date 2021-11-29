@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ErrorMessage from '../../components/ui/ErrorMessage';
 import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
-import RelaxedPath from '../../components/ui/RelaxedPath';
+import RelaxedFullyQualifiedClassName from '../ui/RelaxedFullyQualifiedClassName';
 import Solutions from './Solutions';
 
 export default function ErrorCard() {
@@ -17,7 +17,7 @@ export default function ErrorCard() {
                         <header className="flex items-center justify-between">
                             <nav className="group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5">
                                 <p className="flex flex-wrap leading-tight">
-                                    <RelaxedPath path={errorOccurrence.exception_class} divider="\" />
+                                    <RelaxedFullyQualifiedClassName path={errorOccurrence.exception_class} />
                                 </p>
                                 <button>
                                     <i className="ml-3 fas fa-angle-down group-hover:text-red-500 text-sm" />
