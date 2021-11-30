@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ErrorSolution } from '../../types';
 import SolutionRunner from './SolutionRunner';
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function Solution({ solution, isOpen: initialIsOpen = false, canExecute = false }: Props) {
-    const [isOpen, setIsOpen] = React.useState(initialIsOpen);
+    const [isOpen, setIsOpen] = useState(initialIsOpen);
 
     return (
         <section>

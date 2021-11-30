@@ -7,7 +7,6 @@ import allVendorFramesAreExpanded from "../selectors/allVendorFramesAreExpanded"
 import getFrameGroups from "../selectors/getFrameGroups";
 import getSelectedFrame from "../selectors/getSelectedFrame";
 import FrameGroup from "./FrameGroup";
-import RelaxedFullyQualifiedClassName from "../../ui/RelaxedFullyQualifiedClassName";
 import RelaxedFilePath from "../../ui/RelaxedFilePath";
 import useOpenEditorUrl from "../../../hooks/useOpenEditorUrl";
 

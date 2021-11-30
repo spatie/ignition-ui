@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext, useMemo, useReducer, useLayoutEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext, useMemo, useReducer, useLayoutEffect, useRef } from 'react';
 
 /* @ts-ignore */
 
@@ -15930,27 +15930,127 @@ function StackTrace({
   }))));
 }
 
-function ErrorMessage() {
-  const errorOccurrence = useContext(ErrorOccurrenceContext);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", {
-    className: "my-4 font-semibold leading-snug text-xl"
-  }, errorOccurrence.exception_message), /*#__PURE__*/React.createElement("div", {
-    className: "mt-4 group ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "max-h-32 overflow-hidden mask-fade-y"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
+function copyToClipboard(text) {
+  const el = document.createElement('textarea');
+  el.value = text;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+}
+function curlCommand(request, requestData, headers) {
+  if (!request.url || !request.method) {
+    return null;
+  }
+
+  const curlLines = [`curl "${request.url}"`];
+  curlLines.push(`   -X ${request.method}`);
+  Object.entries(headers || {}).map(function ([key, value]) {
+    curlLines.push(`   -H '${key}: ${value}'`);
+  });
+  const curlBodyString = curlBody(requestData, headers);
+
+  if (curlBodyString) {
+    curlLines.push(curlBodyString);
+  }
+
+  return curlLines.join(' \\\n').trimEnd().replace(/\s\\$/g, ';');
+}
+
+function curlBody(requestData, headers) {
+  var _headers$contentType, _headers$contentType$;
+
+  if (!requestData.body) {
+    return null;
+  }
+
+  if ((_headers$contentType = headers['content-type']) != null && (_headers$contentType$ = _headers$contentType[0]) != null && _headers$contentType$.includes('application/json')) {
+    return `   -d ${JSON.stringify(requestData.body)}`;
+  }
+
+  const formValues = Object.entries(requestData.body || {}).map(function ([key, value]) {
+    return `-F '${key}=${value}'`;
+  });
+  return `   ${formValues.join(' ')}`;
+}
+
+function getContextValues(errorOccurrence, group) {
+  return lodash.mapValues(lodash.keyBy(errorOccurrence.context_items[group] || [], 'name'), 'value');
+}
+
+function CodeSnippet({
+  value,
+  limitHeight = true
+}) {
+  const [copied, setCopied] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(limitHeight);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref.current) {
+      setIsOverflowing(ref.current.scrollHeight > ref.current.clientHeight);
+    }
+  }, [ref.current, isCollapsed, value, limitHeight]);
+  useEffect(() => {
+    let timeout;
+
+    if (copied) {
+      timeout = window.setTimeout(() => setCopied(false), 3000);
+    }
+
+    return () => window.clearTimeout(timeout);
+  }, [copied]);
+
+  function copy() {
+    copyToClipboard(value);
+    setCopied(true);
+  } // TODO: Handle empty values? E.g. content-length header
+
+
+  return /*#__PURE__*/React.createElement("div", {
+    className: "group ~bg-gray-500/5"
+  }, /*#__PURE__*/React.createElement("pre", {
+    ref: ref,
+    className: `px-4 py-2 mask-fade-x overflow-x-scroll scrollbar-hidden-x
+                    ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
+                    ${isOverflowing ? 'mask-fade-y' : ''}
+                `
   }, /*#__PURE__*/React.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "SQL: select * from `users` where `uuid` =", '\n', "47a4af2e-5156-4277-86a0-b55e773f6d1e limit 1", '\n', "SQL: select * from `users` where `uuid` =", '\n', "47a4af2e-5156-4277-86a0-b55e773f6d1e limit 1")))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+  }, value)), /*#__PURE__*/React.createElement("button", {
+    onClick: copy,
+    title: "Copy to clipboard",
+    className: `absolute top-2 right-2 hover:text-indigo-500 opacity-0 transition-opacity duration-150 ${copied ? '' : 'group-hover:opacity-100'}`
   }, /*#__PURE__*/React.createElement("i", {
     className: "far fa-copy"
-  })), /*#__PURE__*/React.createElement("button", {
+  })), copied && /*#__PURE__*/React.createElement("p", {
+    className: "hidden z-10 shadow-md lg:block absolute top-2 right-2 px-2 py-1 -mt-1 ml-1 bg-white text-sm text-green-500 whitespace-nowrap",
+    onClick: () => setCopied(false)
+  }, "Copied!"), isOverflowing && /*#__PURE__*/React.createElement("button", {
+    onClick: () => setIsCollapsed(false),
     className: "absolute -bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
   }, /*#__PURE__*/React.createElement("i", {
     className: "fas fa-angle-down"
-  }))));
+  })));
+}
+
+function ErrorMessage() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const sqlQuery = `SELECT
+    projects.team_id
+FROM
+    \`flare\`.\`projects\`
+    JOIN subscriptions ON subscriptions.team_id = projects.team_id
+WHERE (\`last_error_received_at\` > '2021-09-29 00:00:00')
+    AND(\`last_error_received_at\` < '2021-10-01')
+    AND subscriptions.stripe_status IS NOT NULL
+GROUP BY
+    projects.team_id;`;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", {
+    className: "my-4 font-semibold leading-snug text-xl"
+  }, errorOccurrence.exception_message), /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: sqlQuery
+  }));
 }
 
 function SolutionRunner({
@@ -16020,7 +16120,7 @@ function Solution({
   isOpen: initialIsOpen = false,
   canExecute = false
 }) {
-  const [isOpen, setIsOpen] = React.useState(initialIsOpen);
+  const [isOpen, setIsOpen] = useState(initialIsOpen);
   return /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("button", {
     className: "group mb-4 flex items-center justify-start",
     onClick: () => setIsOpen(!isOpen)
@@ -16119,6 +16219,98 @@ function ErrorCard() {
   }), " ", errorOccurrence.framework_version))), /*#__PURE__*/React.createElement(ErrorMessage, null)))), /*#__PURE__*/React.createElement(Solutions, null));
 }
 
+function ContextNav({
+  children
+}) {
+  return /*#__PURE__*/React.createElement("ul", {
+    className: "grid grid-cols-1 gap-10"
+  }, children);
+}
+
+function ContextNavGroup({
+  title,
+  children
+}) {
+  return /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("h4", {
+    className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
+  }, title), /*#__PURE__*/React.createElement("ul", {
+    className: "mt-3 grid grid-cols-1 gap-2"
+  }, children));
+}
+
+function ContextNavItem({
+  icon,
+  children
+}) {
+  return /*#__PURE__*/React.createElement("li", {
+    className: "px-2 py-1 group text-base bg-indigo-500 text-white"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: `mr-0.5 fa-fw text-xs text-white/50 ${icon}`
+  }), children);
+}
+
+function ContextGroup({
+  title,
+  children
+}) {
+  return /*#__PURE__*/React.createElement("section", {
+    className: "shadow-lg ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
+  }, /*#__PURE__*/React.createElement("dl", {
+    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider"
+  }, title), children));
+}
+
+function ContextSection({
+  icon,
+  title,
+  children
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "contents"
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "py-2 col-span-2 font-semibold text-lg ~text-indigo-600"
+  }, title, /*#__PURE__*/React.createElement("i", {
+    className: `ml-2 fa-fw text-sm opacity-50 ${icon}`
+  })), children);
+}
+
+function Headers() {
+  const {
+    context_items
+  } = useContext(ErrorOccurrenceContext);
+  console.log(context_items);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, context_items.headers.map((header, index) => /*#__PURE__*/React.createElement(React.Fragment, {
+    key: index
+  }, /*#__PURE__*/React.createElement("dt", {
+    className: "py-2 truncate"
+  }, header.name), /*#__PURE__*/React.createElement("dd", null, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: header.value
+  })))));
+}
+
+function QueryString() {
+  return /*#__PURE__*/React.createElement("p", null, "fijn");
+}
+
+function Request() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const request = getContextValues(errorOccurrence, 'request');
+  const requestData = getContextValues(errorOccurrence, 'request_data');
+  const headers = getContextValues(errorOccurrence, 'headers');
+  const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "py-2 col-span-2 text-lg font-semibold flex items-center"
+  }, /*#__PURE__*/React.createElement("span", null, request.url), /*#__PURE__*/React.createElement("span", {
+    className: "ml-2 px-1.5 rounded-sm  border border-indigo-500/20 ~text-indigo-600 text-xs uppercase tracking-wider"
+  }, request.method.toUpperCase())), curl && /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2"
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: curl
+  })));
+}
+
 function Context() {
   return /*#__PURE__*/React.createElement("section", {
     className: "mt-20 2xl:row-span-4"
@@ -16131,254 +16323,45 @@ function Context() {
     className: "hidden sm:block min-w-[8rem] flex-none mr-10 lg:mr-20"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sticky top-[7.5rem]"
-  }, /*#__PURE__*/React.createElement("ul", {
-    className: "grid grid-cols-1 gap-10"
-  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("h4", {
-    className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
-  }, "Request"), /*#__PURE__*/React.createElement("ul", {
-    className: "mt-3 grid grid-cols-1 gap-2"
-  }, /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base bg-indigo-500 text-white"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw fas fa-exchange-alt text-xs text-white/50"
-  }), "Headers"), /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw far fa-question-circle text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "Query String"), /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw fas fa-code text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "Body"), /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw far fa-file text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "Files"), /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw fas fa-hourglass-half text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "Session"), /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw fas fa-cookie-bite text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "Cookies"))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("h4", {
-    className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
-  }, "App"), /*#__PURE__*/React.createElement("ul", {
-    className: "mt-3 grid grid-cols-1 gap-2"
-  }, /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw fas fa-random text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "Routing"), /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw fas fa-paint-roller text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "Views"))), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("h4", {
-    className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
-  }, "User"), /*#__PURE__*/React.createElement("ul", {
-    className: "mt-3 grid grid-cols-1 gap-2"
-  }, /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw fas fa-user text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "User"), /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base hover:text-indigo-500"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "mr-0.5 fa-fw far fa-window-maximize text-xs text-gray-400 group-hover:text-indigo-500"
-  }), "(Client)")))))), /*#__PURE__*/React.createElement("div", {
-    className: "overflow-hidden grid grid-cols-1 gap-px"
-  }, /*#__PURE__*/React.createElement("section", {
-    className: "shadow-lg ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
-  }, /*#__PURE__*/React.createElement("dl", {
-    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider"
-  }, "Request"), /*#__PURE__*/React.createElement("div", {
-    className: "py-2 col-span-2 text-lg font-semibold flex items-center"
-  }, /*#__PURE__*/React.createElement("span", null, "https://medialibrary.pro/demo-customized-collection"), /*#__PURE__*/React.createElement("span", {
-    className: "ml-2 px-1.5 rounded-sm  border border-indigo-500/20 ~text-indigo-600 text-xs uppercase tracking-wider"
-  }, "GET")), /*#__PURE__*/React.createElement("div", {
-    className: "col-span-2 group ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "max-h-32 overflow-hidden mask-fade-y"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "curl \"https://medialibrary.pro/demo-customized-collection\" \\", '\n', '    ', "-X POST \\", '\n', '    ', "-H 'cookie: XSRF-TOKEN=eyJpdiI6IjM1cTRDMzlBUmx2OUw4UXd1MUtoaGc9PSIsInZhbHVlIjoiSGhPejVGTnlTbEY0UFlJYThHUHBKOERoVmU4MDFpUVV4aWdsOW16SnFvUEVvMmZXdlpMci9Sc3hTeDJkSldnTW9xc2IwSWEvWnJLeVpsQWNzVTBROG1rQXkzaExQaU5XWWROeWZYcHJBZkFFM092SXZOd0c0NzZYdEFoUXNZUUYiLCJtYWMiOiIxNzU0ZjViMDljMmEzZTM1YjljYWY2NDk5ZjcwM2UyNzI0MWZkYThkNmZiMmZkNmVlZDZmZmMyNGQ2YWJlYzY2In0%3D; medialibrarypro_session=eyJpdiI6IjlkVUNHQlVQZHc4cUVxa05SN200dEE9PSIsInZhbHVlIjoibXZaMzdjVzk4OXcvQjZTL2V1dVRJbHZuU3p5VmFYbFBUTWVoSVRtYnZ6bDRVS1lmd2QwenVLTERreGh6d2FZZDdmTnl5MU1nR3d3cnNMLzBiL0FtRXVHQ2NYTkdabVB0bXNoc2F4dkZOcUpjRkFUWUZKTDV4ckwwZ04wZmQwTHoiLCJtYWMiOiI0MjA1NzEzOWFjMDhlMWE3MTgwZDdmMmRiYmEzOTQ3MGEwODQ3OWIxYjYyMjRmYTdmOTNmOGU3ZGI5ODY0M2I1In0%3D' \\", '\n', '    ', "-H 'accept-language: en-GB,en-US;q=0.9,en;q=0.8,bn;q=0.7,fr;q=0.6' \\", '\n', '    ', "-H 'accept-encoding: gzip, deflate, br' \\", '\n', '    ', "-H 'referer: https://medialibrary.pro/demo-customized-collection' \\", '\n', '    ', "-H 'sec-fetch-dest: document' \\", '\n', '    ', "-H 'sec-fetch-user: ?1' \\", '\n', '    ', "-H 'sec-fetch-mode: navigate' \\", '\n', '    ', "-H 'sec-fetch-site: same-origin' \\", '\n', '    ', "-H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \\", '\n', '    ', "-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36' \\", '\n', '    ', "-H 'content-type: application/x-www-form-urlencoded' \\", '\n', '    ', "-H 'origin: https://medialibrary.pro' \\", '\n', '    ', "-H 'upgrade-insecure-requests: 1' \\", '\n', '    ', "-H 'sec-ch-ua-platform: \"Windows\"' \\", '\n', '    ', "-H 'sec-ch-ua-mobile: ?0' \\", '\n', '    ', "-H 'sec-ch-ua: \"Chromium\";v=\"94\", \"Google Chrome\";v=\"94\", \";Not A Brand\";v=\"99\"' \\", '\n', '    ', "-H 'cache-control: max-age=0' \\", '\n', '    ', "-H 'content-length: 1394' \\", '\n', '    ', "-H 'host: medialibrary.pro' \\", '\n', '    ', "-F '_token=7uzRjLOwiqLEgOvXpKKDXyl70FHlHtblkjY0vkDk' -F 'downloads=[object Object]'")))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  })), /*#__PURE__*/React.createElement("button", {
-    className: "absolute -bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "fas fa-angle-down"
-  }))), /*#__PURE__*/React.createElement("hr", {
-    className: "my-2 col-span-2 border-t ~border-gray-200"
-  }), /*#__PURE__*/React.createElement("h1", {
-    className: "py-2 col-span-2 font-semibold text-lg ~text-indigo-600"
-  }, "Headers", /*#__PURE__*/React.createElement("i", {
-    className: "ml-2 fa-fw fas fa-exchange-alt text-sm opacity-50"
-  })), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "accept-encoding"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\"gzip, deflate, br\""))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "accept-language"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\"en-US,en;q=0.9\""))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "\u2026"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\"en-US,en;q=0.9\""))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("hr", {
-    className: "my-2 col-span-2 border-t ~border-gray-200"
-  }), /*#__PURE__*/React.createElement("h1", {
-    className: "py-2 col-span-2 font-semibold text-lg ~text-indigo-600"
-  }, "Query String", /*#__PURE__*/React.createElement("i", {
-    className: "ml-2 fa-fw far fa-question-circle text-xs opacity-50"
-  })))), /*#__PURE__*/React.createElement("section", {
-    className: "shadow-lg ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
-  }, /*#__PURE__*/React.createElement("dl", {
-    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider"
-  }, "App"), /*#__PURE__*/React.createElement("div", {
-    className: "py-2 col-span-2 text-lg font-semibold ~text-indigo-600"
-  }, "Route", /*#__PURE__*/React.createElement("i", {
-    className: "ml-2 fa-fw fas fa-random text-sm  opacity-50"
-  })), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "Controller"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "App\\Http\\Front\\Controllers\\Demo\\CustomizedCollectionDemoController@store"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "Route Name"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "generated::52qYIIGYk3DCS9Av"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("hr", {
-    className: "my-2 col-span-2 border-t ~border-gray-200"
-  }), /*#__PURE__*/React.createElement("h1", {
-    className: "py-2 col-span-2 font-semibold text-lg ~text-indigo-600"
-  }, "Views", /*#__PURE__*/React.createElement("i", {
-    className: "ml-2 fa-fw fas fa-paint-roller text-sm opacity-50"
-  })), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "Name"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\u2026"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "Data"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\u2026"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))))), /*#__PURE__*/React.createElement("section", {
-    className: "shadow-lg ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
-  }, /*#__PURE__*/React.createElement("dl", {
-    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider"
-  }, "User"), /*#__PURE__*/React.createElement("div", {
-    className: "py-2 col-span-2 text-lg font-semibold flex items-center"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex-none w-8 h-8 rounded-full overflow-hidden mr-2"
-  }, /*#__PURE__*/React.createElement("img", {
-    alt: "alex@spatie.be",
-    src: "https://gravatar.com/avatar/c46a1f02a0fa51179c5bee5e42c587e1?s=240"
-  })), "alex@spatie.be"), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "User Data"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\u2026"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("hr", {
-    className: "my-2 col-span-2 border-t ~border-gray-200"
-  }), /*#__PURE__*/React.createElement("h1", {
-    className: "py-2 col-span-2 font-semibold text-lg"
-  }, "\u2026"), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "This is a very long label"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\u2026"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "Data"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-500/5"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\u2026"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))))))));
+  }, /*#__PURE__*/React.createElement(ContextNav, null, /*#__PURE__*/React.createElement(ContextNavGroup, {
+    title: "Request"
+  }, /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-exchange-alt"
+  }, "Headers"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "far fa-question-circle"
+  }, "Query String"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-code"
+  }, "Body"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "far fa-file"
+  }, "Files"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-hourglass-half"
+  }, "Session"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-cookie-bite"
+  }, "Cookies")), /*#__PURE__*/React.createElement(ContextNavGroup, {
+    title: "App"
+  }, /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-random"
+  }, "Routing"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-paint-roller"
+  }, "Views")), /*#__PURE__*/React.createElement(ContextNavGroup, {
+    title: "User"
+  }, /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-user"
+  }, "User"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "far fa-window-maximize"
+  }, "Client"))))), /*#__PURE__*/React.createElement("div", {
+    className: "overflow-hidden grid grid-cols-1 gap-px flex-grow"
+  }, /*#__PURE__*/React.createElement(ContextGroup, {
+    title: "Request"
+  }, /*#__PURE__*/React.createElement(Request, null), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Headers",
+    icon: "fas fa-exchange-alt",
+    children: /*#__PURE__*/React.createElement(Headers, null)
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Query String",
+    icon: "far fa-question-circle",
+    children: /*#__PURE__*/React.createElement(QueryString, null)
+  })))));
 }
 
 function Debug() {
