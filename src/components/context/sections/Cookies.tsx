@@ -3,10 +3,10 @@ import ContextList from "../ContextList";
 import {getContextValues} from "../../../util";
 import ErrorOccurrenceContext from "../../../contexts/ErrorOccurrenceContext";
 
-export default function QueryString() {
+export default function Cookies() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
 
     return (
-        <ContextList items={getContextValues(errorOccurrence, 'request').queryString} />
+        <ContextList items={getContextValues(errorOccurrence, 'cookies')} />
     )
 }

@@ -1,12 +1,16 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import ContextNav from "./ContextNav";
 import ContextNavGroup from "./ContextNavGroup";
 import ContextNavItem from "./ContextNavItem";
 import ContextGroup from "./ContextGroup";
 import ContextSection from "./ContextSection";
+import Request from "./sections/Request";
 import Headers from "./sections/Headers";
 import QueryString from "./sections/QueryString";
-import Request from "./sections/Request";
+import Body from "./sections/Body";
+import Files from "./sections/Files";
+import Session from "./sections/Session";
+import Cookies from "./sections/Cookies";
 
 export default function Context() {
     return (
@@ -39,8 +43,20 @@ export default function Context() {
                 <div className="overflow-hidden grid grid-cols-1 gap-px flex-grow">
                     <ContextGroup title="Request">
                         <Request />
-                        <ContextSection title="Headers" icon="fas fa-exchange-alt" children={<Headers/>} />
-                        <ContextSection title="Query String" icon="far fa-question-circle" children={<QueryString/>} />
+                        <ContextSection title="Headers" icon="fas fa-exchange-alt" children={<Headers/>}/>
+                        <ContextSection title="Query String" icon="far fa-question-circle" children={<QueryString/>}/>
+                        <ContextSection title="Body" icon="fas fa-code" children={<Body/>}/>
+                        <ContextSection title="Files" icon="far fa-file" children={<Files/>}/>
+                        <ContextSection title="Session" icon="fas fa-hourglass-half" children={<Session/>}/>
+                        <ContextSection title="Cookies" icon="fas fa-cookie-bite" children={<Cookies/>}/>
+                    </ContextGroup>
+                    <ContextGroup title="App">
+                        <ContextSection title="Routing" icon="fas fa-random" children={<div>Routing</div>}/>
+                        <ContextSection title="Views" icon="fas fa-paint-roller" children={<div>Views</div>}/>
+                    </ContextGroup>
+                    <ContextGroup title="User">
+                        <ContextSection title="User" icon="fas fa-user" children={<div>User</div>}/>
+                        <ContextSection title="Client" icon="far fa-window-maximize" children={<div>Client</div>}/>
                     </ContextGroup>
                 </div>
             </div>
@@ -48,6 +64,7 @@ export default function Context() {
     );
 }
 
+// @ts-ignore
 const old = <>
     <section
         className="shadow-lg

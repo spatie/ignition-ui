@@ -15937,7 +15937,8 @@ function copyToClipboard(text) {
   el.select();
   document.execCommand('copy');
   document.body.removeChild(el);
-}
+} // TODO: Move to context dir? 👇
+
 function curlCommand(request, requestData, headers) {
   if (!request.url || !request.method) {
     return null;
@@ -16243,9 +16244,9 @@ function ContextNavItem({
   children
 }) {
   return /*#__PURE__*/React.createElement("li", {
-    className: "px-2 py-1 group text-base bg-indigo-500 text-white"
+    className: "px-2 py-1 group text-base hover:text-indigo-500"
   }, /*#__PURE__*/React.createElement("i", {
-    className: `mr-0.5 fa-fw text-xs text-white/50 ${icon}`
+    className: `mr-0.5 fa-fw text-xs text-gray-400 group-hover:text-indigo-500 ${icon}`
   }), children);
 }
 
@@ -16276,24 +16277,6 @@ function ContextSection({
   })), children);
 }
 
-function Headers() {
-  const {
-    context_items
-  } = useContext(ErrorOccurrenceContext);
-  console.log(context_items);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, context_items.headers.map((header, index) => /*#__PURE__*/React.createElement(React.Fragment, {
-    key: index
-  }, /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, header.name), /*#__PURE__*/React.createElement("dd", null, /*#__PURE__*/React.createElement(CodeSnippet, {
-    value: header.value
-  })))));
-}
-
-function QueryString() {
-  return /*#__PURE__*/React.createElement("p", null, "fijn");
-}
-
 function Request() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const request = getContextValues(errorOccurrence, 'request');
@@ -16309,6 +16292,66 @@ function Request() {
   }, /*#__PURE__*/React.createElement(CodeSnippet, {
     value: curl
   })));
+}
+
+function ContextList({
+  items
+}) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, Object.entries(items || {}).map(([key, value], index) => /*#__PURE__*/React.createElement(React.Fragment, {
+    key: index
+  }, /*#__PURE__*/React.createElement("dt", {
+    className: "py-2 truncate"
+  }, key), /*#__PURE__*/React.createElement("dd", null, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: value
+  })))));
+}
+
+function Headers() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  return /*#__PURE__*/React.createElement(ContextList, {
+    items: getContextValues(errorOccurrence, 'headers')
+  });
+}
+
+function QueryString() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  return /*#__PURE__*/React.createElement(ContextList, {
+    items: getContextValues(errorOccurrence, 'request').queryString
+  });
+}
+
+function Body() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const body = getContextValues(errorOccurrence, 'request_data').body;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2"
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: JSON.stringify(body)
+  }));
+}
+
+function Files() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const files = getContextValues(errorOccurrence, 'request_data').files;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2"
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: JSON.stringify(files)
+  }));
+}
+
+function Session() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  return /*#__PURE__*/React.createElement(ContextList, {
+    items: getContextValues(errorOccurrence, 'session')
+  });
+}
+
+function Cookies() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  return /*#__PURE__*/React.createElement(ContextList, {
+    items: getContextValues(errorOccurrence, 'cookies')
+  });
 }
 
 function Context() {
@@ -16361,10 +16404,62 @@ function Context() {
     title: "Query String",
     icon: "far fa-question-circle",
     children: /*#__PURE__*/React.createElement(QueryString, null)
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Body",
+    icon: "fas fa-code",
+    children: /*#__PURE__*/React.createElement(Body, null)
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Files",
+    icon: "far fa-file",
+    children: /*#__PURE__*/React.createElement(Files, null)
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Session",
+    icon: "fas fa-hourglass-half",
+    children: /*#__PURE__*/React.createElement(Session, null)
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Cookies",
+    icon: "fas fa-cookie-bite",
+    children: /*#__PURE__*/React.createElement(Cookies, null)
+  })), /*#__PURE__*/React.createElement(ContextGroup, {
+    title: "App"
+  }, /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Routing",
+    icon: "fas fa-random",
+    children: /*#__PURE__*/React.createElement("div", null, "Routing")
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Views",
+    icon: "fas fa-paint-roller",
+    children: /*#__PURE__*/React.createElement("div", null, "Views")
+  })), /*#__PURE__*/React.createElement(ContextGroup, {
+    title: "User"
+  }, /*#__PURE__*/React.createElement(ContextSection, {
+    title: "User",
+    icon: "fas fa-user",
+    children: /*#__PURE__*/React.createElement("div", null, "User")
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Client",
+    icon: "far fa-window-maximize",
+    children: /*#__PURE__*/React.createElement("div", null, "Client")
   })))));
-}
+} // @ts-ignore
 
 function Debug() {
+  const [visibleTypesMap, setVisibleTypesMap] = useState({
+    dump: true,
+    glow: true,
+    log: true,
+    query: true
+  });
+  const visibleTypes = Object.entries(visibleTypesMap).filter(([_type, visible]) => visible).map(([type]) => type);
+
+  function toggleVisibleType(type) {
+    setVisibleTypesMap(_extends({}, visibleTypesMap, {
+      [type]: !visibleTypesMap[type]
+    }));
+  }
+
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const events = lodash.sortBy([...lodash.map(getContextValues(errorOccurrence, 'dumps'), createDumpEvent), ...lodash.map(errorOccurrence.glows, createGlowEvent), ...lodash.map(getContextValues(errorOccurrence, 'logs'), createLogEvent), ...lodash.map(getContextValues(errorOccurrence, 'queries'), createQueryEvent)], 'microtime').filter(event => visibleTypes.includes(event.type));
   return /*#__PURE__*/React.createElement("section", {
     className: "mt-20 2xl:col-start-2"
   }, /*#__PURE__*/React.createElement("a", {
@@ -16377,38 +16472,34 @@ function Debug() {
   }, /*#__PURE__*/React.createElement("ul", {
     className: "-mt-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px"
   }, /*#__PURE__*/React.createElement("li", {
-    className: "~bg-white text-gray-500 rounded-l-full"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "#"
+    className: `${visibleTypesMap.dump ? 'bg-indigo-500' : '~bg-white text-gray-500'} rounded-l-full`
   }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => toggleVisibleType('dump'),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium "
   }, /*#__PURE__*/React.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
-  }, "0"), /*#__PURE__*/React.createElement("span", null, "Dumps")))), /*#__PURE__*/React.createElement("li", {
-    className: "bg-indigo-500"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "#"
+  }, events.filter(e => e.type === 'dump').length), /*#__PURE__*/React.createElement("span", null, "Dumps"))), /*#__PURE__*/React.createElement("li", {
+    className: visibleTypesMap.glow ? 'bg-indigo-500' : '~bg-white text-gray-500'
   }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => toggleVisibleType('glow'),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium"
   }, /*#__PURE__*/React.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/50 text-white rounded-full text-xs"
-  }, "3"), "Glows"))), /*#__PURE__*/React.createElement("li", {
-    className: "bg-indigo-500"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "#"
+  }, events.filter(e => e.type === 'glow').length), "Glows")), /*#__PURE__*/React.createElement("li", {
+    className: visibleTypesMap.query ? 'bg-indigo-500' : '~bg-white text-gray-500'
   }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => toggleVisibleType('query'),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium"
   }, /*#__PURE__*/React.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/50 text-white rounded-full text-xs"
-  }, "12"), "Queries"))), /*#__PURE__*/React.createElement("li", {
-    className: "bg-indigo-500 rounded-r-full"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "#"
+  }, events.filter(e => e.type === 'query').length), "Queries")), /*#__PURE__*/React.createElement("li", {
+    className: `${visibleTypesMap.log ? 'bg-indigo-500' : '~bg-white text-gray-500'} rounded-r-full`
   }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => toggleVisibleType('log'),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium"
   }, /*#__PURE__*/React.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/50 text-white rounded-full text-xs"
-  }, "3"), "Logs"))))), /*#__PURE__*/React.createElement("div", {
+  }, events.filter(e => e.type === 'log').length), "Logs")))), /*#__PURE__*/React.createElement("div", {
     className: "py-8 px-6 sm:px-10"
   }, /*#__PURE__*/React.createElement("dl", {
     className: "grid grid-cols-[8rem,minmax(0,1fr)] lg:gap-x-10 gap-y-2"
@@ -16455,6 +16546,81 @@ function Debug() {
   }, /*#__PURE__*/React.createElement("i", {
     className: "fas fa-angle-down"
   })))))));
+}
+
+function createQueryEvent({
+  microtime,
+  sql,
+  time,
+  connection_name,
+  bindings,
+  replace_bindings
+}) {
+  return {
+    microtime,
+    type: 'query',
+    label: sql,
+    metadata: {
+      time,
+      connection_name
+    },
+    context: bindings || {},
+    replace_bindings: replace_bindings
+  };
+}
+
+function createDumpEvent({
+  microtime,
+  html_dump,
+  file,
+  line_number
+}) {
+  return {
+    microtime,
+    type: 'dump',
+    label: html_dump,
+    metadata: {
+      file,
+      line_number
+    },
+    context: {}
+  };
+}
+
+function createLogEvent({
+  microtime,
+  context,
+  level,
+  message
+}) {
+  return {
+    microtime,
+    type: 'log',
+    label: message,
+    metadata: {
+      level
+    },
+    context
+  };
+}
+
+function createGlowEvent({
+  microtime,
+  message_level,
+  meta_data,
+  time,
+  name
+}) {
+  return {
+    type: 'glow',
+    label: name,
+    microtime,
+    metadata: {
+      time,
+      message_level
+    },
+    context: meta_data || {}
+  };
 }
 
 export { Context, Debug, ErrorCard, ErrorOccurrenceContext, StackTrace };

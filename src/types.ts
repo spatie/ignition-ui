@@ -61,8 +61,8 @@ export type ErrorSolution = {
     title: string;
     description: string;
     links: { [label: string]: string };
-    action_description?: string;
     is_runnable: boolean;
+    action_description?: string;
     run_button_text?: string;
     execute_endpoint?: string;
     run_parameters?: string;

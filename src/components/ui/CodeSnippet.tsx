@@ -6,6 +6,8 @@ type Props = {
     limitHeight?: boolean;
 };
 
+// TODO: Json/Curl editor?
+
 export default function CodeSnippet({value, limitHeight = true}: Props) {
     const [copied, setCopied] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(limitHeight);

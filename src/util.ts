@@ -10,6 +10,7 @@ export function copyToClipboard(text: string) {
     document.body.removeChild(el);
 }
 
+// TODO: Move to context dir? 👇
 
 export function curlCommand(request: any, requestData: any, headers: any): null | string {
     if (!request.url || !request.method) {
