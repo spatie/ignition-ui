@@ -36,7 +36,7 @@ export default function Solution({ solution, isOpen: initialIsOpen = false, canE
                 <ul className="grid grid-cols-1 gap-y-1 text-sm">
                     {Object.entries(solution.links).map(([title, link], index) => (
                         <li key={index}>
-                            <a href={link} target="_blank" className="underline text-green-700 dark:text-green-800">
+                            <a href={link} target="_blank" className="underline text-emerald-700 dark:text-emerald-800">
                                 {title}
                             </a>
                         </li>

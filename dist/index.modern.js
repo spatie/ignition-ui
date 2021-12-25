@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext, useMemo, useReducer, useLayoutEffect, useRef } from 'react';
+import React, { createContext, useState, useEffect, useContext, useMemo, useReducer, useLayoutEffect, useRef, Children } from 'react';
 
 /* @ts-ignore */
 
@@ -16025,11 +16025,11 @@ function CodeSnippet({
   }, /*#__PURE__*/React.createElement("i", {
     className: "far fa-copy"
   })), copied && /*#__PURE__*/React.createElement("p", {
-    className: "hidden z-10 shadow-md lg:block absolute top-2 right-2 px-2 py-1 -mt-1 ml-1 bg-white text-sm text-green-500 whitespace-nowrap",
+    className: "hidden z-10 shadow-md sm:block absolute top-2 right-2 px-2 py-1 -mt-1 ml-1 bg-white text-sm text-emerald-500 whitespace-nowrap",
     onClick: () => setCopied(false)
   }, "Copied!"), isOverflowing && /*#__PURE__*/React.createElement("button", {
     onClick: () => setIsCollapsed(false),
-    className: "absolute -bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
+    className: "absolute -bottom-3 left-1/2 -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
   }, /*#__PURE__*/React.createElement("i", {
     className: "fas fa-angle-down"
   })));
@@ -16144,7 +16144,7 @@ function Solution({
   }, /*#__PURE__*/React.createElement("a", {
     href: link,
     target: "_blank",
-    className: "underline text-green-700 dark:text-green-800"
+    className: "underline text-emerald-700 dark:text-emerald-800"
   }, title))))));
 }
 
@@ -16173,7 +16173,7 @@ function Solutions() {
     id: "solution",
     className: "flex flex-col w-full lg:col-span-2 2xl:col-span-1"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex-grow px-6 sm:px-10 py-8 text-gray-800  bg-green-300"
+    className: "flex-grow px-6 sm:px-10 py-8 text-gray-800  bg-emerald-300"
   }, /*#__PURE__*/React.createElement("button", {
     className: "absolute top-4 right-4 leading-none opacity-50 hover:opacity-75 text-sm"
   }, /*#__PURE__*/React.createElement("i", {
@@ -16301,8 +16301,10 @@ function ContextList({
     key: index
   }, /*#__PURE__*/React.createElement("dt", {
     className: "py-2 truncate"
-  }, key), /*#__PURE__*/React.createElement("dd", null, /*#__PURE__*/React.createElement(CodeSnippet, {
+  }, key), /*#__PURE__*/React.createElement("dd", null, typeof value === 'string' ? /*#__PURE__*/React.createElement(CodeSnippet, {
     value: value
+  }) : /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: JSON.stringify(value)
   })))));
 }
 
@@ -16443,184 +16445,128 @@ function Context() {
   })))));
 } // @ts-ignore
 
-function Debug() {
-  const [visibleTypesMap, setVisibleTypesMap] = useState({
-    dump: true,
-    glow: true,
-    log: true,
-    query: true
+function DebugTabs({
+  children
+}) {
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const validChildren = children.filter(child => child !== false);
+  const tabs = Children.map(validChildren, child => {
+    return {
+      name: child.props.name,
+      component: child.props.component,
+      count: child.props.count,
+      checked: child.props.checked,
+      onChange: child.props.onChange
+    };
   });
-  const visibleTypes = Object.entries(visibleTypesMap).filter(([_type, visible]) => visible).map(([type]) => type);
-
-  function toggleVisibleType(type) {
-    setVisibleTypesMap(_extends({}, visibleTypesMap, {
-      [type]: !visibleTypesMap[type]
-    }));
-  }
-
-  const errorOccurrence = useContext(ErrorOccurrenceContext);
-  const events = lodash.sortBy([...lodash.map(getContextValues(errorOccurrence, 'dumps'), createDumpEvent), ...lodash.map(errorOccurrence.glows, createGlowEvent), ...lodash.map(getContextValues(errorOccurrence, 'logs'), createLogEvent), ...lodash.map(getContextValues(errorOccurrence, 'queries'), createQueryEvent)], 'microtime').filter(event => visibleTypes.includes(event.type));
-  return /*#__PURE__*/React.createElement("section", {
-    className: "mt-20 2xl:col-start-2"
-  }, /*#__PURE__*/React.createElement("a", {
-    id: "debug",
-    className: "z-50 absolute top-[-7.5rem]"
-  }), /*#__PURE__*/React.createElement("div", {
+  const Tab = tabs[currentTabIndex].component;
+  return /*#__PURE__*/React.createElement("div", {
     className: "bg-gray-300/70 dark:bg-black/20 shadow-inner"
   }, /*#__PURE__*/React.createElement("nav", {
     className: "flex justify-center items-center"
   }, /*#__PURE__*/React.createElement("ul", {
     className: "-mt-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px"
-  }, /*#__PURE__*/React.createElement("li", {
-    className: `${visibleTypesMap.dump ? 'bg-indigo-500' : '~bg-white text-gray-500'} rounded-l-full`
+  }, tabs.map((tab, i) => /*#__PURE__*/React.createElement("li", {
+    key: i,
+    className: `
+                                    ${i === currentTabIndex ? 'bg-indigo-500' : '~bg-white text-gray-500'}
+                                    ${i === 0 ? 'rounded-l-full' : ''}
+                                    ${i === tabs.length - 1 ? 'rounded-r-full' : ''}
+                                `
   }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => toggleVisibleType('dump'),
+    onClick: () => setCurrentTabIndex(i),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium "
   }, /*#__PURE__*/React.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
-  }, events.filter(e => e.type === 'dump').length), /*#__PURE__*/React.createElement("span", null, "Dumps"))), /*#__PURE__*/React.createElement("li", {
-    className: visibleTypesMap.glow ? 'bg-indigo-500' : '~bg-white text-gray-500'
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => toggleVisibleType('glow'),
-    className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/50 text-white rounded-full text-xs"
-  }, events.filter(e => e.type === 'glow').length), "Glows")), /*#__PURE__*/React.createElement("li", {
-    className: visibleTypesMap.query ? 'bg-indigo-500' : '~bg-white text-gray-500'
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => toggleVisibleType('query'),
-    className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/50 text-white rounded-full text-xs"
-  }, events.filter(e => e.type === 'query').length), "Queries")), /*#__PURE__*/React.createElement("li", {
-    className: `${visibleTypesMap.log ? 'bg-indigo-500' : '~bg-white text-gray-500'} rounded-r-full`
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => toggleVisibleType('log'),
-    className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/50 text-white rounded-full text-xs"
-  }, events.filter(e => e.type === 'log').length), "Logs")))), /*#__PURE__*/React.createElement("div", {
+  }, tab.count), /*#__PURE__*/React.createElement("span", null, tab.name)))))), /*#__PURE__*/React.createElement("div", {
     className: "py-8 px-6 sm:px-10"
-  }, /*#__PURE__*/React.createElement("dl", {
-    className: "grid grid-cols-[8rem,minmax(0,1fr)] lg:gap-x-10 gap-y-2"
-  }, /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "Debug Data"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-200/50"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\u2026"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "More Data"), /*#__PURE__*/React.createElement("dd", {
-    className: "group overflow-hidden ~bg-gray-200/50"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "\u2026"))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  }))), /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, "Data"), /*#__PURE__*/React.createElement("dd", {
-    className: "group ~bg-gray-200/50"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "max-h-64 overflow-hidden mask-fade-y"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 mask-fade-x"
-  }, /*#__PURE__*/React.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React.createElement("pre", null, "curl \"https://medialibrary.pro/demo-customized-collection\" \\", '\n', '    ', "-X POST \\", '\n', '    ', "-H 'cookie: XSRF-TOKEN=eyJpdiI6IjM1cTRDMzlBUmx2OUw4UXd1MUtoaGc9PSIsInZhbHVlIjoiSGhPejVGTnlTbEY0UFlJYThHUHBKOERoVmU4MDFpUVV4aWdsOW16SnFvUEVvMmZXdlpMci9Sc3hTeDJkSldnTW9xc2IwSWEvWnJLeVpsQWNzVTBROG1rQXkzaExQaU5XWWROeWZYcHJBZkFFM092SXZOd0c0NzZYdEFoUXNZUUYiLCJtYWMiOiIxNzU0ZjViMDljMmEzZTM1YjljYWY2NDk5ZjcwM2UyNzI0MWZkYThkNmZiMmZkNmVlZDZmZmMyNGQ2YWJlYzY2In0%3D; medialibrarypro_session=eyJpdiI6IjlkVUNHQlVQZHc4cUVxa05SN200dEE9PSIsInZhbHVlIjoibXZaMzdjVzk4OXcvQjZTL2V1dVRJbHZuU3p5VmFYbFBUTWVoSVRtYnZ6bDRVS1lmd2QwenVLTERreGh6d2FZZDdmTnl5MU1nR3d3cnNMLzBiL0FtRXVHQ2NYTkdabVB0bXNoc2F4dkZOcUpjRkFUWUZKTDV4ckwwZ04wZmQwTHoiLCJtYWMiOiI0MjA1NzEzOWFjMDhlMWE3MTgwZDdmMmRiYmEzOTQ3MGEwODQ3OWIxYjYyMjRmYTdmOTNmOGU3ZGI5ODY0M2I1In0%3D' \\", '\n', '    ', "-H 'accept-language: en-GB,en-US;q=0.9,en;q=0.8,bn;q=0.7,fr;q=0.6' \\", '\n', '    ', "-H 'accept-encoding: gzip, deflate, br' \\", '\n', '    ', "-H 'referer: https://medialibrary.pro/demo-customized-collection' \\", '\n', '    ', "-H 'sec-fetch-dest: document' \\", '\n', '    ', "-H 'sec-fetch-user: ?1' \\", '\n', '    ', "-H 'sec-fetch-mode: navigate' \\", '\n', '    ', "-H 'sec-fetch-site: same-origin' \\", '\n', '    ', "-H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \\", '\n', '    ', "-H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36' \\", '\n', '    ', "-H 'content-type: application/x-www-form-urlencoded' \\", '\n', '    ', "-H 'origin: https://medialibrary.pro' \\", '\n', '    ', "-H 'upgrade-insecure-requests: 1' \\", '\n', '    ', "-H 'sec-ch-ua-platform: \"Windows\"' \\", '\n', '    ', "-H 'sec-ch-ua-mobile: ?0' \\", '\n', '    ', "-H 'sec-ch-ua: \"Chromium\";v=\"94\", \"Google Chrome\";v=\"94\", \";Not A Brand\";v=\"99\"' \\", '\n', '    ', "-H 'cache-control: max-age=0' \\", '\n', '    ', "-H 'content-length: 1394' \\", '\n', '    ', "-H 'host: medialibrary.pro' \\", '\n', '    ', "-F '_token=7uzRjLOwiqLEgOvXpKKDXyl70FHlHtblkjY0vkDk' -F 'downloads=[object Object]'")))), /*#__PURE__*/React.createElement("button", {
-    className: "absolute top-2 right-2 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "far fa-copy"
-  })), /*#__PURE__*/React.createElement("button", {
-    className: "absolute -bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "fas fa-angle-down"
-  })))))));
+  }), /*#__PURE__*/React.createElement(Tab, null));
 }
 
-function createQueryEvent({
-  microtime,
-  sql,
-  time,
-  connection_name,
-  bindings,
-  replace_bindings
-}) {
-  return {
-    microtime,
-    type: 'query',
-    label: sql,
-    metadata: {
-      time,
-      connection_name
-    },
-    context: bindings || {},
-    replace_bindings: replace_bindings
-  };
+DebugTabs.Tab = _props => null;
+
+function Logs() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const logs = Object.values(getContextValues(errorOccurrence, 'logs'));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, logs.map((log, index) => /*#__PURE__*/React.createElement("div", {
+    key: index,
+    className: "border-b"
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: log.message
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
+  }, /*#__PURE__*/React.createElement(ContextList, {
+    items: log.context
+  })))));
 }
 
-function createDumpEvent({
-  microtime,
-  html_dump,
-  file,
-  line_number
-}) {
-  return {
-    microtime,
-    type: 'dump',
-    label: html_dump,
-    metadata: {
-      file,
-      line_number
-    },
-    context: {}
-  };
-}
-
-function createLogEvent({
-  microtime,
-  context,
-  level,
-  message
-}) {
-  return {
-    microtime,
-    type: 'log',
-    label: message,
-    metadata: {
-      level
-    },
-    context
-  };
-}
-
-function createGlowEvent({
-  microtime,
-  message_level,
-  meta_data,
-  time,
-  name
-}) {
-  return {
-    type: 'glow',
-    label: name,
-    microtime,
-    metadata: {
-      time,
-      message_level
-    },
-    context: meta_data || {}
-  };
-}
+function Debug() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const dumps = getContextValues(errorOccurrence, 'dumps');
+  const glows = errorOccurrence.glows;
+  const queries = getContextValues(errorOccurrence, 'queries');
+  const logs = getContextValues(errorOccurrence, 'logs');
+  return /*#__PURE__*/React.createElement("section", {
+    className: "mt-20 2xl:col-start-2"
+  }, /*#__PURE__*/React.createElement("a", {
+    id: "debug",
+    className: "z-50 absolute top-[-7.5rem]"
+  }), /*#__PURE__*/React.createElement(DebugTabs, null, /*#__PURE__*/React.createElement(DebugTabs.Tab, {
+    component: Logs,
+    name: "Dumps",
+    count: Object.keys(dumps).length
+  }), /*#__PURE__*/React.createElement(DebugTabs.Tab, {
+    component: Logs,
+    name: "Glows",
+    count: glows.length
+  }), /*#__PURE__*/React.createElement(DebugTabs.Tab, {
+    component: Logs,
+    name: "Queries",
+    count: Object.keys(queries).length
+  }), /*#__PURE__*/React.createElement(DebugTabs.Tab, {
+    component: Logs,
+    name: "Logs",
+    count: Object.keys(logs).length
+  })));
+} // function createQueryEvent({microtime, sql, time, connection_name, bindings, replace_bindings}: any): DebugEventType {
+//     return {
+//         microtime,
+//         type: 'query',
+//         label: sql,
+//         metadata: {time, connection_name},
+//         context: bindings || {},
+//         replace_bindings: replace_bindings,
+//     };
+// }
+//
+// function createDumpEvent({microtime, html_dump, file, line_number}: any): DebugEventType {
+//     return {
+//         microtime,
+//         type: 'dump',
+//         label: html_dump,
+//         metadata: {file, line_number},
+//         context: {},
+//     };
+// }
+//
+// function createLogEvent({microtime, context, level, message}: any): DebugEventType {
+//     return {
+//         microtime,
+//         type: 'log',
+//         label: message,
+//         metadata: {level},
+//         context,
+//     };
+// }
+//
+// function createGlowEvent({microtime, message_level, meta_data, time, name}: any): DebugEventType {
+//     return {
+//         type: 'glow',
+//         label: name,
+//         microtime,
+//         metadata: {time, message_level},
+//         context: meta_data || {},
+//     };
+// }
 
 export { Context, Debug, ErrorCard, ErrorOccurrenceContext, StackTrace };

@@ -91,6 +91,8 @@ export type BaseDebugEvent = {
     context: { [key: string]: string };
 };
 
+export type DebugType = 'dump' | 'glow' | 'log' | 'query';
+
 export type QueryDebugEvent = BaseDebugEvent & {
     type: 'query';
     context: {

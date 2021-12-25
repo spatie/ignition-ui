@@ -61,7 +61,7 @@ export default function CodeSnippet({value, limitHeight = true}: Props) {
             </button>
             {copied && (
                 <p
-                    className="hidden z-10 shadow-md lg:block absolute top-2 right-2 px-2 py-1 -mt-1 ml-1 bg-white text-sm text-green-500 whitespace-nowrap"
+                    className="hidden z-10 shadow-md sm:block absolute top-2 right-2 px-2 py-1 -mt-1 ml-1 bg-white text-sm text-emerald-500 whitespace-nowrap"
                     onClick={() => setCopied(false)}
                 >
                     Copied!
@@ -70,7 +70,7 @@ export default function CodeSnippet({value, limitHeight = true}: Props) {
             {isOverflowing && (
                 <button
                     onClick={() => setIsCollapsed(false)}
-                    className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
+                    className="absolute -bottom-3 left-1/2 -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
                 >
                     <i className="fas fa-angle-down"/>
                 </button>
