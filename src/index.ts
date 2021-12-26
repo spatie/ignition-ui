@@ -6,3 +6,7 @@ export { default as StackTrace } from './components/stackTrace/components/StackT
 export { default as ErrorCard } from './components/errorCard/ErrorCard';
 export { default as Context } from './components/context/Context';
 export { default as Debug } from './components/debug/Debug';
+
+export { default as CopyButton } from './components/ui/CopyButton';
+
+export { default as FlareIcon } from './components/ui/icons/FlareIcon';

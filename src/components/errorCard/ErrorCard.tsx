@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import ErrorMessage from '../../components/ui/ErrorMessage';
 import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 import RelaxedFullyQualifiedClassName from '../ui/RelaxedFullyQualifiedClassName';
@@ -17,23 +17,25 @@ export default function ErrorCard() {
                         <header className="flex items-center justify-between">
                             <nav className="group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5">
                                 <p className="flex flex-wrap leading-tight">
-                                    <RelaxedFullyQualifiedClassName path={errorOccurrence.exception_class} />
+                                    <RelaxedFullyQualifiedClassName path={errorOccurrence.exception_class}/>
                                 </p>
                                 <button>
-                                    <i className="ml-3 fas fa-angle-down group-hover:text-red-500 text-sm" />
+                                    <i className="ml-3 fas fa-angle-down group-hover:text-red-500 text-sm"/>
                                 </button>
                             </nav>
                             <div className="grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500">
                                 <span>
-                                    <span className="tracking-wider">PHP</span> {errorOccurrence.language_version}
+                                    <span className="tracking-wider">PHP</span>
+                                    {errorOccurrence.language_version}
                                 </span>
                                 <span>
-                                    <i className="fab fa-laravel" /> {errorOccurrence.framework_version}
+                                    <i className="fab fa-laravel"/>
+                                    {errorOccurrence.framework_version}
                                 </span>
                             </div>
                         </header>
 
-                        <ErrorMessage />
+                        <ErrorMessage/>
 
                         {/*<div className="grid grid-cols-1 gap-x-10 gap-y-2 text-sm">*/}
                         {/*    <span className="flex flex-wrap leading-tight">*/}
@@ -52,7 +54,7 @@ export default function ErrorCard() {
                 </div>
             </main>
 
-            <Solutions />
+            {hasSolutions && <Solutions/>}
         </section>
     );
 }

@@ -6021,12 +6021,14 @@ function FrameCodeSnippet({
   }, number))))), /*#__PURE__*/React.createElement("div", {
     className: "flex-grow pr-10"
   }, /*#__PURE__*/React.createElement("pre", null, /*#__PURE__*/React.createElement("code", null, tokenizedCode.map((tokens, index) => /*#__PURE__*/React.createElement("span", {
+    key: index,
     className: `
                                     block group pl-3 leading-loose hover:~bg-red-500/10
                                     ${index === highlightedIndex ? ' ~bg-red-500/20' : ''}
                                 `
-  }, !tokens.length && /*#__PURE__*/React.createElement(React.Fragment, null, "\xA0"), !!tokens.length && tokens.map(token => {
+  }, !tokens.length && /*#__PURE__*/React.createElement(React.Fragment, null, "\xA0"), !!tokens.length && tokens.map((token, index) => {
     return /*#__PURE__*/React.createElement("span", {
+      key: index,
       style: {
         color: token.color
       }
@@ -16215,9 +16217,9 @@ function ErrorCard() {
     className: "grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500"
   }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
     className: "tracking-wider"
-  }, "PHP"), " ", errorOccurrence.language_version), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", {
+  }, "PHP"), errorOccurrence.language_version), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", {
     className: "fab fa-laravel"
-  }), " ", errorOccurrence.framework_version))), /*#__PURE__*/React.createElement(ErrorMessage, null)))), /*#__PURE__*/React.createElement(Solutions, null));
+  }), errorOccurrence.framework_version))), /*#__PURE__*/React.createElement(ErrorMessage, null)))), hasSolutions && /*#__PURE__*/React.createElement(Solutions, null));
 }
 
 function ContextNav({
@@ -16569,4 +16571,59 @@ function Debug() {
 //     };
 // }
 
-export { Context, Debug, ErrorCard, ErrorOccurrenceContext, StackTrace };
+function CopyButton({
+  value
+}) {
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    let timeout;
+
+    if (copied) {
+      timeout = window.setTimeout(() => setCopied(false), 3000);
+    }
+
+    return () => window.clearTimeout(timeout);
+  }, [copied]);
+
+  function copy() {
+    copyToClipboard(value);
+    setCopied(true);
+  }
+
+  return /*#__PURE__*/React.createElement("button", {
+    onClick: copy,
+    title: "Copy to clipboard",
+    className: `hover:text-indigo-500 opacity-0 transition-opacity duration-150 ${copied ? '' : 'group-hover:opacity-100'}`
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "far fa-copy"
+  }));
+}
+
+function FlareIcon() {
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 682 1024",
+    className: "w-4 h-5 ml-1.5"
+  }, /*#__PURE__*/React.createElement("polygon", {
+    points: "235.3,510.5 21.5,387 21.5,140.2 236.5,264.1 ",
+    style: {
+      fill: 'rgb(81, 219, 158)'
+    }
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "235.3,1004.8 21.5,881.4 21.5,634.5 234.8,757.9 ",
+    style: {
+      fill: 'rgb(121, 0, 245)'
+    }
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "448.9,386.9 21.5,140.2 235.3,16.7 663.2,263.4 ",
+    style: {
+      fill: 'rgb(148, 242, 200)'
+    }
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "234.8,757.9 21.5,634.5 235.3,511 449.1,634.5 ",
+    style: {
+      fill: 'rgb(164, 117, 244)'
+    }
+  }));
+}
+
+export { Context, CopyButton, Debug, ErrorCard, ErrorOccurrenceContext, FlareIcon, StackTrace };

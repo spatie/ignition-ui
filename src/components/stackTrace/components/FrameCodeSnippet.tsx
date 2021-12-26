@@ -60,6 +60,7 @@ export default function FrameCodeSnippet({frame}: Props) {
                     <code>
                         {tokenizedCode.map((tokens, index) => (
                             <span
+                                key={index}
                                 className={`
                                     block group pl-3 leading-loose hover:~bg-red-500/10
                                     ${index === highlightedIndex ? ' ~bg-red-500/20' : ''}
@@ -67,8 +68,8 @@ export default function FrameCodeSnippet({frame}: Props) {
                             >
                                 {!tokens.length && <>&nbsp;</>}
                                 {!!tokens.length &&
-                                tokens.map((token) => {
-                                    return <span style={{color: token.color}}>{token.content || <>&nbsp;</>}</span>;
+                                tokens.map((token, index) => {
+                                    return <span key={index} style={{color: token.color}}>{token.content || <>&nbsp;</>}</span>;
                                 })}
                                 <a
                                     href="#"

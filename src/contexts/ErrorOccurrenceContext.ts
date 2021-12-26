@@ -2,4 +2,4 @@ import { createContext } from 'react';
 import { ErrorOccurrence } from '../types';
 
 /* @ts-ignore */
-export default createContext<ErrorOccurrence>();
+export const ErrorOccurrenceContext = createContext<ErrorOccurrence>();
