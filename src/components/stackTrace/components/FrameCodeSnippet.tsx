@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getHighlighter, IThemedToken, setCDN } from 'shiki';
 import { ErrorFrame } from '../../../types';
 import FrameCodeSnippetLine from './FrameCodeSnippetLine';
+import IgnitionConfigContext from '../../../contexts/IgnitionConfigContext';
 
 type Props = {
     frame: ErrorFrame;
@@ -13,6 +14,7 @@ type TokenizedCodeWithLineNumbers = {
 };
 
 export default function FrameCodeSnippet({ frame }: Props) {
+    const { theme } = useContext(IgnitionConfigContext);
     const [tokenizedCode, setTokenizedCode] = useState<TokenizedCodeWithLineNumbers[]>([]);
 
     const lineNumbers = Object.keys(frame.code_snippet).map((n) => Number(n));
@@ -31,7 +33,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
         );
 
         getHighlighter({
-            theme: 'github-light',
+            theme: theme === 'light' ? 'github-light' : 'github-dark',
             langs: ['php'], // TODO: blade?
         }).then((highlighter) => {
             const code = Object.values(frame.code_snippet).join('\n');
@@ -46,7 +48,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
                 })),
             );
         });
-    }, [frame]);
+    }, [frame, theme]);
 
     return (
         <main className="flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-x text-sm">

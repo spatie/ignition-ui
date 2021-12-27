@@ -27,19 +27,83 @@ var IgnitionConfigContext = createContext({
   setIgnitionConfig: noop_1
 });
 
+const PREFERENCES = {
+  DARK: 'dark',
+  LIGHT: 'light',
+  NONE: 'no-preference'
+};
+const values = [PREFERENCES.DARK, PREFERENCES.LIGHT, PREFERENCES.NONE];
+
+const makeQuery = pref => `(prefers-color-scheme: ${pref})`;
+
+const matchPreference = pref => window.matchMedia(makeQuery(pref));
+
+const getPreference = preferences => preferences.map(value => ({
+  preference: value,
+  matchMedia: matchPreference(value)
+})).filter(pref => pref.matchMedia.matches)[0];
+
+const attachListener = (pref, setScheme) => {
+  let unbind;
+
+  const listener = () => {
+    const newPref = getPreference(values);
+    setScheme(newPref.preference);
+    pref.matchMedia.removeListener(listener); // recursion
+    // NOTE: we need to attach a new listener to ensure it fires on next change
+
+    unbind = attachListener(newPref, setScheme);
+  };
+
+  pref.matchMedia.addListener(listener);
+  return () => {
+    if (unbind) {
+      unbind();
+    } else {
+      pref.matchMedia.removeListener(listener);
+    }
+  };
+}; // NOTE: outside hook to avoid this value recomputing
+
+
+const initialPreference = getPreference(values);
+
+const useColorScheme = () => {
+  if (!('matchMedia' in window)) {
+    // can not detect
+    return {
+      scheme: PREFERENCES.NONE
+    };
+  }
+
+  const [scheme, setScheme] = useState(initialPreference ? initialPreference.preference : PREFERENCES.NONE);
+  useEffect(() => {
+    if (!initialPreference) return;
+    return attachListener(initialPreference, setScheme);
+  }, []);
+  return {
+    scheme
+  };
+};
+
 function IgnitionConfigContextProvider({
   children,
   ignitionConfig: initialIgnitionConfig
 }) {
   const [ignitionConfig, setIgnitionConfig] = useState(initialIgnitionConfig);
+  const {
+    scheme
+  } = useColorScheme();
+  const theme = ignitionConfig.theme === 'auto' ? scheme !== 'none' ? scheme : 'light' : ignitionConfig.theme;
   useEffect(() => {
     document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(ignitionConfig.theme);
-  }, [ignitionConfig.theme]);
+    document.documentElement.classList.add(theme);
+  }, [theme]);
   return /*#__PURE__*/React.createElement(IgnitionConfigContext.Provider, {
     value: {
       ignitionConfig,
-      setIgnitionConfig
+      setIgnitionConfig,
+      theme
     }
   }, children);
 }
@@ -9139,6 +9203,9 @@ function FrameCodeSnippetLine({
 function FrameCodeSnippet({
   frame
 }) {
+  const {
+    theme
+  } = useContext(IgnitionConfigContext);
   const [tokenizedCode, setTokenizedCode] = useState([]);
   const lineNumbers = Object.keys(frame.code_snippet).map(n => Number(n));
   const highlightedIndex = lineNumbers.indexOf(frame.line_number); // TODO: bundle themes and language definitions. Don't rely on CDN.
@@ -9153,7 +9220,7 @@ function FrameCodeSnippet({
       }]
     })));
     getHighlighter({
-      theme: 'github-light',
+      theme: theme === 'light' ? 'github-light' : 'github-dark',
       langs: ['php'] // TODO: blade?
 
     }).then(highlighter => {
@@ -9165,7 +9232,7 @@ function FrameCodeSnippet({
         tokens: line
       })));
     });
-  }, [frame]);
+  }, [frame, theme]);
   return /*#__PURE__*/React.createElement("main", {
     className: "flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-x text-sm"
   }, /*#__PURE__*/React.createElement("nav", {

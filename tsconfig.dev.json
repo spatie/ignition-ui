@@ -1,5 +1,5 @@
 {
-    "extends": "./tsconfig.bundle.json",
+    "extends": "./tsconfig.json",
     "compilerOptions": {
         "noEmitOnError": false,
         "noUnusedLocals": false,

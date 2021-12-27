@@ -23,6 +23,6 @@
 /tailwind.config.js export-ignore
 /tsconfig.json      export-ignore
 /tsconfig.dev.json      export-ignore
-/tsconfig.bundle.json      export-ignore
+/tsconfig.json      export-ignore
 /webpack.config.js  export-ignore
 /yarn.lock          export-ignore
