@@ -1,5 +1,6 @@
-import {keyBy, mapValues } from "lodash";
-import {ErrorOccurrence} from "./types";
+import keyBy from 'lodash/keyBy';
+import mapValues from 'lodash/mapValues';
+import { ErrorOccurrence } from './types';
 
 export function copyToClipboard(text: string) {
     const el = document.createElement('textarea');

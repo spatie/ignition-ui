@@ -1,6 +1,6 @@
-import {uniq} from 'lodash';
 import { State, Action } from './types';
 import { addFrameNumbers } from './helpers';
+import uniq from 'lodash/uniq';
 
 export default function stackReducer(state: State, action: Action): State {
     switch (action.type) {

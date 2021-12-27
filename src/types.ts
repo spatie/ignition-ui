@@ -1,3 +1,13 @@
+export type IgnitionConfig = {
+    editor: string;
+    editorOptions: { [editor: string]: { label: string; url: string } };
+    remoteSitesPath: string;
+    localSitesPath: string;
+    theme: 'light' | 'dark' | 'auto';
+    enableShareButton: boolean;
+    directorySeparator: string;
+};
+
 export type ErrorFrame = {
     class?: string;
     method: string;

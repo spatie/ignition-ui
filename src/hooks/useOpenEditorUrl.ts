@@ -1,27 +1,17 @@
+import { useContext } from 'react';
+import IgnitionConfigContext from '../contexts/IgnitionConfigContext';
+import mapValues from 'lodash/mapValues';
+
 type Props = {
     file: string;
     lineNumber?: number;
 };
 
 export default function useOpenEditorUrl({ file, lineNumber = 1 }: Props) {
-    const editor = 'vscode';
+    const { ignitionConfig } = useContext(IgnitionConfigContext);
+    const editor = ignitionConfig.editor;
 
-    const editors: Record<string, string> = {
-        sublime: 'subl://open?url=file://%path&line=%line',
-        textmate: 'txmt://open?url=file://%path&line=%line',
-        emacs: 'emacs://open?url=file://%path&line=%line',
-        macvim: 'mvim://open/?url=file://%path&line=%line',
-        phpstorm: 'phpstorm://open?file=%path&line=%line',
-        idea: 'idea://open?file=%path&line=%line',
-        vscode: 'vscode://file/%path:%line',
-        'vscode-insiders': 'vscode-insiders://file/%path:%line',
-        'vscode-remote': 'vscode://vscode-remote/%path:%line',
-        'vscode-insiders-remote': 'vscode-insiders://vscode-remote/%path:%line',
-        atom: 'atom://core/open/file?filename=%path&line=%line',
-        nova: 'nova://core/open/file?filename=%path&line=%line',
-        netbeans: 'netbeans://open/?f=%path:%line',
-        xdebug: 'xdebug://%path@%line',
-    };
+    const editors: Record<string, string> = mapValues(ignitionConfig.editorOptions, (e) => e.url);
 
     // TODO: fix this with config context provider
     // file =
@@ -37,4 +27,3 @@ export default function useOpenEditorUrl({ file, lineNumber = 1 }: Props) {
 
     return editors[editor].replace('%path', encodeURIComponent(file)).replace('%line', encodeURIComponent(lineNumber));
 }
-
