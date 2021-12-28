@@ -7,7 +7,7 @@ type Props = {
     lineNumber?: number;
 };
 
-export default function useOpenEditorUrl({ file, lineNumber = 1 }: Props) {
+export default function useEditorUrl({ file, lineNumber = 1 }: Props) {
     const { ignitionConfig } = useContext(IgnitionConfigContext);
     const editor = ignitionConfig.editor;
 

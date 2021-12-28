@@ -59,10 +59,12 @@ export type ContextItem = {
 export type ErrorGlow = {
     id: number;
     received_at: string;
-    name: string;
+
+    message_level: LogLevel;
+    meta_data: Record<string, string | object>;
     microtime: number;
-    message_level: string;
-    meta_data: {};
+    name: string;
+    time: number;
 };
 
 export type ErrorSolution = {
@@ -95,33 +97,30 @@ export type SharePostData = {
     lineSelection: string;
 };
 
-export type BaseDebugEvent = {
+export type QueryDebug = {
+    bindings: Array<{
+        type: 'string' | 'int' | 'float' | 'bool' | 'null';
+        value: string;
+    }>;
     microtime: number;
-    label: string;
-    context: { [key: string]: string };
-};
-
-export type DebugType = 'dump' | 'glow' | 'log' | 'query';
-
-export type QueryDebugEvent = BaseDebugEvent & {
-    type: 'query';
-    context: {
-        [key: string]: {
-            type: 'string' | 'int' | 'float' | 'bool' | 'null';
-            value: string;
-        };
-    };
     replace_bindings: boolean;
-    metadata: { time: string; connection_name: string };
-};
-export type DumpDebugEvent = BaseDebugEvent & {
-    type: 'dump';
-    metadata: { file: string; line_number: number };
-};
-export type LogDebugEvent = BaseDebugEvent & { type: 'log'; metadata: { level: string } };
-export type GlowDebugEvent = BaseDebugEvent & {
-    type: 'glow';
-    metadata: { time: number; message_level: string };
+    sql: string;
+    time: number;
+    connection_name: string;
 };
 
-export type DebugEventType = QueryDebugEvent | DumpDebugEvent | LogDebugEvent | GlowDebugEvent;
+export type DumpDebug = {
+    html_dump: string;
+    file: string;
+    line_number: number;
+    microtime: number;
+};
+
+export type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error' | 'critical' | 'alert' | 'emergency' | 'warn';
+
+export type LogDebug = {
+    context: Record<string, string | object>;
+    level: LogLevel;
+    message: string;
+    microtime: number;
+};

@@ -1,8 +1,11 @@
-import React, {useContext} from 'react';
-import {getContextValues} from "../../util";
-import ErrorOccurrenceContext from "../../contexts/ErrorOccurrenceContext";
-import DebugTabs from "./DebugTabs";
-import Logs from "./tabs/Logs";
+import React, { useContext } from 'react';
+import { getContextValues } from '../../util';
+import ErrorOccurrenceContext from 'contexts/ErrorOccurrenceContext';
+import DebugTabs from './DebugTabs';
+import Logs from 'components/debug/tabs/Logs';
+import Dumps from 'components/debug/tabs/Dumps';
+import Queries from './tabs/Queries';
+import Glows from './tabs/Glows';
 
 export default function Debug() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -14,54 +17,13 @@ export default function Debug() {
 
     return (
         <section className="mt-20 2xl:col-start-2">
-            <a id="debug" className="z-50 absolute top-[-7.5rem]"/>
+            <a id="debug" className="z-50 absolute top-[-7.5rem]" />
             <DebugTabs>
-                <DebugTabs.Tab component={Logs} name="Dumps" count={Object.keys(dumps).length} />
-                <DebugTabs.Tab component={Logs} name="Glows" count={glows.length} />
-                <DebugTabs.Tab component={Logs} name="Queries" count={Object.keys(queries).length} />
+                <DebugTabs.Tab component={Dumps} name="Dumps" count={Object.keys(dumps).length} />
+                <DebugTabs.Tab component={Glows} name="Glows" count={glows.length} />
+                <DebugTabs.Tab component={Queries} name="Queries" count={Object.keys(queries).length} />
                 <DebugTabs.Tab component={Logs} name="Logs" count={Object.keys(logs).length} />
             </DebugTabs>
         </section>
     );
 }
-
-// function createQueryEvent({microtime, sql, time, connection_name, bindings, replace_bindings}: any): DebugEventType {
-//     return {
-//         microtime,
-//         type: 'query',
-//         label: sql,
-//         metadata: {time, connection_name},
-//         context: bindings || {},
-//         replace_bindings: replace_bindings,
-//     };
-// }
-//
-// function createDumpEvent({microtime, html_dump, file, line_number}: any): DebugEventType {
-//     return {
-//         microtime,
-//         type: 'dump',
-//         label: html_dump,
-//         metadata: {file, line_number},
-//         context: {},
-//     };
-// }
-//
-// function createLogEvent({microtime, context, level, message}: any): DebugEventType {
-//     return {
-//         microtime,
-//         type: 'log',
-//         label: message,
-//         metadata: {level},
-//         context,
-//     };
-// }
-//
-// function createGlowEvent({microtime, message_level, meta_data, time, name}: any): DebugEventType {
-//     return {
-//         type: 'glow',
-//         label: name,
-//         microtime,
-//         metadata: {time, message_level},
-//         context: meta_data || {},
-//     };
-// }

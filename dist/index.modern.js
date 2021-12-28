@@ -9150,7 +9150,7 @@ function mapValues(object, iteratee) {
 
 var mapValues_1 = mapValues;
 
-function useOpenEditorUrl({
+function useEditorUrl({
   file,
   lineNumber = 1
 }) {
@@ -9178,7 +9178,7 @@ function FrameCodeSnippetLine({
   frame,
   lineNumber
 }) {
-  const editorUrl = useOpenEditorUrl({
+  const editorUrl = useEditorUrl({
     file: frame.file,
     lineNumber
   });
@@ -9743,7 +9743,8 @@ function FrameGroup({
 }
 
 function RelaxedFilePath({
-  path
+  path,
+  lineNumber = null
 }) {
   var _parts$pop;
 
@@ -9757,12 +9758,34 @@ function RelaxedFilePath({
     key: index,
     className: "group-hover:underline"
   }, part, /*#__PURE__*/React.createElement("span", {
-    className: "mx-0.5"
+    className: "mx-0.5 group-hover:no-underline"
   }, "/"), /*#__PURE__*/React.createElement("wbr", null))), /*#__PURE__*/React.createElement("span", {
     className: "group-hover:underline font-semibold"
   }, fileName), /*#__PURE__*/React.createElement("span", {
     className: "group-hover:underline"
-  }, ".", extension));
+  }, ".", extension), lineNumber && /*#__PURE__*/React.createElement("span", {
+    className: "group-hover:underline"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "mx-0.5 group-hover:no-underline"
+  }, ":"), lineNumber));
+}
+
+function EditorLink({
+  path,
+  lineNumber,
+  className
+}) {
+  const editorUrl = useEditorUrl({
+    file: path,
+    lineNumber
+  });
+  return /*#__PURE__*/React.createElement("a", {
+    href: editorUrl || '#',
+    className: className
+  }, /*#__PURE__*/React.createElement(RelaxedFilePath, {
+    path: path,
+    lineNumber: lineNumber
+  }));
 }
 
 function StackTrace({
@@ -9825,10 +9848,6 @@ function StackTrace({
     const lineNumber = selectedRange ? selectedRange[0] === selectedRange[1] ? selectedRange[0] : `${selectedRange[0]}-${selectedRange[1]}` : null;
     window.history.replaceState(window.history.state, '', `#F${state.selected}${lineNumber ? 'L' + lineNumber : ''}`);
   }, [state.selected, selectedRange]);
-  const openEditorUrl = useOpenEditorUrl({
-    file: selectedFrame.file,
-    lineNumber: selectedFrame.line_number
-  });
   return /*#__PURE__*/React.createElement("section", {
     className: "mt-20 grid 2xl:row-span-3 2xl:row-start-1 2xl:col-start-2"
   }, /*#__PURE__*/React.createElement("a", {
@@ -9875,13 +9894,10 @@ function StackTrace({
     className: "lg:max-h-[calc(100vh-10rem)] 2xl:max-h-[calc(100vh-7.5rem)] flex flex-col lg:col-span-4 border-t lg:border-t-0 ~border-gray-200"
   }, /*#__PURE__*/React.createElement("header", {
     className: "~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end"
-  }, openEditorUrl && /*#__PURE__*/React.createElement("a", {
-    href: openEditorUrl,
+  }, /*#__PURE__*/React.createElement(EditorLink, {
+    path: selectedFrame == null ? void 0 : selectedFrame.relative_file,
+    lineNumber: selectedFrame == null ? void 0 : selectedFrame.line_number,
     className: "flex items-center text-sm"
-  }, /*#__PURE__*/React.createElement(RelaxedFilePath, {
-    path: selectedFrame == null ? void 0 : selectedFrame.relative_file
-  })), !openEditorUrl && /*#__PURE__*/React.createElement(RelaxedFilePath, {
-    path: selectedFrame == null ? void 0 : selectedFrame.relative_file
   })), /*#__PURE__*/React.createElement(FrameCodeSnippet, {
     frame: selectedFrame
   }))));
@@ -10587,19 +10603,85 @@ function DebugTabs({
 
 DebugTabs.Tab = _props => null;
 
+function DebugItem({
+  children,
+  context = null,
+  level = null
+}) {
+  const logLevelColors = {
+    error: 'bg-red-500',
+    warn: 'bg-orange-500',
+    warning: 'bg-orange-500',
+    info: 'bg-blue-500',
+    debug: 'bg-green-500',
+    trace: 'bg-gray-500',
+    notice: 'bg-purple-500',
+    critical: 'bg-red-500',
+    alert: 'bg-red-500',
+    emergency: 'bg-red-500'
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "px-6 py-3 my-3 border-b-2 sm:px-10"
+  }, level && /*#__PURE__*/React.createElement("span", {
+    className: `
+                        ${logLevelColors[level] || 'bg-color-gray-500'}
+                        text-white rounded py-1 px-2 shadow-sm
+                    `
+  }, level), children, context && /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
+  }, /*#__PURE__*/React.createElement(ContextList, {
+    items: context
+  })));
+}
+
 function Logs() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const logs = Object.values(getContextValues(errorOccurrence, 'logs'));
-  return /*#__PURE__*/React.createElement(React.Fragment, null, logs.map((log, index) => /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, logs.map((log, index) => /*#__PURE__*/React.createElement(DebugItem, {
     key: index,
-    className: "border-b"
+    context: log.context,
+    level: log.level
   }, /*#__PURE__*/React.createElement(CodeSnippet, {
     value: log.message
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
-  }, /*#__PURE__*/React.createElement(ContextList, {
-    items: log.context
-  })))));
+  }))));
+}
+
+function Dumps() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const dumps = Object.values(getContextValues(errorOccurrence, 'dumps'));
+  console.log(dumps);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, dumps.map(dump => /*#__PURE__*/React.createElement(DebugItem, null, /*#__PURE__*/React.createElement("div", {
+    dangerouslySetInnerHTML: {
+      __html: dump.html_dump
+    }
+  }), /*#__PURE__*/React.createElement(EditorLink, {
+    path: dump.file,
+    lineNumber: dump.line_number
+  }))));
+}
+
+function Queries() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const queries = Object.values(getContextValues(errorOccurrence, 'queries'));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, queries.map((query, index) => /*#__PURE__*/React.createElement(DebugItem, {
+    key: index
+  }, /*#__PURE__*/React.createElement("span", {
+    className: `bg-gray-500 text-white rounded py-1 px-2 shadow-sm`
+  }, query.connection_name), /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: query.sql
+  }), /*#__PURE__*/React.createElement("span", null, "Runtime: ", query.time, "sec"))));
+}
+
+function Glows() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const glows = errorOccurrence.glows;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, glows.map((glow, index) => /*#__PURE__*/React.createElement(DebugItem, {
+    key: index,
+    level: glow.message_level,
+    context: glow.meta_data
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: glow.name
+  }))));
 }
 
 function Debug() {
@@ -10614,15 +10696,15 @@ function Debug() {
     id: "debug",
     className: "z-50 absolute top-[-7.5rem]"
   }), /*#__PURE__*/React.createElement(DebugTabs, null, /*#__PURE__*/React.createElement(DebugTabs.Tab, {
-    component: Logs,
+    component: Dumps,
     name: "Dumps",
     count: Object.keys(dumps).length
   }), /*#__PURE__*/React.createElement(DebugTabs.Tab, {
-    component: Logs,
+    component: Glows,
     name: "Glows",
     count: glows.length
   }), /*#__PURE__*/React.createElement(DebugTabs.Tab, {
-    component: Logs,
+    component: Queries,
     name: "Queries",
     count: Object.keys(queries).length
   }), /*#__PURE__*/React.createElement(DebugTabs.Tab, {
@@ -10630,46 +10712,7 @@ function Debug() {
     name: "Logs",
     count: Object.keys(logs).length
   })));
-} // function createQueryEvent({microtime, sql, time, connection_name, bindings, replace_bindings}: any): DebugEventType {
-//     return {
-//         microtime,
-//         type: 'query',
-//         label: sql,
-//         metadata: {time, connection_name},
-//         context: bindings || {},
-//         replace_bindings: replace_bindings,
-//     };
-// }
-//
-// function createDumpEvent({microtime, html_dump, file, line_number}: any): DebugEventType {
-//     return {
-//         microtime,
-//         type: 'dump',
-//         label: html_dump,
-//         metadata: {file, line_number},
-//         context: {},
-//     };
-// }
-//
-// function createLogEvent({microtime, context, level, message}: any): DebugEventType {
-//     return {
-//         microtime,
-//         type: 'log',
-//         label: message,
-//         metadata: {level},
-//         context,
-//     };
-// }
-//
-// function createGlowEvent({microtime, message_level, meta_data, time, name}: any): DebugEventType {
-//     return {
-//         type: 'glow',
-//         label: name,
-//         microtime,
-//         metadata: {time, message_level},
-//         context: meta_data || {},
-//     };
-// }
+}
 
 function CopyButton({
   value

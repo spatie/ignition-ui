@@ -1,6 +1,6 @@
 import React from 'react';
 import { IThemedToken } from 'shiki';
-import useOpenEditorUrl from '../../../hooks/useOpenEditorUrl';
+import useEditorUrl from '../../../hooks/useEditorUrl';
 import { ErrorFrame } from '../../../types';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function FrameCodeSnippetLine({ highlight, tokens, frame, lineNumber }: Props) {
-    const editorUrl = useOpenEditorUrl({ file: frame.file, lineNumber });
+    const editorUrl = useEditorUrl({ file: frame.file, lineNumber });
 
     return (
         <span

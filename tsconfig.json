@@ -20,7 +20,8 @@
         "sourceMap": true,
         "strict": true,
         "target": "esnext",
-        "baseUrl": ".",
+        "baseUrl": "./src",
+        "rootDir": "./src",
         "paths": {
             "*": ["*", "src/*"]
         }
