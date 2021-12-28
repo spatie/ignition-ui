@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { getContextValues } from '../../../util';
+import { getContextValues, unixToDate } from '../../../util';
 import ErrorOccurrenceContext from 'contexts/ErrorOccurrenceContext';
 import DebugItem from 'components/debug/DebugItem';
 import { DumpDebug } from 'types';
@@ -15,9 +15,9 @@ export default function Dumps() {
     return (
         <>
             {dumps.map((dump) => (
-                <DebugItem>
+                <DebugItem time={unixToDate(dump.microtime)}>
+                    <EditorLink path={dump.file} lineNumber={dump.line_number} className="text-sm" />
                     <div dangerouslySetInnerHTML={{ __html: dump.html_dump }} />
-                    <EditorLink path={dump.file} lineNumber={dump.line_number} />
                 </DebugItem>
             ))}
         </>

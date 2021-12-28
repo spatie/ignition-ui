@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { getContextValues } from '../../../util';
+import { getContextValues, unixToDate } from '../../../util';
 import CodeSnippet from '../../ui/CodeSnippet';
 import { QueryDebug } from '../../../types';
 import DebugItem from '../DebugItem';
@@ -12,15 +12,16 @@ export default function Queries() {
     return (
         <>
             {queries.map((query, index) => (
-                <DebugItem key={index}>
-                    <span className={`bg-gray-500 text-white rounded py-1 px-2 shadow-sm`}>
-                        {query.connection_name}
-                    </span>
-
+                <DebugItem
+                    key={index}
+                    time={unixToDate(query.microtime)}
+                    meta={{
+                        runtime: `${query.time}sec`,
+                        connection: query.connection_name,
+                    }}
+                >
                     {/* TODO: Bindings */}
                     <CodeSnippet value={query.sql} />
-
-                    <span>Runtime: {query.time}sec</span>
                 </DebugItem>
             ))}
         </>

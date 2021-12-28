@@ -10096,6 +10096,9 @@ function curlBody(requestData, headers) {
 function getContextValues(errorOccurrence, group) {
   return mapValues_1(keyBy_1(errorOccurrence.context_items[group] || [], 'name'), 'value');
 }
+function unixToDate(timestamp) {
+  return new Date(timestamp * 1000);
+}
 
 function CodeSnippet({
   value,
@@ -10606,8 +10609,11 @@ DebugTabs.Tab = _props => null;
 function DebugItem({
   children,
   context = null,
-  level = null
+  level = null,
+  meta = null,
+  time
 }) {
+  useState(false);
   const logLevelColors = {
     error: 'bg-red-500',
     warn: 'bg-orange-500',
@@ -10622,12 +10628,19 @@ function DebugItem({
   };
   return /*#__PURE__*/React.createElement("div", {
     className: "px-6 py-3 my-3 border-b-2 sm:px-10"
+  }, children, /*#__PURE__*/React.createElement("div", {
+    className: "flex align-baseline text-sm gap-1"
   }, level && /*#__PURE__*/React.createElement("span", {
     className: `
-                        ${logLevelColors[level] || 'bg-color-gray-500'}
-                        text-white rounded py-1 px-2 shadow-sm
-                    `
-  }, level), children, context && /*#__PURE__*/React.createElement("div", {
+                            ${logLevelColors[level] || 'bg-color-gray-500'}
+                            text-white rounded-full px-2 shadow-sm
+                        `
+  }, level), meta && Object.entries(meta).map(([key, value]) => /*#__PURE__*/React.createElement("span", {
+    key: key,
+    className: "rounded-full px-2 ~bg-white text-gray-500 shadow-sm"
+  }, key, ": ", value)), /*#__PURE__*/React.createElement("span", {
+    className: "ml-auto text-sm text-gray-700"
+  }, time.toLocaleTimeString())), context && /*#__PURE__*/React.createElement("div", {
     className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
   }, /*#__PURE__*/React.createElement(ContextList, {
     items: context
@@ -10640,7 +10653,8 @@ function Logs() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, logs.map((log, index) => /*#__PURE__*/React.createElement(DebugItem, {
     key: index,
     context: log.context,
-    level: log.level
+    level: log.level,
+    time: unixToDate(log.microtime)
   }, /*#__PURE__*/React.createElement(CodeSnippet, {
     value: log.message
   }))));
@@ -10650,13 +10664,16 @@ function Dumps() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const dumps = Object.values(getContextValues(errorOccurrence, 'dumps'));
   console.log(dumps);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, dumps.map(dump => /*#__PURE__*/React.createElement(DebugItem, null, /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, dumps.map(dump => /*#__PURE__*/React.createElement(DebugItem, {
+    time: unixToDate(dump.microtime)
+  }, /*#__PURE__*/React.createElement(EditorLink, {
+    path: dump.file,
+    lineNumber: dump.line_number,
+    className: "text-sm"
+  }), /*#__PURE__*/React.createElement("div", {
     dangerouslySetInnerHTML: {
       __html: dump.html_dump
     }
-  }), /*#__PURE__*/React.createElement(EditorLink, {
-    path: dump.file,
-    lineNumber: dump.line_number
   }))));
 }
 
@@ -10664,12 +10681,15 @@ function Queries() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const queries = Object.values(getContextValues(errorOccurrence, 'queries'));
   return /*#__PURE__*/React.createElement(React.Fragment, null, queries.map((query, index) => /*#__PURE__*/React.createElement(DebugItem, {
-    key: index
-  }, /*#__PURE__*/React.createElement("span", {
-    className: `bg-gray-500 text-white rounded py-1 px-2 shadow-sm`
-  }, query.connection_name), /*#__PURE__*/React.createElement(CodeSnippet, {
+    key: index,
+    time: unixToDate(query.microtime),
+    meta: {
+      runtime: `${query.time}sec`,
+      connection: query.connection_name
+    }
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
     value: query.sql
-  }), /*#__PURE__*/React.createElement("span", null, "Runtime: ", query.time, "sec"))));
+  }))));
 }
 
 function Glows() {
@@ -10678,7 +10698,8 @@ function Glows() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, glows.map((glow, index) => /*#__PURE__*/React.createElement(DebugItem, {
     key: index,
     level: glow.message_level,
-    context: glow.meta_data
+    context: glow.meta_data,
+    time: unixToDate(glow.microtime)
   }, /*#__PURE__*/React.createElement(CodeSnippet, {
     value: glow.name
   }))));

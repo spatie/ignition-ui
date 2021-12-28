@@ -54,3 +54,7 @@ function curlBody(requestData: any, headers: any) {
 export function getContextValues(errorOccurrence: ErrorOccurrence, group: string): { [name: string]: any } {
     return mapValues(keyBy(errorOccurrence.context_items[group] || [], 'name'), 'value');
 }
+
+export function unixToDate(timestamp: number) {
+    return new Date(timestamp * 1000);
+}
