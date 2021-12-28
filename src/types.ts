@@ -33,7 +33,10 @@ export type ErrorOccurrence = {
     framework_version?: string;
     open_frame_index?: number;
     stage: string;
-    context_items: Record<string, Array<ContextItem>>;
+    context_items: {
+        [key: string]: Array<ContextItem> | LivewireContext | null;
+        livewire: null | LivewireContext;
+    };
     group_identifier: string;
     group_count: number;
     group_detail_query: string;
@@ -50,6 +53,18 @@ export type ErrorOccurrence = {
         group_details?: string;
     };
 };
+
+export type LivewireContext = {
+    component_alias: string;
+    component_class: string;
+    component_id: string;
+    data: Record<string, string | object>;
+    updates: Array<{
+        payload: Record<string, any>;
+        type: string;
+    }>;
+};
+
 export type ContextItem = {
     group: string;
     name: string;
