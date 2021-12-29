@@ -1,5 +1,6 @@
 import React from 'react';
 import CodeSnippet from './CodeSnippet';
+import { jsonStringify } from '../../util';
 
 type Props = {
     className?: string;
@@ -31,7 +32,7 @@ function UnorderedListItem({ value = '' }: UnorderedListItemProps) {
     if (React.isValidElement(value)) {
         valueOutput = value;
     } else if (typeof value === 'object') {
-        valueOutput = <CodeSnippet value={JSON.stringify(value, null, 4)} />;
+        valueOutput = <CodeSnippet value={jsonStringify(value)} />;
     } else if (typeof value === 'string') {
         valueOutput = <CodeSnippet value={value} />;
     }

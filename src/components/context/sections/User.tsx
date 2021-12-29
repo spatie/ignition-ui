@@ -1,7 +1,7 @@
 import md5 from 'md5';
 import React, { useContext } from 'react';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { getContextValues } from '../../../util';
+import { getContextValues, jsonStringify } from '../../../util';
 import CodeSnippet from '../../ui/CodeSnippet';
 
 export default function User() {
@@ -30,7 +30,7 @@ export default function User() {
                 </div>
             )}
             <div className="col-span-2">
-                <CodeSnippet value={JSON.stringify(user, null, 4)} />
+                <CodeSnippet value={jsonStringify(user)} />
             </div>
         </>
     );

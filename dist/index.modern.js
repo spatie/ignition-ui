@@ -10201,6 +10201,9 @@ function getContextValues(errorOccurrence, group) {
 function unixToDate(timestamp) {
   return new Date(timestamp * 1000);
 }
+function jsonStringify(value) {
+  return JSON.stringify(value, null, 4);
+}
 
 function CodeSnippet({
   value,
@@ -10507,7 +10510,7 @@ function DefinitionListRow({
     });
   } else if (typeof value === 'object') {
     valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
-      value: JSON.stringify(value, null, 4)
+      value: jsonStringify(value)
     });
   } else if (typeof value === 'string') {
     valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
@@ -10594,7 +10597,7 @@ function Body() {
   return /*#__PURE__*/React.createElement("div", {
     className: "col-span-2"
   }, /*#__PURE__*/React.createElement(CodeSnippet, {
-    value: JSON.stringify(body)
+    value: jsonStringify(body)
   }));
 }
 
@@ -10604,7 +10607,7 @@ function Files() {
   return /*#__PURE__*/React.createElement("div", {
     className: "col-span-2"
   }, /*#__PURE__*/React.createElement(CodeSnippet, {
-    value: JSON.stringify(files)
+    value: jsonStringify(files)
   }));
 }
 
@@ -10693,7 +10696,7 @@ function UnorderedListItem({
     valueOutput = value;
   } else if (typeof value === 'object') {
     valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
-      value: JSON.stringify(value, null, 4)
+      value: jsonStringify(value)
     });
   } else if (typeof value === 'string') {
     valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
@@ -11075,7 +11078,7 @@ function User() {
   }, user.email))), /*#__PURE__*/React.createElement("div", {
     className: "col-span-2"
   }, /*#__PURE__*/React.createElement(CodeSnippet, {
-    value: JSON.stringify(user, null, 4)
+    value: jsonStringify(user)
   })));
 }
 
@@ -13410,7 +13413,7 @@ function DebugItem({
   }) : /*#__PURE__*/React.createElement("i", {
     className: "fas fa-code"
   })), showRawContext ? /*#__PURE__*/React.createElement(CodeSnippet, {
-    value: JSON.stringify(context, null, 4)
+    value: jsonStringify(context)
   }) : /*#__PURE__*/React.createElement("div", {
     className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
   }, /*#__PURE__*/React.createElement(ContextList, {

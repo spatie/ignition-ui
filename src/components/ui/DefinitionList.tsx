@@ -1,5 +1,6 @@
 import React from 'react';
 import CodeSnippet from './CodeSnippet';
+import { jsonStringify } from '../../util';
 
 type Props = {
     title?: string;
@@ -42,7 +43,7 @@ function DefinitionListRow({ value = '', label = '', className = '' }: Definitio
     } else if (typeof value === 'boolean') {
         valueOutput = value ? <i className="fas fa-check" /> : <i className="fas fa-times" />;
     } else if (typeof value === 'object') {
-        valueOutput = <CodeSnippet value={JSON.stringify(value, null, 4)} />;
+        valueOutput = <CodeSnippet value={jsonStringify(value)} />;
     } else if (typeof value === 'string') {
         valueOutput = <CodeSnippet value={value} />;
     }

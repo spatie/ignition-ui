@@ -1,7 +1,7 @@
-import React, {useContext} from 'react';
-import ErrorOccurrenceContext from "../../../contexts/ErrorOccurrenceContext";
-import {getContextValues} from "../../../util";
-import CodeSnippet from "../../ui/CodeSnippet";
+import React, { useContext } from 'react';
+import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
+import { getContextValues, jsonStringify } from '../../../util';
+import CodeSnippet from '../../ui/CodeSnippet';
 
 export default function Body() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -10,7 +10,7 @@ export default function Body() {
 
     return (
         <div className="col-span-2">
-            <CodeSnippet value={JSON.stringify(body)}/>
+            <CodeSnippet value={jsonStringify(body)} />
         </div>
-    )
+    );
 }

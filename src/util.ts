@@ -58,3 +58,7 @@ export function getContextValues(errorOccurrence: ErrorOccurrence, group: string
 export function unixToDate(timestamp: number) {
     return new Date(timestamp * 1000);
 }
+
+export function jsonStringify(value: any): string {
+    return JSON.stringify(value, null, 4);
+}

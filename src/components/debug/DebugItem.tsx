@@ -3,6 +3,7 @@ import ContextList from '../context/ContextList';
 import { LogLevel } from '../../types';
 import CodeSnippet from '../ui/CodeSnippet';
 import Button from '../ui/Button';
+import { jsonStringify } from '../../util';
 
 type Props = {
     children: React.ReactNode;
@@ -58,7 +59,7 @@ export default function DebugItem({ children, context = null, level = null, meta
                         {showRawContext ? <i className="fas fa-th-list" /> : <i className="fas fa-code" />}
                     </Button>
                     {showRawContext ? (
-                        <CodeSnippet value={JSON.stringify(context, null, 4)} />
+                        <CodeSnippet value={jsonStringify(context)} />
                     ) : (
                         <div className="grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2">
                             <ContextList items={context} />
