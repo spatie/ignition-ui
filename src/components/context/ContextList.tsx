@@ -2,7 +2,7 @@ import React from 'react';
 import DefinitionList from '../ui/DefinitionList';
 
 type Props = {
-    items: Record<string, string | object>;
+    items: Record<string, string | object | boolean>;
 };
 
 export default function ContextList({ items }: Props) {

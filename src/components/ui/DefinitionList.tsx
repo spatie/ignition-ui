@@ -29,7 +29,7 @@ export default function DefinitionList({ children, title = '', className = '', .
 DefinitionList.Row = DefinitionListRow;
 
 type DefinitionListRowProps = {
-    value?: string | React.ReactNode | Array<any> | Object;
+    value?: string | React.ReactNode | Array<any> | Object | boolean;
     label?: string | React.ReactNode;
     className?: string;
 };
@@ -39,6 +39,8 @@ function DefinitionListRow({ value = '', label = '', className = '' }: Definitio
 
     if (React.isValidElement(value)) {
         valueOutput = value;
+    } else if (typeof value === 'boolean') {
+        valueOutput = value ? <i className="fas fa-check" /> : <i className="fas fa-times" />;
     } else if (typeof value === 'object') {
         valueOutput = <CodeSnippet value={JSON.stringify(value, null, 4)} />;
     } else if (typeof value === 'string') {

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ContextList from '../context/ContextList';
 import { LogLevel } from '../../types';
+import CodeSnippet from '../ui/CodeSnippet';
+import Button from '../ui/Button';
 
 type Props = {
     children: React.ReactNode;
@@ -51,8 +53,17 @@ export default function DebugItem({ children, context = null, level = null, meta
             </div>
 
             {context && (
-                <div className="grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2">
-                    <ContextList items={context} />
+                <div className="mt-2">
+                    <Button onClick={() => setShowRawContext(!showRawContext)}>
+                        {showRawContext ? <i className="fas fa-th-list" /> : <i className="fas fa-code" />}
+                    </Button>
+                    {showRawContext ? (
+                        <CodeSnippet value={JSON.stringify(context, null, 4)} />
+                    ) : (
+                        <div className="grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2">
+                            <ContextList items={context} />
+                        </div>
+                    )}
                 </div>
             )}
         </div>

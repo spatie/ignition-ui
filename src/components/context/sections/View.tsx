@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import DefinitionList from '../../ui/DefinitionList';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
 import SfDump from '../../ui/SfDump';
-import RelaxedFilePath from '../../ui/RelaxedFilePath';
 import EditorLink from '../../ui/EditorLink';
 
 export default function View() {

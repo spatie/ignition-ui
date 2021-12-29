@@ -11,8 +11,6 @@ export default function Dumps() {
 
     const dumps = Object.values(getContextValues(errorOccurrence, 'dumps')) as Array<DumpDebug>;
 
-    console.log(dumps);
-
     return (
         <>
             {dumps.map((dump) => (

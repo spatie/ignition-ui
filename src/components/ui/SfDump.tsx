@@ -16,5 +16,5 @@ export default function SfDump({ value, ...props }: Props) {
         window.Sfdump(match[0]);
     }, [value]);
 
-    return <div dangerouslySetInnerHTML={{ __html: value }} />;
+    return <div dangerouslySetInnerHTML={{ __html: value }} {...props} />;
 }

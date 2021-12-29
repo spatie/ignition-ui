@@ -6620,7 +6620,7 @@ function stubFalse() {
 
 var stubFalse_1 = stubFalse;
 
-var isBuffer_1 = createCommonjsModule(function (module, exports) {
+var isBuffer_1$1 = createCommonjsModule(function (module, exports) {
   /** Detect free variable `exports`. */
   var freeExports = exports && !exports.nodeType && exports;
   /** Detect free variable `module`. */
@@ -6847,7 +6847,7 @@ var hasOwnProperty$5 = objectProto$7.hasOwnProperty;
 function arrayLikeKeys(value, inherited) {
   var isArr = isArray_1(value),
       isArg = !isArr && isArguments_1(value),
-      isBuff = !isArr && !isArg && isBuffer_1(value),
+      isBuff = !isArr && !isArg && isBuffer_1$1(value),
       isType = !isArr && !isArg && !isBuff && isTypedArray_1(value),
       skipIndexes = isArr || isArg || isBuff || isType,
       result = skipIndexes ? _baseTimes(value.length, String) : [],
@@ -8212,8 +8212,8 @@ var _Set = Set$1;
 
 /* Built-in method references that are verified to be native. */
 
-var WeakMap = _getNative(_root, 'WeakMap');
-var _WeakMap = WeakMap;
+var WeakMap$1 = _getNative(_root, 'WeakMap');
+var _WeakMap = WeakMap$1;
 
 /** `Object#toString` result references. */
 
@@ -8311,8 +8311,8 @@ function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
       othIsObj = othTag == objectTag,
       isSameTag = objTag == othTag;
 
-  if (isSameTag && isBuffer_1(object)) {
-    if (!isBuffer_1(other)) {
+  if (isSameTag && isBuffer_1$1(object)) {
+    if (!isBuffer_1$1(other)) {
       return false;
     }
 
@@ -9282,6 +9282,69 @@ function useKeyboardShortcut(key, callback) {
   }, [key, callback]);
 }
 
+function _wrapRegExp() {
+  _wrapRegExp = function (re, groups) {
+    return new BabelRegExp(re, undefined, groups);
+  };
+
+  var _super = RegExp.prototype;
+
+  var _groups = new WeakMap();
+
+  function BabelRegExp(re, flags, groups) {
+    var _this = new RegExp(re, flags);
+
+    _groups.set(_this, groups || _groups.get(re));
+
+    return _setPrototypeOf(_this, BabelRegExp.prototype);
+  }
+
+  _inherits(BabelRegExp, RegExp);
+
+  BabelRegExp.prototype.exec = function (str) {
+    var result = _super.exec.call(this, str);
+
+    if (result) result.groups = buildGroups(result, this);
+    return result;
+  };
+
+  BabelRegExp.prototype[Symbol.replace] = function (str, substitution) {
+    if (typeof substitution === "string") {
+      var groups = _groups.get(this);
+
+      return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) {
+        return "$" + groups[name];
+      }));
+    } else if (typeof substitution === "function") {
+      var _this = this;
+
+      return _super[Symbol.replace].call(this, str, function () {
+        var args = arguments;
+
+        if (typeof args[args.length - 1] !== "object") {
+          args = [].slice.call(args);
+          args.push(buildGroups(args, _this));
+        }
+
+        return substitution.apply(this, args);
+      });
+    } else {
+      return _super[Symbol.replace].call(this, str, substitution);
+    }
+  };
+
+  function buildGroups(result, re) {
+    var g = _groups.get(re);
+
+    return Object.keys(g).reduce(function (groups, name) {
+      groups[name] = result[g[name]];
+      return groups;
+    }, Object.create(null));
+  }
+
+  return _wrapRegExp.apply(this, arguments);
+}
+
 function _extends() {
   _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -9298,6 +9361,30 @@ function _extends() {
   };
 
   return _extends.apply(this, arguments);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
 }
 
 function _objectWithoutPropertiesLoose(source, excluded) {
@@ -9769,7 +9856,9 @@ function RelaxedFilePath({
   const fileName = fileParts.join('.');
   return /*#__PURE__*/React.createElement("span", {
     className: "group"
-  }, parts.map((part, index) => /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+  }, parts.map((part, index) => /*#__PURE__*/React.createElement(React.Fragment, {
+    key: index
+  }, /*#__PURE__*/React.createElement("span", {
     key: index,
     className: "group-hover:underline"
   }, part), /*#__PURE__*/React.createElement("span", {
@@ -10384,14 +10473,14 @@ function ContextNavItem({
   }), children);
 }
 
-const _excluded$2 = ["children", "title", "className"];
+const _excluded$4 = ["children", "title", "className"];
 function DefinitionList(_ref) {
   let {
     children,
     title = '',
     className = ''
   } = _ref,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$4);
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, title && /*#__PURE__*/React.createElement("h2", {
     className: "mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider"
@@ -10410,6 +10499,12 @@ function DefinitionListRow({
 
   if (React.isValidElement(value)) {
     valueOutput = value;
+  } else if (typeof value === 'boolean') {
+    valueOutput = value ? /*#__PURE__*/React.createElement("i", {
+      className: "fas fa-check"
+    }) : /*#__PURE__*/React.createElement("i", {
+      className: "fas fa-times"
+    });
   } else if (typeof value === 'object') {
     valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
       value: JSON.stringify(value, null, 4)
@@ -10575,13 +10670,13 @@ function LivewireUpdates() {
   })));
 }
 
-const _excluded$1 = ["children", "className"];
+const _excluded$3 = ["children", "className"];
 function UnorderedList(_ref) {
   let {
     children,
     className = ''
   } = _ref,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$3);
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, children && /*#__PURE__*/React.createElement("ul", _extends({
     className: `gap-y-2 flex flex-col border-l-2 border-l-gray-300 ${className}`
@@ -10634,12 +10729,12 @@ function Routing() {
   }));
 }
 
-const _excluded = ["value"];
+const _excluded$2 = ["value"];
 function SfDump(_ref) {
   let {
     value
-  } = _ref;
-      _objectWithoutPropertiesLoose(_ref, _excluded);
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
   useEffect(() => {
     const match = value.match(/sf-dump-\d+/);
@@ -10651,11 +10746,11 @@ function SfDump(_ref) {
 
     window.Sfdump(match[0]);
   }, [value]);
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", _extends({
     dangerouslySetInnerHTML: {
       __html: value
     }
-  });
+  }, props));
 }
 
 function View() {
@@ -10681,6 +10776,2406 @@ function View() {
     }))),
     label: "Data"
   }));
+}
+
+var crypt = createCommonjsModule(function (module) {
+  (function () {
+    var base64map = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
+        crypt = {
+      // Bit-wise rotation left
+      rotl: function (n, b) {
+        return n << b | n >>> 32 - b;
+      },
+      // Bit-wise rotation right
+      rotr: function (n, b) {
+        return n << 32 - b | n >>> b;
+      },
+      // Swap big-endian to little-endian and vice versa
+      endian: function (n) {
+        // If number given, swap endian
+        if (n.constructor == Number) {
+          return crypt.rotl(n, 8) & 0x00FF00FF | crypt.rotl(n, 24) & 0xFF00FF00;
+        } // Else, assume array and swap all items
+
+
+        for (var i = 0; i < n.length; i++) n[i] = crypt.endian(n[i]);
+
+        return n;
+      },
+      // Generate an array of any length of random bytes
+      randomBytes: function (n) {
+        for (var bytes = []; n > 0; n--) bytes.push(Math.floor(Math.random() * 256));
+
+        return bytes;
+      },
+      // Convert a byte array to big-endian 32-bit words
+      bytesToWords: function (bytes) {
+        for (var words = [], i = 0, b = 0; i < bytes.length; i++, b += 8) words[b >>> 5] |= bytes[i] << 24 - b % 32;
+
+        return words;
+      },
+      // Convert big-endian 32-bit words to a byte array
+      wordsToBytes: function (words) {
+        for (var bytes = [], b = 0; b < words.length * 32; b += 8) bytes.push(words[b >>> 5] >>> 24 - b % 32 & 0xFF);
+
+        return bytes;
+      },
+      // Convert a byte array to a hex string
+      bytesToHex: function (bytes) {
+        for (var hex = [], i = 0; i < bytes.length; i++) {
+          hex.push((bytes[i] >>> 4).toString(16));
+          hex.push((bytes[i] & 0xF).toString(16));
+        }
+
+        return hex.join('');
+      },
+      // Convert a hex string to a byte array
+      hexToBytes: function (hex) {
+        for (var bytes = [], c = 0; c < hex.length; c += 2) bytes.push(parseInt(hex.substr(c, 2), 16));
+
+        return bytes;
+      },
+      // Convert a byte array to a base-64 string
+      bytesToBase64: function (bytes) {
+        for (var base64 = [], i = 0; i < bytes.length; i += 3) {
+          var triplet = bytes[i] << 16 | bytes[i + 1] << 8 | bytes[i + 2];
+
+          for (var j = 0; j < 4; j++) if (i * 8 + j * 6 <= bytes.length * 8) base64.push(base64map.charAt(triplet >>> 6 * (3 - j) & 0x3F));else base64.push('=');
+        }
+
+        return base64.join('');
+      },
+      // Convert a base-64 string to a byte array
+      base64ToBytes: function (base64) {
+        // Remove non-base-64 characters
+        base64 = base64.replace(/[^A-Z0-9+\/]/ig, '');
+
+        for (var bytes = [], i = 0, imod4 = 0; i < base64.length; imod4 = ++i % 4) {
+          if (imod4 == 0) continue;
+          bytes.push((base64map.indexOf(base64.charAt(i - 1)) & Math.pow(2, -2 * imod4 + 8) - 1) << imod4 * 2 | base64map.indexOf(base64.charAt(i)) >>> 6 - imod4 * 2);
+        }
+
+        return bytes;
+      }
+    };
+    module.exports = crypt;
+  })();
+});
+
+var charenc = {
+  // UTF-8 encoding
+  utf8: {
+    // Convert a string to a byte array
+    stringToBytes: function (str) {
+      return charenc.bin.stringToBytes(unescape(encodeURIComponent(str)));
+    },
+    // Convert a byte array to a string
+    bytesToString: function (bytes) {
+      return decodeURIComponent(escape(charenc.bin.bytesToString(bytes)));
+    }
+  },
+  // Binary encoding
+  bin: {
+    // Convert a string to a byte array
+    stringToBytes: function (str) {
+      for (var bytes = [], i = 0; i < str.length; i++) bytes.push(str.charCodeAt(i) & 0xFF);
+
+      return bytes;
+    },
+    // Convert a byte array to a string
+    bytesToString: function (bytes) {
+      for (var str = [], i = 0; i < bytes.length; i++) str.push(String.fromCharCode(bytes[i]));
+
+      return str.join('');
+    }
+  }
+};
+var charenc_1 = charenc;
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+var isBuffer_1 = function isBuffer_1(obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer);
+};
+
+function isBuffer(obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
+} // For Node v0.10 support. Remove this eventually.
+
+
+function isSlowBuffer(obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
+}
+
+var md5 = createCommonjsModule(function (module) {
+  (function () {
+    var crypt$1 = crypt,
+        utf8 = charenc_1.utf8,
+        isBuffer = isBuffer_1,
+        bin = charenc_1.bin,
+        // The core
+    md5 = function md5(message, options) {
+      // Convert to byte array
+      if (message.constructor == String) {
+        if (options && options.encoding === 'binary') message = bin.stringToBytes(message);else message = utf8.stringToBytes(message);
+      } else if (isBuffer(message)) message = Array.prototype.slice.call(message, 0);else if (!Array.isArray(message) && message.constructor !== Uint8Array) message = message.toString(); // else, assume byte array already
+
+      var m = crypt$1.bytesToWords(message),
+          l = message.length * 8,
+          a = 1732584193,
+          b = -271733879,
+          c = -1732584194,
+          d = 271733878; // Swap endian
+
+      for (var i = 0; i < m.length; i++) {
+        m[i] = (m[i] << 8 | m[i] >>> 24) & 0x00FF00FF | (m[i] << 24 | m[i] >>> 8) & 0xFF00FF00;
+      } // Padding
+
+
+      m[l >>> 5] |= 0x80 << l % 32;
+      m[(l + 64 >>> 9 << 4) + 14] = l; // Method shortcuts
+
+      var FF = md5._ff,
+          GG = md5._gg,
+          HH = md5._hh,
+          II = md5._ii;
+
+      for (var i = 0; i < m.length; i += 16) {
+        var aa = a,
+            bb = b,
+            cc = c,
+            dd = d;
+        a = FF(a, b, c, d, m[i + 0], 7, -680876936);
+        d = FF(d, a, b, c, m[i + 1], 12, -389564586);
+        c = FF(c, d, a, b, m[i + 2], 17, 606105819);
+        b = FF(b, c, d, a, m[i + 3], 22, -1044525330);
+        a = FF(a, b, c, d, m[i + 4], 7, -176418897);
+        d = FF(d, a, b, c, m[i + 5], 12, 1200080426);
+        c = FF(c, d, a, b, m[i + 6], 17, -1473231341);
+        b = FF(b, c, d, a, m[i + 7], 22, -45705983);
+        a = FF(a, b, c, d, m[i + 8], 7, 1770035416);
+        d = FF(d, a, b, c, m[i + 9], 12, -1958414417);
+        c = FF(c, d, a, b, m[i + 10], 17, -42063);
+        b = FF(b, c, d, a, m[i + 11], 22, -1990404162);
+        a = FF(a, b, c, d, m[i + 12], 7, 1804603682);
+        d = FF(d, a, b, c, m[i + 13], 12, -40341101);
+        c = FF(c, d, a, b, m[i + 14], 17, -1502002290);
+        b = FF(b, c, d, a, m[i + 15], 22, 1236535329);
+        a = GG(a, b, c, d, m[i + 1], 5, -165796510);
+        d = GG(d, a, b, c, m[i + 6], 9, -1069501632);
+        c = GG(c, d, a, b, m[i + 11], 14, 643717713);
+        b = GG(b, c, d, a, m[i + 0], 20, -373897302);
+        a = GG(a, b, c, d, m[i + 5], 5, -701558691);
+        d = GG(d, a, b, c, m[i + 10], 9, 38016083);
+        c = GG(c, d, a, b, m[i + 15], 14, -660478335);
+        b = GG(b, c, d, a, m[i + 4], 20, -405537848);
+        a = GG(a, b, c, d, m[i + 9], 5, 568446438);
+        d = GG(d, a, b, c, m[i + 14], 9, -1019803690);
+        c = GG(c, d, a, b, m[i + 3], 14, -187363961);
+        b = GG(b, c, d, a, m[i + 8], 20, 1163531501);
+        a = GG(a, b, c, d, m[i + 13], 5, -1444681467);
+        d = GG(d, a, b, c, m[i + 2], 9, -51403784);
+        c = GG(c, d, a, b, m[i + 7], 14, 1735328473);
+        b = GG(b, c, d, a, m[i + 12], 20, -1926607734);
+        a = HH(a, b, c, d, m[i + 5], 4, -378558);
+        d = HH(d, a, b, c, m[i + 8], 11, -2022574463);
+        c = HH(c, d, a, b, m[i + 11], 16, 1839030562);
+        b = HH(b, c, d, a, m[i + 14], 23, -35309556);
+        a = HH(a, b, c, d, m[i + 1], 4, -1530992060);
+        d = HH(d, a, b, c, m[i + 4], 11, 1272893353);
+        c = HH(c, d, a, b, m[i + 7], 16, -155497632);
+        b = HH(b, c, d, a, m[i + 10], 23, -1094730640);
+        a = HH(a, b, c, d, m[i + 13], 4, 681279174);
+        d = HH(d, a, b, c, m[i + 0], 11, -358537222);
+        c = HH(c, d, a, b, m[i + 3], 16, -722521979);
+        b = HH(b, c, d, a, m[i + 6], 23, 76029189);
+        a = HH(a, b, c, d, m[i + 9], 4, -640364487);
+        d = HH(d, a, b, c, m[i + 12], 11, -421815835);
+        c = HH(c, d, a, b, m[i + 15], 16, 530742520);
+        b = HH(b, c, d, a, m[i + 2], 23, -995338651);
+        a = II(a, b, c, d, m[i + 0], 6, -198630844);
+        d = II(d, a, b, c, m[i + 7], 10, 1126891415);
+        c = II(c, d, a, b, m[i + 14], 15, -1416354905);
+        b = II(b, c, d, a, m[i + 5], 21, -57434055);
+        a = II(a, b, c, d, m[i + 12], 6, 1700485571);
+        d = II(d, a, b, c, m[i + 3], 10, -1894986606);
+        c = II(c, d, a, b, m[i + 10], 15, -1051523);
+        b = II(b, c, d, a, m[i + 1], 21, -2054922799);
+        a = II(a, b, c, d, m[i + 8], 6, 1873313359);
+        d = II(d, a, b, c, m[i + 15], 10, -30611744);
+        c = II(c, d, a, b, m[i + 6], 15, -1560198380);
+        b = II(b, c, d, a, m[i + 13], 21, 1309151649);
+        a = II(a, b, c, d, m[i + 4], 6, -145523070);
+        d = II(d, a, b, c, m[i + 11], 10, -1120210379);
+        c = II(c, d, a, b, m[i + 2], 15, 718787259);
+        b = II(b, c, d, a, m[i + 9], 21, -343485551);
+        a = a + aa >>> 0;
+        b = b + bb >>> 0;
+        c = c + cc >>> 0;
+        d = d + dd >>> 0;
+      }
+
+      return crypt$1.endian([a, b, c, d]);
+    }; // Auxiliary functions
+
+
+    md5._ff = function (a, b, c, d, x, s, t) {
+      var n = a + (b & c | ~b & d) + (x >>> 0) + t;
+      return (n << s | n >>> 32 - s) + b;
+    };
+
+    md5._gg = function (a, b, c, d, x, s, t) {
+      var n = a + (b & d | c & ~d) + (x >>> 0) + t;
+      return (n << s | n >>> 32 - s) + b;
+    };
+
+    md5._hh = function (a, b, c, d, x, s, t) {
+      var n = a + (b ^ c ^ d) + (x >>> 0) + t;
+      return (n << s | n >>> 32 - s) + b;
+    };
+
+    md5._ii = function (a, b, c, d, x, s, t) {
+      var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
+      return (n << s | n >>> 32 - s) + b;
+    }; // Package private blocksize
+
+
+    md5._blocksize = 16;
+    md5._digestsize = 16;
+
+    module.exports = function (message, options) {
+      if (message === undefined || message === null) throw new Error('Illegal argument ' + message);
+      var digestbytes = crypt$1.wordsToBytes(md5(message, options));
+      return options && options.asBytes ? digestbytes : options && options.asString ? bin.bytesToString(digestbytes) : crypt$1.bytesToHex(digestbytes);
+    };
+  })();
+});
+
+function User() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const user = getContextValues(errorOccurrence, 'user');
+  return /*#__PURE__*/React.createElement(React.Fragment, null, user.email && /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center col-span-2"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
+    className: "inline-block h-9 w-9 rounded-full",
+    alt: user.email,
+    src: `https://gravatar.com/avatar/${md5(user.email)}/?s=240`
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "ml-3"
+  }, user.name && /*#__PURE__*/React.createElement("p", {
+    className: "text-base font-semibold text-gray-700 group-hover:text-gray-900"
+  }, user.name), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm font-semibold text-gray-500 group-hover:text-gray-700"
+  }, user.email))), /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2"
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: JSON.stringify(user, null, 4)
+  })));
+}
+
+function Alert({
+  children,
+  className = ''
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: `bg-yellow-50 border-l-4 border-yellow-400 p-4 ${className}`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex-shrink-0"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fas fa-exclamation-triangle text-yellow-400",
+    "aria-hidden": "true"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "ml-3"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "text-sm text-yellow-700"
+  }, children))));
+}
+
+const _excluded$1 = ["children", "className"];
+function LinkButton(_ref) {
+  let {
+    children,
+    className = ''
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+
+  return /*#__PURE__*/React.createElement("a", _extends({
+    className: `mt-6 px-4 h-8 bg-red-500 text-white whitespace-nowrap border-b
+                border-red-500/25 text-xs uppercase tracking-wider font-bold rounded-sm
+                shadow-md hover:shadow-lg active:shadow-none
+                ${className}
+            `
+  }, props), children);
+}
+
+/**
+ * protocols
+ * Returns the protocols of an input url.
+ *
+ * @name protocols
+ * @function
+ * @param {String} input The input url.
+ * @param {Boolean|Number} first If `true`, the first protocol will be returned. If number, it will represent the zero-based index of the protocols array.
+ * @return {Array|String} The array of protocols or the specified protocol.
+ */
+
+var lib$5 = function protocols(input, first) {
+  if (first === true) {
+    first = 0;
+  }
+
+  var index = input.indexOf("://"),
+      splits = input.substring(0, index).split("+").filter(Boolean);
+
+  if (typeof first === "number") {
+    return splits[first];
+  }
+
+  return splits;
+};
+
+/**
+ * isSsh
+ * Checks if an input value is a ssh url or not.
+ *
+ * @name isSsh
+ * @function
+ * @param {String|Array} input The input url or an array of protocols.
+ * @return {Boolean} `true` if the input is a ssh url, `false` otherwise.
+ */
+
+
+function isSsh(input) {
+  if (Array.isArray(input)) {
+    return input.indexOf("ssh") !== -1 || input.indexOf("rsync") !== -1;
+  }
+
+  if (typeof input !== "string") {
+    return false;
+  }
+
+  var prots = lib$5(input);
+  input = input.substring(input.indexOf("://") + 3);
+
+  if (isSsh(prots)) {
+    return true;
+  } // TODO This probably could be improved :)
+
+
+  var urlPortPattern = new RegExp('\.([a-zA-Z\\d]+):(\\d+)\/');
+  return !input.match(urlPortPattern) && input.indexOf("@") < input.indexOf(":");
+}
+
+var lib$4 = isSsh;
+
+var strictUriEncode = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.charCodeAt(0).toString(16).toUpperCase()}`);
+
+var token = '%[a-f0-9]{2}';
+var singleMatcher = new RegExp(token, 'gi');
+var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+
+function decodeComponents(components, split) {
+  try {
+    // Try to decode the entire string first
+    return decodeURIComponent(components.join(''));
+  } catch (err) {// Do nothing
+  }
+
+  if (components.length === 1) {
+    return components;
+  }
+
+  split = split || 1; // Split the array in 2 parts
+
+  var left = components.slice(0, split);
+  var right = components.slice(split);
+  return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+}
+
+function decode(input) {
+  try {
+    return decodeURIComponent(input);
+  } catch (err) {
+    var tokens = input.match(singleMatcher);
+
+    for (var i = 1; i < tokens.length; i++) {
+      input = decodeComponents(tokens, i).join('');
+      tokens = input.match(singleMatcher);
+    }
+
+    return input;
+  }
+}
+
+function customDecodeURIComponent(input) {
+  // Keep track of all the replacements and prefill the map with the `BOM`
+  var replaceMap = {
+    '%FE%FF': '\uFFFD\uFFFD',
+    '%FF%FE': '\uFFFD\uFFFD'
+  };
+  var match = multiMatcher.exec(input);
+
+  while (match) {
+    try {
+      // Decode as big chunks as possible
+      replaceMap[match[0]] = decodeURIComponent(match[0]);
+    } catch (err) {
+      var result = decode(match[0]);
+
+      if (result !== match[0]) {
+        replaceMap[match[0]] = result;
+      }
+    }
+
+    match = multiMatcher.exec(input);
+  } // Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
+
+
+  replaceMap['%C2'] = '\uFFFD';
+  var entries = Object.keys(replaceMap);
+
+  for (var i = 0; i < entries.length; i++) {
+    // Replace all decoded components
+    var key = entries[i];
+    input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
+  }
+
+  return input;
+}
+
+var decodeUriComponent = function decodeUriComponent(encodedURI) {
+  if (typeof encodedURI !== 'string') {
+    throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
+  }
+
+  try {
+    encodedURI = encodedURI.replace(/\+/g, ' '); // Try the built in decoder first
+
+    return decodeURIComponent(encodedURI);
+  } catch (err) {
+    // Fallback to a more advanced decoder
+    return customDecodeURIComponent(encodedURI);
+  }
+};
+
+var splitOnFirst = (string, separator) => {
+  if (!(typeof string === 'string' && typeof separator === 'string')) {
+    throw new TypeError('Expected the arguments to be of type `string`');
+  }
+
+  if (separator === '') {
+    return [string];
+  }
+
+  const separatorIndex = string.indexOf(separator);
+
+  if (separatorIndex === -1) {
+    return [string];
+  }
+
+  return [string.slice(0, separatorIndex), string.slice(separatorIndex + separator.length)];
+};
+
+var filterObj = function filterObj(obj, predicate) {
+  var ret = {};
+  var keys = Object.keys(obj);
+  var isArr = Array.isArray(predicate);
+
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    var val = obj[key];
+
+    if (isArr ? predicate.indexOf(key) !== -1 : predicate(key, val, obj)) {
+      ret[key] = val;
+    }
+  }
+
+  return ret;
+};
+
+var queryString = createCommonjsModule(function (module, exports) {
+
+  const isNullOrUndefined = value => value === null || value === undefined;
+
+  function encoderForArrayFormat(options) {
+    switch (options.arrayFormat) {
+      case 'index':
+        return key => (result, value) => {
+          const index = result.length;
+
+          if (value === undefined || options.skipNull && value === null || options.skipEmptyString && value === '') {
+            return result;
+          }
+
+          if (value === null) {
+            return [...result, [encode(key, options), '[', index, ']'].join('')];
+          }
+
+          return [...result, [encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join('')];
+        };
+
+      case 'bracket':
+        return key => (result, value) => {
+          if (value === undefined || options.skipNull && value === null || options.skipEmptyString && value === '') {
+            return result;
+          }
+
+          if (value === null) {
+            return [...result, [encode(key, options), '[]'].join('')];
+          }
+
+          return [...result, [encode(key, options), '[]=', encode(value, options)].join('')];
+        };
+
+      case 'comma':
+      case 'separator':
+        return key => (result, value) => {
+          if (value === null || value === undefined || value.length === 0) {
+            return result;
+          }
+
+          if (result.length === 0) {
+            return [[encode(key, options), '=', encode(value, options)].join('')];
+          }
+
+          return [[result, encode(value, options)].join(options.arrayFormatSeparator)];
+        };
+
+      default:
+        return key => (result, value) => {
+          if (value === undefined || options.skipNull && value === null || options.skipEmptyString && value === '') {
+            return result;
+          }
+
+          if (value === null) {
+            return [...result, encode(key, options)];
+          }
+
+          return [...result, [encode(key, options), '=', encode(value, options)].join('')];
+        };
+    }
+  }
+
+  function parserForArrayFormat(options) {
+    let result;
+
+    switch (options.arrayFormat) {
+      case 'index':
+        return (key, value, accumulator) => {
+          result = /\[(\d*)\]$/.exec(key);
+          key = key.replace(/\[\d*\]$/, '');
+
+          if (!result) {
+            accumulator[key] = value;
+            return;
+          }
+
+          if (accumulator[key] === undefined) {
+            accumulator[key] = {};
+          }
+
+          accumulator[key][result[1]] = value;
+        };
+
+      case 'bracket':
+        return (key, value, accumulator) => {
+          result = /(\[\])$/.exec(key);
+          key = key.replace(/\[\]$/, '');
+
+          if (!result) {
+            accumulator[key] = value;
+            return;
+          }
+
+          if (accumulator[key] === undefined) {
+            accumulator[key] = [value];
+            return;
+          }
+
+          accumulator[key] = [].concat(accumulator[key], value);
+        };
+
+      case 'comma':
+      case 'separator':
+        return (key, value, accumulator) => {
+          const isArray = typeof value === 'string' && value.includes(options.arrayFormatSeparator);
+          const isEncodedArray = typeof value === 'string' && !isArray && decode(value, options).includes(options.arrayFormatSeparator);
+          value = isEncodedArray ? decode(value, options) : value;
+          const newValue = isArray || isEncodedArray ? value.split(options.arrayFormatSeparator).map(item => decode(item, options)) : value === null ? value : decode(value, options);
+          accumulator[key] = newValue;
+        };
+
+      default:
+        return (key, value, accumulator) => {
+          if (accumulator[key] === undefined) {
+            accumulator[key] = value;
+            return;
+          }
+
+          accumulator[key] = [].concat(accumulator[key], value);
+        };
+    }
+  }
+
+  function validateArrayFormatSeparator(value) {
+    if (typeof value !== 'string' || value.length !== 1) {
+      throw new TypeError('arrayFormatSeparator must be single character string');
+    }
+  }
+
+  function encode(value, options) {
+    if (options.encode) {
+      return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
+    }
+
+    return value;
+  }
+
+  function decode(value, options) {
+    if (options.decode) {
+      return decodeUriComponent(value);
+    }
+
+    return value;
+  }
+
+  function keysSorter(input) {
+    if (Array.isArray(input)) {
+      return input.sort();
+    }
+
+    if (typeof input === 'object') {
+      return keysSorter(Object.keys(input)).sort((a, b) => Number(a) - Number(b)).map(key => input[key]);
+    }
+
+    return input;
+  }
+
+  function removeHash(input) {
+    const hashStart = input.indexOf('#');
+
+    if (hashStart !== -1) {
+      input = input.slice(0, hashStart);
+    }
+
+    return input;
+  }
+
+  function getHash(url) {
+    let hash = '';
+    const hashStart = url.indexOf('#');
+
+    if (hashStart !== -1) {
+      hash = url.slice(hashStart);
+    }
+
+    return hash;
+  }
+
+  function extract(input) {
+    input = removeHash(input);
+    const queryStart = input.indexOf('?');
+
+    if (queryStart === -1) {
+      return '';
+    }
+
+    return input.slice(queryStart + 1);
+  }
+
+  function parseValue(value, options) {
+    if (options.parseNumbers && !Number.isNaN(Number(value)) && typeof value === 'string' && value.trim() !== '') {
+      value = Number(value);
+    } else if (options.parseBooleans && value !== null && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
+      value = value.toLowerCase() === 'true';
+    }
+
+    return value;
+  }
+
+  function parse(query, options) {
+    options = Object.assign({
+      decode: true,
+      sort: true,
+      arrayFormat: 'none',
+      arrayFormatSeparator: ',',
+      parseNumbers: false,
+      parseBooleans: false
+    }, options);
+    validateArrayFormatSeparator(options.arrayFormatSeparator);
+    const formatter = parserForArrayFormat(options); // Create an object with no prototype
+
+    const ret = Object.create(null);
+
+    if (typeof query !== 'string') {
+      return ret;
+    }
+
+    query = query.trim().replace(/^[?#&]/, '');
+
+    if (!query) {
+      return ret;
+    }
+
+    for (const param of query.split('&')) {
+      if (param === '') {
+        continue;
+      }
+
+      let [key, value] = splitOnFirst(options.decode ? param.replace(/\+/g, ' ') : param, '='); // Missing `=` should be `null`:
+      // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+
+      value = value === undefined ? null : ['comma', 'separator'].includes(options.arrayFormat) ? value : decode(value, options);
+      formatter(decode(key, options), value, ret);
+    }
+
+    for (const key of Object.keys(ret)) {
+      const value = ret[key];
+
+      if (typeof value === 'object' && value !== null) {
+        for (const k of Object.keys(value)) {
+          value[k] = parseValue(value[k], options);
+        }
+      } else {
+        ret[key] = parseValue(value, options);
+      }
+    }
+
+    if (options.sort === false) {
+      return ret;
+    }
+
+    return (options.sort === true ? Object.keys(ret).sort() : Object.keys(ret).sort(options.sort)).reduce((result, key) => {
+      const value = ret[key];
+
+      if (Boolean(value) && typeof value === 'object' && !Array.isArray(value)) {
+        // Sort object keys, not values
+        result[key] = keysSorter(value);
+      } else {
+        result[key] = value;
+      }
+
+      return result;
+    }, Object.create(null));
+  }
+
+  exports.extract = extract;
+  exports.parse = parse;
+
+  exports.stringify = (object, options) => {
+    if (!object) {
+      return '';
+    }
+
+    options = Object.assign({
+      encode: true,
+      strict: true,
+      arrayFormat: 'none',
+      arrayFormatSeparator: ','
+    }, options);
+    validateArrayFormatSeparator(options.arrayFormatSeparator);
+
+    const shouldFilter = key => options.skipNull && isNullOrUndefined(object[key]) || options.skipEmptyString && object[key] === '';
+
+    const formatter = encoderForArrayFormat(options);
+    const objectCopy = {};
+
+    for (const key of Object.keys(object)) {
+      if (!shouldFilter(key)) {
+        objectCopy[key] = object[key];
+      }
+    }
+
+    const keys = Object.keys(objectCopy);
+
+    if (options.sort !== false) {
+      keys.sort(options.sort);
+    }
+
+    return keys.map(key => {
+      const value = object[key];
+
+      if (value === undefined) {
+        return '';
+      }
+
+      if (value === null) {
+        return encode(key, options);
+      }
+
+      if (Array.isArray(value)) {
+        return value.reduce(formatter(key), []).join('&');
+      }
+
+      return encode(key, options) + '=' + encode(value, options);
+    }).filter(x => x.length > 0).join('&');
+  };
+
+  exports.parseUrl = (url, options) => {
+    options = Object.assign({
+      decode: true
+    }, options);
+    const [url_, hash] = splitOnFirst(url, '#');
+    return Object.assign({
+      url: url_.split('?')[0] || '',
+      query: parse(extract(url), options)
+    }, options && options.parseFragmentIdentifier && hash ? {
+      fragmentIdentifier: decode(hash, options)
+    } : {});
+  };
+
+  exports.stringifyUrl = (object, options) => {
+    options = Object.assign({
+      encode: true,
+      strict: true
+    }, options);
+    const url = removeHash(object.url).split('?')[0] || '';
+    const queryFromUrl = exports.extract(object.url);
+    const parsedQueryFromUrl = exports.parse(queryFromUrl, {
+      sort: false
+    });
+    const query = Object.assign(parsedQueryFromUrl, object.query);
+    let queryString = exports.stringify(query, options);
+
+    if (queryString) {
+      queryString = `?${queryString}`;
+    }
+
+    let hash = getHash(object.url);
+
+    if (object.fragmentIdentifier) {
+      hash = `#${encode(object.fragmentIdentifier, options)}`;
+    }
+
+    return `${url}${queryString}${hash}`;
+  };
+
+  exports.pick = (input, filter, options) => {
+    options = Object.assign({
+      parseFragmentIdentifier: true
+    }, options);
+    const {
+      url,
+      query,
+      fragmentIdentifier
+    } = exports.parseUrl(input, options);
+    return exports.stringifyUrl({
+      url,
+      query: filterObj(query, filter),
+      fragmentIdentifier
+    }, options);
+  };
+
+  exports.exclude = (input, filter, options) => {
+    const exclusionFilter = Array.isArray(filter) ? key => !filter.includes(key) : (key, value) => !filter(key, value);
+    return exports.pick(input, exclusionFilter, options);
+  };
+});
+
+/**
+ * parsePath
+ * Parses the input url.
+ *
+ * @name parsePath
+ * @function
+ * @param {String} url The input url.
+ * @return {Object} An object containing the following fields:
+ *
+ *  - `protocols` (Array): An array with the url protocols (usually it has one element).
+ *  - `protocol` (String): The first protocol, `"ssh"` (if the url is a ssh url) or `"file"`.
+ *  - `port` (null|Number): The domain port.
+ *  - `resource` (String): The url domain (including subdomains).
+ *  - `user` (String): The authentication user (usually for ssh urls).
+ *  - `pathname` (String): The url pathname.
+ *  - `hash` (String): The url hash.
+ *  - `search` (String): The url querystring value.
+ *  - `href` (String): The input url.
+ *  - `query` (Object): The url querystring, parsed as object.
+ */
+
+
+function parsePath(url) {
+  url = (url || "").trim();
+  var output = {
+    protocols: lib$5(url),
+    protocol: null,
+    port: null,
+    resource: "",
+    user: "",
+    pathname: "",
+    hash: "",
+    search: "",
+    href: url,
+    query: Object.create(null)
+  },
+      protocolIndex = url.indexOf("://"),
+      splits = null,
+      parts = null;
+
+  if (url.startsWith(".")) {
+    if (url.startsWith("./")) {
+      url = url.substring(2);
+    }
+
+    output.pathname = url;
+    output.protocol = "file";
+  }
+
+  var firstChar = url.charAt(1);
+
+  if (!output.protocol) {
+    output.protocol = output.protocols[0];
+
+    if (!output.protocol) {
+      if (lib$4(url)) {
+        output.protocol = "ssh";
+      } else if (firstChar === "/" || firstChar === "~") {
+        url = url.substring(2);
+        output.protocol = "file";
+      } else {
+        output.protocol = "file";
+      }
+    }
+  }
+
+  if (protocolIndex !== -1) {
+    url = url.substring(protocolIndex + 3);
+  }
+
+  parts = url.split(/\/|\\/);
+
+  if (output.protocol !== "file") {
+    output.resource = parts.shift();
+  } else {
+    output.resource = "";
+  } // user@domain
+
+
+  splits = output.resource.split("@");
+
+  if (splits.length === 2) {
+    output.user = splits[0];
+    output.resource = splits[1];
+  } // domain.com:port
+
+
+  splits = output.resource.split(":");
+
+  if (splits.length === 2) {
+    output.resource = splits[0];
+
+    if (splits[1]) {
+      output.port = Number(splits[1]);
+
+      if (isNaN(output.port)) {
+        output.port = null;
+        parts.unshift(splits[1]);
+      }
+    } else {
+      output.port = null;
+    }
+  } // Remove empty elements
+
+
+  parts = parts.filter(Boolean); // Stringify the pathname
+
+  if (output.protocol === "file") {
+    output.pathname = output.href;
+  } else {
+    output.pathname = output.pathname || (output.protocol !== "file" || output.href[0] === "/" ? "/" : "") + parts.join("/");
+  } // #some-hash
+
+
+  splits = output.pathname.split("#");
+
+  if (splits.length === 2) {
+    output.pathname = splits[0];
+    output.hash = splits[1];
+  } // ?foo=bar
+
+
+  splits = output.pathname.split("?");
+
+  if (splits.length === 2) {
+    output.pathname = splits[0];
+    output.search = splits[1];
+  }
+
+  output.query = queryString.parse(output.search);
+  output.href = output.href.replace(/\/$/, "");
+  output.pathname = output.pathname.replace(/\/$/, "");
+  return output;
+}
+
+var lib$3 = parsePath;
+
+const DATA_URL_DEFAULT_MIME_TYPE = 'text/plain';
+const DATA_URL_DEFAULT_CHARSET = 'us-ascii';
+
+const testParameter = (name, filters) => {
+  return filters.some(filter => filter instanceof RegExp ? filter.test(name) : filter === name);
+};
+
+const normalizeDataURL = (urlString, {
+  stripHash
+}) => {
+  const match = /*#__PURE__*/_wrapRegExp(/^data:((?:(?!,)[\s\S])*?),((?:(?!#)[\s\S])*?)(?:#(.*))?$/, {
+    type: 1,
+    data: 2,
+    hash: 3
+  }).exec(urlString);
+
+  if (!match) {
+    throw new Error(`Invalid URL: ${urlString}`);
+  }
+
+  let {
+    type,
+    data,
+    hash
+  } = match.groups;
+  const mediaType = type.split(';');
+  hash = stripHash ? '' : hash;
+  let isBase64 = false;
+
+  if (mediaType[mediaType.length - 1] === 'base64') {
+    mediaType.pop();
+    isBase64 = true;
+  } // Lowercase MIME type
+
+
+  const mimeType = (mediaType.shift() || '').toLowerCase();
+  const attributes = mediaType.map(attribute => {
+    let [key, value = ''] = attribute.split('=').map(string => string.trim()); // Lowercase `charset`
+
+    if (key === 'charset') {
+      value = value.toLowerCase();
+
+      if (value === DATA_URL_DEFAULT_CHARSET) {
+        return '';
+      }
+    }
+
+    return `${key}${value ? `=${value}` : ''}`;
+  }).filter(Boolean);
+  const normalizedMediaType = [...attributes];
+
+  if (isBase64) {
+    normalizedMediaType.push('base64');
+  }
+
+  if (normalizedMediaType.length !== 0 || mimeType && mimeType !== DATA_URL_DEFAULT_MIME_TYPE) {
+    normalizedMediaType.unshift(mimeType);
+  }
+
+  return `data:${normalizedMediaType.join(';')},${isBase64 ? data.trim() : data}${hash ? `#${hash}` : ''}`;
+};
+
+const normalizeUrl = (urlString, options) => {
+  options = _extends({
+    defaultProtocol: 'http:',
+    normalizeProtocol: true,
+    forceHttp: false,
+    forceHttps: false,
+    stripAuthentication: true,
+    stripHash: false,
+    stripTextFragment: true,
+    stripWWW: true,
+    removeQueryParameters: [/^utm_\w+/i],
+    removeTrailingSlash: true,
+    removeSingleSlash: true,
+    removeDirectoryIndex: false,
+    sortQueryParameters: true
+  }, options);
+  urlString = urlString.trim(); // Data URL
+
+  if (/^data:/i.test(urlString)) {
+    return normalizeDataURL(urlString, options);
+  }
+
+  if (/^view-source:/i.test(urlString)) {
+    throw new Error('`view-source:` is not supported as it is a non-standard protocol');
+  }
+
+  const hasRelativeProtocol = urlString.startsWith('//');
+  const isRelativeUrl = !hasRelativeProtocol && /^\.*\//.test(urlString); // Prepend protocol
+
+  if (!isRelativeUrl) {
+    urlString = urlString.replace(/^(?!(?:\w+:)?\/\/)|^\/\//, options.defaultProtocol);
+  }
+
+  const urlObj = new URL(urlString);
+
+  if (options.forceHttp && options.forceHttps) {
+    throw new Error('The `forceHttp` and `forceHttps` options cannot be used together');
+  }
+
+  if (options.forceHttp && urlObj.protocol === 'https:') {
+    urlObj.protocol = 'http:';
+  }
+
+  if (options.forceHttps && urlObj.protocol === 'http:') {
+    urlObj.protocol = 'https:';
+  } // Remove auth
+
+
+  if (options.stripAuthentication) {
+    urlObj.username = '';
+    urlObj.password = '';
+  } // Remove hash
+
+
+  if (options.stripHash) {
+    urlObj.hash = '';
+  } else if (options.stripTextFragment) {
+    urlObj.hash = urlObj.hash.replace(/#?:~:text.*?$/i, '');
+  } // Remove duplicate slashes if not preceded by a protocol
+
+
+  if (urlObj.pathname) {
+    urlObj.pathname = urlObj.pathname.replace(/(?<!\b(?:[a-z][a-z\d+\-.]{1,50}:))\/{2,}/g, '/');
+  } // Decode URI octets
+
+
+  if (urlObj.pathname) {
+    try {
+      urlObj.pathname = decodeURI(urlObj.pathname);
+    } catch (_) {}
+  } // Remove directory index
+
+
+  if (options.removeDirectoryIndex === true) {
+    options.removeDirectoryIndex = [/^index\.[a-z]+$/];
+  }
+
+  if (Array.isArray(options.removeDirectoryIndex) && options.removeDirectoryIndex.length > 0) {
+    let pathComponents = urlObj.pathname.split('/');
+    const lastComponent = pathComponents[pathComponents.length - 1];
+
+    if (testParameter(lastComponent, options.removeDirectoryIndex)) {
+      pathComponents = pathComponents.slice(0, pathComponents.length - 1);
+      urlObj.pathname = pathComponents.slice(1).join('/') + '/';
+    }
+  }
+
+  if (urlObj.hostname) {
+    // Remove trailing dot
+    urlObj.hostname = urlObj.hostname.replace(/\.$/, ''); // Remove `www.`
+
+    if (options.stripWWW && /^www\.(?!www\.)(?:[a-z\-\d]{1,63})\.(?:[a-z.\-\d]{2,63})$/.test(urlObj.hostname)) {
+      // Each label should be max 63 at length (min: 1).
+      // Source: https://en.wikipedia.org/wiki/Hostname#Restrictions_on_valid_host_names
+      // Each TLD should be up to 63 characters long (min: 2).
+      // It is technically possible to have a single character TLD, but none currently exist.
+      urlObj.hostname = urlObj.hostname.replace(/^www\./, '');
+    }
+  } // Remove query unwanted parameters
+
+
+  if (Array.isArray(options.removeQueryParameters)) {
+    for (const key of [...urlObj.searchParams.keys()]) {
+      if (testParameter(key, options.removeQueryParameters)) {
+        urlObj.searchParams.delete(key);
+      }
+    }
+  }
+
+  if (options.removeQueryParameters === true) {
+    urlObj.search = '';
+  } // Sort query parameters
+
+
+  if (options.sortQueryParameters) {
+    urlObj.searchParams.sort();
+  }
+
+  if (options.removeTrailingSlash) {
+    urlObj.pathname = urlObj.pathname.replace(/\/$/, '');
+  }
+
+  const oldUrlString = urlString; // Take advantage of many of the Node `url` normalizations
+
+  urlString = urlObj.toString();
+
+  if (!options.removeSingleSlash && urlObj.pathname === '/' && !oldUrlString.endsWith('/') && urlObj.hash === '') {
+    urlString = urlString.replace(/\/$/, '');
+  } // Remove ending `/` unless removeSingleSlash is false
+
+
+  if ((options.removeTrailingSlash || urlObj.pathname === '/') && urlObj.hash === '' && options.removeSingleSlash) {
+    urlString = urlString.replace(/\/$/, '');
+  } // Restore relative protocol, if applicable
+
+
+  if (hasRelativeProtocol && !options.normalizeProtocol) {
+    urlString = urlString.replace(/^http:\/\//, '//');
+  } // Remove http/https
+
+
+  if (options.stripProtocol) {
+    urlString = urlString.replace(/^(?:https?:)?\/\//, '');
+  }
+
+  return urlString;
+};
+
+var normalizeUrl_1 = normalizeUrl;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+/**
+ * parseUrl
+ * Parses the input url.
+ *
+ * **Note**: This *throws* if invalid urls are provided.
+ *
+ * @name parseUrl
+ * @function
+ * @param {String} url The input url.
+ * @param {Boolean|Object} normalize Wheter to normalize the url or not.
+ *                         Default is `false`. If `true`, the url will
+ *                         be normalized. If an object, it will be the
+ *                         options object sent to [`normalize-url`](https://github.com/sindresorhus/normalize-url).
+ *
+ *                         For SSH urls, normalize won't work.
+ *
+ * @return {Object} An object containing the following fields:
+ *
+ *  - `protocols` (Array): An array with the url protocols (usually it has one element).
+ *  - `protocol` (String): The first protocol, `"ssh"` (if the url is a ssh url) or `"file"`.
+ *  - `port` (null|Number): The domain port.
+ *  - `resource` (String): The url domain (including subdomains).
+ *  - `user` (String): The authentication user (usually for ssh urls).
+ *  - `pathname` (String): The url pathname.
+ *  - `hash` (String): The url hash.
+ *  - `search` (String): The url querystring value.
+ *  - `href` (String): The input url.
+ *  - `query` (Object): The url querystring, parsed as object.
+ */
+
+
+function parseUrl(url) {
+  var normalize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  if (typeof url !== "string" || !url.trim()) {
+    throw new Error("Invalid url.");
+  }
+
+  if (normalize) {
+    if ((typeof normalize === "undefined" ? "undefined" : _typeof(normalize)) !== "object") {
+      normalize = {
+        stripHash: false
+      };
+    }
+
+    url = normalizeUrl_1(url, normalize);
+  }
+
+  var parsed = lib$3(url);
+  return parsed;
+}
+
+var lib$2 = parseUrl;
+
+/**
+ * gitUp
+ * Parses the input url.
+ *
+ * @name gitUp
+ * @function
+ * @param {String} input The input url.
+ * @return {Object} An object containing the following fields:
+ *
+ *  - `protocols` (Array): An array with the url protocols (usually it has one element).
+ *  - `port` (null|Number): The domain port.
+ *  - `resource` (String): The url domain (including subdomains).
+ *  - `user` (String): The authentication user (usually for ssh urls).
+ *  - `pathname` (String): The url pathname.
+ *  - `hash` (String): The url hash.
+ *  - `search` (String): The url querystring value.
+ *  - `href` (String): The input url.
+ *  - `protocol` (String): The git url protocol.
+ *  - `token` (String): The oauth token (could appear in the https urls).
+ */
+
+
+function gitUp(input) {
+  var output = lib$2(input);
+  output.token = "";
+  var splits = output.user.split(":");
+
+  if (splits.length === 2) {
+    if (splits[1] === "x-oauth-basic") {
+      output.token = splits[0];
+    } else if (splits[0] === "x-token-auth") {
+      output.token = splits[1];
+    }
+  }
+
+  if (lib$4(output.protocols) || lib$4(input)) {
+    output.protocol = "ssh";
+  } else if (output.protocols.length) {
+    output.protocol = output.protocols[0];
+  } else {
+    output.protocol = "file";
+  }
+
+  output.href = output.href.replace(/\/$/, "");
+  return output;
+}
+
+var lib$1 = gitUp;
+
+/**
+ * gitUrlParse
+ * Parses a Git url.
+ *
+ * @name gitUrlParse
+ * @function
+ * @param {String} url The Git url to parse.
+ * @return {GitUrl} The `GitUrl` object containing:
+ *
+ *  - `protocols` (Array): An array with the url protocols (usually it has one element).
+ *  - `port` (null|Number): The domain port.
+ *  - `resource` (String): The url domain (including subdomains).
+ *  - `user` (String): The authentication user (usually for ssh urls).
+ *  - `pathname` (String): The url pathname.
+ *  - `hash` (String): The url hash.
+ *  - `search` (String): The url querystring value.
+ *  - `href` (String): The input url.
+ *  - `protocol` (String): The git url protocol.
+ *  - `token` (String): The oauth token (could appear in the https urls).
+ *  - `source` (String): The Git provider (e.g. `"github.com"`).
+ *  - `owner` (String): The repository owner.
+ *  - `name` (String): The repository name.
+ *  - `ref` (String): The repository ref (e.g., "master" or "dev").
+ *  - `filepath` (String): A filepath relative to the repository root.
+ *  - `filepathtype` (String): The type of filepath in the url ("blob" or "tree").
+ *  - `full_name` (String): The owner and name values in the `owner/name` format.
+ *  - `toString` (Function): A function to stringify the parsed url into another url type.
+ *  - `organization` (String): The organization the owner belongs to. This is CloudForge specific.
+ *  - `git_suffix` (Boolean): Whether to add the `.git` suffix or not.
+ *
+ */
+
+
+function gitUrlParse(url) {
+  if (typeof url !== "string") {
+    throw new Error("The url must be a string.");
+  }
+
+  var urlInfo = lib$1(url),
+      sourceParts = urlInfo.resource.split("."),
+      splits = null;
+
+  urlInfo.toString = function (type) {
+    return gitUrlParse.stringify(this, type);
+  };
+
+  urlInfo.source = sourceParts.length > 2 ? sourceParts.slice(1 - sourceParts.length).join(".") : urlInfo.source = urlInfo.resource; // Note: Some hosting services (e.g. Visual Studio Team Services) allow whitespace characters
+  // in the repository and owner names so we decode the URL pieces to get the correct result
+
+  urlInfo.git_suffix = /\.git$/.test(urlInfo.pathname);
+  urlInfo.name = decodeURIComponent(urlInfo.pathname.replace(/^\//, '').replace(/\.git$/, ""));
+  urlInfo.owner = decodeURIComponent(urlInfo.user);
+
+  switch (urlInfo.source) {
+    case "git.cloudforge.com":
+      urlInfo.owner = urlInfo.user;
+      urlInfo.organization = sourceParts[0];
+      urlInfo.source = "cloudforge.com";
+      break;
+
+    case "visualstudio.com":
+      // Handle VSTS SSH URLs
+      if (urlInfo.resource === 'vs-ssh.visualstudio.com') {
+        splits = urlInfo.name.split("/");
+
+        if (splits.length === 4) {
+          urlInfo.organization = splits[1];
+          urlInfo.owner = splits[2];
+          urlInfo.name = splits[3];
+          urlInfo.full_name = splits[2] + '/' + splits[3];
+        }
+
+        break;
+      } else {
+        splits = urlInfo.name.split("/");
+
+        if (splits.length === 2) {
+          urlInfo.owner = splits[1];
+          urlInfo.name = splits[1];
+          urlInfo.full_name = '_git/' + urlInfo.name;
+        } else if (splits.length === 3) {
+          urlInfo.name = splits[2];
+
+          if (splits[0] === 'DefaultCollection') {
+            urlInfo.owner = splits[2];
+            urlInfo.organization = splits[0];
+            urlInfo.full_name = urlInfo.organization + '/_git/' + urlInfo.name;
+          } else {
+            urlInfo.owner = splits[0];
+            urlInfo.full_name = urlInfo.owner + '/_git/' + urlInfo.name;
+          }
+        } else if (splits.length === 4) {
+          urlInfo.organization = splits[0];
+          urlInfo.owner = splits[1];
+          urlInfo.name = splits[3];
+          urlInfo.full_name = urlInfo.organization + '/' + urlInfo.owner + '/_git/' + urlInfo.name;
+        }
+
+        break;
+      }
+
+    // Azure DevOps (formerly Visual Studio Team Services)
+
+    case "dev.azure.com":
+    case "azure.com":
+      if (urlInfo.resource === 'ssh.dev.azure.com') {
+        splits = urlInfo.name.split("/");
+
+        if (splits.length === 4) {
+          urlInfo.organization = splits[1];
+          urlInfo.owner = splits[2];
+          urlInfo.name = splits[3];
+        }
+
+        break;
+      } else {
+        splits = urlInfo.name.split("/");
+
+        if (splits.length === 5) {
+          urlInfo.organization = splits[0];
+          urlInfo.owner = splits[1];
+          urlInfo.name = splits[4];
+          urlInfo.full_name = '_git/' + urlInfo.name;
+        } else if (splits.length === 3) {
+          urlInfo.name = splits[2];
+
+          if (splits[0] === 'DefaultCollection') {
+            urlInfo.owner = splits[2];
+            urlInfo.organization = splits[0];
+            urlInfo.full_name = urlInfo.organization + '/_git/' + urlInfo.name;
+          } else {
+            urlInfo.owner = splits[0];
+            urlInfo.full_name = urlInfo.owner + '/_git/' + urlInfo.name;
+          }
+        } else if (splits.length === 4) {
+          urlInfo.organization = splits[0];
+          urlInfo.owner = splits[1];
+          urlInfo.name = splits[3];
+          urlInfo.full_name = urlInfo.organization + '/' + urlInfo.owner + '/_git/' + urlInfo.name;
+        }
+
+        if (urlInfo.query && urlInfo.query['path']) {
+          urlInfo.filepath = urlInfo.query['path'].replace(/^\/+/g, ''); // Strip leading slash (/)
+        }
+
+        if (urlInfo.query && urlInfo.query['version']) {
+          // version=GB<branch>
+          urlInfo.ref = urlInfo.query['version'].replace(/^GB/, ''); // remove GB
+        }
+
+        break;
+      }
+
+    default:
+      splits = urlInfo.name.split("/");
+      var nameIndex = splits.length - 1;
+
+      if (splits.length >= 2) {
+        var dashIndex = splits.indexOf("-", 2);
+        var blobIndex = splits.indexOf("blob", 2);
+        var treeIndex = splits.indexOf("tree", 2);
+        var commitIndex = splits.indexOf("commit", 2);
+        var srcIndex = splits.indexOf("src", 2);
+        var rawIndex = splits.indexOf("raw", 2);
+        nameIndex = dashIndex > 0 ? dashIndex - 1 : blobIndex > 0 ? blobIndex - 1 : treeIndex > 0 ? treeIndex - 1 : commitIndex > 0 ? commitIndex - 1 : srcIndex > 0 ? srcIndex - 1 : rawIndex > 0 ? rawIndex - 1 : nameIndex;
+        urlInfo.owner = splits.slice(0, nameIndex).join('/');
+        urlInfo.name = splits[nameIndex];
+
+        if (commitIndex) {
+          urlInfo.commit = splits[nameIndex + 2];
+        }
+      }
+
+      urlInfo.ref = "";
+      urlInfo.filepathtype = "";
+      urlInfo.filepath = "";
+      var offsetNameIndex = splits.length > nameIndex && splits[nameIndex + 1] === "-" ? nameIndex + 1 : nameIndex;
+
+      if (splits.length > offsetNameIndex + 2 && ["raw", "src", "blob", "tree"].indexOf(splits[offsetNameIndex + 1]) >= 0) {
+        urlInfo.filepathtype = splits[offsetNameIndex + 1];
+        urlInfo.ref = splits[offsetNameIndex + 2];
+
+        if (splits.length > offsetNameIndex + 3) {
+          urlInfo.filepath = splits.slice(offsetNameIndex + 3).join('/');
+        }
+      }
+
+      urlInfo.organization = urlInfo.owner;
+      break;
+  }
+
+  if (!urlInfo.full_name) {
+    urlInfo.full_name = urlInfo.owner;
+
+    if (urlInfo.name) {
+      urlInfo.full_name && (urlInfo.full_name += "/");
+      urlInfo.full_name += urlInfo.name;
+    }
+  } // Bitbucket Server
+
+
+  if (urlInfo.owner.startsWith("scm/")) {
+    urlInfo.source = "bitbucket-server";
+    urlInfo.owner = urlInfo.owner.replace("scm/", "");
+    urlInfo.organization = urlInfo.owner;
+    urlInfo.full_name = urlInfo.owner + "/" + urlInfo.name;
+  }
+
+  var bitbucket = /(projects|users)\/(.*?)\/repos\/(.*?)((\/.*$)|$)/;
+  var matches = bitbucket.exec(urlInfo.pathname);
+
+  if (matches != null) {
+    urlInfo.source = "bitbucket-server";
+
+    if (matches[1] === "users") {
+      urlInfo.owner = "~" + matches[2];
+    } else {
+      urlInfo.owner = matches[2];
+    }
+
+    urlInfo.organization = urlInfo.owner;
+    urlInfo.name = matches[3];
+    splits = matches[4].split("/");
+
+    if (splits.length > 1) {
+      if (["raw", "browse"].indexOf(splits[1]) >= 0) {
+        urlInfo.filepathtype = splits[1];
+
+        if (splits.length > 2) {
+          urlInfo.filepath = splits.slice(2).join('/');
+        }
+      } else if (splits[1] === "commits" && splits.length > 2) {
+        urlInfo.commit = splits[2];
+      }
+    }
+
+    urlInfo.full_name = urlInfo.owner + "/" + urlInfo.name;
+
+    if (urlInfo.query.at) {
+      urlInfo.ref = urlInfo.query.at;
+    } else {
+      urlInfo.ref = "";
+    }
+  }
+
+  return urlInfo;
+}
+/**
+ * stringify
+ * Stringifies a `GitUrl` object.
+ *
+ * @name stringify
+ * @function
+ * @param {GitUrl} obj The parsed Git url object.
+ * @param {String} type The type of the stringified url (default `obj.protocol`).
+ * @return {String} The stringified url.
+ */
+
+
+gitUrlParse.stringify = function (obj, type) {
+  type = type || (obj.protocols && obj.protocols.length ? obj.protocols.join('+') : obj.protocol);
+  var port = obj.port ? ":" + obj.port : '';
+  var user = obj.user || 'git';
+  var maybeGitSuffix = obj.git_suffix ? ".git" : "";
+
+  switch (type) {
+    case "ssh":
+      if (port) return "ssh://" + user + "@" + obj.resource + port + "/" + obj.full_name + maybeGitSuffix;else return user + "@" + obj.resource + ":" + obj.full_name + maybeGitSuffix;
+
+    case "git+ssh":
+    case "ssh+git":
+    case "ftp":
+    case "ftps":
+      return type + "://" + user + "@" + obj.resource + port + "/" + obj.full_name + maybeGitSuffix;
+
+    case "http":
+    case "https":
+      var auth = obj.token ? buildToken(obj) : obj.user && (obj.protocols.includes('http') || obj.protocols.includes('https')) ? obj.user + "@" : "";
+      return type + "://" + auth + obj.resource + port + "/" + buildPath(obj) + maybeGitSuffix;
+
+    default:
+      return obj.href;
+  }
+};
+/*!
+ * buildToken
+ * Builds OAuth token prefix (helper function)
+ *
+ * @name buildToken
+ * @function
+ * @param {GitUrl} obj The parsed Git url object.
+ * @return {String} token prefix
+ */
+
+
+function buildToken(obj) {
+  switch (obj.source) {
+    case "bitbucket.org":
+      return "x-token-auth:" + obj.token + "@";
+
+    default:
+      return obj.token + "@";
+  }
+}
+
+function buildPath(obj) {
+  switch (obj.source) {
+    case "bitbucket-server":
+      return "scm/" + obj.full_name;
+
+    default:
+      return "" + obj.full_name;
+  }
+}
+
+var lib = gitUrlParse;
+
+function getGitInfo(remote, hash) {
+  if (!remote) {
+    return {
+      resource: null,
+      repoUrl: null,
+      commitUrl: null
+    };
+  }
+
+  const repoInfo = lib(remote);
+  const repoUrl = lib.stringify(_extends({}, repoInfo, {
+    git_suffix: false
+  }), 'https');
+  return {
+    repoUrl,
+    resource: repoInfo.resource,
+    commitUrl: `${repoUrl}/commit/${hash}`
+  };
+}
+
+function Git() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const git = getContextValues(errorOccurrence, 'git');
+  const {
+    commitUrl
+  } = getGitInfo(git.remote, git.hash);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, git.hash && git.message && /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2 flex space-between"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "text-gray-700"
+  }, git.message), /*#__PURE__*/React.createElement("span", {
+    className: "text-sm text-gray-500"
+  }, /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: git.hash
+  }))), commitUrl && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(LinkButton, {
+    href: commitUrl,
+    target: "_blank"
+  }, git.hash.substr(0, 7), /*#__PURE__*/React.createElement("i", {
+    className: "fas fa-external-link-square"
+  })))), git.isDirty && /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2"
+  }, /*#__PURE__*/React.createElement(Alert, {
+    className: "inline-block"
+  }, "Last commit is dirty. (Un)staged changes have been made since this commit.")), git.tag && /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    label: "Latest tag",
+    value: git.tag
+  }));
+}
+
+/**
+ * A specialized version of `_.reduce` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {*} [accumulator] The initial value.
+ * @param {boolean} [initAccum] Specify using the first element of `array` as
+ *  the initial value.
+ * @returns {*} Returns the accumulated value.
+ */
+function arrayReduce(array, iteratee, accumulator, initAccum) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  if (initAccum && length) {
+    accumulator = array[++index];
+  }
+
+  while (++index < length) {
+    accumulator = iteratee(accumulator, array[index], index, array);
+  }
+
+  return accumulator;
+}
+
+var _arrayReduce = arrayReduce;
+
+/**
+ * The base implementation of `_.propertyOf` without support for deep paths.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Function} Returns the new accessor function.
+ */
+function basePropertyOf(object) {
+  return function (key) {
+    return object == null ? undefined : object[key];
+  };
+}
+
+var _basePropertyOf = basePropertyOf;
+
+/** Used to map Latin Unicode letters to basic Latin letters. */
+
+var deburredLetters = {
+  // Latin-1 Supplement block.
+  '\xc0': 'A',
+  '\xc1': 'A',
+  '\xc2': 'A',
+  '\xc3': 'A',
+  '\xc4': 'A',
+  '\xc5': 'A',
+  '\xe0': 'a',
+  '\xe1': 'a',
+  '\xe2': 'a',
+  '\xe3': 'a',
+  '\xe4': 'a',
+  '\xe5': 'a',
+  '\xc7': 'C',
+  '\xe7': 'c',
+  '\xd0': 'D',
+  '\xf0': 'd',
+  '\xc8': 'E',
+  '\xc9': 'E',
+  '\xca': 'E',
+  '\xcb': 'E',
+  '\xe8': 'e',
+  '\xe9': 'e',
+  '\xea': 'e',
+  '\xeb': 'e',
+  '\xcc': 'I',
+  '\xcd': 'I',
+  '\xce': 'I',
+  '\xcf': 'I',
+  '\xec': 'i',
+  '\xed': 'i',
+  '\xee': 'i',
+  '\xef': 'i',
+  '\xd1': 'N',
+  '\xf1': 'n',
+  '\xd2': 'O',
+  '\xd3': 'O',
+  '\xd4': 'O',
+  '\xd5': 'O',
+  '\xd6': 'O',
+  '\xd8': 'O',
+  '\xf2': 'o',
+  '\xf3': 'o',
+  '\xf4': 'o',
+  '\xf5': 'o',
+  '\xf6': 'o',
+  '\xf8': 'o',
+  '\xd9': 'U',
+  '\xda': 'U',
+  '\xdb': 'U',
+  '\xdc': 'U',
+  '\xf9': 'u',
+  '\xfa': 'u',
+  '\xfb': 'u',
+  '\xfc': 'u',
+  '\xdd': 'Y',
+  '\xfd': 'y',
+  '\xff': 'y',
+  '\xc6': 'Ae',
+  '\xe6': 'ae',
+  '\xde': 'Th',
+  '\xfe': 'th',
+  '\xdf': 'ss',
+  // Latin Extended-A block.
+  '\u0100': 'A',
+  '\u0102': 'A',
+  '\u0104': 'A',
+  '\u0101': 'a',
+  '\u0103': 'a',
+  '\u0105': 'a',
+  '\u0106': 'C',
+  '\u0108': 'C',
+  '\u010a': 'C',
+  '\u010c': 'C',
+  '\u0107': 'c',
+  '\u0109': 'c',
+  '\u010b': 'c',
+  '\u010d': 'c',
+  '\u010e': 'D',
+  '\u0110': 'D',
+  '\u010f': 'd',
+  '\u0111': 'd',
+  '\u0112': 'E',
+  '\u0114': 'E',
+  '\u0116': 'E',
+  '\u0118': 'E',
+  '\u011a': 'E',
+  '\u0113': 'e',
+  '\u0115': 'e',
+  '\u0117': 'e',
+  '\u0119': 'e',
+  '\u011b': 'e',
+  '\u011c': 'G',
+  '\u011e': 'G',
+  '\u0120': 'G',
+  '\u0122': 'G',
+  '\u011d': 'g',
+  '\u011f': 'g',
+  '\u0121': 'g',
+  '\u0123': 'g',
+  '\u0124': 'H',
+  '\u0126': 'H',
+  '\u0125': 'h',
+  '\u0127': 'h',
+  '\u0128': 'I',
+  '\u012a': 'I',
+  '\u012c': 'I',
+  '\u012e': 'I',
+  '\u0130': 'I',
+  '\u0129': 'i',
+  '\u012b': 'i',
+  '\u012d': 'i',
+  '\u012f': 'i',
+  '\u0131': 'i',
+  '\u0134': 'J',
+  '\u0135': 'j',
+  '\u0136': 'K',
+  '\u0137': 'k',
+  '\u0138': 'k',
+  '\u0139': 'L',
+  '\u013b': 'L',
+  '\u013d': 'L',
+  '\u013f': 'L',
+  '\u0141': 'L',
+  '\u013a': 'l',
+  '\u013c': 'l',
+  '\u013e': 'l',
+  '\u0140': 'l',
+  '\u0142': 'l',
+  '\u0143': 'N',
+  '\u0145': 'N',
+  '\u0147': 'N',
+  '\u014a': 'N',
+  '\u0144': 'n',
+  '\u0146': 'n',
+  '\u0148': 'n',
+  '\u014b': 'n',
+  '\u014c': 'O',
+  '\u014e': 'O',
+  '\u0150': 'O',
+  '\u014d': 'o',
+  '\u014f': 'o',
+  '\u0151': 'o',
+  '\u0154': 'R',
+  '\u0156': 'R',
+  '\u0158': 'R',
+  '\u0155': 'r',
+  '\u0157': 'r',
+  '\u0159': 'r',
+  '\u015a': 'S',
+  '\u015c': 'S',
+  '\u015e': 'S',
+  '\u0160': 'S',
+  '\u015b': 's',
+  '\u015d': 's',
+  '\u015f': 's',
+  '\u0161': 's',
+  '\u0162': 'T',
+  '\u0164': 'T',
+  '\u0166': 'T',
+  '\u0163': 't',
+  '\u0165': 't',
+  '\u0167': 't',
+  '\u0168': 'U',
+  '\u016a': 'U',
+  '\u016c': 'U',
+  '\u016e': 'U',
+  '\u0170': 'U',
+  '\u0172': 'U',
+  '\u0169': 'u',
+  '\u016b': 'u',
+  '\u016d': 'u',
+  '\u016f': 'u',
+  '\u0171': 'u',
+  '\u0173': 'u',
+  '\u0174': 'W',
+  '\u0175': 'w',
+  '\u0176': 'Y',
+  '\u0177': 'y',
+  '\u0178': 'Y',
+  '\u0179': 'Z',
+  '\u017b': 'Z',
+  '\u017d': 'Z',
+  '\u017a': 'z',
+  '\u017c': 'z',
+  '\u017e': 'z',
+  '\u0132': 'IJ',
+  '\u0133': 'ij',
+  '\u0152': 'Oe',
+  '\u0153': 'oe',
+  '\u0149': "'n",
+  '\u017f': 's'
+};
+/**
+ * Used by `_.deburr` to convert Latin-1 Supplement and Latin Extended-A
+ * letters to basic Latin letters.
+ *
+ * @private
+ * @param {string} letter The matched letter to deburr.
+ * @returns {string} Returns the deburred letter.
+ */
+
+var deburrLetter = _basePropertyOf(deburredLetters);
+var _deburrLetter = deburrLetter;
+
+/** Used to match Latin Unicode letters (excluding mathematical operators). */
+
+var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
+/** Used to compose unicode character classes. */
+
+var rsComboMarksRange$3 = '\\u0300-\\u036f',
+    reComboHalfMarksRange$3 = '\\ufe20-\\ufe2f',
+    rsComboSymbolsRange$3 = '\\u20d0-\\u20ff',
+    rsComboRange$3 = rsComboMarksRange$3 + reComboHalfMarksRange$3 + rsComboSymbolsRange$3;
+/** Used to compose unicode capture groups. */
+
+var rsCombo$2 = '[' + rsComboRange$3 + ']';
+/**
+ * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
+ * [combining diacritical marks for symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
+ */
+
+var reComboMark = RegExp(rsCombo$2, 'g');
+/**
+ * Deburrs `string` by converting
+ * [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
+ * and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A)
+ * letters to basic Latin letters and removing
+ * [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category String
+ * @param {string} [string=''] The string to deburr.
+ * @returns {string} Returns the deburred string.
+ * @example
+ *
+ * _.deburr('déjà vu');
+ * // => 'deja vu'
+ */
+
+function deburr(string) {
+  string = toString_1(string);
+  return string && string.replace(reLatin, _deburrLetter).replace(reComboMark, '');
+}
+
+var deburr_1 = deburr;
+
+/** Used to match words composed of alphanumeric characters. */
+var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
+/**
+ * Splits an ASCII `string` into an array of its words.
+ *
+ * @private
+ * @param {string} The string to inspect.
+ * @returns {Array} Returns the words of `string`.
+ */
+
+function asciiWords(string) {
+  return string.match(reAsciiWord) || [];
+}
+
+var _asciiWords = asciiWords;
+
+/** Used to detect strings that need a more robust regexp to match words. */
+var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+/**
+ * Checks if `string` contains a word composed of Unicode symbols.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {boolean} Returns `true` if a word is found, else `false`.
+ */
+
+function hasUnicodeWord(string) {
+  return reHasUnicodeWord.test(string);
+}
+
+var _hasUnicodeWord = hasUnicodeWord;
+
+/** Used to compose unicode character classes. */
+var rsAstralRange$2 = '\\ud800-\\udfff',
+    rsComboMarksRange$2 = '\\u0300-\\u036f',
+    reComboHalfMarksRange$2 = '\\ufe20-\\ufe2f',
+    rsComboSymbolsRange$2 = '\\u20d0-\\u20ff',
+    rsComboRange$2 = rsComboMarksRange$2 + reComboHalfMarksRange$2 + rsComboSymbolsRange$2,
+    rsDingbatRange = '\\u2700-\\u27bf',
+    rsLowerRange = 'a-z\\xdf-\\xf6\\xf8-\\xff',
+    rsMathOpRange = '\\xac\\xb1\\xd7\\xf7',
+    rsNonCharRange = '\\x00-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\xbf',
+    rsPunctuationRange = '\\u2000-\\u206f',
+    rsSpaceRange = ' \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000',
+    rsUpperRange = 'A-Z\\xc0-\\xd6\\xd8-\\xde',
+    rsVarRange$2 = '\\ufe0e\\ufe0f',
+    rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
+/** Used to compose unicode capture groups. */
+
+var rsApos$1 = "['\u2019]",
+    rsBreak = '[' + rsBreakRange + ']',
+    rsCombo$1 = '[' + rsComboRange$2 + ']',
+    rsDigits = '\\d+',
+    rsDingbat = '[' + rsDingbatRange + ']',
+    rsLower = '[' + rsLowerRange + ']',
+    rsMisc = '[^' + rsAstralRange$2 + rsBreakRange + rsDigits + rsDingbatRange + rsLowerRange + rsUpperRange + ']',
+    rsFitz$1 = '\\ud83c[\\udffb-\\udfff]',
+    rsModifier$1 = '(?:' + rsCombo$1 + '|' + rsFitz$1 + ')',
+    rsNonAstral$1 = '[^' + rsAstralRange$2 + ']',
+    rsRegional$1 = '(?:\\ud83c[\\udde6-\\uddff]){2}',
+    rsSurrPair$1 = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+    rsUpper = '[' + rsUpperRange + ']',
+    rsZWJ$2 = '\\u200d';
+/** Used to compose unicode regexes. */
+
+var rsMiscLower = '(?:' + rsLower + '|' + rsMisc + ')',
+    rsMiscUpper = '(?:' + rsUpper + '|' + rsMisc + ')',
+    rsOptContrLower = '(?:' + rsApos$1 + '(?:d|ll|m|re|s|t|ve))?',
+    rsOptContrUpper = '(?:' + rsApos$1 + '(?:D|LL|M|RE|S|T|VE))?',
+    reOptMod$1 = rsModifier$1 + '?',
+    rsOptVar$1 = '[' + rsVarRange$2 + ']?',
+    rsOptJoin$1 = '(?:' + rsZWJ$2 + '(?:' + [rsNonAstral$1, rsRegional$1, rsSurrPair$1].join('|') + ')' + rsOptVar$1 + reOptMod$1 + ')*',
+    rsOrdLower = '\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])',
+    rsOrdUpper = '\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])',
+    rsSeq$1 = rsOptVar$1 + reOptMod$1 + rsOptJoin$1,
+    rsEmoji = '(?:' + [rsDingbat, rsRegional$1, rsSurrPair$1].join('|') + ')' + rsSeq$1;
+/** Used to match complex or compound words. */
+
+var reUnicodeWord = RegExp([rsUpper + '?' + rsLower + '+' + rsOptContrLower + '(?=' + [rsBreak, rsUpper, '$'].join('|') + ')', rsMiscUpper + '+' + rsOptContrUpper + '(?=' + [rsBreak, rsUpper + rsMiscLower, '$'].join('|') + ')', rsUpper + '?' + rsMiscLower + '+' + rsOptContrLower, rsUpper + '+' + rsOptContrUpper, rsOrdUpper, rsOrdLower, rsDigits, rsEmoji].join('|'), 'g');
+/**
+ * Splits a Unicode `string` into an array of its words.
+ *
+ * @private
+ * @param {string} The string to inspect.
+ * @returns {Array} Returns the words of `string`.
+ */
+
+function unicodeWords(string) {
+  return string.match(reUnicodeWord) || [];
+}
+
+var _unicodeWords = unicodeWords;
+
+/**
+ * Splits `string` into an array of its words.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category String
+ * @param {string} [string=''] The string to inspect.
+ * @param {RegExp|string} [pattern] The pattern to match words.
+ * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
+ * @returns {Array} Returns the words of `string`.
+ * @example
+ *
+ * _.words('fred, barney, & pebbles');
+ * // => ['fred', 'barney', 'pebbles']
+ *
+ * _.words('fred, barney, & pebbles', /[^, ]+/g);
+ * // => ['fred', 'barney', '&', 'pebbles']
+ */
+
+function words(string, pattern, guard) {
+  string = toString_1(string);
+  pattern = guard ? undefined : pattern;
+
+  if (pattern === undefined) {
+    return _hasUnicodeWord(string) ? _unicodeWords(string) : _asciiWords(string);
+  }
+
+  return string.match(pattern) || [];
+}
+
+var words_1 = words;
+
+/** Used to compose unicode capture groups. */
+
+var rsApos = "['\u2019]";
+/** Used to match apostrophes. */
+
+var reApos = RegExp(rsApos, 'g');
+/**
+ * Creates a function like `_.camelCase`.
+ *
+ * @private
+ * @param {Function} callback The function to combine each word.
+ * @returns {Function} Returns the new compounder function.
+ */
+
+function createCompounder(callback) {
+  return function (string) {
+    return _arrayReduce(words_1(deburr_1(string).replace(reApos, '')), callback, '');
+  };
+}
+
+var _createCompounder = createCompounder;
+
+/**
+ * The base implementation of `_.slice` without an iteratee call guard.
+ *
+ * @private
+ * @param {Array} array The array to slice.
+ * @param {number} [start=0] The start position.
+ * @param {number} [end=array.length] The end position.
+ * @returns {Array} Returns the slice of `array`.
+ */
+function baseSlice(array, start, end) {
+  var index = -1,
+      length = array.length;
+
+  if (start < 0) {
+    start = -start > length ? 0 : length + start;
+  }
+
+  end = end > length ? length : end;
+
+  if (end < 0) {
+    end += length;
+  }
+
+  length = start > end ? 0 : end - start >>> 0;
+  start >>>= 0;
+  var result = Array(length);
+
+  while (++index < length) {
+    result[index] = array[index + start];
+  }
+
+  return result;
+}
+
+var _baseSlice = baseSlice;
+
+/**
+ * Casts `array` to a slice if it's needed.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {number} start The start position.
+ * @param {number} [end=array.length] The end position.
+ * @returns {Array} Returns the cast slice.
+ */
+
+function castSlice(array, start, end) {
+  var length = array.length;
+  end = end === undefined ? length : end;
+  return !start && end >= length ? array : _baseSlice(array, start, end);
+}
+
+var _castSlice = castSlice;
+
+/** Used to compose unicode character classes. */
+var rsAstralRange$1 = '\\ud800-\\udfff',
+    rsComboMarksRange$1 = '\\u0300-\\u036f',
+    reComboHalfMarksRange$1 = '\\ufe20-\\ufe2f',
+    rsComboSymbolsRange$1 = '\\u20d0-\\u20ff',
+    rsComboRange$1 = rsComboMarksRange$1 + reComboHalfMarksRange$1 + rsComboSymbolsRange$1,
+    rsVarRange$1 = '\\ufe0e\\ufe0f';
+/** Used to compose unicode capture groups. */
+
+var rsZWJ$1 = '\\u200d';
+/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
+
+var reHasUnicode = RegExp('[' + rsZWJ$1 + rsAstralRange$1 + rsComboRange$1 + rsVarRange$1 + ']');
+/**
+ * Checks if `string` contains Unicode symbols.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {boolean} Returns `true` if a symbol is found, else `false`.
+ */
+
+function hasUnicode(string) {
+  return reHasUnicode.test(string);
+}
+
+var _hasUnicode = hasUnicode;
+
+/**
+ * Converts an ASCII `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+function asciiToArray(string) {
+  return string.split('');
+}
+
+var _asciiToArray = asciiToArray;
+
+/** Used to compose unicode character classes. */
+var rsAstralRange = '\\ud800-\\udfff',
+    rsComboMarksRange = '\\u0300-\\u036f',
+    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
+    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
+    rsVarRange = '\\ufe0e\\ufe0f';
+/** Used to compose unicode capture groups. */
+
+var rsAstral = '[' + rsAstralRange + ']',
+    rsCombo = '[' + rsComboRange + ']',
+    rsFitz = '\\ud83c[\\udffb-\\udfff]',
+    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
+    rsNonAstral = '[^' + rsAstralRange + ']',
+    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
+    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+    rsZWJ = '\\u200d';
+/** Used to compose unicode regexes. */
+
+var reOptMod = rsModifier + '?',
+    rsOptVar = '[' + rsVarRange + ']?',
+    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
+    rsSeq = rsOptVar + reOptMod + rsOptJoin,
+    rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
+/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
+
+var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
+/**
+ * Converts a Unicode `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+
+function unicodeToArray(string) {
+  return string.match(reUnicode) || [];
+}
+
+var _unicodeToArray = unicodeToArray;
+
+/**
+ * Converts `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+
+function stringToArray(string) {
+  return _hasUnicode(string) ? _unicodeToArray(string) : _asciiToArray(string);
+}
+
+var _stringToArray = stringToArray;
+
+/**
+ * Creates a function like `_.lowerFirst`.
+ *
+ * @private
+ * @param {string} methodName The name of the `String` case method to use.
+ * @returns {Function} Returns the new case function.
+ */
+
+function createCaseFirst(methodName) {
+  return function (string) {
+    string = toString_1(string);
+    var strSymbols = _hasUnicode(string) ? _stringToArray(string) : undefined;
+    var chr = strSymbols ? strSymbols[0] : string.charAt(0);
+    var trailing = strSymbols ? _castSlice(strSymbols, 1).join('') : string.slice(1);
+    return chr[methodName]() + trailing;
+  };
+}
+
+var _createCaseFirst = createCaseFirst;
+
+/**
+ * Converts the first character of `string` to upper case.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category String
+ * @param {string} [string=''] The string to convert.
+ * @returns {string} Returns the converted string.
+ * @example
+ *
+ * _.upperFirst('fred');
+ * // => 'Fred'
+ *
+ * _.upperFirst('FRED');
+ * // => 'FRED'
+ */
+
+var upperFirst = _createCaseFirst('toUpperCase');
+var upperFirst_1 = upperFirst;
+
+/**
+ * Converts `string` to
+ * [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
+ *
+ * @static
+ * @memberOf _
+ * @since 3.1.0
+ * @category String
+ * @param {string} [string=''] The string to convert.
+ * @returns {string} Returns the start cased string.
+ * @example
+ *
+ * _.startCase('--foo-bar--');
+ * // => 'Foo Bar'
+ *
+ * _.startCase('fooBar');
+ * // => 'Foo Bar'
+ *
+ * _.startCase('__FOO_BAR__');
+ * // => 'FOO BAR'
+ */
+
+var startCase = _createCompounder(function (result, word, index) {
+  return result + (index ? ' ' : '') + upperFirst_1(word);
+});
+var startCase_1 = startCase;
+
+function Versions() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const env = getContextValues(errorOccurrence, 'env');
+  return /*#__PURE__*/React.createElement(React.Fragment, null, errorOccurrence.application_version && /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    key: "app_version",
+    value: errorOccurrence.application_version,
+    label: "App Version"
+  }), Object.entries(env).map(([key, value]) => /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    key: key,
+    value: value,
+    label: startCase_1(key)
+  })));
 }
 
 function Context() {
@@ -10732,7 +13227,13 @@ function Context() {
     icon: "fas fa-user"
   }, "User"), /*#__PURE__*/React.createElement(ContextNavItem, {
     icon: "far fa-window-maximize"
-  }, "Client"))))), /*#__PURE__*/React.createElement("div", {
+  }, "Client")), /*#__PURE__*/React.createElement(ContextNavGroup, {
+    title: "Context"
+  }, context.git && /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "fas fa-code-branch"
+  }, "Git"), /*#__PURE__*/React.createElement(ContextNavItem, {
+    icon: "far fa-info-circle"
+  }, "Versions"))))), /*#__PURE__*/React.createElement("div", {
     className: "overflow-hidden grid grid-cols-1 gap-px flex-grow"
   }, /*#__PURE__*/React.createElement(ContextGroup, {
     title: "Request"
@@ -10789,11 +13290,21 @@ function Context() {
   }, /*#__PURE__*/React.createElement(ContextSection, {
     title: "User",
     icon: "fas fa-user",
-    children: /*#__PURE__*/React.createElement("div", null, "User")
+    children: /*#__PURE__*/React.createElement(User, null)
   }), /*#__PURE__*/React.createElement(ContextSection, {
     title: "Client",
     icon: "far fa-window-maximize",
     children: /*#__PURE__*/React.createElement("div", null, "Client")
+  })), /*#__PURE__*/React.createElement(ContextGroup, {
+    title: "Context"
+  }, context.git && /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Git",
+    icon: "fas fa-code-branch",
+    children: /*#__PURE__*/React.createElement(Git, null)
+  }), /*#__PURE__*/React.createElement(ContextSection, {
+    title: "Versions",
+    icon: "far fa-info-circle",
+    children: /*#__PURE__*/React.createElement(Versions, null)
   })))));
 } // @ts-ignore
 
@@ -10837,6 +13348,24 @@ function DebugTabs({
 
 DebugTabs.Tab = _props => null;
 
+const _excluded = ["children", "className"];
+function Button(_ref) {
+  let {
+    children,
+    className = ''
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  return /*#__PURE__*/React.createElement("button", _extends({
+    type: props.type || 'button',
+    className: `mt-6 px-4 h-8 bg-red-500 text-white whitespace-nowrap border-b
+                border-red-500/25 text-xs uppercase tracking-wider font-bold rounded-sm
+                shadow-md hover:shadow-lg active:shadow-none
+                ${className}
+            `
+  }, props), children);
+}
+
 function DebugItem({
   children,
   context = null,
@@ -10844,7 +13373,7 @@ function DebugItem({
   meta = null,
   time
 }) {
-  useState(false); // TODO: Implement this
+  const [showRawContext, setShowRawContext] = useState(false); // TODO: Implement this
 
   const logLevelColors = {
     error: 'bg-red-500',
@@ -10873,10 +13402,20 @@ function DebugItem({
   }, key, ": ", value)), /*#__PURE__*/React.createElement("span", {
     className: "ml-auto text-sm text-gray-700"
   }, time.toLocaleTimeString())), context && /*#__PURE__*/React.createElement("div", {
+    className: "mt-2"
+  }, /*#__PURE__*/React.createElement(Button, {
+    onClick: () => setShowRawContext(!showRawContext)
+  }, showRawContext ? /*#__PURE__*/React.createElement("i", {
+    className: "fas fa-th-list"
+  }) : /*#__PURE__*/React.createElement("i", {
+    className: "fas fa-code"
+  })), showRawContext ? /*#__PURE__*/React.createElement(CodeSnippet, {
+    value: JSON.stringify(context, null, 4)
+  }) : /*#__PURE__*/React.createElement("div", {
     className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
   }, /*#__PURE__*/React.createElement(ContextList, {
     items: context
-  })));
+  }))));
 }
 
 function Logs() {
@@ -10895,7 +13434,6 @@ function Logs() {
 function Dumps() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const dumps = Object.values(getContextValues(errorOccurrence, 'dumps'));
-  console.log(dumps);
   return /*#__PURE__*/React.createElement(React.Fragment, null, dumps.map(dump => /*#__PURE__*/React.createElement(DebugItem, {
     key: dump.microtime,
     time: unixToDate(dump.microtime)

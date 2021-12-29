@@ -14,13 +14,13 @@ export default function RelaxedFilePath({ path, lineNumber = null }: Props) {
     return (
         <span className="group">
             {parts.map((part, index) => (
-                <>
+                <React.Fragment key={index}>
                     <span key={index} className="group-hover:underline">
                         {part}
                     </span>
                     <span className="mx-0.5">/</span>
                     <wbr />
-                </>
+                </React.Fragment>
             ))}
             <span className="group-hover:underline font-semibold">{fileName}</span>
             <span className="group-hover:underline">.{extension}</span>

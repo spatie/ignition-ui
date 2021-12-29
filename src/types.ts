@@ -27,7 +27,7 @@ export type ErrorOccurrence = {
     exception_message: string;
     exception_class: string;
     application_path: string;
-    application_version?: string;
+    application_version?: string | null;
     notifier_client_name: string;
     language_version?: string;
     framework_version?: string;
@@ -53,6 +53,18 @@ export type ErrorOccurrence = {
         share: string;
         group_details?: string;
     };
+};
+
+export type EnvContext = {
+    [key: string]: string | number | boolean;
+};
+
+export type GitContext = {
+    hash: string;
+    message: string;
+    tag: string;
+    remote: string;
+    isDirty: boolean;
 };
 
 export type RouteContext = {

@@ -17,6 +17,9 @@ import LivewireUpdates from './sections/LivewireUpdates';
 import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 import Routing from './sections/Routing';
 import View from './sections/View';
+import User from './sections/User';
+import Git from './sections/Git';
+import Versions from './sections/Versions';
 
 export default function Context() {
     const { context_items: context } = useContext(ErrorOccurrenceContext);
@@ -52,6 +55,10 @@ export default function Context() {
                                 <ContextNavItem icon="fas fa-user">User</ContextNavItem>
                                 <ContextNavItem icon="far fa-window-maximize">Client</ContextNavItem>
                             </ContextNavGroup>
+                            <ContextNavGroup title="Context">
+                                {context.git && <ContextNavItem icon="fas fa-code-branch">Git</ContextNavItem>}
+                                <ContextNavItem icon="far fa-info-circle">Versions</ContextNavItem>
+                            </ContextNavGroup>
                         </ContextNav>
                     </div>
                 </nav>
@@ -77,8 +84,12 @@ export default function Context() {
                         </ContextGroup>
                     )}
                     <ContextGroup title="User">
-                        <ContextSection title="User" icon="fas fa-user" children={<div>User</div>} />
+                        <ContextSection title="User" icon="fas fa-user" children={<User />} />
                         <ContextSection title="Client" icon="far fa-window-maximize" children={<div>Client</div>} />
+                    </ContextGroup>
+                    <ContextGroup title="Context">
+                        {context.git && <ContextSection title="Git" icon="fas fa-code-branch" children={<Git />} />}
+                        <ContextSection title="Versions" icon="far fa-info-circle" children={<Versions />} />
                     </ContextGroup>
                 </div>
             </div>
