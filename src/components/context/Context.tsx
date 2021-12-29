@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ContextNav from './ContextNav';
 import ContextNavGroup from './ContextNavGroup';
 import ContextNavItem from './ContextNavItem';
@@ -14,8 +14,13 @@ import Cookies from './sections/Cookies';
 import LivewireData from './sections/LivewireData';
 import LivewireComponent from './sections/LivewireComponent';
 import LivewireUpdates from './sections/LivewireUpdates';
+import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
+import Routing from './sections/Routing';
+import View from './sections/View';
 
 export default function Context() {
+    const { context_items: context } = useContext(ErrorOccurrenceContext);
+
     return (
         <section className="mt-20 2xl:row-span-4">
             <a id="context" className="z-50 absolute top-[-7.5rem] " />
@@ -36,11 +41,13 @@ export default function Context() {
                                 <ContextNavItem icon="fas fa-random">Routing</ContextNavItem>
                                 <ContextNavItem icon="fas fa-paint-roller">Views</ContextNavItem>
                             </ContextNavGroup>
-                            <ContextNavGroup title="Livewire">
-                                <ContextNavItem icon="fas fa-eye">Component</ContextNavItem>
-                                <ContextNavItem icon="fas fa-eye">Updates</ContextNavItem>
-                                <ContextNavItem icon="fas fa-eye">Data</ContextNavItem>
-                            </ContextNavGroup>
+                            {context.livewire && (
+                                <ContextNavGroup title="Livewire">
+                                    <ContextNavItem icon="fas fa-eye">Component</ContextNavItem>
+                                    <ContextNavItem icon="fas fa-eye">Updates</ContextNavItem>
+                                    <ContextNavItem icon="fas fa-eye">Data</ContextNavItem>
+                                </ContextNavGroup>
+                            )}
                             <ContextNavGroup title="User">
                                 <ContextNavItem icon="fas fa-user">User</ContextNavItem>
                                 <ContextNavItem icon="far fa-window-maximize">Client</ContextNavItem>
@@ -59,14 +66,16 @@ export default function Context() {
                         <ContextSection title="Cookies" icon="fas fa-cookie-bite" children={<Cookies />} />
                     </ContextGroup>
                     <ContextGroup title="App">
-                        <ContextSection title="Routing" icon="fas fa-random" children={<div>Routing</div>} />
-                        <ContextSection title="Views" icon="fas fa-paint-roller" children={<div>Views</div>} />
+                        <ContextSection title="Routing" icon="fas fa-random" children={<Routing />} />
+                        <ContextSection title="Views" icon="fas fa-paint-roller" children={<View />} />
                     </ContextGroup>
-                    <ContextGroup title="Livewire">
-                        <ContextSection title="Component" icon="fas fa-eye" children={<LivewireComponent />} />
-                        <ContextSection title="Updates" icon="fas fa-eye" children={<LivewireUpdates />} />
-                        <ContextSection title="Data" icon="fas fa-eye" children={<LivewireData />} />
-                    </ContextGroup>
+                    {context.livewire && (
+                        <ContextGroup title="Livewire">
+                            <ContextSection title="Component" icon="fas fa-eye" children={<LivewireComponent />} />
+                            <ContextSection title="Updates" icon="fas fa-eye" children={<LivewireUpdates />} />
+                            <ContextSection title="Data" icon="fas fa-eye" children={<LivewireData />} />
+                        </ContextGroup>
+                    )}
                     <ContextGroup title="User">
                         <ContextSection title="User" icon="fas fa-user" children={<div>User</div>} />
                         <ContextSection title="Client" icon="far fa-window-maximize" children={<div>Client</div>} />

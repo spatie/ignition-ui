@@ -9300,6 +9300,21 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
 function addFrameNumbers(frames) {
   return frames.map((frame, i) => _extends({}, frame, {
     frame_number: frames.length - i
@@ -9754,20 +9769,18 @@ function RelaxedFilePath({
   const fileName = fileParts.join('.');
   return /*#__PURE__*/React.createElement("span", {
     className: "group"
-  }, parts.map((part, index) => /*#__PURE__*/React.createElement("span", {
+  }, parts.map((part, index) => /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
     key: index,
     className: "group-hover:underline"
-  }, part, /*#__PURE__*/React.createElement("span", {
-    className: "mx-0.5 group-hover:no-underline"
+  }, part), /*#__PURE__*/React.createElement("span", {
+    className: "mx-0.5"
   }, "/"), /*#__PURE__*/React.createElement("wbr", null))), /*#__PURE__*/React.createElement("span", {
     className: "group-hover:underline font-semibold"
   }, fileName), /*#__PURE__*/React.createElement("span", {
     className: "group-hover:underline"
-  }, ".", extension), lineNumber && /*#__PURE__*/React.createElement("span", {
-    className: "group-hover:underline"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "mx-0.5 group-hover:no-underline"
-  }, ":"), lineNumber));
+  }, ".", extension), lineNumber && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+    className: "mx-0.5"
+  }, ":"), /*#__PURE__*/React.createElement("span", null, lineNumber)));
 }
 
 function EditorLink({
@@ -10371,17 +10384,58 @@ function ContextNavItem({
   }), children);
 }
 
+const _excluded$2 = ["children", "title", "className"];
+function DefinitionList(_ref) {
+  let {
+    children,
+    title = '',
+    className = ''
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, title && /*#__PURE__*/React.createElement("h2", {
+    className: "mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider"
+  }, title), children && /*#__PURE__*/React.createElement("dl", _extends({
+    className: `grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2 ${className}`
+  }, props), children));
+}
+DefinitionList.Row = DefinitionListRow;
+
+function DefinitionListRow({
+  value = '',
+  label = '',
+  className = ''
+}) {
+  let valueOutput = value;
+
+  if (React.isValidElement(value)) {
+    valueOutput = value;
+  } else if (typeof value === 'object') {
+    valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
+      value: JSON.stringify(value, null, 4)
+    });
+  } else if (typeof value === 'string') {
+    valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
+      value: value
+    });
+  }
+
+  return /*#__PURE__*/React.createElement("div", {
+    className: `contents ${className}`
+  }, /*#__PURE__*/React.createElement("dt", {
+    className: "py-2 truncate"
+  }, label), /*#__PURE__*/React.createElement("dd", null, valueOutput));
+}
+
 function ContextGroup({
   title,
   children
 }) {
   return /*#__PURE__*/React.createElement("section", {
     className: "shadow-lg ~bg-white px-6 sm:px-10 pt-8 pb-20 min-w-0 overflow-hidden"
-  }, /*#__PURE__*/React.createElement("dl", {
-    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider"
-  }, title), children));
+  }, /*#__PURE__*/React.createElement(DefinitionList, {
+    title: title
+  }, children));
 }
 
 function ContextSection({
@@ -10418,15 +10472,11 @@ function Request() {
 function ContextList({
   items
 }) {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, Object.entries(items || {}).map(([key, value], index) => /*#__PURE__*/React.createElement(React.Fragment, {
-    key: index
-  }, /*#__PURE__*/React.createElement("dt", {
-    className: "py-2 truncate"
-  }, key), /*#__PURE__*/React.createElement("dd", null, typeof value === 'string' ? /*#__PURE__*/React.createElement(CodeSnippet, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, Object.entries(items || {}).map(([key, value]) => /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    key: key,
+    label: key,
     value: value
-  }) : /*#__PURE__*/React.createElement(CodeSnippet, {
-    value: JSON.stringify(value)
-  })))));
+  })));
 }
 
 function Headers() {
@@ -10507,39 +10557,6 @@ function LivewireComponent() {
   });
 }
 
-/**
- * The opposite of `_.mapValues`; this method creates an object with the
- * same values as `object` and keys generated by running each own enumerable
- * string keyed property of `object` thru `iteratee`. The iteratee is invoked
- * with three arguments: (value, key, object).
- *
- * @static
- * @memberOf _
- * @since 3.8.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns the new mapped object.
- * @see _.mapValues
- * @example
- *
- * _.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
- *   return key + value;
- * });
- * // => { 'a1': 1, 'b2': 2 }
- */
-
-function mapKeys(object, iteratee) {
-  var result = {};
-  iteratee = _baseIteratee(iteratee);
-  _baseForOwn(object, function (value, key, object) {
-    _baseAssignValue(result, iteratee(value, key, object), value);
-  });
-  return result;
-}
-
-var mapKeys_1 = mapKeys;
-
 function LivewireUpdates() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const livewire = errorOccurrence.context_items.livewire;
@@ -10548,18 +10565,128 @@ function LivewireUpdates() {
     return null;
   }
 
-  const livewireUpdates = mapValues_1(mapKeys_1(livewire.updates, ({
+  return /*#__PURE__*/React.createElement(React.Fragment, null, livewire.updates.map(({
+    payload,
     type
-  }) => type), ({
-    payload
-  }) => payload); // TODO: Better UI?
+  }, index) => /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    key: index,
+    label: type,
+    value: payload
+  })));
+}
 
-  return /*#__PURE__*/React.createElement(ContextList, {
-    items: livewireUpdates
+const _excluded$1 = ["children", "className"];
+function UnorderedList(_ref) {
+  let {
+    children,
+    className = ''
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, children && /*#__PURE__*/React.createElement("ul", _extends({
+    className: `gap-y-2 flex flex-col border-l-2 border-l-gray-300 ${className}`
+  }, props), children));
+}
+UnorderedList.Item = UnorderedListItem;
+
+function UnorderedListItem({
+  value = ''
+}) {
+  let valueOutput = value;
+
+  if (React.isValidElement(value)) {
+    valueOutput = value;
+  } else if (typeof value === 'object') {
+    valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
+      value: JSON.stringify(value, null, 4)
+    });
+  } else if (typeof value === 'string') {
+    valueOutput = /*#__PURE__*/React.createElement(CodeSnippet, {
+      value: value
+    });
+  }
+
+  return /*#__PURE__*/React.createElement("li", null, valueOutput);
+}
+
+function Routing() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const route = getContextValues(errorOccurrence, 'route');
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    value: route.controllerAction,
+    label: "Controller"
+  }), route.route && /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    value: route.route,
+    label: "Route name"
+  }), Object.entries(route.routeParameters).length > 0 && /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React.createElement(DefinitionList, null, Object.entries(route.routeParameters || []).map(([key, parameter]) => /*#__PURE__*/React.createElement(DefinitionList.Row, {
+      key: key,
+      label: key,
+      value: parameter
+    }))),
+    label: "Route parameters"
+  }), route.middleware && /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React.createElement(UnorderedList, null, (route.middleware || []).map((middleware, i) => /*#__PURE__*/React.createElement(UnorderedList.Item, {
+      key: i,
+      value: middleware
+    }))),
+    label: "Middleware"
+  }));
+}
+
+const _excluded = ["value"];
+function SfDump(_ref) {
+  let {
+    value
+  } = _ref;
+      _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  useEffect(() => {
+    const match = value.match(/sf-dump-\d+/);
+
+    if (!match) {
+      return;
+    } // @ts-ignore
+
+
+    window.Sfdump(match[0]);
+  }, [value]);
+  return /*#__PURE__*/React.createElement("div", {
+    dangerouslySetInnerHTML: {
+      __html: value
+    }
   });
 }
 
+function View() {
+  const errorOccurrence = useContext(ErrorOccurrenceContext);
+  const view = errorOccurrence.context_items.view;
+
+  if (!view) {
+    return null;
+  }
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React.createElement(EditorLink, {
+      path: view.view
+    }),
+    label: "View"
+  }), /*#__PURE__*/React.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => /*#__PURE__*/React.createElement(DefinitionList.Row, {
+      key: key,
+      label: key,
+      value: /*#__PURE__*/React.createElement(SfDump, {
+        value: data
+      })
+    }))),
+    label: "Data"
+  }));
+}
+
 function Context() {
+  const {
+    context_items: context
+  } = useContext(ErrorOccurrenceContext);
   return /*#__PURE__*/React.createElement("section", {
     className: "mt-20 2xl:row-span-4"
   }, /*#__PURE__*/React.createElement("a", {
@@ -10591,7 +10718,7 @@ function Context() {
     icon: "fas fa-random"
   }, "Routing"), /*#__PURE__*/React.createElement(ContextNavItem, {
     icon: "fas fa-paint-roller"
-  }, "Views")), /*#__PURE__*/React.createElement(ContextNavGroup, {
+  }, "Views")), context.livewire && /*#__PURE__*/React.createElement(ContextNavGroup, {
     title: "Livewire"
   }, /*#__PURE__*/React.createElement(ContextNavItem, {
     icon: "fas fa-eye"
@@ -10638,12 +10765,12 @@ function Context() {
   }, /*#__PURE__*/React.createElement(ContextSection, {
     title: "Routing",
     icon: "fas fa-random",
-    children: /*#__PURE__*/React.createElement("div", null, "Routing")
+    children: /*#__PURE__*/React.createElement(Routing, null)
   }), /*#__PURE__*/React.createElement(ContextSection, {
     title: "Views",
     icon: "fas fa-paint-roller",
-    children: /*#__PURE__*/React.createElement("div", null, "Views")
-  })), /*#__PURE__*/React.createElement(ContextGroup, {
+    children: /*#__PURE__*/React.createElement(View, null)
+  })), context.livewire && /*#__PURE__*/React.createElement(ContextGroup, {
     title: "Livewire"
   }, /*#__PURE__*/React.createElement(ContextSection, {
     title: "Component",
@@ -10717,7 +10844,8 @@ function DebugItem({
   meta = null,
   time
 }) {
-  useState(false);
+  useState(false); // TODO: Implement this
+
   const logLevelColors = {
     error: 'bg-red-500',
     warn: 'bg-orange-500',
@@ -10769,15 +10897,14 @@ function Dumps() {
   const dumps = Object.values(getContextValues(errorOccurrence, 'dumps'));
   console.log(dumps);
   return /*#__PURE__*/React.createElement(React.Fragment, null, dumps.map(dump => /*#__PURE__*/React.createElement(DebugItem, {
+    key: dump.microtime,
     time: unixToDate(dump.microtime)
   }, /*#__PURE__*/React.createElement(EditorLink, {
     path: dump.file,
     lineNumber: dump.line_number,
     className: "text-sm"
-  }), /*#__PURE__*/React.createElement("div", {
-    dangerouslySetInnerHTML: {
-      __html: dump.html_dump
-    }
+  }), /*#__PURE__*/React.createElement(SfDump, {
+    value: dump.html_dump
   }))));
 }
 

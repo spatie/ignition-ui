@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function DebugItem({ children, context = null, level = null, meta = null, time }: Props) {
-    const [showRawContext, setShowRawContext] = useState(false);
+    const [showRawContext, setShowRawContext] = useState(false); // TODO: Implement this
 
     const logLevelColors = {
         error: 'bg-red-500',

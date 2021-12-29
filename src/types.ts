@@ -34,8 +34,9 @@ export type ErrorOccurrence = {
     open_frame_index?: number;
     stage: string;
     context_items: {
-        [key: string]: Array<ContextItem> | LivewireContext | null;
+        [key: string]: Array<ContextItem> | LivewireContext | ViewContext | null;
         livewire: null | LivewireContext;
+        view: null | ViewContext;
     };
     group_identifier: string;
     group_count: number;
@@ -52,6 +53,18 @@ export type ErrorOccurrence = {
         share: string;
         group_details?: string;
     };
+};
+
+export type RouteContext = {
+    route: string | null;
+    routeParameters: Record<string, number | string | null>;
+    controllerAction: string | null;
+    middleware: Array<string>;
+};
+
+export type ViewContext = {
+    view: string;
+    data: Record<string, string>;
 };
 
 export type LivewireContext = {

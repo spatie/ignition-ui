@@ -14,20 +14,22 @@ export default function RelaxedFilePath({ path, lineNumber = null }: Props) {
     return (
         <span className="group">
             {parts.map((part, index) => (
-                <span key={index} className="group-hover:underline">
-                    {part}
-                    <span className="mx-0.5 group-hover:no-underline">/</span>
+                <>
+                    <span key={index} className="group-hover:underline">
+                        {part}
+                    </span>
+                    <span className="mx-0.5">/</span>
                     <wbr />
-                </span>
+                </>
             ))}
             <span className="group-hover:underline font-semibold">{fileName}</span>
             <span className="group-hover:underline">.{extension}</span>
 
             {lineNumber && (
-                <span className="group-hover:underline">
-                    <span className="mx-0.5 group-hover:no-underline">:</span>
-                    {lineNumber}
-                </span>
+                <>
+                    <span className="mx-0.5">:</span>
+                    <span>{lineNumber}</span>
+                </>
             )}
         </span>
     );

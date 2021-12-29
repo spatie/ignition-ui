@@ -4,6 +4,7 @@ import ErrorOccurrenceContext from 'contexts/ErrorOccurrenceContext';
 import DebugItem from 'components/debug/DebugItem';
 import { DumpDebug } from 'types';
 import EditorLink from '../../ui/EditorLink';
+import SfDump from '../../ui/SfDump';
 
 export default function Dumps() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -15,9 +16,9 @@ export default function Dumps() {
     return (
         <>
             {dumps.map((dump) => (
-                <DebugItem time={unixToDate(dump.microtime)}>
+                <DebugItem key={dump.microtime} time={unixToDate(dump.microtime)}>
                     <EditorLink path={dump.file} lineNumber={dump.line_number} className="text-sm" />
-                    <div dangerouslySetInnerHTML={{ __html: dump.html_dump }} />
+                    <SfDump value={dump.html_dump} />
                 </DebugItem>
             ))}
         </>

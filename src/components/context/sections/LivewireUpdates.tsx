@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
-import ContextList from '../ContextList';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import mapValues from 'lodash/mapValues';
-import mapKeys from 'lodash/mapKeys';
+import DefinitionList from '../../ui/DefinitionList';
 
 export default function LivewireUpdates() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -13,11 +11,11 @@ export default function LivewireUpdates() {
         return null;
     }
 
-    const livewireUpdates = mapValues(
-        mapKeys(livewire.updates, ({ type }) => type),
-        ({ payload }) => payload,
+    return (
+        <>
+            {livewire.updates.map(({ payload, type }, index) => (
+                <DefinitionList.Row key={index} label={type} value={payload} />
+            ))}
+        </>
     );
-
-    // TODO: Better UI?
-    return <ContextList items={livewireUpdates} />;
 }
