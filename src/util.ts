@@ -62,3 +62,23 @@ export function unixToDate(timestamp: number) {
 export function jsonStringify(value: any): string {
     return JSON.stringify(value, null, 4);
 }
+
+export function hasDebugInfo(errorOccurrence: ErrorOccurrence) {
+    if (errorOccurrence.glows.length) {
+        return true;
+    }
+
+    if (errorOccurrence.context_items.dumps.length) {
+        return true;
+    }
+
+    if (errorOccurrence.context_items.logs.length) {
+        return true;
+    }
+
+    if (errorOccurrence.context_items.queries.length) {
+        return true;
+    }
+
+    return false;
+}

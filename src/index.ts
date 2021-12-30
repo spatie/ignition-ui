@@ -13,3 +13,5 @@ export { default as CopyButton } from './components/ui/CopyButton';
 
 export { default as FlareIcon } from './components/ui/icons/FlareIcon';
 export { default as IgnitionIcon } from './components/ui/icons/IgnitionIcon';
+
+export { hasDebugInfo } from './util';

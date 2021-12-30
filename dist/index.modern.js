@@ -10204,6 +10204,25 @@ function unixToDate(timestamp) {
 function jsonStringify(value) {
   return JSON.stringify(value, null, 4);
 }
+function hasDebugInfo(errorOccurrence) {
+  if (errorOccurrence.glows.length) {
+    return true;
+  }
+
+  if (errorOccurrence.context_items.dumps.length) {
+    return true;
+  }
+
+  if (errorOccurrence.context_items.logs.length) {
+    return true;
+  }
+
+  if (errorOccurrence.context_items.queries.length) {
+    return true;
+  }
+
+  return false;
+}
 
 function CodeSnippet({
   value,
@@ -14043,4 +14062,4 @@ function IgnitionIcon() {
   }))));
 }
 
-export { Context, CopyButton, Debug, ErrorCard, ErrorOccurrenceContext, FlareIcon, IgnitionConfigContext, IgnitionConfigContextProvider, IgnitionIcon, StackTrace };
+export { Context, CopyButton, Debug, ErrorCard, ErrorOccurrenceContext, FlareIcon, IgnitionConfigContext, IgnitionConfigContextProvider, IgnitionIcon, StackTrace, hasDebugInfo };

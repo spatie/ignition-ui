@@ -36,6 +36,9 @@ export type ErrorOccurrence = {
     context_items: {
         // TODO: improve types here
         [key: string]: Array<ContextItem> | LivewireContext | ViewContext | null;
+        dumps: Array<ContextItem>;
+        logs: Array<ContextItem>;
+        queries: Array<ContextItem>;
         livewire: null | LivewireContext;
         view: null | ViewContext;
     };
