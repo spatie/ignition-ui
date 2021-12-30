@@ -16,7 +16,7 @@ export default function Queries() {
                     key={index}
                     time={unixToDate(query.microtime)}
                     meta={{
-                        runtime: `${query.time}sec`,
+                        runtime: `${query.time}ms`,
                         connection: query.connection_name,
                     }}
                 >

@@ -34,6 +34,7 @@ export type ErrorOccurrence = {
     open_frame_index?: number;
     stage: string;
     context_items: {
+        // TODO: improve types here
         [key: string]: Array<ContextItem> | LivewireContext | ViewContext | null;
         livewire: null | LivewireContext;
         view: null | ViewContext;

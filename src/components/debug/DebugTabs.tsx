@@ -1,4 +1,4 @@
-import React, {Children, useState} from 'react';
+import React, { Children, useState } from 'react';
 
 type Props = {
     children: Array<React.ReactElement | false>;
@@ -10,7 +10,7 @@ type Tab = {
     component: React.ComponentType<any>;
 };
 
-export default function DebugTabs({children}: Props) {
+export default function DebugTabs({ children }: Props) {
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
     const validChildren = children.filter((child) => child !== false) as Array<React.ReactElement>;
@@ -23,7 +23,7 @@ export default function DebugTabs({children}: Props) {
             checked: child.props.checked,
             onChange: child.props.onChange,
         };
-    });
+    }).filter((tab) => tab.count);
 
     const Tab = tabs[currentTabIndex].component;
 
@@ -44,9 +44,7 @@ export default function DebugTabs({children}: Props) {
                                 onClick={() => setCurrentTabIndex(i)}
                                 className="group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium "
                             >
-                                <span
-                                    className="mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
-                                >
+                                <span className="mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs">
                                     {tab.count}
                                 </span>
                                 <span>{tab.name}</span>
@@ -56,9 +54,9 @@ export default function DebugTabs({children}: Props) {
                 </ul>
             </nav>
 
-            <div className="py-8 px-6 sm:px-10"/>
+            <div className="py-8 px-6 sm:px-10" />
 
-            <Tab/>
+            <Tab />
         </div>
     );
 }
