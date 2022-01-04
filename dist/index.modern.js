@@ -3377,6 +3377,12 @@ const languages = [{
   samplePath: 'cobol.sample',
   embeddedLangs: ['sql', 'html', 'java']
 }, {
+  id: 'codeql',
+  scopeName: 'source.ql',
+  path: 'codeql.tmLanguage.json',
+  samplePath: 'codeql.sample',
+  aliases: ['ql']
+}, {
   id: 'coffee',
   scopeName: 'source.coffee',
   path: 'coffee.tmLanguage.json',
@@ -3618,7 +3624,7 @@ const languages = [{
   scopeName: 'text.html.markdown',
   path: 'markdown.tmLanguage.json',
   aliases: ['md'],
-  embeddedLangs: ['css', 'html', 'ini', 'java', 'lua', 'make', 'perl', 'r', 'ruby', 'php', 'sql', 'vb', 'xml', 'xsl', 'yaml', 'bat', 'clojure', 'coffee', 'c', 'cpp', 'diff', 'docker', 'git-commit', 'git-rebase', 'go', 'groovy', 'pug', 'javascript', 'json', 'jsonc', 'less', 'objective-c', 'swift', 'scss', 'raku', 'powershell', 'python', 'rust', 'scala', 'shellscript', 'typescript', 'tsx', 'csharp', 'fsharp', 'dart', 'handlebars', 'erlang', 'elixir']
+  embeddedLangs: ['css', 'html', 'ini', 'java', 'lua', 'make', 'perl', 'r', 'ruby', 'php', 'sql', 'vb', 'xml', 'xsl', 'yaml', 'bat', 'clojure', 'coffee', 'c', 'cpp', 'diff', 'docker', 'git-commit', 'git-rebase', 'go', 'groovy', 'pug', 'javascript', 'json', 'jsonc', 'less', 'objective-c', 'swift', 'scss', 'raku', 'powershell', 'python', 'rust', 'scala', 'shellscript', 'typescript', 'tsx', 'csharp', 'fsharp', 'dart', 'handlebars', 'erlang', 'elixir', 'latex']
 }, {
   id: 'matlab',
   scopeName: 'source.matlab',
@@ -6018,13 +6024,25 @@ async function getHighlighter(options) {
     return tokenizeWithTheme(_theme, _colorMap, code, _grammar, options);
   }
 
-  function codeToHtml(code, lang = 'text', theme) {
-    const tokens = codeToThemedTokens(code, lang, theme, {
+  function codeToHtml(code, arg1 = 'text', arg2) {
+    let options; // codeToHtml(code, options?) overload
+
+    if (typeof arg1 === 'object') {
+      options = arg1;
+    } // codeToHtml(code, lang?, theme?) overload
+    else {
+      options = {
+        lang: arg1,
+        theme: arg2
+      };
+    }
+
+    const tokens = codeToThemedTokens(code, options.lang, options.theme, {
       includeExplanation: false
     });
     const {
       _theme
-    } = getTheme(theme);
+    } = getTheme(options.theme);
     return renderToHtml(tokens, {
       fg: _theme.fg,
       bg: _theme.bg
@@ -9284,65 +9302,50 @@ function useKeyboardShortcut(key, callback) {
 
 function _wrapRegExp() {
   _wrapRegExp = function (re, groups) {
-    return new BabelRegExp(re, undefined, groups);
+    return new BabelRegExp(re, void 0, groups);
   };
 
-  var _super = RegExp.prototype;
-
-  var _groups = new WeakMap();
+  var _super = RegExp.prototype,
+      _groups = new WeakMap();
 
   function BabelRegExp(re, flags, groups) {
     var _this = new RegExp(re, flags);
 
-    _groups.set(_this, groups || _groups.get(re));
-
-    return _setPrototypeOf(_this, BabelRegExp.prototype);
+    return _groups.set(_this, groups || _groups.get(re)), _setPrototypeOf(_this, BabelRegExp.prototype);
   }
-
-  _inherits(BabelRegExp, RegExp);
-
-  BabelRegExp.prototype.exec = function (str) {
-    var result = _super.exec.call(this, str);
-
-    if (result) result.groups = buildGroups(result, this);
-    return result;
-  };
-
-  BabelRegExp.prototype[Symbol.replace] = function (str, substitution) {
-    if (typeof substitution === "string") {
-      var groups = _groups.get(this);
-
-      return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) {
-        return "$" + groups[name];
-      }));
-    } else if (typeof substitution === "function") {
-      var _this = this;
-
-      return _super[Symbol.replace].call(this, str, function () {
-        var args = arguments;
-
-        if (typeof args[args.length - 1] !== "object") {
-          args = [].slice.call(args);
-          args.push(buildGroups(args, _this));
-        }
-
-        return substitution.apply(this, args);
-      });
-    } else {
-      return _super[Symbol.replace].call(this, str, substitution);
-    }
-  };
 
   function buildGroups(result, re) {
     var g = _groups.get(re);
 
     return Object.keys(g).reduce(function (groups, name) {
-      groups[name] = result[g[name]];
-      return groups;
+      return groups[name] = result[g[name]], groups;
     }, Object.create(null));
   }
 
-  return _wrapRegExp.apply(this, arguments);
+  return _inherits(BabelRegExp, RegExp), BabelRegExp.prototype.exec = function (str) {
+    var result = _super.exec.call(this, str);
+
+    return result && (result.groups = buildGroups(result, this)), result;
+  }, BabelRegExp.prototype[Symbol.replace] = function (str, substitution) {
+    if ("string" == typeof substitution) {
+      var groups = _groups.get(this);
+
+      return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) {
+        return "$" + groups[name];
+      }));
+    }
+
+    if ("function" == typeof substitution) {
+      var _this = this;
+
+      return _super[Symbol.replace].call(this, str, function () {
+        var args = arguments;
+        return "object" != typeof args[args.length - 1] && (args = [].slice.call(args)).push(buildGroups(args, _this)), substitution.apply(this, args);
+      });
+    }
+
+    return _super[Symbol.replace].call(this, str, substitution);
+  }, _wrapRegExp.apply(this, arguments);
 }
 
 function _extends() {
@@ -9374,6 +9377,9 @@ function _inherits(subClass, superClass) {
       writable: true,
       configurable: true
     }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
   });
   if (superClass) _setPrototypeOf(subClass, superClass);
 }
@@ -10259,14 +10265,17 @@ function CodeSnippet({
     ref: ref,
     className: `px-4 py-2 mask-fade-x overflow-x-scroll scrollbar-hidden-x
                     ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
-                    ${isOverflowing ? 'mask-fade-y' : ''}
-                `
+                    ${isOverflowing ? 'mask-fade-y cursor-pointer' : ''}
+                `,
+    onClick: () => {
+      isOverflowing ? setIsCollapsed(false) : null;
+    }
   }, /*#__PURE__*/React.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
   }, value)), /*#__PURE__*/React.createElement("button", {
     onClick: copy,
     title: "Copy to clipboard",
-    className: `absolute top-2 right-2 hover:text-indigo-500 opacity-0 transition-opacity duration-150 ${copied ? '' : 'group-hover:opacity-100'}`
+    className: `absolute top-2 right-2 ~text-gray-500 hover:text-indigo-500 opacity-0 transform scale-80 transition-animation delay-100 ${copied ? '' : 'group-hover:opacity-100 group-hover:scale-100'}`
   }, /*#__PURE__*/React.createElement("i", {
     className: "far fa-copy"
   })), copied && /*#__PURE__*/React.createElement("p", {
@@ -10274,7 +10283,7 @@ function CodeSnippet({
     onClick: () => setCopied(false)
   }, "Copied!"), isOverflowing && /*#__PURE__*/React.createElement("button", {
     onClick: () => setIsCollapsed(false),
-    className: "absolute -bottom-3 left-1/2 -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
+    className: "absolute -bottom-3 left-1/2 w-6 h-6 -translate-x-1/2 rounded-full flex items-center justify-center  text-xs ~bg-white text-indigo-500 hover:shadow-lg opacity-0 transform scale-80 transition-animation delay-100 shadow-md  group-hover:opacity-100 group-hover:scale-100  active:shadow-sm active:translate-y-px"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fas fa-angle-down"
   })));
@@ -10438,7 +10447,7 @@ function ErrorCard() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const hasSolutions = errorOccurrence.solutions.length > 0;
   return /*#__PURE__*/React.createElement("section", {
-    className: "mt-20 grid grid-cols-1 lg:grid-cols-5 2xl:grid-cols-1 items-stretch ~bg-white shadow-lg"
+    className: "grid grid-cols-1 lg:grid-cols-5 2xl:grid-cols-1 items-stretch ~bg-white shadow-lg"
   }, /*#__PURE__*/React.createElement("main", {
     id: "exception",
     className: `z-10 ${hasSolutions ? 'lg:col-span-3 2xl:col-span-1' : 'col-span-full'}`
@@ -10448,19 +10457,21 @@ function ErrorCard() {
     className: "px-6 sm:px-10 py-8 overflow-x-auto"
   }, /*#__PURE__*/React.createElement("header", {
     className: "flex items-center justify-between"
-  }, /*#__PURE__*/React.createElement("nav", {
+  }, /*#__PURE__*/React.createElement("button", {
     className: "group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5"
   }, /*#__PURE__*/React.createElement("p", {
     className: "flex flex-wrap leading-tight"
   }, /*#__PURE__*/React.createElement(RelaxedFullyQualifiedClassName, {
     path: errorOccurrence.exception_class
-  })), /*#__PURE__*/React.createElement("button", null, /*#__PURE__*/React.createElement("i", {
-    className: "ml-3 fas fa-angle-down group-hover:text-red-500 text-sm"
-  }))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("i", {
+    className: "ml-3 fas fa-angle-down group-hover:text-indigo-500 text-sm"
+  })), /*#__PURE__*/React.createElement("div", {
     className: "grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500"
   }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
     className: "tracking-wider"
-  }, "PHP"), errorOccurrence.language_version), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", {
+  }, "PHP"), "\xA0", errorOccurrence.language_version), /*#__PURE__*/React.createElement("span", {
+    className: "inline-flex items-center gap-1"
+  }, /*#__PURE__*/React.createElement("i", {
     className: "fab fa-laravel"
   }), errorOccurrence.framework_version))), /*#__PURE__*/React.createElement(ErrorMessage, null)))), hasSolutions && /*#__PURE__*/React.createElement(Solutions, null));
 }

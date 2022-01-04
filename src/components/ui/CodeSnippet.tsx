@@ -43,8 +43,9 @@ export default function CodeSnippet({value, limitHeight = true}: Props) {
                 ref={ref}
                 className={`px-4 py-2 mask-fade-x overflow-x-scroll scrollbar-hidden-x
                     ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
-                    ${isOverflowing ? 'mask-fade-y' : ''}
+                    ${isOverflowing ? 'mask-fade-y cursor-pointer' : ''}
                 `}
+                onClick={() => {isOverflowing ? setIsCollapsed(false) : null }}
             >
                 <code className="font-mono leading-relaxed text-sm font-normal">
                     {value}
@@ -53,8 +54,8 @@ export default function CodeSnippet({value, limitHeight = true}: Props) {
             <button
                 onClick={copy}
                 title="Copy to clipboard"
-                className={`absolute top-2 right-2 hover:text-indigo-500 opacity-0 transition-opacity duration-150 ${
-                    copied ? '' : 'group-hover:opacity-100'
+                className={`absolute top-2 right-2 ~text-gray-500 hover:text-indigo-500 opacity-0 transform scale-80 transition-animation delay-100 ${
+                    copied ? '' : 'group-hover:opacity-100 group-hover:scale-100'
                 }`}
             >
                 <i className="far fa-copy"/>
@@ -70,7 +71,11 @@ export default function CodeSnippet({value, limitHeight = true}: Props) {
             {isOverflowing && (
                 <button
                     onClick={() => setIsCollapsed(false)}
-                    className="absolute -bottom-3 left-1/2 -translate-x-1/2 opacity-0 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 group-hover:opacity-100 w-6 h-6 rounded-full flex items-center justify-center text-xs "
+                    className="absolute -bottom-3 left-1/2 w-6 h-6 -translate-x-1/2 rounded-full flex items-center justify-center 
+                    text-xs ~bg-white text-indigo-500 hover:shadow-lg
+                    opacity-0 transform scale-80 transition-animation delay-100 shadow-md 
+                    group-hover:opacity-100 group-hover:scale-100 
+                    active:shadow-sm active:translate-y-px"
                 >
                     <i className="fas fa-angle-down"/>
                 </button>

@@ -10,25 +10,23 @@ export default function ErrorCard() {
     const hasSolutions = errorOccurrence.solutions.length > 0;
 
     return (
-        <section className="mt-20 grid grid-cols-1 lg:grid-cols-5 2xl:grid-cols-1 items-stretch ~bg-white shadow-lg">
+        <section className="grid grid-cols-1 lg:grid-cols-5 2xl:grid-cols-1 items-stretch ~bg-white shadow-lg">
             <main id="exception" className={`z-10 ${hasSolutions ? 'lg:col-span-3 2xl:col-span-1' : 'col-span-full'}`}>
                 <div className="overflow-hidden">
                     <div className="px-6 sm:px-10 py-8 overflow-x-auto">
                         <header className="flex items-center justify-between">
-                            <nav className="group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5">
+                            <button className="group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5">
                                 <p className="flex flex-wrap leading-tight">
                                     <RelaxedFullyQualifiedClassName path={errorOccurrence.exception_class}/>
                                 </p>
-                                <button>
-                                    <i className="ml-3 fas fa-angle-down group-hover:text-red-500 text-sm"/>
-                                </button>
-                            </nav>
+                                <i className="ml-3 fas fa-angle-down group-hover:text-indigo-500 text-sm"/>
+                            </button>
                             <div className="grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500">
                                 <span>
-                                    <span className="tracking-wider">PHP</span>
+                                    <span className="tracking-wider">PHP</span>&nbsp;
                                     {errorOccurrence.language_version}
                                 </span>
-                                <span>
+                                <span className="inline-flex items-center gap-1">
                                     <i className="fab fa-laravel"/>
                                     {errorOccurrence.framework_version}
                                 </span>
