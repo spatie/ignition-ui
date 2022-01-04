@@ -3,6 +3,7 @@ import { StackFrameGroupType } from '../../../types';
 import RelaxedFullyQualifiedClassName from '../../ui/RelaxedFullyQualifiedClassName';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import RelaxedFilePath from '../../ui/RelaxedFilePath';
 
 type Props = {
     frameGroup: StackFrameGroupType;
@@ -40,7 +41,11 @@ export default function FrameGroup({ frameGroup, onExpand, onSelect }: Props) {
                     >
                         <div className="flex items-baseline">
                             <span className="inline-flex">
-                                <RelaxedFullyQualifiedClassName path={frame.class || ''} />
+                                {frame.class ? (
+                                    <RelaxedFullyQualifiedClassName path={frame.class} />
+                                ) : (
+                                    <RelaxedFilePath path={frame.file} />
+                                )}
                             </span>
                             <span className="px-1 font-mono text-xs">:{frame.line_number}</span>
                         </div>

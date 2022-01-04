@@ -13,7 +13,7 @@ export default function EditorLink({ path, lineNumber, className }: Props) {
 
     return (
         <a href={editorUrl || '#'} className={className}>
-            <RelaxedFilePath path={path} lineNumber={lineNumber} />
+            <RelaxedFilePath path={path} lineNumber={lineNumber} partClass="group-hover:underline" />
         </a>
     );
 }
