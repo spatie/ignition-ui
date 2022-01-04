@@ -1,32 +1,37 @@
 import React from 'react';
-import { IThemedToken } from 'shiki';
 import useEditorUrl from '../../../hooks/useEditorUrl';
 import { ErrorFrame } from '../../../types';
+import Highlight from 'prism-react-renderer';
+
+type Token = {
+    types: string[];
+    content: string;
+    empty?: boolean;
+};
 
 type Props = {
     highlight: boolean;
-    tokens: Array<IThemedToken>;
+    line: Token[];
     frame: ErrorFrame;
     lineNumber: number;
+    getTokenProps: Highlight['getTokenProps'];
 };
 
-export default function FrameCodeSnippetLine({ highlight, tokens, frame, lineNumber }: Props) {
+export default function FrameCodeSnippetLine({ highlight, line, frame, lineNumber, getTokenProps, ...props }: Props) {
     const editorUrl = useEditorUrl({ file: frame.file, lineNumber });
 
     return (
         <span
+            {...props}
             className={`
                 block group pl-3 leading-loose hover:~bg-red-500/10
                 ${highlight ? ' ~bg-red-500/20' : ''}
             `}
         >
-            {!tokens.length && <>&nbsp;</>}
-            {!!tokens.length &&
-                tokens.map((token, index) => (
-                    <span key={index} style={{ color: token.color }}>
-                        {token.content || <>&nbsp;</>}
-                    </span>
-                ))}
+            {line.map((token, key) => (
+                <span {...getTokenProps({ token, key })} />
+            ))}
+
             {editorUrl && (
                 <a
                     href={editorUrl}

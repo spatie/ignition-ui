@@ -26,6 +26,7 @@ export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
     const context = errorOccurrence.context_items;
     const files = getContextValues(errorOccurrence, 'files');
+    const requestData = getContextValues(errorOccurrence, 'request_data');
 
     return (
         <section className="2xl:row-span-4">
@@ -37,15 +38,17 @@ export default function Context() {
                         <ContextNav>
                             <ContextNavGroup title="Request">
                                 <ContextNavItem icon="fas fa-exchange-alt">Headers</ContextNavItem>
-                                <ContextNavItem icon="far fa-question-circle">Query String</ContextNavItem>
+                                {!!requestData.queryString.length && (
+                                    <ContextNavItem icon="fas fa-question-circle">Query String</ContextNavItem>
+                                )}
                                 <ContextNavItem icon="fas fa-code">Body</ContextNavItem>
-                                {files.length && <ContextNavItem icon="far fa-file">Files</ContextNavItem>}
+                                {!!files.length && <ContextNavItem icon="far fa-file">Files</ContextNavItem>}
                                 <ContextNavItem icon="fas fa-hourglass-half">Session</ContextNavItem>
                                 <ContextNavItem icon="fas fa-cookie-bite">Cookies</ContextNavItem>
                             </ContextNavGroup>
                             <ContextNavGroup title="App">
                                 {context.route && <ContextNavItem icon="fas fa-random">Routing</ContextNavItem>}
-                                <ContextNavItem icon="fas fa-paint-roller">Views</ContextNavItem>
+                                {context.view && <ContextNavItem icon="fas fa-paint-roller">Views</ContextNavItem>}
                             </ContextNavGroup>
                             {context.livewire && (
                                 <ContextNavGroup title="Livewire">
@@ -69,9 +72,15 @@ export default function Context() {
                     <ContextGroup title="Request">
                         <Request />
                         <ContextSection title="Headers" icon="fas fa-exchange-alt" children={<Headers />} />
-                        <ContextSection title="Query String" icon="far fa-question-circle" children={<QueryString />} />
+                        {!!requestData.queryString.length && (
+                            <ContextSection
+                                title="Query String"
+                                icon="fas fa-question-circle"
+                                children={<QueryString />}
+                            />
+                        )}
                         <ContextSection title="Body" icon="fas fa-code" children={<Body />} />
-                        {files.length && <ContextSection title="Files" icon="far fa-file" children={<Files />} />}
+                        {!!files.length && <ContextSection title="Files" icon="far fa-file" children={<Files />} />}
                         <ContextSection title="Session" icon="fas fa-hourglass-half" children={<Session />} />
                         <ContextSection title="Cookies" icon="fas fa-cookie-bite" children={<Cookies />} />
                     </ContextGroup>
@@ -79,7 +88,9 @@ export default function Context() {
                         {context.route && (
                             <ContextSection title="Routing" icon="fas fa-random" children={<Routing />} />
                         )}
-                        <ContextSection title="Views" icon="fas fa-paint-roller" children={<View />} />
+                        {context.view && (
+                            <ContextSection title="Views" icon="fas fa-paint-roller" children={<View />} />
+                        )}
                     </ContextGroup>
                     {context.livewire && (
                         <ContextGroup title="Livewire">

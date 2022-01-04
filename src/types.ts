@@ -33,9 +33,7 @@ export type ErrorOccurrence = {
     framework_version?: string;
     open_frame_index?: number;
     stage: string;
-    context_items: {
-        // TODO: improve types here
-        [key: string]: Array<ContextItem> | LivewireContext | ViewContext | null;
+    context_items: { [key: string]: Array<ContextItem> | null | LivewireContext | ViewContext } & {
         dumps: Array<ContextItem>;
         logs: Array<ContextItem>;
         queries: Array<ContextItem>;

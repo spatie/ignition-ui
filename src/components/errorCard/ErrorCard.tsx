@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import ErrorMessage from '../../components/ui/ErrorMessage';
+import React, { useContext } from 'react';
+import FormattedExceptionMessage from '../ui/FormattedExceptionMessage';
 import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 import RelaxedFullyQualifiedClassName from '../ui/RelaxedFullyQualifiedClassName';
 import Solutions from './Solutions';
@@ -20,23 +20,27 @@ export default function ErrorCard() {
                         <header className="flex items-center justify-between">
                             <button className="group h-10 px-4 items-center flex gap-3 rounded-sm ~bg-gray-500/5">
                                 <p className="flex flex-wrap leading-tight">
-                                    <RelaxedFullyQualifiedClassName path={errorOccurrence.exception_class}/>
+                                    <RelaxedFullyQualifiedClassName path={errorOccurrence.exception_class} />
                                 </p>
-                                <FontAwesomeIcon icon={faAngleDown} className="group-hover:text-indigo-500 text-sm"/>
+                                <FontAwesomeIcon icon={faAngleDown} className="group-hover:text-indigo-500 text-sm" />
                             </button>
+
                             <div className="grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500">
                                 <span>
                                     <span className="tracking-wider">PHP</span>&nbsp;
                                     {errorOccurrence.language_version}
                                 </span>
                                 <span className="inline-flex items-center gap-1">
-                                    <FontAwesomeIcon icon={faLaravel}/>
+                                    <FontAwesomeIcon icon={faLaravel} />
                                     {errorOccurrence.framework_version}
                                 </span>
                             </div>
                         </header>
 
-                        <ErrorMessage/>
+                        <FormattedExceptionMessage
+                            exceptionClass={errorOccurrence.exception_class}
+                            message={errorOccurrence.exception_message}
+                        />
 
                         {/*<div className="grid grid-cols-1 gap-x-10 gap-y-2 text-sm">*/}
                         {/*    <span className="flex flex-wrap leading-tight">*/}
@@ -55,7 +59,7 @@ export default function ErrorCard() {
                 </div>
             </main>
 
-            {hasSolutions && <Solutions/>}
+            {hasSolutions && <Solutions />}
         </section>
     );
 }
