@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {copyToClipboard} from "../../util";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faCopy } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
     value: string;
@@ -58,7 +60,7 @@ export default function CodeSnippet({value, limitHeight = true}: Props) {
                     copied ? '' : 'group-hover:opacity-100 group-hover:scale-100'
                 }`}
             >
-                <i className="far fa-copy"/>
+                <FontAwesomeIcon icon={faCopy}/>
             </button>
             {copied && (
                 <p
@@ -77,7 +79,7 @@ export default function CodeSnippet({value, limitHeight = true}: Props) {
                     group-hover:opacity-100 group-hover:scale-100 
                     active:shadow-sm active:translate-y-px"
                 >
-                    <i className="fas fa-angle-down"/>
+                    <FontAwesomeIcon icon={faAngleDown}/>
                 </button>
             )}
         </div>

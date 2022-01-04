@@ -77,7 +77,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
     }, [state.selected, selectedRange]);
 
     return (
-        <section className="mt-20 grid 2xl:row-span-3 2xl:row-start-1 2xl:col-start-2">
+        <section className="grid 2xl:row-span-3 2xl:row-start-1 2xl:col-start-2">
             <a id="stack" className="z-50 absolute top-[-7.5rem]" />
             <div
                 className="

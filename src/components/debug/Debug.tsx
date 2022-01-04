@@ -16,7 +16,7 @@ export default function Debug() {
     const logs = getContextValues(errorOccurrence, 'logs');
 
     return (
-        <section className="mt-20 2xl:col-start-2">
+        <section className="2xl:col-start-2">
             <a id="debug" className="z-50 absolute top-[-7.5rem]" />
             <DebugTabs>
                 <DebugTabs.Tab component={Dumps} name="Dumps" count={Object.keys(dumps).length} />

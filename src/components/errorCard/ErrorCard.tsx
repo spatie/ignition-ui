@@ -3,6 +3,9 @@ import ErrorMessage from '../../components/ui/ErrorMessage';
 import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 import RelaxedFullyQualifiedClassName from '../ui/RelaxedFullyQualifiedClassName';
 import Solutions from './Solutions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faLaravel } from '@fortawesome/free-brands-svg-icons';
 
 export default function ErrorCard() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -15,11 +18,11 @@ export default function ErrorCard() {
                 <div className="overflow-hidden">
                     <div className="px-6 sm:px-10 py-8 overflow-x-auto">
                         <header className="flex items-center justify-between">
-                            <button className="group h-10 px-4 items-center flex rounded-sm ~bg-gray-500/5">
+                            <button className="group h-10 px-4 items-center flex gap-3 rounded-sm ~bg-gray-500/5">
                                 <p className="flex flex-wrap leading-tight">
                                     <RelaxedFullyQualifiedClassName path={errorOccurrence.exception_class}/>
                                 </p>
-                                <i className="ml-3 fas fa-angle-down group-hover:text-indigo-500 text-sm"/>
+                                <FontAwesomeIcon icon={faAngleDown} className="group-hover:text-indigo-500 text-sm"/>
                             </button>
                             <div className="grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500">
                                 <span>
@@ -27,7 +30,7 @@ export default function ErrorCard() {
                                     {errorOccurrence.language_version}
                                 </span>
                                 <span className="inline-flex items-center gap-1">
-                                    <i className="fab fa-laravel"/>
+                                    <FontAwesomeIcon icon={faLaravel}/>
                                     {errorOccurrence.framework_version}
                                 </span>
                             </div>

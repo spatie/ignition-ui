@@ -28,7 +28,7 @@ export default function Context() {
     const files = getContextValues(errorOccurrence, 'files');
 
     return (
-        <section className="mt-20 2xl:row-span-4">
+        <section className="2xl:row-span-4">
             <a id="context" className="z-50 absolute top-[-7.5rem] " />
 
             <div className="flex items-stretch">

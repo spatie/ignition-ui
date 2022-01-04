@@ -1,6 +1,8 @@
 import React from 'react'
 import {StackFrameGroupType} from "../../../types";
 import RelaxedFullyQualifiedClassName from "../../ui/RelaxedFullyQualifiedClassName";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
     frameGroup: StackFrameGroupType;
@@ -12,13 +14,13 @@ export default function FrameGroup({frameGroup, onExpand, onSelect}: Props) {
     if (frameGroup.type === 'vendor' && !frameGroup.expanded) {
         return (
             <li
-                className="group px-6 sm:px-10 py-4 flex lg:justify-start border-b ~border-gray-200 hover:~bg-red-500/10 flex items-center"
+                className="group cursor-pointer px-6 sm:px-10 py-4 flex gap-2 lg:justify-start border-b ~border-gray-200 hover:~bg-red-500/10 items-center"
                 onClick={onExpand}
             >
                 {frameGroup.frames.length > 1
                     ? `${frameGroup.frames.length} vendor frames`
                     : '1 vendor frame'}
-                <i className="ml-2 fas fa-angle-down ~text-gray-500 group-hover:text-red-500"></i>
+                <FontAwesomeIcon icon={faAngleDown} className="~text-gray-500 group-hover:text-red-500"/>
             </li>
         )
     }
@@ -26,6 +28,7 @@ export default function FrameGroup({frameGroup, onExpand, onSelect}: Props) {
     return (
         <>
             {frameGroup.frames.map(frame => (
+                <>
                 <li
                     key={frame.frame_number}
                     className={`px-6 sm:px-10 py-4 ${frame.selected ? 'bg-red-500 text-white' : 'border-b ~border-gray-200 hover:~bg-red-500/10'}`}
@@ -39,6 +42,11 @@ export default function FrameGroup({frameGroup, onExpand, onSelect}: Props) {
                     </div>
                     <div className="font-semibold">{frame.method}</div>
                 </li>
+                { frame.selected && 
+                <li className="z-10 mt-[-4px] sticky top-0 bg-red-500 h-[4px]">
+
+                                    </li>}
+                </>
             ))}
         </>
     )
