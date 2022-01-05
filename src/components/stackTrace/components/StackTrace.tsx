@@ -10,6 +10,8 @@ import FrameGroup from './FrameGroup';
 import EditorLink from '../../ui/EditorLink';
 import findIndex from 'lodash/findIndex';
 import { getFrameType } from '../helpers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
     openFrameIndex?: number;
@@ -105,24 +107,25 @@ export default function StackTrace({ openFrameIndex }: Props) {
                 >
                     <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
                         <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
-                            {vendorFramesExpanded ? (
                                 <button
-                                    className="h-6 px-2 rounded-sm ~bg-gray-500/5 hover:text-red-500 text-xs font-medium whitespace-nowrap"
-                                    onClick={() => dispatch({ type: 'COLLAPSE_ALL_VENDOR_FRAMES' })}
+                                    className="group inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap
+                                    transform
+                                    transition-animation
+                                    hover:shadow-md
+                                    active:shadow-inner
+                                    active:translate-y-px"
+                                    onClick={() =>  dispatch({ type: vendorFramesExpanded ? 'COLLAPSE_ALL_VENDOR_FRAMES' : 'EXPAND_ALL_VENDOR_FRAMES'})}
                                 >
-                                    Collapse vendor frames
+                                    <div className={`flex ${vendorFramesExpanded ? 'flex-col-reverse' :'flex-col'}`}>
+                                        <FontAwesomeIcon icon={faAngleUp} className="-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500" />
+                                        <FontAwesomeIcon icon={faAngleDown} className="-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500" />
+                                    </div>
+                                    {vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames'}
                                 </button>
-                            ) : (
-                                <button
-                                    className="h-6 px-2 rounded-sm ~bg-gray-500/5 hover:text-red-500 text-xs font-medium whitespace-nowrap"
-                                    onClick={() => dispatch({ type: 'EXPAND_ALL_VENDOR_FRAMES' })}
-                                >
-                                    Expand vendor frames
-                                </button>
-                            )}
+                            
                         </header>
                         <div id="frames" className="flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames">
-                            <ol className="text-sm">
+                            <ol className="text-sm pb-16">
                                 {frameGroups.map((frameGroup, i) => (
                                     <FrameGroup
                                         key={i}

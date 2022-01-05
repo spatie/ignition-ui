@@ -12,8 +12,8 @@ export default function EditorLink({ path, lineNumber, className }: Props) {
     const editorUrl = useEditorUrl({ file: path, lineNumber });
 
     return (
-        <a href={editorUrl || '#'} className={className}>
-            <RelaxedFilePath path={path} lineNumber={lineNumber} partClass="group-hover:underline" />
+        <a href={editorUrl || '#'} className={`hover:underline ${className}`}>
+            <RelaxedFilePath path={path} lineNumber={lineNumber} />
         </a>
     );
 }

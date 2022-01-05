@@ -4,37 +4,35 @@ import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 type Props = {
     path: string;
     lineNumber?: null | number;
-    partClass?: string;
 };
 
-export default function RelaxedFilePath({ path: fullPath, lineNumber = null, partClass = '' }: Props) {
+export default function RelaxedFilePath({ path: fullPath, lineNumber = null }: Props) {
     const { application_path } = useContext(ErrorOccurrenceContext);
     const path = fullPath.replace(application_path + '/', '').replace(/\/Users\/.*?\//, '~/');
     const parts = path.split('/');
     const fileParts = parts.pop()?.split('.') || [];
     const extension = fileParts.pop();
     const fileName = fileParts.join('.');
+    const tightSpace = String.fromCharCode(8201);
 
     return (
-        <span className="group">
+        <span className="inline-flex flex-wrap items-baseline">
             {parts.map((part, index) => (
                 <React.Fragment key={index}>
-                    <span key={index} className={partClass}>
+                    <span key={index}>
                         {part}
                     </span>
-                    <span className="mx-0.5">/</span>
-                    <wbr />
+                    <span>{tightSpace}/{tightSpace}</span>
                 </React.Fragment>
             ))}
-            <span className={`${partClass} font-semibold`}>{fileName}</span>
-            <span className={partClass}>.{extension}</span>
-
-            {lineNumber && (
+            <span className="font-semibold">{fileName}</span>
+            <span>.{extension}</span>
+            {lineNumber && 
                 <>
-                    <span className="mx-0.5">:</span>
-                    <span>{lineNumber}</span>
+                    {tightSpace}:{tightSpace}
+                    <span className="font-mono text-xs">{lineNumber}</span>
                 </>
-            )}
+            }
         </span>
     );
 }
