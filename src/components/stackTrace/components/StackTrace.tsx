@@ -92,18 +92,16 @@ export default function StackTrace({ openFrameIndex }: Props) {
             <div
                 className="
                   grid grid-cols-1
-                  lg:grid-cols-6
+                  lg:grid-cols-[33.33%,66.66%]
+                  lg:grid-rows-[minmax(50vh,1fr)]
                   items-stretch
-                  min-h-50vh
-                  lg:max-h-[calc(100vh-10rem)]
-                  2xl:max-h-[calc(100vh-7.5rem)]
                   shadow-lg
                   ~bg-white
+                  overflow-hidden
               "
             >
                 <aside
-                    className="z-30 lg:col-span-2 flex flex-col border-r ~border-gray-200 lg:max-h-[calc(100vh-10rem)]
-              2xl:max-h-[calc(100vh-7.5rem)]"
+                    className="z-30 flex flex-col border-r ~border-gray-200"
                 >
                     <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
                         <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
@@ -147,8 +145,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
                     </div>
                 </aside>
                 <section
-                    className="lg:max-h-[calc(100vh-10rem)]
-              2xl:max-h-[calc(100vh-7.5rem)] flex flex-col lg:col-span-4 border-t lg:border-t-0 ~border-gray-200"
+                    className="flex flex-col border-t lg:border-t-0 ~border-gray-200"
                 >
                     <header className="~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end">
                         <EditorLink
