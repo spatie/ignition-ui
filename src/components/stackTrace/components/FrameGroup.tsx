@@ -26,8 +26,8 @@ export default function FrameGroup({ frameGroup, onExpand, onSelect }: Props) {
 
     return (
         <>
-            {frameGroup.frames.map((frame) => (
-                <>
+            {frameGroup.frames.map((frame, index) => (
+                <React.Fragment key={index}>
                     <li
                         key={frame.frame_number}
                         className={`px-6 sm:px-10 py-4
@@ -49,7 +49,7 @@ export default function FrameGroup({ frameGroup, onExpand, onSelect }: Props) {
                         <div className="font-semibold">{frame.method}</div>
                     </li>
                     {frame.selected && <li className="z-10 mt-[-4px] sticky top-0 bg-red-500 h-[4px]" />}
-                </>
+                </React.Fragment>
             ))}
         </>
     );
