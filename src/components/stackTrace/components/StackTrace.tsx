@@ -8,6 +8,8 @@ import getFrameGroups from '../selectors/getFrameGroups';
 import getSelectedFrame from '../selectors/getSelectedFrame';
 import FrameGroup from './FrameGroup';
 import EditorLink from '../../ui/EditorLink';
+import findIndex from 'lodash/findIndex';
+import { getFrameType } from '../helpers';
 
 type Props = {
     openFrameIndex?: number;
@@ -17,11 +19,17 @@ export default function StackTrace({ openFrameIndex }: Props) {
     const { frames } = useContext(ErrorOccurrenceContext);
 
     const initialState = useMemo(() => {
-        let selectedFrame = frames.length;
+        let selectedFrame = 0;
+
+        const firstAppFrameIndex = findIndex(frames, (frame) => getFrameType(frame) === 'application');
+        if (firstAppFrameIndex !== -1) {
+            selectedFrame = frames.length - firstAppFrameIndex;
+        }
 
         if (openFrameIndex) {
             selectedFrame = frames.length - openFrameIndex;
         }
+
         return stackReducer({ frames, expanded: [], selected: selectedFrame }, { type: 'COLLAPSE_ALL_VENDOR_FRAMES' });
     }, [frames]);
 
