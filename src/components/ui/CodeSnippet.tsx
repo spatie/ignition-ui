@@ -40,7 +40,10 @@ export default function CodeSnippet({ value, limitHeight = true, language = null
     }
 
     return (
-        <div className="group ~bg-gray-500/5 px-4 py-2">
+        <div 
+            className={`${isOverflowing ? 'cursor-pointer' : ''} group ~bg-gray-500/5 px-4 py-2`}
+            onClick={() => isOverflowing ? setIsCollapsed(!isCollapsed) : null }  
+        >
             {language === 'sql' && (
                 <>
                     {!isCollapsed ? (
@@ -88,14 +91,15 @@ export default function CodeSnippet({ value, limitHeight = true, language = null
             )}
             {isOverflowing && (
                 <button
-                    onClick={() => setIsCollapsed(false)}
+                    onClick={() => setIsCollapsed(!isCollapsed)}
                     className="absolute -bottom-3 left-1/2 w-6 h-6 -translate-x-1/2 rounded-full flex items-center justify-center
                     text-xs ~bg-white text-indigo-500 hover:shadow-lg
                     opacity-0 transform scale-80 transition-animation delay-100 shadow-md
                     group-hover:opacity-100 group-hover:scale-100
                     active:shadow-sm active:translate-y-px"
                 >
-                    <FontAwesomeIcon icon={faAngleDown} />
+                    <FontAwesomeIcon icon={faAngleDown} className={`transition-transform duration-300 transform ${isCollapsed ? '' : 'rotate-180'}` } />
+                  
                 </button>
             )}
         </div>
