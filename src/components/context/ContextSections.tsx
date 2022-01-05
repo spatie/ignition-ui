@@ -2,23 +2,8 @@ import React, { Children } from 'react';
 import ContextNav from './ContextNav';
 import ContextNavGroup from './ContextNavGroup';
 import ContextNavItem from './ContextNavItem';
-import ContextGroup, { ContextGroupProps } from './ContextGroup';
-import Request from './sections/Request';
+import { ContextGroupProps } from './ContextGroup';
 import ContextSection from './ContextSection';
-import Headers from './sections/Headers';
-import QueryString from './sections/QueryString';
-import Body from './sections/Body';
-import Files from './sections/Files';
-import Session from './sections/Session';
-import Cookies from './sections/Cookies';
-import Routing from './sections/Routing';
-import View from './sections/View';
-import LivewireComponent from './sections/LivewireComponent';
-import LivewireUpdates from './sections/LivewireUpdates';
-import LivewireData from './sections/LivewireData';
-import User from './sections/User';
-import Git from './sections/Git';
-import Versions from './sections/Versions';
 
 type Props = {
     children: Array<React.ReactElement<ContextGroupProps> | null>;

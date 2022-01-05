@@ -1,6 +1,5 @@
 import React from 'react';
 import DefinitionList from '../ui/DefinitionList';
-import { ContextSectionProps } from './ContextSection';
 
 export type ContextGroupProps = {
     title: string;

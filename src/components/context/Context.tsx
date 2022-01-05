@@ -1,7 +1,4 @@
 import React, { useContext } from 'react';
-import ContextNav from './ContextNav';
-import ContextNavGroup from './ContextNavGroup';
-import ContextNavItem from './ContextNavItem';
 import ContextGroup from './ContextGroup';
 import ContextSection from './ContextSection';
 import Request from './sections/Request';
