@@ -34,7 +34,8 @@ export default function CodeSnippet({ value, limitHeight = true, language = null
         return () => window.clearTimeout(timeout);
     }, [copied]);
 
-    function copy() {
+    function copy(event: React.MouseEvent) {
+        event.stopPropagation();
         copyToClipboard(value);
         setCopied(true);
     }

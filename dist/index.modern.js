@@ -15741,7 +15741,8 @@ function CodeSnippet({
     return () => window.clearTimeout(timeout);
   }, [copied]);
 
-  function copy() {
+  function copy(event) {
+    event.stopPropagation();
     copyToClipboard(value);
     setCopied(true);
   }
