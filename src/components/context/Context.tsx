@@ -20,7 +20,7 @@ import Versions from './sections/Versions';
 import { getContextValues } from '../../util';
 import ContextSections from './ContextSections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faExchangeAlt, faQuestionCircle, faCode, faFile, faHourglassHalf, faCookieBite, faRandom, faPaintRoller, faWindowMaximize, faUser, faCodeBranch, faInfoCircle, faEye } from '@fortawesome/free-solid-svg-icons';
 import InViewContextProvider from '../../contexts/InViewContextProvider';
 
 export default function Context() {
@@ -40,43 +40,43 @@ export default function Context() {
                             <Request />
                             <ContextSection
                                 title="Headers"
-                                icon={<FontAwesomeIcon icon={faExchangeAlt} />}
+                                icon={<FontAwesomeIcon fixedWidth icon={faExchangeAlt} />}
                                 children={<Headers />}
                             />
                             {!!requestData.queryString.length && (
                                 <ContextSection
                                     title="Query String"
-                                    icon="fas fa-question-circle"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faQuestionCircle} />}
                                     children={<QueryString />}
                                 />
                             )}
-                            <ContextSection title="Body" icon="fas fa-code" children={<Body />} />
-                            {!!files.length && <ContextSection title="Files" icon="far fa-file" children={<Files />} />}
-                            <ContextSection title="Session" icon="fas fa-hourglass-half" children={<Session />} />
-                            <ContextSection title="Cookies" icon="fas fa-cookie-bite" children={<Cookies />} />
+                            <ContextSection title="Body" icon={<FontAwesomeIcon fixedWidth icon={faCode} />} children={<Body />} />
+                            {!!files.length && <ContextSection title="Files" icon={<FontAwesomeIcon fixedWidth icon={faFile} />} children={<Files />} />}
+                            <ContextSection title="Session" icon={<FontAwesomeIcon fixedWidth icon={faHourglassHalf} />} children={<Session />} />
+                            <ContextSection title="Cookies" icon={<FontAwesomeIcon fixedWidth icon={faCookieBite} />} children={<Cookies />} />
                         </ContextGroup>
                         <ContextGroup title="App">
                             {context.route && (
-                                <ContextSection title="Routing" icon="fas fa-random" children={<Routing />} />
+                                <ContextSection title="Routing" icon={<FontAwesomeIcon fixedWidth icon={faRandom} />} children={<Routing />} />
                             )}
                             {context.view && (
-                                <ContextSection title="Views" icon="fas fa-paint-roller" children={<View />} />
+                                <ContextSection title="Views" icon={<FontAwesomeIcon fixedWidth icon={faPaintRoller} />} children={<View />} />
                             )}
                         </ContextGroup>
                         {context.livewire && (
                             <ContextGroup title="Livewire">
-                                <ContextSection title="Component" icon="fas fa-eye" children={<LivewireComponent />} />
-                                <ContextSection title="Updates" icon="fas fa-eye" children={<LivewireUpdates />} />
-                                <ContextSection title="Data" icon="fas fa-eye" children={<LivewireData />} />
+                                <ContextSection title="Component" icon={<FontAwesomeIcon fixedWidth icon={faEye} />} children={<LivewireComponent />} />
+                                <ContextSection title="Updates" icon={<FontAwesomeIcon fixedWidth icon={faEye} />} children={<LivewireUpdates />} />
+                                <ContextSection title="Data" icon={<FontAwesomeIcon fixedWidth icon={faEye} />} children={<LivewireData />} />
                             </ContextGroup>
                         )}
                         <ContextGroup title="User">
-                            {context.user && <ContextSection title="User" icon="fas fa-user" children={<User />} />}
-                            <ContextSection title="Client" icon="far fa-window-maximize" children={<div>Client</div>} />
+                            {context.user && <ContextSection title="User" icon={<FontAwesomeIcon fixedWidth icon={faUser} />} children={<User />} />}
+                            <ContextSection title="Client" icon={<FontAwesomeIcon fixedWidth icon={faWindowMaximize} />} children={<div>Client</div>} />
                         </ContextGroup>
                         <ContextGroup title="Context">
-                            {context.git && <ContextSection title="Git" icon="fas fa-code-branch" children={<Git />} />}
-                            <ContextSection title="Versions" icon="far fa-info-circle" children={<Versions />} />
+                            {context.git && <ContextSection title="Git" icon={<FontAwesomeIcon fixedWidth icon={faCodeBranch} />} children={<Git />} />}
+                            <ContextSection title="Versions" icon={<FontAwesomeIcon fixedWidth icon={faInfoCircle} />} children={<Versions />} />
                         </ContextGroup>
                     </ContextSections>
                 </InViewContextProvider>

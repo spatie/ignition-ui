@@ -24,7 +24,7 @@ export default function Request() {
             </div>
 
             {curl && (
-            <div className="col-span-2">
+            <div className="mb-10 col-span-2">
                 <CodeSnippet value={curl} />
             </div>
             )}

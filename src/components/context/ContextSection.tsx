@@ -11,10 +11,10 @@ export default function ContextSection({ icon, title, children }: ContextSection
     const ref = useSectionInView(title);
 
     return (
-        <div ref={ref} className="flex flex-col gap-y-2">
-            <h1 className="py-2 col-span-2 font-semibold text-lg ~text-indigo-600">
+        <div ref={ref} className="mb-10 flex flex-col gap-2">
+            <h1 className="flex items-center gap-3 py-2 font-semibold text-lg ~text-indigo-600">
                 {title}
-                {icon}
+                <span className="opacity-50 ~text-gray-500 text-sm">{icon}</span>
             </h1>
             {children}
         </div>

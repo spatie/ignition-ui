@@ -12,6 +12,7 @@ import findIndex from 'lodash/findIndex';
 import { getFrameType } from '../helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import SmallButton from 'components/ui/SmallButton';
 
 type Props = {
     openFrameIndex?: number;
@@ -105,13 +106,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
                 >
                     <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
                         <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
-                                <button
-                                    className="group inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap
-                                    transform
-                                    transition-animation
-                                    hover:shadow-md
-                                    active:shadow-inner
-                                    active:translate-y-px"
+                                <SmallButton
                                     onClick={() =>  dispatch({ type: vendorFramesExpanded ? 'COLLAPSE_ALL_VENDOR_FRAMES' : 'EXPAND_ALL_VENDOR_FRAMES'})}
                                 >
                                     <div className={`flex ${vendorFramesExpanded ? 'flex-col-reverse' :'flex-col'}`}>
@@ -119,7 +114,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
                                         <FontAwesomeIcon icon={faAngleDown} className="-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500" />
                                     </div>
                                     {vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames'}
-                                </button>
+                                </SmallButton>
                             
                         </header>
                         <div id="frames" className="flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames">
