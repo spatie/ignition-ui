@@ -12381,7 +12381,7 @@ function StackTrace({
     id: "stack",
     className: "z-50 absolute top-[-7.5rem]"
   }), /*#__PURE__*/React.createElement("div", {
-    className: " grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[minmax(50vh,1fr)] items-stretch shadow-lg ~bg-white overflow-hidden "
+    className: " grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem,1fr] items-stretch shadow-lg ~bg-white overflow-hidden "
   }, /*#__PURE__*/React.createElement("aside", {
     className: "z-30 flex flex-col border-r ~border-gray-200"
   }, /*#__PURE__*/React.createElement("div", {

@@ -93,7 +93,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
                 className="
                   grid grid-cols-1
                   lg:grid-cols-[33.33%,66.66%]
-                  lg:grid-rows-[minmax(50vh,1fr)]
+                  lg:grid-rows-[57rem,1fr]
                   items-stretch
                   shadow-lg
                   ~bg-white
