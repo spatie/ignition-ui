@@ -21,7 +21,7 @@ export default function stackReducer(state: State, action: Action): State {
                 .filter((frame) => !frame.relative_file.startsWith('vendor/') && frame.relative_file !== 'unknown')
                 .map((frame) => frame.frame_number);
 
-            const expanded = uniq([...applicationFrameNumbers, state.frames.length]);
+            const expanded = uniq([...applicationFrameNumbers]);
 
             return { ...state, expanded };
         }
