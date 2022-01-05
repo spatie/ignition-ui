@@ -21,6 +21,9 @@ import User from './sections/User';
 import Git from './sections/Git';
 import Versions from './sections/Versions';
 import { getContextValues } from '../../util';
+import ContextSections from './ContextSections';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -33,45 +36,14 @@ export default function Context() {
             <a id="context" className="z-50 absolute top-[-7.5rem] " />
 
             <div className="flex items-stretch">
-                <nav className="hidden sm:block min-w-[8rem] flex-none mr-10 lg:mr-20">
-                    <div className="sticky top-[7.5rem]">
-                        <ContextNav>
-                            <ContextNavGroup title="Request">
-                                <ContextNavItem icon="fas fa-exchange-alt">Headers</ContextNavItem>
-                                {!!requestData.queryString.length && (
-                                    <ContextNavItem icon="fas fa-question-circle">Query String</ContextNavItem>
-                                )}
-                                <ContextNavItem icon="fas fa-code">Body</ContextNavItem>
-                                {!!files.length && <ContextNavItem icon="far fa-file">Files</ContextNavItem>}
-                                <ContextNavItem icon="fas fa-hourglass-half">Session</ContextNavItem>
-                                <ContextNavItem icon="fas fa-cookie-bite">Cookies</ContextNavItem>
-                            </ContextNavGroup>
-                            <ContextNavGroup title="App">
-                                {context.route && <ContextNavItem icon="fas fa-random">Routing</ContextNavItem>}
-                                {context.view && <ContextNavItem icon="fas fa-paint-roller">Views</ContextNavItem>}
-                            </ContextNavGroup>
-                            {context.livewire && (
-                                <ContextNavGroup title="Livewire">
-                                    <ContextNavItem icon="fas fa-eye">Component</ContextNavItem>
-                                    <ContextNavItem icon="fas fa-eye">Updates</ContextNavItem>
-                                    <ContextNavItem icon="fas fa-eye">Data</ContextNavItem>
-                                </ContextNavGroup>
-                            )}
-                            <ContextNavGroup title="User">
-                                {context.user && <ContextNavItem icon="fas fa-user">User</ContextNavItem>}
-                                <ContextNavItem icon="far fa-window-maximize">Client</ContextNavItem>
-                            </ContextNavGroup>
-                            <ContextNavGroup title="Context">
-                                {context.git && <ContextNavItem icon="fas fa-code-branch">Git</ContextNavItem>}
-                                <ContextNavItem icon="far fa-info-circle">Versions</ContextNavItem>
-                            </ContextNavGroup>
-                        </ContextNav>
-                    </div>
-                </nav>
-                <div className="overflow-hidden grid grid-cols-1 gap-px flex-grow">
+                <ContextSections>
                     <ContextGroup title="Request">
                         <Request />
-                        <ContextSection title="Headers" icon="fas fa-exchange-alt" children={<Headers />} />
+                        <ContextSection
+                            title="Headers"
+                            icon={<FontAwesomeIcon icon={faExchangeAlt} />}
+                            children={<Headers />}
+                        />
                         {!!requestData.queryString.length && (
                             <ContextSection
                                 title="Query String"
@@ -107,7 +79,7 @@ export default function Context() {
                         {context.git && <ContextSection title="Git" icon="fas fa-code-branch" children={<Git />} />}
                         <ContextSection title="Versions" icon="far fa-info-circle" children={<Versions />} />
                     </ContextGroup>
-                </div>
+                </ContextSections>
             </div>
         </section>
     );
