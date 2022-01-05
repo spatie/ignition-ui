@@ -6,6 +6,7 @@ export type IgnitionConfig = {
     theme: 'light' | 'dark' | 'auto';
     enableShareButton: boolean;
     directorySeparator: string;
+    shareEndpoint: string;
 };
 
 export type ErrorFrame = {
@@ -40,9 +41,6 @@ export type ErrorOccurrence = {
         livewire: null | LivewireContext;
         view: null | ViewContext;
     };
-    group_identifier: string;
-    group_count: number;
-    group_detail_query: string;
     first_frame_class: string;
     first_frame_method: string;
     group_first_seen_at?: string;
@@ -51,11 +49,6 @@ export type ErrorOccurrence = {
     solutions: Array<ErrorSolution>;
     documentation_links: Array<string>;
     frames: Array<ErrorFrame>;
-    links: {
-        show: string;
-        share: string;
-        group_details?: string;
-    };
 };
 
 export type EnvContext = {
