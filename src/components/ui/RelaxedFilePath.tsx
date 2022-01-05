@@ -9,7 +9,7 @@ type Props = {
 
 export default function RelaxedFilePath({ path: fullPath, lineNumber = null, partClass = '' }: Props) {
     const { application_path } = useContext(ErrorOccurrenceContext);
-    const path = fullPath.replace(application_path + '/', '');
+    const path = fullPath.replace(application_path + '/', '').replace(/\/Users\/.*?\//, '~/');
     const parts = path.split('/');
     const fileParts = parts.pop()?.split('.') || [];
     const extension = fileParts.pop();

@@ -49,6 +49,7 @@ export type ErrorOccurrence = {
     group_last_seen_at?: string;
     glows: Array<ErrorGlow>;
     solutions: Array<ErrorSolution>;
+    documentation_links: Array<string>;
     frames: Array<ErrorFrame>;
     links: {
         show: string;
