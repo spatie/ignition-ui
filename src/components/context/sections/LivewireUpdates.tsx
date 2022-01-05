@@ -12,10 +12,10 @@ export default function LivewireUpdates() {
     }
 
     return (
-        <>
+        <DefinitionList>
             {livewire.updates.map(({ payload, type }, index) => (
                 <DefinitionList.Row key={index} label={type} value={payload} />
             ))}
-        </>
+        </DefinitionList>
     );
 }

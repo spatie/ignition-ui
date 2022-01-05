@@ -11,7 +11,7 @@ export default function Versions() {
     const env = getContextValues(errorOccurrence, 'env') as EnvContext;
 
     return (
-        <>
+        <DefinitionList>
             {errorOccurrence.application_version && (
                 <DefinitionList.Row key="app_version" value={errorOccurrence.application_version} label="App Version" />
             )}
@@ -19,6 +19,6 @@ export default function Versions() {
             {Object.entries(env).map(([key, value]) => (
                 <DefinitionList.Row key={key} value={value} label={startCase(key)} />
             ))}
-        </>
+        </DefinitionList>
     );
 }

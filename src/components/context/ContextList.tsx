@@ -7,10 +7,10 @@ type Props = {
 
 export default function ContextList({ items }: Props) {
     return (
-        <>
+        <DefinitionList>
             {Object.entries(items || {}).map(([key, value]) => (
                 <DefinitionList.Row key={key} label={key} value={value} />
             ))}
-        </>
+        </DefinitionList>
     );
 }

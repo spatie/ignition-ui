@@ -13,7 +13,7 @@ export default function View() {
     }
 
     return (
-        <>
+        <DefinitionList>
             <DefinitionList.Row value={<EditorLink path={view.view} />} label="View" />
             <DefinitionList.Row
                 value={
@@ -25,6 +25,6 @@ export default function View() {
                 }
                 label="Data"
             />
-        </>
+        </DefinitionList>
     );
 }

@@ -10,7 +10,7 @@ export default function Routing() {
     const route = getContextValues(errorOccurrence, 'route') as RouteContext;
 
     return (
-        <>
+        <DefinitionList>
             <DefinitionList.Row value={route.controllerAction} label="Controller" />
             {route.route && <DefinitionList.Row value={route.route} label="Route name" />}
             {Object.entries(route.routeParameters).length > 0 && (
@@ -37,6 +37,6 @@ export default function Routing() {
                     label="Middleware"
                 />
             )}
-        </>
+        </DefinitionList>
     );
 }

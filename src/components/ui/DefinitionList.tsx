@@ -3,27 +3,20 @@ import CodeSnippet from './CodeSnippet';
 import { jsonStringify } from '../../util';
 
 type Props = {
-    title?: string;
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode | Array<React.ReactNode>;
 };
 
-export default function DefinitionList({ children, title = '', className = '', ...props }: Props) {
-    return (
-        <>
-            {title && (
-                <h2 className="mb-6 col-span-2 font-bold leading-snug text-xl ~text-indigo-600 uppercase tracking-wider">
-                    {title}
-                </h2>
-            )}
+export default function DefinitionList({ children, className = '', ...props }: Props) {
+    if (!children) {
+        return null;
+    }
 
-            {children && (
-                <dl className={`grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2 ${className}`} {...props}>
-                    {children}
-                </dl>
-            )}
-        </>
+    return (
+        <dl className={`grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2 ${className}`} {...props}>
+            {children}
+        </dl>
     );
 }
 

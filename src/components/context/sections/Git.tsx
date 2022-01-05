@@ -36,7 +36,7 @@ export default function Git() {
     const { commitUrl } = getGitInfo(git.remote, git.hash);
 
     return (
-        <>
+        <DefinitionList>
             {git.hash && git.message && (
                 <div className="col-span-2 flex space-between">
                     <div>
@@ -63,6 +63,6 @@ export default function Git() {
                 </div>
             )}
             {git.tag && <DefinitionList.Row label="Latest tag" value={git.tag} />}
-        </>
+        </DefinitionList>
     );
 }
