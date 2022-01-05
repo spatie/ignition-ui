@@ -1,12 +1,12 @@
 import React from 'react';
 import DefinitionList from '../ui/DefinitionList';
 
-type Props = {
+export type ContextGroupProps = {
     title: string;
-    children: React.ReactNode;
+    children: Array<React.ReactElement | null | false>;
 };
 
-export default function ContextGroup({ title, children }: Props) {
+export default function ContextGroup({ title, children }: ContextGroupProps) {
     return (
         <section
             className="shadow-lg
