@@ -8,11 +8,13 @@ type Props = {
     value: string;
     limitHeight?: boolean;
     language?: null | 'sql';
+    transparent?: boolean;
+    overflowX?: boolean;
 };
 
 // TODO: Json/Curl editor?
 
-export default function CodeSnippet({ value, limitHeight = true, language = null }: Props) {
+export default function CodeSnippet({ value, limitHeight = true, language = null, transparent = false, overflowX = true }: Props) {
     const [copied, setCopied] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(limitHeight);
     const [isOverflowing, setIsOverflowing] = useState(language === 'sql');
@@ -42,7 +44,7 @@ export default function CodeSnippet({ value, limitHeight = true, language = null
 
     return (
         <div 
-            className={`${isOverflowing ? 'cursor-pointer' : ''} group ~bg-gray-500/5 px-4 py-2`}
+            className={`${isOverflowing ? 'cursor-pointer' : ''} ${transparent ? '' : '~bg-gray-500/5' } group pl-4 pr-8 py-2`}
             onClick={() => isOverflowing ? setIsCollapsed(!isCollapsed) : null }  
         >
             {language === 'sql' && (
@@ -63,7 +65,8 @@ export default function CodeSnippet({ value, limitHeight = true, language = null
             {language !== 'sql' && (
                 <pre
                     ref={ref}
-                    className={`mask-fade-x overflow-x-scroll scrollbar-hidden-x
+                    className={`
+                        ${overflowX? 'mask-fade-x overflow-x-scroll scrollbar-hidden-x' : ''}
                         ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
                         ${isOverflowing ? 'mask-fade-y cursor-pointer' : ''}
                     `}
@@ -84,7 +87,7 @@ export default function CodeSnippet({ value, limitHeight = true, language = null
             </button>
             {copied && (
                 <p
-                    className="hidden z-10 shadow-md sm:block absolute top-2 right-2 px-2 py-1 -mt-1 ml-1 bg-white text-sm text-emerald-500 whitespace-nowrap"
+                    className="hidden z-10 sm:inline-flex absolute top-2 right-2 gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap text-emerald-500"
                     onClick={() => setCopied(false)}
                 >
                     Copied!

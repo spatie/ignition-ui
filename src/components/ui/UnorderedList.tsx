@@ -12,7 +12,7 @@ export default function UnorderedList({ children, className = '', ...props }: Pr
     return (
         <>
             {children && (
-                <ul className={`gap-y-2 flex flex-col border-l-2 border-l-gray-300 ${className}`} {...props}>
+                <ul className={`gap-y-2 flex flex-col border-l border-l-gray-300 ${className}`} {...props}>
                     {children}
                 </ul>
             )}

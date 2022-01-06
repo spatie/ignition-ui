@@ -9,8 +9,6 @@ export default function Body() {
     const body = getContextValues(errorOccurrence, 'request_data').body;
 
     return (
-        <div className="col-span-2">
-            <CodeSnippet value={jsonStringify(body)} />
-        </div>
+        <CodeSnippet value={jsonStringify(body)} />
     );
 }

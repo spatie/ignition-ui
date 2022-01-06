@@ -5,8 +5,11 @@ import { GitContext } from '../../../types';
 import DefinitionList from '../../ui/DefinitionList';
 import CodeSnippet from '../../ui/CodeSnippet';
 import Alert from '../../ui/Alert';
-import LinkButton from '../../ui/LinkButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+
 import GitUrlParse from 'git-url-parse';
+import SmallButton from 'components/ui/SmallButton';
 
 type GitInfo = { resource: string | null; repoUrl: string | null; commitUrl: string | null };
 
@@ -36,33 +39,35 @@ export default function Git() {
     const { commitUrl } = getGitInfo(git.remote, git.hash);
 
     return (
-        <DefinitionList>
+        <>
             {git.hash && git.message && (
-                <div className="col-span-2 flex space-between">
-                    <div>
-                        <span className="text-gray-700">{git.message}</span>
-                        <span className="text-sm text-gray-500">
-                            <CodeSnippet value={git.hash} />
-                        </span>
+                <div className="flex items-center gap-4">
+                    <div className="flex-grow font-semibold">{git.message}</div>
+                    <div className="~bg-gray-500/5 flex items-center">
+                        <CodeSnippet transparent overflowX={false} value={git.hash} />
+                        {commitUrl && (
+                            <a href={commitUrl} target="_blank" className="mr-4">
+                                <SmallButton>
+                                    <FontAwesomeIcon className="group-hover:text-indigo-500" icon={faExternalLinkAlt} />
+                                    View commit {git.hash.substr(0, 7)}
+                                </SmallButton>
+                            </a>
+                        )}
                     </div>
-                    {commitUrl && (
-                        <div>
-                            <LinkButton href={commitUrl} target="_blank">
-                                {git.hash.substr(0, 7)}
-                                <i className="fas fa-external-link-square" />
-                            </LinkButton>
-                        </div>
-                    )}
                 </div>
             )}
             {git.isDirty && (
-                <div className="col-span-2">
-                    <Alert className="inline-block">
+                <div>
+                    <Alert className="mt-4">
                         Last commit is dirty. (Un)staged changes have been made since this commit.
                     </Alert>
                 </div>
             )}
-            {git.tag && <DefinitionList.Row label="Latest tag" value={git.tag} />}
-        </DefinitionList>
+            {git.tag && 
+                <DefinitionList>
+                    <DefinitionList.Row label="Latest tag" value={git.tag} />
+                </DefinitionList>
+            }
+        </>
     );
 }

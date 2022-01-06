@@ -13,9 +13,9 @@ export default function Request() {
     const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
 
     return (
-        <>
-            <div className="py-2 col-span-2 text-lg font-semibold flex items-center">
-                <span>{request.url}</span>
+        <div>
+            <div className="text-lg font-semibold flex items-center">
+                <span className="~text-indigo-600">{request.url}</span>
                 <span
                     className="ml-2 px-1.5 rounded-sm  border border-indigo-500/20 ~text-indigo-600 text-xs uppercase tracking-wider"
                 >
@@ -24,10 +24,10 @@ export default function Request() {
             </div>
 
             {curl && (
-            <div className="mb-10 col-span-2">
-                <CodeSnippet value={curl} />
-            </div>
+                <div className="mt-2">
+                    <CodeSnippet value={curl} />
+                </div>
             )}
-        </>
+        </div>
     )
 }
