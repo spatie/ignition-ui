@@ -9,6 +9,7 @@ import vslight from 'prism-react-renderer/themes/vslight';
 
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-html';
 
 type Props = {
     frame: ErrorFrame;
@@ -49,7 +50,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
                     Prism={Prism as any}
                     code={code}
                     // @ts-ignore
-                    language="php"
+                    language={frame.relative_file.endsWith('blade.php') ? 'html' : 'php'}
                     theme={theme === 'dark' ? vsdark : vslight}
                 >
                     {({ className, style, tokens, getLineProps, getTokenProps }) => (
