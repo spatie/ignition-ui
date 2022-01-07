@@ -9,7 +9,6 @@ import vslight from 'prism-react-renderer/themes/vslight';
 
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
-import 'prismjs/components/prism-html';
 
 type Props = {
     frame: ErrorFrame;
