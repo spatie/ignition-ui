@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "UI components for Laravel's Ignition error page",
   "main": "dist/index.modern.js",
-  "repository": "git@github.com:spatie/ignition-ui.git",
+  "repository": "https://github.com/spatie/ignition-ui",
   "scripts": {
     "bundle": "microbundle -i src/index.ts -o dist/index.js --tsconfig tsconfig.json --jsx React.createElement --jsxFragment React.Fragment -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='production'",
     "dev": "NODE_ENV=development concurrently -n \"dev,typescript\" -c \",green\" \"microbundle watch -i src/index.ts -o dist/index.js --tsconfig tsconfig.dev.json --jsx React.createElement --jsxFragment React.Fragment -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='development' --no-compress --raw\" \"yarn typecheck\"",
@@ -40,6 +40,10 @@
     "microbundle": "^0.14.2",
     "prettier": "^2.5.1",
     "typescript": "^4.5.2"
+  },
+  "homepage": "https://flareapp.io",
+  "bugs": {
+    "url" : "https://github.com/spatie/ignition/issues"
   },
   "prepublishOnly": "bundle",
   "husky": {
