@@ -16,7 +16,7 @@ export default function DefinitionList({ children, className = '', ...props }: P
     }
 
     return (
-        <dl className={`grid grid-cols-1 gap-y-2 ${className}`} {...props}>
+        <dl className={`grid grid-cols-1 gap-2 ${className}`} {...props}>
             {children}
         </dl>
     );

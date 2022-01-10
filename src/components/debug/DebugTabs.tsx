@@ -28,9 +28,9 @@ export default function DebugTabs({ children }: Props) {
     const Tab = tabs[currentTabIndex].component;
 
     return (
-        <div className="bg-gray-300/70 dark:bg-black/20 shadow-inner">
+        <div className="bg-gray-300/50 dark:bg-black/20 shadow-inner">
             <nav className="flex justify-center items-center">
-                <ul className="-mt-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px">
+                <ul className="-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px">
                     {tabs.map((tab, i) => (
                         <li
                             key={i}
@@ -53,10 +53,10 @@ export default function DebugTabs({ children }: Props) {
                     ))}
                 </ul>
             </nav>
-
-            <div className="py-8 px-6 sm:px-10" />
-
-            <Tab />
+            
+            <div className="grid grid-cols-1 gap-px">
+                <Tab />
+            </div>
         </div>
     );
 }

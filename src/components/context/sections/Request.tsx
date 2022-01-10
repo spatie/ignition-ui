@@ -2,6 +2,7 @@ import React, { useContext, useMemo } from 'react';
 import CodeSnippet from "../../ui/CodeSnippet";
 import ErrorOccurrenceContext from "../../../contexts/ErrorOccurrenceContext";
 import {curlCommand, getContextValues} from "../../../util";
+import Tag from 'components/ui/Tag';
 
 export default function Request() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -14,13 +15,11 @@ export default function Request() {
 
     return (
         <div>
-            <div className="text-lg font-semibold flex items-center">
+            <div className="text-lg font-semibold flex items-center gap-2">
                 <span className="~text-indigo-600">{request.url}</span>
-                <span
-                    className="ml-2 px-1.5 rounded-sm  border border-indigo-500/20 ~text-indigo-600 text-xs uppercase tracking-wider"
-                >
+                <Tag color={request.method.toUpperCase() == 'DELETE' ? 'red' : 'blue'}>
                     {request.method.toUpperCase()}
-                </span>
+                </Tag>
             </div>
 
             {curl && (

@@ -5890,9 +5890,9 @@ FontAwesomeIcon.defaultProps = {
 };
 var convertCurry = convert.bind(null, React__default.createElement);
 
-var faAngleDown={prefix:'fas',iconName:'angle-down',icon:[320,512,[],"f107","M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"]};var faAngleUp={prefix:'fas',iconName:'angle-up',icon:[320,512,[],"f106","M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"]};var faCheck={prefix:'fas',iconName:'check',icon:[512,512,[],"f00c","M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"]};var faCode={prefix:'fas',iconName:'code',icon:[640,512,[],"f121","M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"]};var faCodeBranch={prefix:'fas',iconName:'code-branch',icon:[384,512,[],"f126","M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z"]};var faCookieBite={prefix:'fas',iconName:'cookie-bite',icon:[512,512,[],"f564","M510.52 255.82c-69.97-.85-126.47-57.69-126.47-127.86-70.17 0-127-56.49-127.86-126.45-27.26-4.14-55.13.3-79.72 12.82l-69.13 35.22a132.221 132.221 0 0 0-57.79 57.81l-35.1 68.88a132.645 132.645 0 0 0-12.82 80.95l12.08 76.27a132.521 132.521 0 0 0 37.16 72.96l54.77 54.76a132.036 132.036 0 0 0 72.71 37.06l76.71 12.15c27.51 4.36 55.7-.11 80.53-12.76l69.13-35.21a132.273 132.273 0 0 0 57.79-57.81l35.1-68.88c12.56-24.64 17.01-52.58 12.91-79.91zM176 368c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm32-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm160 128c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"]};var faCopy={prefix:'fas',iconName:'copy',icon:[448,512,[],"f0c5","M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"]};var faExchangeAlt={prefix:'fas',iconName:'exchange-alt',icon:[512,512,[],"f362","M0 168v-16c0-13.255 10.745-24 24-24h360V80c0-21.367 25.899-32.042 40.971-16.971l80 80c9.372 9.373 9.372 24.569 0 33.941l-80 80C409.956 271.982 384 261.456 384 240v-48H24c-13.255 0-24-10.745-24-24zm488 152H128v-48c0-21.314-25.862-32.08-40.971-16.971l-80 80c-9.372 9.373-9.372 24.569 0 33.941l80 80C102.057 463.997 128 453.437 128 432v-48h360c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24z"]};var faExclamationTriangle={prefix:'fas',iconName:'exclamation-triangle',icon:[576,512,[],"f071","M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"]};var faExternalLinkAlt={prefix:'fas',iconName:'external-link-alt',icon:[512,512,[],"f35d","M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"]};var faEye={prefix:'fas',iconName:'eye',icon:[576,512,[],"f06e","M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"]};var faFile={prefix:'fas',iconName:'file',icon:[384,512,[],"f15b","M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"]};var faHourglassHalf={prefix:'fas',iconName:'hourglass-half',icon:[384,512,[],"f252","M360 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24zm-75.078 384H99.08c17.059-46.797 52.096-80 92.92-80 40.821 0 75.862 33.196 92.922 80zm.019-256H99.078C91.988 108.548 88 86.748 88 64h208c0 22.805-3.987 44.587-11.059 64z"]};var faInfoCircle={prefix:'fas',iconName:'info-circle',icon:[512,512,[],"f05a","M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"]};var faPaintRoller={prefix:'fas',iconName:'paint-roller',icon:[512,512,[],"f5aa","M416 128V32c0-17.67-14.33-32-32-32H32C14.33 0 0 14.33 0 32v96c0 17.67 14.33 32 32 32h352c17.67 0 32-14.33 32-32zm32-64v128c0 17.67-14.33 32-32 32H256c-35.35 0-64 28.65-64 64v32c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32v-32h160c53.02 0 96-42.98 96-96v-64c0-35.35-28.65-64-64-64z"]};var faPencilAlt={prefix:'fas',iconName:'pencil-alt',icon:[512,512,[],"f303","M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"]};var faQuestionCircle={prefix:'fas',iconName:'question-circle',icon:[512,512,[],"f059","M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"]};var faRandom={prefix:'fas',iconName:'random',icon:[512,512,[],"f074","M504.971 359.029c9.373 9.373 9.373 24.569 0 33.941l-80 79.984c-15.01 15.01-40.971 4.49-40.971-16.971V416h-58.785a12.004 12.004 0 0 1-8.773-3.812l-70.556-75.596 53.333-57.143L352 336h32v-39.981c0-21.438 25.943-31.998 40.971-16.971l80 79.981zM12 176h84l52.781 56.551 53.333-57.143-70.556-75.596A11.999 11.999 0 0 0 122.785 96H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12zm372 0v39.984c0 21.46 25.961 31.98 40.971 16.971l80-79.984c9.373-9.373 9.373-24.569 0-33.941l-80-79.981C409.943 24.021 384 34.582 384 56.019V96h-58.785a12.004 12.004 0 0 0-8.773 3.812L96 336H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h110.785c3.326 0 6.503-1.381 8.773-3.812L352 176h32z"]};var faTimes={prefix:'fas',iconName:'times',icon:[352,512,[],"f00d","M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"]};var faUser={prefix:'fas',iconName:'user',icon:[448,512,[],"f007","M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"]};var faWindowMaximize={prefix:'fas',iconName:'window-maximize',icon:[512,512,[],"f2d0","M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-16 160H64v-84c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12v84z"]};
+var faAngleDown={prefix:'fas',iconName:'angle-down',icon:[320,512,[],"f107","M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"]};var faAngleUp={prefix:'fas',iconName:'angle-up',icon:[320,512,[],"f106","M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"]};var faCheck={prefix:'fas',iconName:'check',icon:[512,512,[],"f00c","M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"]};var faCode={prefix:'fas',iconName:'code',icon:[640,512,[],"f121","M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"]};var faCodeBranch={prefix:'fas',iconName:'code-branch',icon:[384,512,[],"f126","M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z"]};var faCookieBite={prefix:'fas',iconName:'cookie-bite',icon:[512,512,[],"f564","M510.52 255.82c-69.97-.85-126.47-57.69-126.47-127.86-70.17 0-127-56.49-127.86-126.45-27.26-4.14-55.13.3-79.72 12.82l-69.13 35.22a132.221 132.221 0 0 0-57.79 57.81l-35.1 68.88a132.645 132.645 0 0 0-12.82 80.95l12.08 76.27a132.521 132.521 0 0 0 37.16 72.96l54.77 54.76a132.036 132.036 0 0 0 72.71 37.06l76.71 12.15c27.51 4.36 55.7-.11 80.53-12.76l69.13-35.21a132.273 132.273 0 0 0 57.79-57.81l35.1-68.88c12.56-24.64 17.01-52.58 12.91-79.91zM176 368c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm32-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm160 128c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"]};var faCopy={prefix:'fas',iconName:'copy',icon:[448,512,[],"f0c5","M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"]};var faExchangeAlt={prefix:'fas',iconName:'exchange-alt',icon:[512,512,[],"f362","M0 168v-16c0-13.255 10.745-24 24-24h360V80c0-21.367 25.899-32.042 40.971-16.971l80 80c9.372 9.373 9.372 24.569 0 33.941l-80 80C409.956 271.982 384 261.456 384 240v-48H24c-13.255 0-24-10.745-24-24zm488 152H128v-48c0-21.314-25.862-32.08-40.971-16.971l-80 80c-9.372 9.373-9.372 24.569 0 33.941l80 80C102.057 463.997 128 453.437 128 432v-48h360c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24z"]};var faExclamationTriangle={prefix:'fas',iconName:'exclamation-triangle',icon:[576,512,[],"f071","M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"]};var faExternalLinkAlt={prefix:'fas',iconName:'external-link-alt',icon:[512,512,[],"f35d","M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"]};var faEye={prefix:'fas',iconName:'eye',icon:[576,512,[],"f06e","M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"]};var faFile={prefix:'fas',iconName:'file',icon:[384,512,[],"f15b","M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"]};var faHourglassHalf={prefix:'fas',iconName:'hourglass-half',icon:[384,512,[],"f252","M360 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24zm-75.078 384H99.08c17.059-46.797 52.096-80 92.92-80 40.821 0 75.862 33.196 92.922 80zm.019-256H99.078C91.988 108.548 88 86.748 88 64h208c0 22.805-3.987 44.587-11.059 64z"]};var faInfoCircle={prefix:'fas',iconName:'info-circle',icon:[512,512,[],"f05a","M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"]};var faListUl={prefix:'fas',iconName:'list-ul',icon:[512,512,[],"f0ca","M48 48a48 48 0 1 0 48 48 48 48 0 0 0-48-48zm0 160a48 48 0 1 0 48 48 48 48 0 0 0-48-48zm0 160a48 48 0 1 0 48 48 48 48 0 0 0-48-48zm448 16H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"]};var faPaintRoller={prefix:'fas',iconName:'paint-roller',icon:[512,512,[],"f5aa","M416 128V32c0-17.67-14.33-32-32-32H32C14.33 0 0 14.33 0 32v96c0 17.67 14.33 32 32 32h352c17.67 0 32-14.33 32-32zm32-64v128c0 17.67-14.33 32-32 32H256c-35.35 0-64 28.65-64 64v32c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32v-32h160c53.02 0 96-42.98 96-96v-64c0-35.35-28.65-64-64-64z"]};var faPencilAlt={prefix:'fas',iconName:'pencil-alt',icon:[512,512,[],"f303","M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"]};var faQuestionCircle={prefix:'fas',iconName:'question-circle',icon:[512,512,[],"f059","M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"]};var faRandom={prefix:'fas',iconName:'random',icon:[512,512,[],"f074","M504.971 359.029c9.373 9.373 9.373 24.569 0 33.941l-80 79.984c-15.01 15.01-40.971 4.49-40.971-16.971V416h-58.785a12.004 12.004 0 0 1-8.773-3.812l-70.556-75.596 53.333-57.143L352 336h32v-39.981c0-21.438 25.943-31.998 40.971-16.971l80 79.981zM12 176h84l52.781 56.551 53.333-57.143-70.556-75.596A11.999 11.999 0 0 0 122.785 96H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12zm372 0v39.984c0 21.46 25.961 31.98 40.971 16.971l80-79.984c9.373-9.373 9.373-24.569 0-33.941l-80-79.981C409.943 24.021 384 34.582 384 56.019V96h-58.785a12.004 12.004 0 0 0-8.773 3.812L96 336H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h110.785c3.326 0 6.503-1.381 8.773-3.812L352 176h32z"]};var faTimes={prefix:'fas',iconName:'times',icon:[352,512,[],"f00d","M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"]};var faUser={prefix:'fas',iconName:'user',icon:[448,512,[],"f007","M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"]};var faWindowMaximize={prefix:'fas',iconName:'window-maximize',icon:[512,512,[],"f2d0","M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-16 160H64v-84c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12v84z"]};
 
-const _excluded$5 = ["highlight", "line", "frame", "lineNumber", "getTokenProps"];
+const _excluded$4 = ["highlight", "line", "frame", "lineNumber", "getTokenProps"];
 function FrameCodeSnippetLine(_ref) {
   let {
     highlight,
@@ -5901,7 +5901,7 @@ function FrameCodeSnippetLine(_ref) {
     lineNumber,
     getTokenProps
   } = _ref,
-      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$5);
+      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$4);
 
   const editorUrl = useEditorUrl({
     file: frame.file,
@@ -12313,13 +12313,13 @@ function findIndex(array, predicate, fromIndex) {
 
 var findIndex_1 = findIndex;
 
-const _excluded$4 = ["children", "className"];
+const _excluded$3 = ["children", "className"];
 function SmallButton(_ref) {
   let {
     children,
     className = ''
   } = _ref,
-      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$4);
+      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$3);
 
   return /*#__PURE__*/React__default.createElement("button", _extends$1({
     type: props.type || 'button',
@@ -16271,7 +16271,7 @@ function ContextGroup({
   children
 }) {
   return /*#__PURE__*/React__default.createElement("section", {
-    className: "py-10 shadow-lg ~bg-white px-6 sm:px-10 min-w-0 overflow-hidden"
+    className: "py-10 ~bg-white px-6 sm:px-10 min-w-0 overflow-hidden"
   }, /*#__PURE__*/React__default.createElement("h2", {
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider"
   }, title), /*#__PURE__*/React__default.createElement("div", {
@@ -16560,6 +16560,24 @@ function ContextSection({
   }, icon)), children);
 }
 
+function Tag({
+  children,
+  className = '',
+  color = 'gray'
+}) {
+  const tagColors = {
+    red: '~text-red-600 border-red-500/50',
+    orange: '~text-orange-600 border-orange-500/50',
+    green: '~text-emerald-600 border-emerald-500/50',
+    blue: '~text-indigo-600 border-indigo-500/50',
+    purple: '~text-violet-600 border-violet-600/50',
+    gray: '~text-gray-500 border-gray-500/50'
+  }[color];
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: `${className} ${tagColors} px-1.5 py-0.5 rounded-sm bg-opacity-20 border text-xs font-medium uppercase tracking-wider`
+  }, children);
+}
+
 function Request() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const request = getContextValues(errorOccurrence, 'request');
@@ -16567,11 +16585,11 @@ function Request() {
   const headers = getContextValues(errorOccurrence, 'headers');
   const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
   return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", {
-    className: "text-lg font-semibold flex items-center"
+    className: "text-lg font-semibold flex items-center gap-2"
   }, /*#__PURE__*/React__default.createElement("span", {
     className: "~text-indigo-600"
-  }, request.url), /*#__PURE__*/React__default.createElement("span", {
-    className: "ml-2 px-1.5 rounded-sm  border border-indigo-500/20 ~text-indigo-600 text-xs uppercase tracking-wider"
+  }, request.url), /*#__PURE__*/React__default.createElement(Tag, {
+    color: request.method.toUpperCase() == 'DELETE' ? 'red' : 'blue'
   }, request.method.toUpperCase())), curl && /*#__PURE__*/React__default.createElement("div", {
     className: "mt-2"
   }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
@@ -16579,20 +16597,20 @@ function Request() {
   })));
 }
 
-const _excluded$3 = ["children", "className"];
+const _excluded$2 = ["children", "className"];
 function DefinitionList(_ref) {
   let {
     children,
     className = ''
   } = _ref,
-      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$3);
+      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$2);
 
   if (!children) {
     return null;
   }
 
   return /*#__PURE__*/React__default.createElement("dl", _extends$1({
-    className: `grid grid-cols-1 gap-y-2 ${className}`
+    className: `grid grid-cols-1 gap-2 ${className}`
   }, props), children);
 }
 DefinitionList.Row = DefinitionListRow;
@@ -17186,13 +17204,13 @@ function LivewireUpdates() {
   })));
 }
 
-const _excluded$2 = ["children", "className"];
+const _excluded$1 = ["children", "className"];
 function UnorderedList(_ref) {
   let {
     children,
     className = ''
   } = _ref,
-      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$2);
+      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$1);
 
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children && /*#__PURE__*/React__default.createElement("ul", _extends$1({
     className: `gap-y-2 flex flex-col border-l border-l-gray-300 ${className}`
@@ -17245,12 +17263,12 @@ function Routing() {
   }));
 }
 
-const _excluded$1 = ["value"];
+const _excluded = ["value"];
 function SfDump(_ref) {
   let {
     value
   } = _ref,
-      props = _objectWithoutPropertiesLoose$1(_ref, _excluded$1);
+      props = _objectWithoutPropertiesLoose$1(_ref, _excluded);
 
   useEffect(() => {
     const match = value.match(/sf-dump-\d+/);
@@ -19730,7 +19748,7 @@ function ContextSections({
     icon: section.props.icon,
     active: inView[inView.length - 1] === section.props.title
   }, section.props.title))))))))), /*#__PURE__*/React__default.createElement("div", {
-    className: "overflow-hidden grid grid-cols-1 gap-px flex-grow"
+    className: "overflow-hidden grid grid-cols-1 gap-px shadow-lg flex-grow"
   }, children));
 }
 
@@ -19890,11 +19908,11 @@ function DebugTabs({
   }).filter(tab => tab.count);
   const Tab = tabs[currentTabIndex].component;
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "bg-gray-300/70 dark:bg-black/20 shadow-inner"
+    className: "bg-gray-300/50 dark:bg-black/20 shadow-inner"
   }, /*#__PURE__*/React__default.createElement("nav", {
     className: "flex justify-center items-center"
   }, /*#__PURE__*/React__default.createElement("ul", {
-    className: "-mt-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px"
+    className: "-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px"
   }, tabs.map((tab, i) => /*#__PURE__*/React__default.createElement("li", {
     key: i,
     className: `
@@ -19908,29 +19926,11 @@ function DebugTabs({
   }, /*#__PURE__*/React__default.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
   }, tab.count), /*#__PURE__*/React__default.createElement("span", null, tab.name)))))), /*#__PURE__*/React__default.createElement("div", {
-    className: "py-8 px-6 sm:px-10"
-  }), /*#__PURE__*/React__default.createElement(Tab, null));
+    className: "grid grid-cols-1 gap-px"
+  }, /*#__PURE__*/React__default.createElement(Tab, null)));
 }
 
 DebugTabs.Tab = _props => null;
-
-const _excluded = ["children", "className"];
-function Button(_ref) {
-  let {
-    children,
-    className = ''
-  } = _ref,
-      props = _objectWithoutPropertiesLoose$1(_ref, _excluded);
-
-  return /*#__PURE__*/React__default.createElement("button", _extends$1({
-    type: props.type || 'button',
-    className: `mt-6 px-4 h-8 bg-red-500 text-white whitespace-nowrap border-b
-                border-red-500/25 text-xs uppercase tracking-wider font-bold rounded-sm
-                shadow-md hover:shadow-lg active:shadow-none
-                ${className}
-            `
-  }, props), children);
-}
 
 function DebugItem({
   children,
@@ -19942,46 +19942,42 @@ function DebugItem({
   const [showRawContext, setShowRawContext] = useState(false); // TODO: Implement this
 
   const logLevelColors = {
-    error: 'bg-red-500',
-    warn: 'bg-orange-500',
-    warning: 'bg-orange-500',
-    info: 'bg-blue-500',
-    debug: 'bg-green-500',
-    trace: 'bg-gray-500',
-    notice: 'bg-purple-500',
-    critical: 'bg-red-500',
-    alert: 'bg-red-500',
-    emergency: 'bg-red-500'
+    error: 'red',
+    warn: 'orange',
+    warning: 'orange',
+    info: 'blue',
+    debug: 'green',
+    trace: 'gray',
+    notice: 'purple',
+    critical: 'red',
+    alert: 'red',
+    emergency: 'red'
   };
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "px-6 py-3 my-3 border-b-2 sm:px-10"
-  }, children, /*#__PURE__*/React__default.createElement("div", {
-    className: "flex align-baseline text-sm gap-1"
-  }, level && /*#__PURE__*/React__default.createElement("span", {
-    className: `
-                            ${logLevelColors[level] || 'bg-color-gray-500'}
-                            text-white rounded-full px-2 shadow-sm
-                        `
-  }, level), meta && Object.entries(meta).map(([key, value]) => /*#__PURE__*/React__default.createElement("span", {
-    key: key,
-    className: "rounded-full px-2 ~bg-white text-gray-500 shadow-sm"
-  }, key, ": ", value)), /*#__PURE__*/React__default.createElement("span", {
-    className: "ml-auto text-sm text-gray-700"
-  }, time.toLocaleTimeString())), context && /*#__PURE__*/React__default.createElement("div", {
-    className: "mt-2"
-  }, /*#__PURE__*/React__default.createElement(Button, {
-    onClick: () => setShowRawContext(!showRawContext)
-  }, showRawContext ? /*#__PURE__*/React__default.createElement("i", {
-    className: "fas fa-th-list"
-  }) : /*#__PURE__*/React__default.createElement("i", {
-    className: "fas fa-code"
-  })), showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    className: "py-10 px-6 sm:px-10 min-w-0 overflow-hidden grid grid-cols-1 gap-2"
+  }, /*#__PURE__*/React__default.createElement("div", {
+    className: "flex items-baseline gap-1"
+  }, /*#__PURE__*/React__default.createElement(Tag, {
+    color: level ? logLevelColors[level] : 'gray',
+    className: "font-mono"
+  }, time.toLocaleTimeString()), level && /*#__PURE__*/React__default.createElement(Tag, {
+    color: logLevelColors[level]
+  }, level), meta && Object.entries(meta).map(([key, value]) => /*#__PURE__*/React__default.createElement(Tag, {
+    key: key
+  }, key, ": ", value))), /*#__PURE__*/React__default.createElement("div", null, children), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: jsonStringify(context)
   }) : /*#__PURE__*/React__default.createElement("div", {
-    className: "grid grid-cols-[8rem,minmax(0,1fr)] gap-x-10 gap-y-2"
+    className: "pl-4"
   }, /*#__PURE__*/React__default.createElement(ContextList, {
     items: context
-  }))));
+  })), /*#__PURE__*/React__default.createElement("div", {
+    className: "flex justify-end"
+  }, /*#__PURE__*/React__default.createElement(SmallButton, {
+    onClick: () => setShowRawContext(!showRawContext)
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: showRawContext ? faListUl : faCode,
+    className: "text-[8px] ~text-gray-500 group-hover:text-indigo-500"
+  }), showRawContext ? 'As list' : 'Raw'))));
 }
 
 function Logs() {

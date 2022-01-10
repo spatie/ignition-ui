@@ -41,7 +41,7 @@ export default function ContextSections({ children }: Props) {
                     </ContextNav>
                 </div>
             </nav>
-            <div className="overflow-hidden grid grid-cols-1 gap-px flex-grow">{children}</div>
+            <div className="overflow-hidden grid grid-cols-1 gap-px shadow-lg flex-grow">{children}</div>
         </>
     );
 }
