@@ -28,7 +28,7 @@ export default function DebugTabs({ children }: Props) {
     const Tab = tabs[currentTabIndex].component;
 
     return (
-        <div className="bg-gray-300/50 dark:bg-black/20 shadow-inner">
+        <div className="bg-gray-300/50 dark:bg-black/10 shadow-inner">
             <nav className="flex justify-center items-center">
                 <ul className="-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px">
                     {tabs.map((tab, i) => (

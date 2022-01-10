@@ -16019,24 +16019,32 @@ function CodeSnippet({
   }
 
   return /*#__PURE__*/React__default.createElement("div", {
-    className: `${isOverflowing ? 'cursor-pointer' : ''} ${transparent ? '' : '~bg-gray-500/5'} group pl-4 pr-8 py-2`,
+    className: `
+                ${isOverflowing ? 'cursor-pointer' : ''} 
+                ${transparent ? '' : '~bg-gray-500/5'} 
+                group py-2`,
     onClick: () => isOverflowing ? setIsCollapsed(!isCollapsed) : null
-  }, language === 'sql' && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, !isCollapsed ? /*#__PURE__*/React__default.createElement("pre", null, /*#__PURE__*/React__default.createElement("code", {
-    className: "font-mono leading-relaxed text-sm font-normal"
-  }, sqlFormatter$1.format(value))) : /*#__PURE__*/React__default.createElement("pre", {
-    className: "truncate"
+  }, /*#__PURE__*/React__default.createElement("div", {
+    className: `${overflowX ? 'mask-fade-x' : ''}`
+  }, language === 'sql' && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, isCollapsed ? /*#__PURE__*/React__default.createElement("pre", {
+    className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'truncate pr-8'}`
   }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, value))), language !== 'sql' && /*#__PURE__*/React__default.createElement("pre", {
+  }, value)) : /*#__PURE__*/React__default.createElement("pre", {
+    className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}`
+  }, /*#__PURE__*/React__default.createElement("code", {
+    className: "font-mono leading-relaxed text-sm font-normal"
+  }, sqlFormatter$1.format(value)))), language !== 'sql' && /*#__PURE__*/React__default.createElement("pre", {
     ref: ref,
     className: `
-                        ${overflowX ? 'mask-fade-x overflow-x-scroll scrollbar-hidden-x' : ''}
-                        ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
-                        ${isOverflowing ? 'mask-fade-y cursor-pointer' : ''}
-                    `
+                            pl-4 
+                            ${isOverflowing ? 'mask-fade-y -mb-2' : ''}
+                            ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
+                            ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}
+                        `
   }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, value)), /*#__PURE__*/React__default.createElement("button", {
+  }, value))), /*#__PURE__*/React__default.createElement("button", {
     onClick: copy,
     title: "Copy to clipboard",
     className: `absolute top-2 right-2 ~text-gray-500 hover:text-indigo-500 opacity-0
@@ -16621,12 +16629,13 @@ function DefinitionListRow({
   className = ''
 }) {
   let valueOutput = value;
+  const [expandLabel, setExpandLabel] = useState(false);
 
   if (React__default.isValidElement(value)) {
     valueOutput = value;
   } else if (typeof value === 'boolean') {
     valueOutput = /*#__PURE__*/React__default.createElement("span", {
-      className: `${value ? 'text-green-500 bg-green-100/50' : 'text-red-500 bg-red-100/50'} text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`
+      className: `${value ? 'text-green-500 bg-green-500/5' : 'text-red-500 bg-red-500/5'} text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`
     }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       className: `${value} ? 'text-emerald-500' : 'text-red-500`,
       icon: value ? faCheck : faTimes
@@ -16646,7 +16655,10 @@ function DefinitionListRow({
   return /*#__PURE__*/React__default.createElement("div", {
     className: `flex items-baseline gap-10 ${className}`
   }, /*#__PURE__*/React__default.createElement("dt", {
-    className: "flex-none w-32 truncate"
+    className: `${expandLabel ? 'min-w-max' : 'truncate'} w-32 flex-none`,
+    onClick: () => {
+      setExpandLabel(!expandLabel);
+    }
   }, label), /*#__PURE__*/React__default.createElement("dd", {
     className: "flex-grow min-w-0"
   }, valueOutput));
@@ -17620,12 +17632,12 @@ function Alert({
   return /*#__PURE__*/React__default.createElement("div", {
     className: `${className}`
   }, /*#__PURE__*/React__default.createElement("div", {
-    className: "flex items-center gap-2 bg-yellow-50 px-4 py-2"
+    className: "flex items-center gap-2 bg-yellow-50 dark:bg-yellow-200 dark:text-black px-4 py-2"
   }, /*#__PURE__*/React__default.createElement("div", {
     className: "flex-shrink-0",
     "aria-hidden": "true"
   }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
-    className: "text-yellow-500",
+    className: "text-yellow-500 ",
     icon: faExclamationTriangle
   })), /*#__PURE__*/React__default.createElement("p", {
     className: "text-sm"
@@ -19908,7 +19920,7 @@ function DebugTabs({
   }).filter(tab => tab.count);
   const Tab = tabs[currentTabIndex].component;
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "bg-gray-300/50 dark:bg-black/20 shadow-inner"
+    className: "bg-gray-300/50 dark:bg-black/10 shadow-inner"
   }, /*#__PURE__*/React__default.createElement("nav", {
     className: "flex justify-center items-center"
   }, /*#__PURE__*/React__default.createElement("ul", {
@@ -19964,20 +19976,20 @@ function DebugItem({
     color: logLevelColors[level]
   }, level), meta && Object.entries(meta).map(([key, value]) => /*#__PURE__*/React__default.createElement(Tag, {
     key: key
-  }, key, ": ", value))), /*#__PURE__*/React__default.createElement("div", null, children), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
-    value: jsonStringify(context)
-  }) : /*#__PURE__*/React__default.createElement("div", {
-    className: "pl-4"
-  }, /*#__PURE__*/React__default.createElement(ContextList, {
-    items: context
-  })), /*#__PURE__*/React__default.createElement("div", {
-    className: "flex justify-end"
+  }, key, ": ", value)), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
+    className: "ml-auto"
   }, /*#__PURE__*/React__default.createElement(SmallButton, {
     onClick: () => setShowRawContext(!showRawContext)
   }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: showRawContext ? faListUl : faCode,
     className: "text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  }), showRawContext ? 'As list' : 'Raw'))));
+  }), showRawContext ? 'As list' : 'Raw')))), /*#__PURE__*/React__default.createElement("div", null, children), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    value: jsonStringify(context)
+  }) : /*#__PURE__*/React__default.createElement("div", {
+    className: "pl-4"
+  }, /*#__PURE__*/React__default.createElement(ContextList, {
+    items: context
+  }))));
 }
 
 function Logs() {

@@ -44,36 +44,45 @@ export default function CodeSnippet({ value, limitHeight = true, language = null
 
     return (
         <div 
-            className={`${isOverflowing ? 'cursor-pointer' : ''} ${transparent ? '' : '~bg-gray-500/5' } group pl-4 pr-8 py-2`}
+            className={`
+                ${isOverflowing ? 'cursor-pointer' : ''} 
+                ${transparent ? '' : '~bg-gray-500/5' } 
+                group py-2`
+            }
             onClick={() => isOverflowing ? setIsCollapsed(!isCollapsed) : null }  
         >
-            {language === 'sql' && (
-                <>
-                    {!isCollapsed ? (
-                        <pre>
-                            <code className="font-mono leading-relaxed text-sm font-normal">
-                                {sqlFormatter.format(value)}
-                            </code>
-                        </pre>
-                    ) : (
-                        <pre className="truncate">
-                            <code className="font-mono leading-relaxed text-sm font-normal">{value}</code>
-                        </pre>
-                    )}
-                </>
-            )}
-            {language !== 'sql' && (
-                <pre
-                    ref={ref}
-                    className={`
-                        ${overflowX? 'mask-fade-x overflow-x-scroll scrollbar-hidden-x' : ''}
-                        ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
-                        ${isOverflowing ? 'mask-fade-y cursor-pointer' : ''}
-                    `}
-                >
-                    <code className="font-mono leading-relaxed text-sm font-normal">{value}</code>
-                </pre>
-            )}
+            
+            <div className={`${overflowX? 'mask-fade-x' : ''}`}>
+                {language === 'sql' && (
+                    <>
+                        {isCollapsed ? (
+                            <pre className={`pl-4 ${overflowX? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'truncate pr-8'}`}>
+                                <code className="font-mono leading-relaxed text-sm font-normal">{value}</code>
+                            </pre>
+                        )
+                        : (
+                            <pre className={`pl-4 ${overflowX? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}`}>
+                                <code className="font-mono leading-relaxed text-sm font-normal">
+                                    {sqlFormatter.format(value)}
+                                </code>
+                            </pre>
+                        )}
+                    </>
+                )}
+                {language !== 'sql' && (
+                    <pre
+                        ref={ref}
+                        className={`
+                            pl-4 
+                            ${isOverflowing ? 'mask-fade-y -mb-2' : ''}
+                            ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
+                            ${overflowX? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}
+                        `}
+                    >
+                        <code className="font-mono leading-relaxed text-sm font-normal">{value}</code>
+                    </pre>
+                )}
+            </div>
 
             <button
                 onClick={copy}

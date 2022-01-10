@@ -53,6 +53,20 @@ export default function DebugItem({ children, context = null, level = null, meta
                             {key}: {value}
                         </Tag>
                     ))}
+
+{context && (
+                <>
+                    
+                    <div className="ml-auto">
+                        <SmallButton onClick={() => setShowRawContext(!showRawContext)}>
+                            <FontAwesomeIcon icon={showRawContext ? faListUl : faCode} className="text-[8px] ~text-gray-500 group-hover:text-indigo-500" />
+
+                            {showRawContext ? 
+                            'As list' : 'Raw'}
+                        </SmallButton>
+                    </div>
+                </>
+            )}
             </div>
 
             <div>
@@ -68,14 +82,6 @@ export default function DebugItem({ children, context = null, level = null, meta
                             <ContextList items={context} />
                         </div>
                     )}
-                    <div className="flex justify-end">
-                    <SmallButton onClick={() => setShowRawContext(!showRawContext)}>
-                        <FontAwesomeIcon icon={showRawContext ? faListUl : faCode} className="text-[8px] ~text-gray-500 group-hover:text-indigo-500" />
-
-                        {showRawContext ? 
-                        'As list' : 'Raw'}
-                    </SmallButton>
-                    </div>
                 </>
             )}
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CodeSnippet from './CodeSnippet';
 import { jsonStringify } from '../../util';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,14 +32,14 @@ type DefinitionListRowProps = {
 
 function DefinitionListRow({ value = '', label = '', className = '' }: DefinitionListRowProps) {
     let valueOutput: React.ReactNode = value;
+    const [expandLabel, setExpandLabel] = useState(false);
 
     if (React.isValidElement(value)) {
         valueOutput = value;
     } else if (typeof value === 'boolean') {
         valueOutput = 
-        
-            <span className={`${value ? 'text-green-500 bg-green-100/50' : 'text-red-500 bg-red-100/50' } text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`}>
-            <FontAwesomeIcon className={`${value} ? 'text-emerald-500' : 'text-red-500`} icon={value? faCheck : faTimes}/>
+            <span className={`${value ? 'text-green-500 bg-green-500/5' : 'text-red-500 bg-red-500/5' } text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`}>
+                <FontAwesomeIcon className={`${value} ? 'text-emerald-500' : 'text-red-500`} icon={value? faCheck : faTimes}/>
                 <span className="font-mono">{ value ? 'true' : 'false' }</span>
             </span>;
     } else if (typeof value === 'object') {
@@ -50,7 +50,7 @@ function DefinitionListRow({ value = '', label = '', className = '' }: Definitio
 
     return (
         <div className={`flex items-baseline gap-10 ${className}`}>
-            <dt className="flex-none w-32 truncate">{label}</dt>
+            <dt className={`${expandLabel ? 'min-w-max' : 'truncate'} w-32 flex-none`} onClick={()=>{setExpandLabel(!expandLabel)}}>{label}</dt>
             <dd className="flex-grow min-w-0">{valueOutput}</dd>
         </div>
     );
