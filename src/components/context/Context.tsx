@@ -30,7 +30,7 @@ export default function Context() {
     const requestData = getContextValues(errorOccurrence, 'request_data');
 
     return (
-        <section className="2xl:row-span-4">
+        <section>
             <a id="context" className="z-50 absolute top-[-7.5rem] " />
 
             <div className="flex items-stretch">

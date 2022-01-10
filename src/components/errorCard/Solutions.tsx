@@ -25,7 +25,7 @@ export default function Solutions() {
     }, []);
 
     return (
-        <aside id="solution" className="flex flex-col w-full lg:col-span-2 2xl:col-span-1">
+        <aside id="solution" className="flex flex-col w-full lg:col-span-2">
             <div className="flex-grow px-6 sm:px-10 py-8 text-gray-800  bg-emerald-300">
                 <button className="absolute top-4 right-4 leading-none opacity-50 hover:opacity-75 text-sm">
                     <i className="fas fa-times" />

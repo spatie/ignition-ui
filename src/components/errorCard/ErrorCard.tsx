@@ -13,8 +13,8 @@ export default function ErrorCard() {
     const hasSolutions = errorOccurrence.solutions.length > 0;
 
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-5 2xl:grid-cols-1 items-stretch ~bg-white shadow-lg">
-            <main id="exception" className={`z-10 ${hasSolutions ? 'lg:col-span-3 2xl:col-span-1' : 'col-span-full'}`}>
+        <section className="grid grid-cols-1 lg:grid-cols-5 items-stretch ~bg-white shadow-lg">
+            <main id="exception" className={`z-10 ${hasSolutions ? 'lg:col-span-3' : 'col-span-full'}`}>
                 <div className="overflow-hidden">
                     <div className="px-6 sm:px-10 py-8 overflow-x-auto">
                         <header className="flex items-center justify-between">
