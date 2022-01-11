@@ -1,23 +1,23 @@
 import React from 'react';
 
 type Props = {
-    children: React.ReactNode;
+    title: string;
     icon: React.ReactNode;
+    anchor: string;
     active?: boolean;
 };
 
-export default function ContextNavItem({ icon, children, active = false }: Props) {
+export default function ContextNavItem({ icon, title, anchor, active = false }: Props) {
     return (
-        <li
-            className={`
+        <li>
+            <a href={`#context-${anchor}`} className={`
                 flex items-center gap-3
-                cursor-pointer
-                py-1 group text-base hover:text-indigo-500
+                group text-base hover:text-indigo-500
                 ${active ? '~text-indigo-600' : ''}
-            `}
-        >
-            <span className="opacity-50">{icon}</span>
-            <span>{children}</span>
+            `}>
+                <span className="opacity-50">{icon}</span>
+                <span>{title}</span>
+            </a>
         </li>
     );
 }

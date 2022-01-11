@@ -12399,11 +12399,8 @@ function StackTrace({
     const lineNumber = selectedRange ? selectedRange[0] === selectedRange[1] ? selectedRange[0] : `${selectedRange[0]}-${selectedRange[1]}` : null;
     window.history.replaceState(window.history.state, '', `#F${state.selected}${lineNumber ? 'L' + lineNumber : ''}`);
   }, [state.selected, selectedRange]);
-  return /*#__PURE__*/React__default.createElement("section", null, /*#__PURE__*/React__default.createElement("a", {
-    id: "stack",
-    className: "z-50 absolute top-[-7.5rem]"
-  }), /*#__PURE__*/React__default.createElement("div", {
-    className: " grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem,1fr] items-stretch shadow-lg ~bg-white overflow-hidden "
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: "grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem,1fr] items-stretch shadow-lg ~bg-white overflow-hidden"
   }, /*#__PURE__*/React__default.createElement("aside", {
     className: "z-30 flex flex-col border-r ~border-gray-200"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -12451,7 +12448,7 @@ function StackTrace({
     className: "flex items-center text-sm"
   })), /*#__PURE__*/React__default.createElement(FrameCodeSnippet, {
     frame: selectedFrame
-  }))));
+  })));
 }
 
 function ExceptionMessage({
@@ -16276,11 +16273,15 @@ function ErrorCard() {
 
 function ContextGroup({
   title,
-  children
+  children,
+  anchor
 }) {
   return /*#__PURE__*/React__default.createElement("section", {
-    className: "py-10 ~bg-white px-6 sm:px-10 min-w-0 overflow-hidden"
-  }, /*#__PURE__*/React__default.createElement("h2", {
+    className: "py-10 ~bg-white px-6 sm:px-10 min-w-0"
+  }, /*#__PURE__*/React__default.createElement("a", {
+    id: `context-${anchor}`,
+    className: "scroll-target"
+  }), /*#__PURE__*/React__default.createElement("h2", {
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider"
   }, title), /*#__PURE__*/React__default.createElement("div", {
     className: "mt-3 grid grid-cols-1 gap-10"
@@ -16556,12 +16557,16 @@ function useSectionInView(sectionName) {
 function ContextSection({
   icon,
   title,
-  children
+  children,
+  anchor
 }) {
   const ref = useSectionInView(title);
   return /*#__PURE__*/React__default.createElement("div", {
     ref: ref
-  }, /*#__PURE__*/React__default.createElement("h1", {
+  }, /*#__PURE__*/React__default.createElement("a", {
+    id: `context-${anchor}`,
+    className: "scroll-target"
+  }), /*#__PURE__*/React__default.createElement("h1", {
     className: "mb-2 flex items-center gap-2 font-semibold text-lg ~text-indigo-600"
   }, title, /*#__PURE__*/React__default.createElement("span", {
     className: "opacity-50 ~text-indigo-600 text-sm"
@@ -19718,30 +19723,33 @@ function ContextNav({
 
 function ContextNavGroup({
   title,
-  children
+  children,
+  anchor
 }) {
-  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("h4", {
+  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
+    href: `#context-${anchor}`,
     className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
   }, title), /*#__PURE__*/React__default.createElement("ul", {
-    className: "mt-3 grid grid-cols-1 gap-2"
+    className: "mt-3 grid grid-cols-1 gap-3"
   }, children));
 }
 
 function ContextNavItem({
   icon,
-  children,
+  title,
+  anchor,
   active = false
 }) {
-  return /*#__PURE__*/React__default.createElement("li", {
+  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
+    href: `#context-${anchor}`,
     className: `
                 flex items-center gap-3
-                cursor-pointer
-                py-1 group text-base hover:text-indigo-500
+                group text-base hover:text-indigo-500
                 ${active ? '~text-indigo-600' : ''}
             `
   }, /*#__PURE__*/React__default.createElement("span", {
     className: "opacity-50"
-  }, icon), /*#__PURE__*/React__default.createElement("span", null, children));
+  }, icon), /*#__PURE__*/React__default.createElement("span", null, title)));
 }
 
 function ContextSections({
@@ -19755,11 +19763,14 @@ function ContextSections({
   }, /*#__PURE__*/React__default.createElement("div", {
     className: "sticky top-[7.5rem]"
   }, /*#__PURE__*/React__default.createElement(ContextNav, null, Children.map(children, group => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, group && /*#__PURE__*/React__default.createElement(ContextNavGroup, {
-    title: group.props.title
+    title: group.props.title,
+    anchor: group.props.anchor
   }, Children.map(group.props.children, section => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, section && section.type === ContextSection && /*#__PURE__*/React__default.createElement(ContextNavItem, {
     icon: section.props.icon,
-    active: inView[inView.length - 1] === section.props.title
-  }, section.props.title))))))))), /*#__PURE__*/React__default.createElement("div", {
+    active: inView[inView.length - 1] === section.props.title,
+    title: section.props.title,
+    anchor: section.props.anchor
+  }))))))))), /*#__PURE__*/React__default.createElement("div", {
     className: "overflow-hidden grid grid-cols-1 gap-px shadow-lg flex-grow"
   }, children));
 }
@@ -19781,15 +19792,14 @@ function Context() {
   const context = errorOccurrence.context_items;
   const files = getContextValues(errorOccurrence, 'files');
   const requestData = getContextValues(errorOccurrence, 'request_data');
-  return /*#__PURE__*/React__default.createElement("section", null, /*#__PURE__*/React__default.createElement("a", {
-    id: "context",
-    className: "z-50 absolute top-[-7.5rem] "
-  }), /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-stretch"
   }, /*#__PURE__*/React__default.createElement(InViewContextProvider, null, /*#__PURE__*/React__default.createElement(ContextSections, null, /*#__PURE__*/React__default.createElement(ContextGroup, {
-    title: "Request"
+    title: "Request",
+    anchor: "request"
   }, /*#__PURE__*/React__default.createElement(Request, null), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Headers",
+    anchor: "request-headers",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faExchangeAlt
@@ -19797,6 +19807,7 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(Headers, null)
   }), !!requestData.queryString.length && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Query String",
+    anchor: "request-query-string",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faQuestionCircle
@@ -19804,6 +19815,7 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(QueryString, null)
   }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Body",
+    anchor: "request-body",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCode
@@ -19811,6 +19823,7 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(Body, null)
   }), !!files.length && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Files",
+    anchor: "request-files",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faFile
@@ -19818,6 +19831,7 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(Files, null)
   }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Session",
+    anchor: "request-session",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faHourglassHalf
@@ -19825,15 +19839,18 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(Session, null)
   }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Cookies",
+    anchor: "request-cookies",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCookieBite
     }),
     children: /*#__PURE__*/React__default.createElement(Cookies, null)
   })), /*#__PURE__*/React__default.createElement(ContextGroup, {
-    title: "App"
+    title: "App",
+    anchor: "app"
   }, context.route && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Routing",
+    anchor: "app-routing",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faRandom
@@ -19841,15 +19858,18 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(Routing, null)
   }), context.view && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Views",
+    anchor: "app-views",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faPaintRoller
     }),
     children: /*#__PURE__*/React__default.createElement(View, null)
   })), context.livewire && /*#__PURE__*/React__default.createElement(ContextGroup, {
-    title: "Livewire"
+    title: "Livewire",
+    anchor: "livewire"
   }, /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Component",
+    anchor: "livewire-component",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faEye
@@ -19857,6 +19877,7 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(LivewireComponent, null)
   }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Updates",
+    anchor: "livewire-updates",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faEye
@@ -19864,15 +19885,18 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(LivewireUpdates, null)
   }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Data",
+    anchor: "livewire-data",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faEye
     }),
     children: /*#__PURE__*/React__default.createElement(LivewireData, null)
   })), /*#__PURE__*/React__default.createElement(ContextGroup, {
-    title: "User"
+    title: "User",
+    anchor: "user"
   }, context.user && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "User",
+    anchor: "user-user",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faUser
@@ -19880,15 +19904,18 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(User, null)
   }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Client",
+    anchor: "user-client",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faWindowMaximize
     }),
     children: /*#__PURE__*/React__default.createElement("div", null, "Client")
   })), /*#__PURE__*/React__default.createElement(ContextGroup, {
-    title: "Context"
+    title: "Context",
+    anchor: "context"
   }, context.git && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Git",
+    anchor: "context-git",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCodeBranch
@@ -19896,12 +19923,13 @@ function Context() {
     children: /*#__PURE__*/React__default.createElement(Git, null)
   }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Versions",
+    anchor: "context-versions",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faInfoCircle
     }),
     children: /*#__PURE__*/React__default.createElement(Versions, null)
-  }))))));
+  })))));
 }
 
 function DebugTabs({
@@ -20054,10 +20082,7 @@ function Debug() {
   const glows = errorOccurrence.glows;
   const queries = getContextValues(errorOccurrence, 'queries');
   const logs = getContextValues(errorOccurrence, 'logs');
-  return /*#__PURE__*/React__default.createElement("section", null, /*#__PURE__*/React__default.createElement("a", {
-    id: "debug",
-    className: "z-50 absolute top-[-7.5rem]"
-  }), /*#__PURE__*/React__default.createElement(DebugTabs, null, /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  return /*#__PURE__*/React__default.createElement(DebugTabs, null, /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
     component: Dumps,
     name: "Dumps",
     count: Object.keys(dumps).length
@@ -20073,7 +20098,7 @@ function Debug() {
     component: Logs,
     name: "Logs",
     count: Object.keys(logs).length
-  })));
+  }));
 }
 
 function CopyButton({

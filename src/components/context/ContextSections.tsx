@@ -21,16 +21,16 @@ export default function ContextSections({ children }: Props) {
                         {Children.map(children, (group) => (
                             <>
                                 {group && (
-                                    <ContextNavGroup title={group.props.title}>
+                                    <ContextNavGroup title={group.props.title} anchor={group.props.anchor}>
                                         {Children.map(group.props.children, (section) => (
                                             <>
                                                 {section && section.type === ContextSection && (
                                                     <ContextNavItem
                                                         icon={section.props.icon}
                                                         active={inView[inView.length - 1] === section.props.title}
-                                                    >
-                                                        {section.props.title}
-                                                    </ContextNavItem>
+                                                        title={section.props.title}
+                                                        anchor={section.props.anchor}
+                                                    />
                                                 )}
                                             </>
                                         ))}
