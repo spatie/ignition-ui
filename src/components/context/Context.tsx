@@ -20,8 +20,9 @@ import Versions from './sections/Versions';
 import { getContextValues } from '../../util';
 import ContextSections from './ContextSections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExchangeAlt, faQuestionCircle, faCode, faFile, faHourglassHalf, faCookieBite, faRandom, faPaintRoller, faWindowMaximize, faUser, faCodeBranch, faInfoCircle, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faExchangeAlt, faQuestionCircle, faCode, faFile, faHourglassHalf, faCookieBite, faRandom, faPaintRoller, faWindowMaximize, faUser, faCodeBranch, faInfoCircle, faEye, faSatelliteDish, faTh } from '@fortawesome/free-solid-svg-icons';
 import InViewContextProvider from '../../contexts/InViewContextProvider';
+import LiveWireIcon from 'components/ui/icons/LivewireIcon';
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -53,6 +54,7 @@ export default function Context() {
                         {!!files.length && <ContextSection title="Files" anchor="request-files" icon={<FontAwesomeIcon fixedWidth icon={faFile} />} children={<Files />} />}
                         <ContextSection title="Session" anchor="request-session" icon={<FontAwesomeIcon fixedWidth icon={faHourglassHalf} />} children={<Session />} />
                         <ContextSection title="Cookies" anchor="request-cookies" icon={<FontAwesomeIcon fixedWidth icon={faCookieBite} />} children={<Cookies />} />
+
                     </ContextGroup>
                     <ContextGroup title="App" anchor="app">
                         {context.route && (
@@ -64,9 +66,9 @@ export default function Context() {
                     </ContextGroup>
                     {context.livewire && (
                         <ContextGroup title="Livewire" anchor="livewire">
-                            <ContextSection title="Component" anchor="livewire-component" icon={<FontAwesomeIcon fixedWidth icon={faEye} />} children={<LivewireComponent />} />
-                            <ContextSection title="Updates" anchor="livewire-updates" icon={<FontAwesomeIcon fixedWidth icon={faEye} />} children={<LivewireUpdates />} />
-                            <ContextSection title="Data" anchor="livewire-data" icon={<FontAwesomeIcon fixedWidth icon={faEye} />} children={<LivewireData />} />
+                            <ContextSection title="Component" anchor="livewire-component" icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw" />} children={<LivewireComponent />} />
+                            <ContextSection title="Updates" anchor="livewire-updates" icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish} />} children={<LivewireUpdates />} />
+                            <ContextSection title="Data" anchor="livewire-data" icon={<FontAwesomeIcon fixedWidth icon={faTh} />} children={<LivewireData />} />
                         </ContextGroup>
                     )}
                     <ContextGroup title="User" anchor="user">
