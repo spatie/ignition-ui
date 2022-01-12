@@ -17,7 +17,7 @@
         "preserveConstEnums": true,
         "removeComments": false,
         "skipLibCheck": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "strict": true,
         "target": "esnext",
         "baseUrl": "./src",
