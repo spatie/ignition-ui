@@ -20,7 +20,7 @@ import Versions from './sections/Versions';
 import { getContextValues } from '../../util';
 import ContextSections from './ContextSections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExchangeAlt, faQuestionCircle, faCode, faFile, faHourglassHalf, faCookieBite, faRandom, faPaintRoller, faWindowMaximize, faUser, faCodeBranch, faInfoCircle, faEye, faSatelliteDish, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faExchangeAlt, faQuestionCircle, faCode, faFile, faHourglassHalf, faCookieBite, faRandom, faPaintRoller, faWindowMaximize, faUser, faCodeBranch, faSatelliteDish, faTh, faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import InViewContextProvider from '../../contexts/InViewContextProvider';
 import LiveWireIcon from 'components/ui/icons/LivewireIcon';
 
@@ -77,7 +77,7 @@ export default function Context() {
                     </ContextGroup>
                     <ContextGroup title="Context" anchor="context">
                         {context.git && <ContextSection title="Git" anchor="context-git" icon={<FontAwesomeIcon fixedWidth icon={faCodeBranch} />} children={<Git />} />}
-                        <ContextSection title="Versions" anchor="context-versions" icon={<FontAwesomeIcon fixedWidth icon={faInfoCircle} />} children={<Versions />} />
+                        <ContextSection title="Versions" anchor="context-versions" icon={<FontAwesomeIcon fixedWidth icon={faSlidersH} />} children={<Versions />} />
                     </ContextGroup>
                 </ContextSections>
             </InViewContextProvider>
