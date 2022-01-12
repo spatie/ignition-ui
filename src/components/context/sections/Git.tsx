@@ -8,7 +8,7 @@ import Alert from '../../ui/Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
-import GitUrlParse from 'git-url-parse';
+import GitUrlParse from '../../../vendor/git-url-parse';
 import SmallButton from 'components/ui/SmallButton';
 
 type GitInfo = { resource: string | null; repoUrl: string | null; commitUrl: string | null };
@@ -63,11 +63,11 @@ export default function Git() {
                     </Alert>
                 </div>
             )}
-            {git.tag && 
+            {git.tag && (
                 <DefinitionList>
                     <DefinitionList.Row label="Latest tag" value={git.tag} />
                 </DefinitionList>
-            }
+            )}
         </>
     );
 }
