@@ -4,11 +4,12 @@ import FrameCodeSnippetLine from './FrameCodeSnippetLine';
 import IgnitionConfigContext from '../../../contexts/IgnitionConfigContext';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import Prism from 'prismjs';
-import vsdark from 'prism-react-renderer/themes/vsdark';
-import vslight from 'prism-react-renderer/themes/vslight';
+import vsdark from '../../../themes/dark.js';
+import vslight from '../../../themes/light.js';
 
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
+
 
 type Props = {
     frame: ErrorFrame;
@@ -23,7 +24,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
     const highlightedIndex = lineNumbers.indexOf(frame.line_number);
 
     return (
-        <main className="flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-x text-sm">
+        <main className="flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-r text-sm">
             <nav className="sticky left-0 flex flex-none z-20 ~bg-white">
                 <div className="select-none">
                     {lineNumbers.map((number) => (

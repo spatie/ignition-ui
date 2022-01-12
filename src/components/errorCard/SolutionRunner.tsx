@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import { faRedoAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'components/ui/Button';
-import React, { useState } from 'react';
 import { ErrorSolution } from '../../types';
 import SolutionDescription from './SolutionDescription';
 
