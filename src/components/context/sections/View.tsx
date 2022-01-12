@@ -19,7 +19,7 @@ export default function View() {
                 value={
                     <DefinitionList>
                         {Object.entries(view.data).map(([key, data]) => (
-                            <DefinitionList.Row key={key} label={key} value={<SfDump value={data} />} />
+                            <DefinitionList.Row stacked key={key} label={key} value={<SfDump value={data} />} />
                         ))}
                     </DefinitionList>
                 }

@@ -18,7 +18,7 @@ export default function Routing() {
                     value={
                         <DefinitionList>
                             {Object.entries(route.routeParameters || []).map(([key, parameter]) => (
-                                <DefinitionList.Row key={key} label={key} value={parameter as string} />
+                                <DefinitionList.Row stacked key={key} label={key} value={parameter as string} />
                             ))}
                         </DefinitionList>
                     }

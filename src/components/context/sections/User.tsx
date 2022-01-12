@@ -11,7 +11,7 @@ export default function User() {
     return (
         <>
             {user.email && (
-                <div className="flex items-center col-span-2">
+                <div className="flex items-center gap-3">
                     <div>
                         <img
                             className="inline-block h-9 w-9 rounded-full"
@@ -19,7 +19,7 @@ export default function User() {
                             src={`https://gravatar.com/avatar/${md5(user.email)}/?s=240`}
                         />
                     </div>
-                    <div className="ml-3">
+                    <div>
                         {user.name && (
                             <p className="text-base font-semibold text-gray-700 group-hover:text-gray-900">
                                 {user.name}
@@ -29,9 +29,7 @@ export default function User() {
                     </div>
                 </div>
             )}
-            <div className="col-span-2">
-                <CodeSnippet value={jsonStringify(user)} />
-            </div>
+            <CodeSnippet value={jsonStringify(user)} />
         </>
     );
 }

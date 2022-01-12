@@ -28,9 +28,10 @@ type DefinitionListRowProps = {
     value?: string | React.ReactNode | Array<any> | Object | boolean;
     label?: string | React.ReactNode;
     className?: string;
+    stacked?: boolean;
 };
 
-function DefinitionListRow({ value = '', label = '', className = '' }: DefinitionListRowProps) {
+function DefinitionListRow({ value = '', label = '', className = '', stacked = false }: DefinitionListRowProps) {
     let valueOutput: React.ReactNode = value;
     const [expandLabel, setExpandLabel] = useState(false);
 
@@ -49,8 +50,14 @@ function DefinitionListRow({ value = '', label = '', className = '' }: Definitio
     }
 
     return (
-        <div className={`flex items-baseline gap-10 ${className}`}>
-            <dt className={`${expandLabel ? 'flex' : 'flex-none truncate w-32'} `} onClick={()=>{setExpandLabel(!expandLabel)}}>{label}</dt>
+        <div className={`${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`}>
+            <dt className={`
+                ${(stacked) ? 'self-start text-xs ~bg-gray-500/5 ~text-gray-500 px-4 pt-2 pb-0.5' : (expandLabel ? 'flex' : 'flex-none truncate w-32')}
+            `} 
+                onClick={()=>{setExpandLabel(!expandLabel)}}
+            >
+                    {label}
+            </dt>
             <dd className="flex-grow min-w-0">{valueOutput}</dd>
         </div>
     );

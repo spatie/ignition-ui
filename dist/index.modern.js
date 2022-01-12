@@ -16666,7 +16666,8 @@ DefinitionList.Row = DefinitionListRow;
 function DefinitionListRow({
   value = '',
   label = '',
-  className = ''
+  className = '',
+  stacked = false
 }) {
   let valueOutput = value;
   const [expandLabel, setExpandLabel] = useState(false);
@@ -16693,9 +16694,11 @@ function DefinitionListRow({
   }
 
   return /*#__PURE__*/React__default.createElement("div", {
-    className: `flex items-baseline gap-10 ${className}`
+    className: `${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`
   }, /*#__PURE__*/React__default.createElement("dt", {
-    className: `${expandLabel ? 'flex' : 'flex-none truncate w-32'} `,
+    className: `
+                ${stacked ? 'self-start text-xs ~bg-gray-500/5 ~text-gray-500 px-4 pt-2 pb-0.5' : expandLabel ? 'flex' : 'flex-none truncate w-32'}
+            `,
     onClick: () => {
       setExpandLabel(!expandLabel);
     }
@@ -17265,7 +17268,7 @@ function UnorderedList(_ref) {
       props = _objectWithoutPropertiesLoose$1(_ref, _excluded$2);
 
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children && /*#__PURE__*/React__default.createElement("ul", _extends$1({
-    className: `gap-y-2 flex flex-col border-l border-l-gray-300 ${className}`
+    className: `gap-y-2 flex flex-col ${className}`
   }, props), children));
 }
 UnorderedList.Item = UnorderedListItem;
@@ -17301,6 +17304,7 @@ function Routing() {
     label: "Route name"
   }), Object.entries(route.routeParameters).length > 0 && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(route.routeParameters || []).map(([key, parameter]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+      stacked: true,
       key: key,
       label: key,
       value: parameter
@@ -17354,6 +17358,7 @@ function View() {
     label: "View"
   }), /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+      stacked: true,
       key: key,
       label: key,
       value: /*#__PURE__*/React__default.createElement(SfDump, {
@@ -17647,22 +17652,18 @@ function User() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const user = getContextValues(errorOccurrence, 'user');
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, user.email && /*#__PURE__*/React__default.createElement("div", {
-    className: "flex items-center col-span-2"
+    className: "flex items-center gap-3"
   }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("img", {
     className: "inline-block h-9 w-9 rounded-full",
     alt: user.email,
     src: `https://gravatar.com/avatar/${md5(user.email)}/?s=240`
-  })), /*#__PURE__*/React__default.createElement("div", {
-    className: "ml-3"
-  }, user.name && /*#__PURE__*/React__default.createElement("p", {
+  })), /*#__PURE__*/React__default.createElement("div", null, user.name && /*#__PURE__*/React__default.createElement("p", {
     className: "text-base font-semibold text-gray-700 group-hover:text-gray-900"
   }, user.name), /*#__PURE__*/React__default.createElement("p", {
     className: "text-sm font-semibold text-gray-500 group-hover:text-gray-700"
-  }, user.email))), /*#__PURE__*/React__default.createElement("div", {
-    className: "col-span-2"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, user.email))), /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: jsonStringify(user)
-  })));
+  }));
 }
 
 function Alert({
