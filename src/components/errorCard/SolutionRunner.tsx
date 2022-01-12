@@ -1,6 +1,6 @@
 import { faRedoAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from 'index';
+import Button from 'components/ui/Button';
 import React, { useState } from 'react';
 import { ErrorSolution } from '../../types';
 import SolutionDescription from './SolutionDescription';
@@ -49,30 +49,35 @@ export default function SolutionRunner({ solution }: Props) {
         <>
             {wasExecutionSuccessful === null && (
                 <>
-                <Button
-                onClick={executeSolution}
-                disabled={isRunningSolution}
-                className="mb-4 inline-flex items-center gap-2 bg-emerald-600 border-emerald-500/25 text-white" 
-            >
-                {isRunningSolution ? <span>Running...</span> : 
-                    <>
-                        <FontAwesomeIcon className="opacity-50" icon={faWrench} />
-                        {solution.run_button_text || 'Run'}
-                    </>
-                }
-            </Button>
+                    <Button
+                        onClick={executeSolution}
+                        disabled={isRunningSolution}
+                        className="mb-4 inline-flex items-center gap-2 bg-emerald-600 border-emerald-500/25 text-white"
+                    >
+                        {isRunningSolution ? (
+                            <span>Running...</span>
+                        ) : (
+                            <>
+                                <FontAwesomeIcon className="opacity-50" icon={faWrench} />
+                                {solution.run_button_text || 'Run'}
+                            </>
+                        )}
+                    </Button>
 
-            <SolutionDescription solution={solution}/>
-            </>
-                
+                    <SolutionDescription solution={solution} />
+                </>
             )}
 
             {wasExecutionSuccessful === true && (
                 <p className="">
                     The solution was executed <strong>successfully</strong>.
-                    <br/>
-                    <a href="#" className="mt-2 inline-flex items-center gap-2 underline text-emerald-700 hover:text-emerald-800" onClick={refresh}>
-                        <FontAwesomeIcon icon={faRedoAlt} className="text-sm opacity-50"/>
+                    <br />
+                    <a
+                        href="#"
+                        className="mt-2 inline-flex items-center gap-2 underline text-emerald-700 hover:text-emerald-800"
+                        onClick={refresh}
+                    >
+                        <FontAwesomeIcon icon={faRedoAlt} className="text-sm opacity-50" />
                         Refresh now
                     </a>
                 </p>
@@ -82,9 +87,13 @@ export default function SolutionRunner({ solution }: Props) {
                 <>
                     <p className="bg-red-200 px-4 py-2">
                         Something <strong>went wrong</strong>. Please try refreshing the page and try again.
-                        <br/>
-                        <a href="#" className="mt-2 inline-flex items-center gap-2 underline text-red-700 hover:text-red-800" onClick={refresh}>
-                            <FontAwesomeIcon icon={faRedoAlt} className="text-sm opacity-50"/>
+                        <br />
+                        <a
+                            href="#"
+                            className="mt-2 inline-flex items-center gap-2 underline text-red-700 hover:text-red-800"
+                            onClick={refresh}
+                        >
+                            <FontAwesomeIcon icon={faRedoAlt} className="text-sm opacity-50" />
                             Refresh now
                         </a>
                     </p>
