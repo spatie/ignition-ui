@@ -50,7 +50,7 @@ function DefinitionListRow({ value = '', label = '', className = '' }: Definitio
 
     return (
         <div className={`flex items-baseline gap-10 ${className}`}>
-            <dt className={`${expandLabel ? 'min-w-max' : 'truncate'} w-32 flex-none`} onClick={()=>{setExpandLabel(!expandLabel)}}>{label}</dt>
+            <dt className={`${expandLabel ? 'flex' : 'flex-none truncate w-32'} `} onClick={()=>{setExpandLabel(!expandLabel)}}>{label}</dt>
             <dd className="flex-grow min-w-0">{valueOutput}</dd>
         </div>
     );

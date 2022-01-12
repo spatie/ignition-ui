@@ -16660,7 +16660,7 @@ function DefinitionListRow({
   return /*#__PURE__*/React__default.createElement("div", {
     className: `flex items-baseline gap-10 ${className}`
   }, /*#__PURE__*/React__default.createElement("dt", {
-    className: `${expandLabel ? 'min-w-max' : 'truncate'} w-32 flex-none`,
+    className: `${expandLabel ? 'flex' : 'flex-none truncate w-32'} `,
     onClick: () => {
       setExpandLabel(!expandLabel);
     }
