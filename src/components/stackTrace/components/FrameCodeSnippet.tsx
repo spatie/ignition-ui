@@ -4,8 +4,8 @@ import FrameCodeSnippetLine from './FrameCodeSnippetLine';
 import IgnitionConfigContext from '../../../contexts/IgnitionConfigContext';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import Prism from 'prismjs';
-import vsdark from '../../../themes/dark.js';
-import vslight from '../../../themes/light.js';
+import dark from '../../../themes/dark.js';
+import light from '../../../themes/light.js';
 
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
@@ -51,7 +51,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
                     code={code}
                     // @ts-ignore
                     language={frame.relative_file.endsWith('blade.php') ? 'html' : 'php'}
-                    theme={theme === 'dark' ? vsdark : vslight}
+                    theme={theme === 'dark' ? dark : light}
                 >
                     {({ className, style, tokens, getLineProps, getTokenProps }) => (
                         <pre className={className} style={style}>
