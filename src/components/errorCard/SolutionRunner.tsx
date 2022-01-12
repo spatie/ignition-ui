@@ -1,5 +1,9 @@
+import { faRedoAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'index';
 import React, { useState } from 'react';
 import { ErrorSolution } from '../../types';
+import SolutionDescription from './SolutionDescription';
 
 type Props = {
     solution: ErrorSolution;
@@ -44,34 +48,47 @@ export default function SolutionRunner({ solution }: Props) {
     return (
         <>
             {wasExecutionSuccessful === null && (
-                <button
-                    className="ml-4 px-4 h-8 bg-white/20 text-white whitespace-nowrap border-b border-gray-500/25 text-xs
-                        uppercase tracking-wider font-bold rounded-sm shadow-md hover:shadow-lg active:shadow-none"
-                    onClick={executeSolution}
-                    disabled={isRunningSolution}
-                >
-                    {isRunningSolution ? <span>Running...</span> : <span>{solution.run_button_text || 'Run'}</span>}
-                </button>
+                <>
+                <Button
+                onClick={executeSolution}
+                disabled={isRunningSolution}
+                className="mb-4 inline-flex items-center gap-2 bg-emerald-600 border-emerald-500/25 text-white" 
+            >
+                {isRunningSolution ? <span>Running...</span> : 
+                    <>
+                        <FontAwesomeIcon className="opacity-50" icon={faWrench} />
+                        {solution.run_button_text || 'Run'}
+                    </>
+                }
+            </Button>
+
+            <SolutionDescription solution={solution}/>
+            </>
+                
             )}
 
             {wasExecutionSuccessful === true && (
-                <p>
-                    <strong className="font-semibold">The solution was executed successfully.</strong>
-                    <a className="ml-2" href="#" onClick={refresh}>
-                        Refresh now.
+                <p className="">
+                    The solution was executed <strong>successfully</strong>.
+                    <br/>
+                    <a href="#" className="mt-2 inline-flex items-center gap-2 underline text-emerald-700 hover:text-emerald-800" onClick={refresh}>
+                        <FontAwesomeIcon icon={faRedoAlt} className="text-sm opacity-50"/>
+                        Refresh now
                     </a>
                 </p>
             )}
 
             {wasExecutionSuccessful === false && (
-                <p>
-                    <strong className="font-semibold">
-                        Something went wrong when executing the solution. Please try refreshing the page and try again.
-                    </strong>
-                    <a className="ml-2" href="#" onClick={refresh}>
-                        Refresh now.
-                    </a>
-                </p>
+                <>
+                    <p className="bg-red-200 px-4 py-2">
+                        Something <strong>went wrong</strong>. Please try refreshing the page and try again.
+                        <br/>
+                        <a href="#" className="mt-2 inline-flex items-center gap-2 underline text-red-700 hover:text-red-800" onClick={refresh}>
+                            <FontAwesomeIcon icon={faRedoAlt} className="text-sm opacity-50"/>
+                            Refresh now
+                        </a>
+                    </p>
+                </>
             )}
         </>
     );
