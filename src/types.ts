@@ -52,7 +52,12 @@ export type ErrorOccurrence = {
 };
 
 export type EnvContext = {
-    [key: string]: string | number | boolean;
+    laravel_version: string;
+    laravel_locale: string;
+    laravel_config_cached: boolean;
+    app_debug: boolean;
+    app_env: string;
+    php_version: string;
 };
 
 export type GitContext = {
