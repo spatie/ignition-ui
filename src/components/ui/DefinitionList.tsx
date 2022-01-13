@@ -38,11 +38,19 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
     if (React.isValidElement(value)) {
         valueOutput = value;
     } else if (typeof value === 'boolean') {
-        valueOutput = 
-            <span className={`${value ? 'text-green-500 bg-green-500/5' : 'text-red-500 bg-red-500/5' } text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`}>
-                <FontAwesomeIcon className={`${value} ? 'text-emerald-500' : 'text-red-500`} icon={value? faCheck : faTimes}/>
-                <span className="font-mono">{ value ? 'true' : 'false' }</span>
-            </span>;
+        valueOutput = (
+            <span
+                className={`${
+                    value ? 'text-green-500 bg-green-500/5' : 'text-red-500 bg-red-500/5'
+                } text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`}
+            >
+                <FontAwesomeIcon
+                    className={`${value} ? 'text-emerald-500' : 'text-red-500`}
+                    icon={value ? faCheck : faTimes}
+                />
+                <span className="font-mono">{value ? 'true' : 'false'}</span>
+            </span>
+        );
     } else if (typeof value === 'object') {
         valueOutput = <CodeSnippet value={jsonStringify(value)} />;
     } else if (typeof value === 'string') {
@@ -51,15 +59,23 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
 
     return (
         <div className={`${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`}>
-            <dt className={`
-                ${(stacked) ? 'self-start text-xs font-medium ~bg-gray-500/5 px-4 pt-2 pb-0.5' : (expandLabel ? 'flex' : 'flex-none truncate w-32')}
-            `} 
-                onClick={()=>{setExpandLabel(!expandLabel)}}
+            <dt
+                className={`
+                ${
+                    stacked
+                        ? 'self-start text-xs font-medium ~bg-gray-500/5 px-4 pt-2 pb-0.5'
+                        : expandLabel
+                        ? 'flex'
+                        : 'flex-none truncate hover:flex min-w-[8rem] hover:w-auto w-32'
+                }
+            `}
+                onClick={() => {
+                    setExpandLabel(!expandLabel);
+                }}
             >
-                    {label}
+                {label}
             </dt>
             <dd className="flex-grow min-w-0">{valueOutput}</dd>
         </div>
     );
 }
-
