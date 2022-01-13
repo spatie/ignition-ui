@@ -29,15 +29,16 @@ export default function DebugTabs({ children }: Props) {
 
     return (
         <div className="bg-gray-300/50 dark:bg-black/10 shadow-inner">
-            <nav className="flex justify-center items-center">
-                <ul className="-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-400 text-white space-x-px">
+            <nav className="z-10 flex justify-center items-center">
+                <ul className="-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-500 text-white space-x-px">
                     {tabs.map((tab, i) => (
                         <li
                             key={i}
                             className={`
-                                    ${i === currentTabIndex ? 'bg-indigo-500' : '~bg-white text-gray-500'}
+                                    ${i === currentTabIndex ? 'bg-indigo-600' : 'bg-indigo-500 text-indigo-100'}
                                     ${i === 0 ? 'rounded-l-full' : ''}
                                     ${i === tabs.length - 1 ? 'rounded-r-full' : ''}
+                                    hover:text-white
                                 `}
                         >
                             <button
@@ -54,7 +55,7 @@ export default function DebugTabs({ children }: Props) {
                 </ul>
             </nav>
             
-            <div className="grid grid-cols-1 gap-px">
+            <div className="grid grid-cols-1 gap-10 py-10 px-6 sm:px-10">
                 <Tab />
             </div>
         </div>

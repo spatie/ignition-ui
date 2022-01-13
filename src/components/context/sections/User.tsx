@@ -11,7 +11,7 @@ export default function User() {
     return (
         <>
             {user.email && (
-                <div className="flex items-center gap-3">
+                <div className="mb-2 flex items-center gap-3">
                     <div>
                         <img
                             className="inline-block h-9 w-9 rounded-full"
@@ -19,13 +19,13 @@ export default function User() {
                             src={`https://gravatar.com/avatar/${md5(user.email)}/?s=240`}
                         />
                     </div>
-                    <div>
+                    <div className="leading-tight">
                         {user.name && (
-                            <p className="text-base font-semibold text-gray-700 group-hover:text-gray-900">
+                            <p className="font-semibold">
                                 {user.name}
                             </p>
                         )}
-                        <p className="text-sm font-semibold text-gray-500 group-hover:text-gray-700">{user.email}</p>
+                        <p className="text-sm">{user.email}</p>
                     </div>
                 </div>
             )}

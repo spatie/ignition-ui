@@ -52,7 +52,7 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
     return (
         <div className={`${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`}>
             <dt className={`
-                ${(stacked) ? 'self-start text-xs ~bg-gray-500/5 ~text-gray-500 px-4 pt-2 pb-0.5' : (expandLabel ? 'flex' : 'flex-none truncate w-32')}
+                ${(stacked) ? 'self-start text-xs font-medium ~bg-gray-500/5 px-4 pt-2 pb-0.5' : (expandLabel ? 'flex' : 'flex-none truncate w-32')}
             `} 
                 onClick={()=>{setExpandLabel(!expandLabel)}}
             >

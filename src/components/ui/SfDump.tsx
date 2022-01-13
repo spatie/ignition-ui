@@ -16,5 +16,5 @@ export default function SfDump({ value, ...props }: Props) {
         window.Sfdump(match[0]);
     }, [value]);
 
-    return <div dangerouslySetInnerHTML={{ __html: value }} {...props} />;
+    return <div className="~bg-gray-500/5 px-4 py-2" dangerouslySetInnerHTML={{ __html: value }} {...props} />;
 }
