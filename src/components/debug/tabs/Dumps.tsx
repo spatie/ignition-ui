@@ -15,7 +15,9 @@ export default function Dumps() {
         <>
             {dumps.map((dump) => (
                 <DebugItem key={dump.microtime} time={unixToDate(dump.microtime)}>
-                    <EditorLink path={dump.file} lineNumber={dump.line_number} className="text-sm" />
+                    <div className="mb-2">
+                        <EditorLink path={dump.file} lineNumber={dump.line_number} className="text-sm" />
+                    </div>
                     <SfDump value={dump.html_dump} />
                 </DebugItem>
             ))}

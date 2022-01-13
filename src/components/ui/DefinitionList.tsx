@@ -63,10 +63,10 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
                 className={`
                 ${
                     stacked
-                        ? 'self-start text-xs font-medium ~bg-gray-500/5 px-4 pt-2 pb-0.5'
+                        ? 'self-start pt-2 mb-2 leading-tight'
                         : expandLabel
-                        ? 'flex'
-                        : 'flex-none truncate hover:flex min-w-[8rem] hover:w-auto w-32'
+                        ? 'flex min-w-[8rem]'
+                        : 'flex-none truncate min-w-[8rem] w-32 hover:flex hover:w-auto'
                 }
             `}
                 onClick={() => {
