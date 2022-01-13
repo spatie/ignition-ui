@@ -1,3 +1,5 @@
+// Based on https://github.com/highlightjs/highlight.js/blob/main/src/languages/php-template.js
+
 export default function blade(hljs: any) {
     return {
         name: 'Blade',
@@ -6,7 +8,7 @@ export default function blade(hljs: any) {
         contains: [
             hljs.COMMENT(/\{\{--/, /--\}\}/),
 
-            // output with HTML escaping {{ $likeThis }}
+            // {{ $likeThis }}
             {
                 className: 'template-variable',
                 begin: /\{\{/,
@@ -21,7 +23,7 @@ export default function blade(hljs: any) {
                 begin: /\}\}/,
             },
 
-            // output with HTML escaping {{{ $likeThis }}}
+            // {{{ $likeThis }}}
             {
                 className: 'template-variable',
                 begin: /\{\{\{/,
@@ -36,7 +38,7 @@ export default function blade(hljs: any) {
                 begin: /\}\}\}/,
             },
 
-            // output with no HTML escaping
+            // {!! $hello !!}
             {
                 className: 'template-variable',
                 begin: /\{!!/,
@@ -51,7 +53,19 @@ export default function blade(hljs: any) {
                 begin: /!!\}/,
             },
 
-            // directly inserted PHP code
+            // @php($a = 2)
+            {
+                className: 'template-tag',
+                begin: /@php\(/,
+                starts: {
+                    end: /\)/,
+                    returnEnd: true,
+                    subLanguage: 'php',
+                },
+                relevance: 15,
+            },
+
+            // @php $a = 1 @endphp
             {
                 className: 'template-tag',
                 begin: /@php/,
@@ -63,10 +77,21 @@ export default function blade(hljs: any) {
                 relevance: 10,
             },
 
-            // directives
+            // :blade-value="$phpVar"
             {
-                begin: /@[\w]+/,
-                end: /[\W]/,
+                className: 'attr',
+                begin: /:[\w-]+="/,
+                starts: {
+                    end: /"(?=\s|\n|\/)/,
+                    returnEnd: true,
+                    subLanguage: 'php',
+                },
+            },
+
+            // @something
+            {
+                begin: /@\w+/,
+                end: /\W/,
                 excludeEnd: true,
                 className: 'template-tag',
             },
