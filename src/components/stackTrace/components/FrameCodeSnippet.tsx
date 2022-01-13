@@ -1,15 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { ErrorFrame } from '../../../types';
-import FrameCodeSnippetLine from './FrameCodeSnippetLine';
 import IgnitionConfigContext from '../../../contexts/IgnitionConfigContext';
-import Highlight, { defaultProps } from 'prism-react-renderer';
-import Prism from 'prismjs';
-import dark from '../../../themes/dark.js';
-import light from '../../../themes/light.js';
+import FrameCodeSnippetLine from './FrameCodeSnippetLine';
+// @ts-ignore
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+// @ts-ignore
+import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
+// @ts-ignore
+import phpTemplate from 'react-syntax-highlighter/dist/esm/languages/hljs/php-template';
+// @ts-ignore
+import xml from 'react-syntax-highlighter/dist/esm/languages/hljs/xml';
+// @ts-ignore
+import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
+// @ts-ignore
+import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
+// @ts-ignore
+import handlebars from 'react-syntax-highlighter/dist/esm/languages/hljs/handlebars';
+// @ts-ignore
+import { createElement } from 'react-syntax-highlighter';
+import blade from 'languages/blade';
+import light from 'themes/light';
+import dark from 'themes/dark';
 
-import 'prismjs/components/prism-markup-templating';
-import 'prismjs/components/prism-php';
+// We need to register all styles and languages manually if we want to use the light
+// export of the SyntaxHighlighter. Including all sub-languages used in e.g. Blade:
+SyntaxHighlighter.registerLanguage('php', php);
+SyntaxHighlighter.registerLanguage('php-template', phpTemplate);
+SyntaxHighlighter.registerLanguage('blade', blade);
+SyntaxHighlighter.registerLanguage('xml', xml);
+SyntaxHighlighter.registerLanguage('css', css);
+SyntaxHighlighter.registerLanguage('javascript', javascript);
+SyntaxHighlighter.registerLanguage('handlebars', handlebars);
 
+type RendererProps = {
+    rows: Row[];
+    stylesheet: string;
+    useInlineStyles: boolean;
+};
+
+export type Row = Node[];
+
+type Node = {
+    type: string;
+    tagName?: string;
+    properties: { className: null | string };
+    children: Node[];
+};
 
 type Props = {
     frame: ErrorFrame;
@@ -22,6 +58,24 @@ export default function FrameCodeSnippet({ frame }: Props) {
 
     const lineNumbers = Object.keys(frame.code_snippet).map((n) => Number(n));
     const highlightedIndex = lineNumbers.indexOf(frame.line_number);
+
+    const codeRenderer = useMemo(
+        () =>
+            ({ rows, stylesheet, useInlineStyles }: RendererProps) => {
+                return rows.map((row, index) => (
+                    <FrameCodeSnippetLine
+                        key={lineNumbers[index]}
+                        frame={frame}
+                        highlight={index === highlightedIndex}
+                        row={row}
+                        stylesheet={stylesheet}
+                        useInlineStyles={useInlineStyles}
+                        lineNumber={lineNumbers[index]}
+                    />
+                ));
+            },
+        [frame],
+    );
 
     return (
         <main className="flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-r text-sm">
@@ -45,43 +99,13 @@ export default function FrameCodeSnippet({ frame }: Props) {
                 </div>
             </nav>
             <div className="flex-grow pr-10">
-                <Highlight
-                    {...defaultProps}
-                    Prism={Prism as any}
-                    code={code}
-                    // @ts-ignore
-                    language={frame.relative_file.endsWith('blade.php') ? 'html' : 'php'}
-                    theme={theme === 'dark' ? dark : light}
+                <SyntaxHighlighter
+                    style={theme === 'light' ? light : dark}
+                    language={frame.relative_file.endsWith('.blade.php') ? 'blade' : 'php'}
+                    renderer={codeRenderer}
                 >
-                    {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                        <pre className={className} style={style}>
-                            {tokens.map((line, index) => (
-                                <FrameCodeSnippetLine
-                                    {...getLineProps({ line, key: index })}
-                                    frame={frame}
-                                    highlight={index === highlightedIndex}
-                                    line={line}
-                                    lineNumber={lineNumbers[index]}
-                                    getTokenProps={getTokenProps}
-                                />
-                            ))}
-                        </pre>
-                    )}
-                </Highlight>
-
-                {/*<pre>*/}
-                {/*    <code>*/}
-                {/*        {tokenizedCode.map(({ tokens, lineNumber }, index) => (*/}
-                {/*            <FrameCodeSnippetLine*/}
-                {/*                key={index}*/}
-                {/*                frame={frame}*/}
-                {/*                highlight={index === highlightedIndex}*/}
-                {/*                tokens={tokens}*/}
-                {/*                lineNumber={lineNumber}*/}
-                {/*            />*/}
-                {/*        ))}*/}
-                {/*    </code>*/}
-                {/*</pre>*/}
+                    {code}
+                </SyntaxHighlighter>
             </div>
         </main>
     );

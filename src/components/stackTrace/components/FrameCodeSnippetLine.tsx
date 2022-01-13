@@ -1,30 +1,33 @@
 import React from 'react';
 import useEditorUrl from '../../../hooks/useEditorUrl';
 import { ErrorFrame } from '../../../types';
-import Highlight from 'prism-react-renderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-
-type Token = {
-    types: string[];
-    content: string;
-    empty?: boolean;
-};
+import { Row } from './FrameCodeSnippet';
+// @ts-ignore
+import { createElement } from 'react-syntax-highlighter';
 
 type Props = {
     highlight: boolean;
-    line: Token[];
     frame: ErrorFrame;
     lineNumber: number;
-    getTokenProps: Highlight['getTokenProps'];
+    row: Row;
+    stylesheet: string;
+    useInlineStyles: boolean;
 };
 
-export default function FrameCodeSnippetLine({ highlight, line, frame, lineNumber, getTokenProps, ...props }: Props) {
+export default function FrameCodeSnippetLine({
+    highlight,
+    row,
+    frame,
+    lineNumber,
+    stylesheet,
+    useInlineStyles,
+}: Props) {
     const editorUrl = useEditorUrl({ file: frame.file, lineNumber });
 
     return (
         <span
-            {...props}
             className={`
                 block group pl-6 leading-loose hover:~bg-red-500/10
                 ${highlight ? ' ~bg-red-500/20' : ''}
@@ -36,15 +39,12 @@ export default function FrameCodeSnippetLine({ highlight, line, frame, lineNumbe
                         href={editorUrl}
                         className="-ml-3 shadow-md ~bg-white ~text-gray-500 hover:text-indigo-500 w-6 h-6 rounded-full inline-flex items-center justify-center text-xs "
                     >
-                        <FontAwesomeIcon className="text-xs" icon={faPencilAlt}/>
+                        <FontAwesomeIcon className="text-xs" icon={faPencilAlt} />
                     </a>
                 </span>
             )}
 
-            {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-            ))}
-
+            {createElement({ node: row, stylesheet, useInlineStyles, key: `code-segement-${lineNumber}` })}
         </span>
     );
 }
