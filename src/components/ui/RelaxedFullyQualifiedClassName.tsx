@@ -22,8 +22,11 @@ export default function RelaxedFullyQualifiedClassName({ path,  lineNumber = nul
 
             {lineNumber && 
                 <>
-                    {tightSpace}:{tightSpace}
-                    <span className="font-mono text-xs">{lineNumber}</span>
+                    {tightSpace}
+                    <span className="whitespace-nowrap">
+                        :{tightSpace}
+                        <span className="font-mono text-xs">{lineNumber}</span>
+                    </span>
                 </>
             }
         </span>

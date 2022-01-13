@@ -15650,9 +15650,11 @@ function RelaxedFullyQualifiedClassName({
     key: index
   }, /*#__PURE__*/React__default.createElement("span", {
     key: index
-  }, part), index !== parts.length - 1 && /*#__PURE__*/React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, part), index !== parts.length - 1 && /*#__PURE__*/React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
+    className: "whitespace-nowrap"
+  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
     className: "font-mono text-xs"
-  }, lineNumber)));
+  }, lineNumber))));
 }
 
 function RelaxedFilePath({
@@ -15678,9 +15680,11 @@ function RelaxedFilePath({
     key: index
   }, part), /*#__PURE__*/React__default.createElement("span", null, tightSpace, "/", tightSpace))), /*#__PURE__*/React__default.createElement("span", {
     className: "font-semibold"
-  }, fileName), /*#__PURE__*/React__default.createElement("span", null, ".", extension), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, fileName), /*#__PURE__*/React__default.createElement("span", null, ".", extension), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
+    className: "whitespace-nowrap"
+  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
     className: "font-mono text-xs"
-  }, lineNumber)));
+  }, lineNumber))));
 }
 
 function FrameGroup({
@@ -20366,6 +20370,16 @@ function DefinitionListRow({
 }) {
   let valueOutput = value;
   const [expandLabel, setExpandLabel] = useState(false);
+  let timeout;
+
+  function startExpandLabel() {
+    timeout = setTimeout(() => setExpandLabel(true), 500);
+  }
+
+  function stopExpandLabel() {
+    clearTimeout(timeout);
+    setExpandLabel(false);
+  }
 
   if (React__default.isValidElement(value)) {
     valueOutput = value;
@@ -20386,16 +20400,23 @@ function DefinitionListRow({
     valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
       value: value
     });
+  } else if (typeof value === 'number') {
+    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+      value: String(value)
+    });
   }
 
   return /*#__PURE__*/React__default.createElement("div", {
     className: `${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`
   }, /*#__PURE__*/React__default.createElement("dt", {
     className: `
-                ${stacked ? 'self-start pt-2 mb-2 leading-tight' : expandLabel ? 'flex min-w-[8rem]' : 'flex-none truncate w-32'}
+                ${stacked ? 'self-start pt-2 pb-1.5 leading-tight' : expandLabel ? 'flex-grow truncate min-w-[8rem] max-w-max' : 'flex-none truncate w-32'}
             `,
-    onClick: () => {
-      setExpandLabel(!expandLabel);
+    onMouseOver: () => {
+      startExpandLabel();
+    },
+    onMouseOut: () => {
+      stopExpandLabel();
     }
   }, label), /*#__PURE__*/React__default.createElement("dd", {
     className: "flex-grow min-w-0"
