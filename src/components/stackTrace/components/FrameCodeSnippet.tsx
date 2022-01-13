@@ -3,7 +3,8 @@ import { ErrorFrame } from '../../../types';
 import IgnitionConfigContext from '../../../contexts/IgnitionConfigContext';
 import FrameCodeSnippetLine from './FrameCodeSnippetLine';
 // @ts-ignore
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+// @ts-ignore
+import { createElement, Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 // @ts-ignore
 import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
 // @ts-ignore
@@ -16,8 +17,6 @@ import css from 'react-syntax-highlighter/dist/esm/languages/hljs/css';
 import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 // @ts-ignore
 import handlebars from 'react-syntax-highlighter/dist/esm/languages/hljs/handlebars';
-// @ts-ignore
-import { createElement } from 'react-syntax-highlighter';
 import blade from 'languages/blade';
 import light from 'themes/light';
 import dark from 'themes/dark';
@@ -50,6 +49,18 @@ type Node = {
 type Props = {
     frame: ErrorFrame;
 };
+
+function getLanguage(filename: string): 'php' | 'blade' | 'php-template' {
+    if (filename.endsWith('.blade.php')) {
+        return 'blade';
+    }
+
+    if (filename.match(/^resources\/views\//)) {
+        return 'php-template';
+    }
+
+    return 'php';
+}
 
 export default function FrameCodeSnippet({ frame }: Props) {
     const { theme } = useContext(IgnitionConfigContext);
@@ -101,7 +112,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
             <div className="flex-grow pr-10">
                 <SyntaxHighlighter
                     style={theme === 'light' ? light : dark}
-                    language={frame.relative_file.endsWith('.blade.php') ? 'blade' : 'php'}
+                    language={getLanguage(frame.relative_file)}
                     renderer={codeRenderer}
                 >
                     {code}
