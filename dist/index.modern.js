@@ -20392,7 +20392,7 @@ function DefinitionListRow({
     className: `${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`
   }, /*#__PURE__*/React__default.createElement("dt", {
     className: `
-                ${stacked ? 'self-start pt-2 mb-2 leading-tight' : expandLabel ? 'flex min-w-[8rem]' : 'flex-none truncate min-w-[8rem] w-32 hover:flex hover:w-auto'}
+                ${stacked ? 'self-start pt-2 mb-2 leading-tight' : expandLabel ? 'flex min-w-[8rem]' : 'flex-none truncate w-32'}
             `,
     onClick: () => {
       setExpandLabel(!expandLabel);

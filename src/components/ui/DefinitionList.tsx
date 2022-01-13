@@ -66,7 +66,7 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
                         ? 'self-start pt-2 mb-2 leading-tight'
                         : expandLabel
                         ? 'flex min-w-[8rem]'
-                        : 'flex-none truncate min-w-[8rem] w-32 hover:flex hover:w-auto'
+                        : 'flex-none truncate w-32'
                 }
             `}
                 onClick={() => {
