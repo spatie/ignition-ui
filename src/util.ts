@@ -68,15 +68,15 @@ export function hasDebugInfo(errorOccurrence: ErrorOccurrence) {
         return true;
     }
 
-    if (errorOccurrence.context_items.dumps.length) {
+    if (errorOccurrence.context_items.dumps?.length) {
         return true;
     }
 
-    if (errorOccurrence.context_items.logs.length) {
+    if (errorOccurrence.context_items.logs?.length) {
         return true;
     }
 
-    if (errorOccurrence.context_items.queries.length) {
+    if (errorOccurrence.context_items.queries?.length) {
         return true;
     }
 
