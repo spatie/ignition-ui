@@ -95,7 +95,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
                         <p
                             key={number}
                             className={`
-                                px-2 font-mono leading-loose select-none cursor-pointer
+                                px-2 font-mono leading-loose select-none
                                 ${
                                     Number(number) === frame.line_number
                                         ? ' text-opacity-75 ~text-red-700 ~bg-red-500/30'

@@ -4,6 +4,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import sqlFormatter from 'sql-formatter';
 import CopyButton from './CopyButton';
 import HighlightedCode from './HighlightedCode';
+import RoundedButton from './RoundedButton';
 
 type Props = {
     value: string;
@@ -86,19 +87,18 @@ export default function CodeSnippet({
             <CopyButton className="absolute top-2 right-3" value={value}/>
 
             {isOverflowing && (
-                <button
+                <RoundedButton
                     onClick={() => setIsCollapsed(!isCollapsed)}
-                    className="absolute -bottom-3 left-1/2 w-6 h-6 -translate-x-1/2 rounded-full flex items-center justify-center
-                    text-xs ~bg-white text-indigo-500 hover:shadow-lg
-                    opacity-0 transform scale-80 transition-animation delay-100 shadow-md
-                    group-hover:opacity-100 group-hover:scale-100
-                    active:shadow-sm active:translate-y-px"
+                    className="
+                        absolute -bottom-3 left-1/2 -translate-x-1/2
+                        opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100 
+                    "
                 >
                     <FontAwesomeIcon
                         icon={faAngleDown}
                         className={`transition-transform duration-300 transform ${isCollapsed ? '' : 'rotate-180'}`}
                     />
-                </button>
+                </RoundedButton>
             )}
         </div>
     );

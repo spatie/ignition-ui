@@ -2,6 +2,7 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useEffect, useState } from 'react';
 import {copyToClipboard} from "../../util";
+import RoundedButton from './RoundedButton';
 
 type Props = {
     value: string;
@@ -10,7 +11,7 @@ type Props = {
     direction?: 'left' | 'right';
 }
 
-export default function CopyButton({value, className, alwaysVisible = false, direction = 'right'}: Props) {
+export default function CopyButton({value, className = '', alwaysVisible = false, direction = 'right'}: Props) {
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
@@ -31,16 +32,16 @@ export default function CopyButton({value, className, alwaysVisible = false, dir
 
     return (
         <div className={className}>
-            <button
+            <RoundedButton
                 onClick={copy}
                 title="Copy to clipboard"
-                className={`~text-gray-500 hover:text-indigo-500 
+                className={`
                     ${alwaysVisible? '' : 'opacity-0 transform scale-80 transition-animation delay-100'}
                     ${copied ? 'opacity-0' : 'group-hover:opacity-100 group-hover:scale-100'}
                 `}
             >
                 <FontAwesomeIcon icon={faCopy} />
-            </button>
+            </RoundedButton>
             {copied && (
                 <p
                     className={`absolute top-0 ${direction == 'right'? 'right-0' : 'left-0'} hidden z-10 sm:inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap text-emerald-500`}
