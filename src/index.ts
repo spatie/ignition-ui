@@ -12,6 +12,7 @@ export { default as Debug } from './components/debug/Debug';
 export { default as Button } from './components/ui/Button';
 export { default as CopyButton } from './components/ui/CopyButton';
 export { default as InlineCodeSnippet } from './components/ui/InlineCodeSnippet';
+export { default as CodeSnippet } from './components/ui/CodeSnippet';
 
 export { default as FlareIcon } from './components/ui/icons/FlareIcon';
 export { default as IgnitionIcon } from './components/ui/icons/IgnitionIcon';

@@ -14807,6 +14807,8 @@ var featureFlags_1 = createCommonjsModule(function (module, exports) {
   }
 
   let defaults = {
+    // TODO: Drop this once we can safely rely on optimizeUniversalDefaults being
+    // the default.
     optimizeUniversalDefaults: false
   };
   let featureFlags = {
@@ -16147,225 +16149,6 @@ function ExceptionMessage({
   }, /*#__PURE__*/React__default.createElement("div", {
     className: fullException ? 'line-clamp-none' : 'line-clamp-2'
   }, message));
-}
-
-/**
- * A specialized version of `baseAggregator` for arrays.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} setter The function to set `accumulator` values.
- * @param {Function} iteratee The iteratee to transform keys.
- * @param {Object} accumulator The initial aggregated object.
- * @returns {Function} Returns `accumulator`.
- */
-function arrayAggregator(array, setter, iteratee, accumulator) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    var value = array[index];
-    setter(accumulator, value, iteratee(value), array);
-  }
-
-  return accumulator;
-}
-
-var _arrayAggregator = arrayAggregator;
-
-/**
- * Creates a `baseEach` or `baseEachRight` function.
- *
- * @private
- * @param {Function} eachFunc The function to iterate over a collection.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-
-function createBaseEach(eachFunc, fromRight) {
-  return function (collection, iteratee) {
-    if (collection == null) {
-      return collection;
-    }
-
-    if (!isArrayLike_1(collection)) {
-      return eachFunc(collection, iteratee);
-    }
-
-    var length = collection.length,
-        index = fromRight ? length : -1,
-        iterable = Object(collection);
-
-    while (fromRight ? index-- : ++index < length) {
-      if (iteratee(iterable[index], index, iterable) === false) {
-        break;
-      }
-    }
-
-    return collection;
-  };
-}
-
-var _createBaseEach = createBaseEach;
-
-/**
- * The base implementation of `_.forEach` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array|Object} Returns `collection`.
- */
-
-var baseEach = _createBaseEach(_baseForOwn);
-var _baseEach = baseEach;
-
-/**
- * Aggregates elements of `collection` on `accumulator` with keys transformed
- * by `iteratee` and values set by `setter`.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} setter The function to set `accumulator` values.
- * @param {Function} iteratee The iteratee to transform keys.
- * @param {Object} accumulator The initial aggregated object.
- * @returns {Function} Returns `accumulator`.
- */
-
-function baseAggregator(collection, setter, iteratee, accumulator) {
-  _baseEach(collection, function (value, key, collection) {
-    setter(accumulator, value, iteratee(value), collection);
-  });
-  return accumulator;
-}
-
-var _baseAggregator = baseAggregator;
-
-/**
- * Creates a function like `_.groupBy`.
- *
- * @private
- * @param {Function} setter The function to set accumulator values.
- * @param {Function} [initializer] The accumulator object initializer.
- * @returns {Function} Returns the new aggregator function.
- */
-
-function createAggregator(setter, initializer) {
-  return function (collection, iteratee) {
-    var func = isArray_1(collection) ? _arrayAggregator : _baseAggregator,
-        accumulator = initializer ? initializer() : {};
-    return func(collection, setter, _baseIteratee(iteratee), accumulator);
-  };
-}
-
-var _createAggregator = createAggregator;
-
-/**
- * Creates an object composed of keys generated from the results of running
- * each element of `collection` thru `iteratee`. The corresponding value of
- * each key is the last element responsible for generating the key. The
- * iteratee is invoked with one argument: (value).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The iteratee to transform keys.
- * @returns {Object} Returns the composed aggregate object.
- * @example
- *
- * var array = [
- *   { 'dir': 'left', 'code': 97 },
- *   { 'dir': 'right', 'code': 100 }
- * ];
- *
- * _.keyBy(array, function(o) {
- *   return String.fromCharCode(o.code);
- * });
- * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
- *
- * _.keyBy(array, 'dir');
- * // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
- */
-
-var keyBy = _createAggregator(function (result, value, key) {
-  _baseAssignValue(result, key, value);
-});
-var keyBy_1 = keyBy;
-
-function copyToClipboard(text) {
-  const el = document.createElement('textarea');
-  el.value = text;
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
-} // TODO: Move to context dir? 👇
-
-function curlCommand(request, requestData, headers) {
-  if (!request.url || !request.method) {
-    return null;
-  }
-
-  const curlLines = [`curl "${request.url}"`];
-  curlLines.push(`   -X ${request.method}`);
-  Object.entries(headers || {}).map(function ([key, value]) {
-    curlLines.push(`   -H '${key}: ${value}'`);
-  });
-  const curlBodyString = curlBody(requestData, headers);
-
-  if (curlBodyString) {
-    curlLines.push(curlBodyString);
-  }
-
-  return curlLines.join(' \\\n').trimEnd().replace(/\s\\$/g, ';');
-}
-
-function curlBody(requestData, headers) {
-  var _headers$contentType, _headers$contentType$;
-
-  if (!requestData.body) {
-    return null;
-  }
-
-  if ((_headers$contentType = headers['content-type']) != null && (_headers$contentType$ = _headers$contentType[0]) != null && _headers$contentType$.includes('application/json')) {
-    return `   -d ${JSON.stringify(requestData.body)}`;
-  }
-
-  const formValues = Object.entries(requestData.body || {}).map(function ([key, value]) {
-    return `-F '${key}=${value}'`;
-  });
-  return `   ${formValues.join(' ')}`;
-}
-
-function getContextValues(errorOccurrence, group) {
-  return mapValues_1(keyBy_1(errorOccurrence.context_items[group] || [], 'name'), 'value');
-}
-function unixToDate(timestamp) {
-  return new Date(timestamp * 1000);
-}
-function jsonStringify(value) {
-  return JSON.stringify(value, null, 4);
-}
-function hasDebugInfo(errorOccurrence) {
-  if (errorOccurrence.glows.length) {
-    return true;
-  }
-
-  if (errorOccurrence.context_items.dumps.length) {
-    return true;
-  }
-
-  if (errorOccurrence.context_items.logs.length) {
-    return true;
-  }
-
-  if (errorOccurrence.context_items.queries.length) {
-    return true;
-  }
-
-  return false;
 }
 
 var tokenTypes = createCommonjsModule(function (module, exports) {
@@ -19665,22 +19448,232 @@ var sqlFormatter = createCommonjsModule(function (module, exports) {
 });
 var sqlFormatter$1 = /*@__PURE__*/getDefaultExportFromCjs(sqlFormatter);
 
-function CodeSnippet({
+/**
+ * A specialized version of `baseAggregator` for arrays.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} setter The function to set `accumulator` values.
+ * @param {Function} iteratee The iteratee to transform keys.
+ * @param {Object} accumulator The initial aggregated object.
+ * @returns {Function} Returns `accumulator`.
+ */
+function arrayAggregator(array, setter, iteratee, accumulator) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    var value = array[index];
+    setter(accumulator, value, iteratee(value), array);
+  }
+
+  return accumulator;
+}
+
+var _arrayAggregator = arrayAggregator;
+
+/**
+ * Creates a `baseEach` or `baseEachRight` function.
+ *
+ * @private
+ * @param {Function} eachFunc The function to iterate over a collection.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+
+function createBaseEach(eachFunc, fromRight) {
+  return function (collection, iteratee) {
+    if (collection == null) {
+      return collection;
+    }
+
+    if (!isArrayLike_1(collection)) {
+      return eachFunc(collection, iteratee);
+    }
+
+    var length = collection.length,
+        index = fromRight ? length : -1,
+        iterable = Object(collection);
+
+    while (fromRight ? index-- : ++index < length) {
+      if (iteratee(iterable[index], index, iterable) === false) {
+        break;
+      }
+    }
+
+    return collection;
+  };
+}
+
+var _createBaseEach = createBaseEach;
+
+/**
+ * The base implementation of `_.forEach` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array|Object} Returns `collection`.
+ */
+
+var baseEach = _createBaseEach(_baseForOwn);
+var _baseEach = baseEach;
+
+/**
+ * Aggregates elements of `collection` on `accumulator` with keys transformed
+ * by `iteratee` and values set by `setter`.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} setter The function to set `accumulator` values.
+ * @param {Function} iteratee The iteratee to transform keys.
+ * @param {Object} accumulator The initial aggregated object.
+ * @returns {Function} Returns `accumulator`.
+ */
+
+function baseAggregator(collection, setter, iteratee, accumulator) {
+  _baseEach(collection, function (value, key, collection) {
+    setter(accumulator, value, iteratee(value), collection);
+  });
+  return accumulator;
+}
+
+var _baseAggregator = baseAggregator;
+
+/**
+ * Creates a function like `_.groupBy`.
+ *
+ * @private
+ * @param {Function} setter The function to set accumulator values.
+ * @param {Function} [initializer] The accumulator object initializer.
+ * @returns {Function} Returns the new aggregator function.
+ */
+
+function createAggregator(setter, initializer) {
+  return function (collection, iteratee) {
+    var func = isArray_1(collection) ? _arrayAggregator : _baseAggregator,
+        accumulator = initializer ? initializer() : {};
+    return func(collection, setter, _baseIteratee(iteratee), accumulator);
+  };
+}
+
+var _createAggregator = createAggregator;
+
+/**
+ * Creates an object composed of keys generated from the results of running
+ * each element of `collection` thru `iteratee`. The corresponding value of
+ * each key is the last element responsible for generating the key. The
+ * iteratee is invoked with one argument: (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The iteratee to transform keys.
+ * @returns {Object} Returns the composed aggregate object.
+ * @example
+ *
+ * var array = [
+ *   { 'dir': 'left', 'code': 97 },
+ *   { 'dir': 'right', 'code': 100 }
+ * ];
+ *
+ * _.keyBy(array, function(o) {
+ *   return String.fromCharCode(o.code);
+ * });
+ * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
+ *
+ * _.keyBy(array, 'dir');
+ * // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
+ */
+
+var keyBy = _createAggregator(function (result, value, key) {
+  _baseAssignValue(result, key, value);
+});
+var keyBy_1 = keyBy;
+
+function copyToClipboard(text) {
+  const el = document.createElement('textarea');
+  el.value = text;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+} // TODO: Move to context dir? 👇
+
+function curlCommand(request, requestData, headers) {
+  if (!request.url || !request.method) {
+    return null;
+  }
+
+  const curlLines = [`curl "${request.url}"`];
+  curlLines.push(`   -X ${request.method}`);
+  Object.entries(headers || {}).map(function ([key, value]) {
+    curlLines.push(`   -H '${key}: ${value}'`);
+  });
+  const curlBodyString = curlBody(requestData, headers);
+
+  if (curlBodyString) {
+    curlLines.push(curlBodyString);
+  }
+
+  return curlLines.join(' \\\n').trimEnd().replace(/\s\\$/g, ';');
+}
+
+function curlBody(requestData, headers) {
+  var _headers$contentType, _headers$contentType$;
+
+  if (!requestData.body) {
+    return null;
+  }
+
+  if ((_headers$contentType = headers['content-type']) != null && (_headers$contentType$ = _headers$contentType[0]) != null && _headers$contentType$.includes('application/json')) {
+    return `   -d ${JSON.stringify(requestData.body)}`;
+  }
+
+  const formValues = Object.entries(requestData.body || {}).map(function ([key, value]) {
+    return `-F '${key}=${value}'`;
+  });
+  return `   ${formValues.join(' ')}`;
+}
+
+function getContextValues(errorOccurrence, group) {
+  return mapValues_1(keyBy_1(errorOccurrence.context_items[group] || [], 'name'), 'value');
+}
+function unixToDate(timestamp) {
+  return new Date(timestamp * 1000);
+}
+function jsonStringify(value) {
+  return JSON.stringify(value, null, 4);
+}
+function hasDebugInfo(errorOccurrence) {
+  if (errorOccurrence.glows.length) {
+    return true;
+  }
+
+  if (errorOccurrence.context_items.dumps.length) {
+    return true;
+  }
+
+  if (errorOccurrence.context_items.logs.length) {
+    return true;
+  }
+
+  if (errorOccurrence.context_items.queries.length) {
+    return true;
+  }
+
+  return false;
+}
+
+function CopyButton({
   value,
-  limitHeight = true,
-  language = null,
-  transparent = false,
-  overflowX = true
+  className,
+  alwaysVisible = false,
+  direction = 'right'
 }) {
   const [copied, setCopied] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(limitHeight);
-  const [isOverflowing, setIsOverflowing] = useState(language === 'sql');
-  const ref = useRef(null);
-  useEffect(() => {
-    if (ref.current) {
-      setIsOverflowing(ref.current.scrollHeight > ref.current.clientHeight);
-    }
-  }, [ref.current, isCollapsed, value, limitHeight]);
   useEffect(() => {
     let timeout;
 
@@ -19692,11 +19685,43 @@ function CodeSnippet({
   }, [copied]);
 
   function copy(event) {
-    event.stopPropagation();
+    event.preventDefault();
     copyToClipboard(value);
     setCopied(true);
   }
 
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: className
+  }, /*#__PURE__*/React__default.createElement("button", {
+    onClick: copy,
+    title: "Copy to clipboard",
+    className: `~text-gray-500 hover:text-indigo-500 
+                    ${alwaysVisible ? '' : 'opacity-0 transform scale-80 transition-animation delay-100'}
+                    ${copied ? 'opacity-0' : 'group-hover:opacity-100 group-hover:scale-100'}
+                `
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: faCopy
+  })), copied && /*#__PURE__*/React__default.createElement("p", {
+    className: `absolute top-0 ${direction == 'right' ? 'right-0' : 'left-0'} hidden z-10 sm:inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap text-emerald-500`,
+    onClick: () => setCopied(false)
+  }, "Copied!"));
+}
+
+function CodeSnippet({
+  value,
+  limitHeight = true,
+  language = null,
+  transparent = false,
+  overflowX = true
+}) {
+  const [isCollapsed, setIsCollapsed] = useState(limitHeight);
+  const [isOverflowing, setIsOverflowing] = useState(language === 'sql');
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref.current) {
+      setIsOverflowing(ref.current.scrollHeight > ref.current.clientHeight);
+    }
+  }, [ref.current, isCollapsed, value, limitHeight]);
   return /*#__PURE__*/React__default.createElement("div", {
     className: `
                 ${isOverflowing ? 'cursor-pointer' : ''}
@@ -19725,19 +19750,10 @@ function CodeSnippet({
                         `
   }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, value))), /*#__PURE__*/React__default.createElement("button", {
-    onClick: copy,
-    title: "Copy to clipboard",
-    className: `absolute top-2 right-2 ~text-gray-500 hover:text-indigo-500 opacity-0
-                    transform scale-80 transition-animation delay-100
-                    ${copied ? '' : 'group-hover:opacity-100 group-hover:scale-100'}
-                `
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
-    icon: faCopy
-  })), copied && /*#__PURE__*/React__default.createElement("p", {
-    className: "hidden z-10 sm:inline-flex absolute top-2 right-2 gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap text-emerald-500",
-    onClick: () => setCopied(false)
-  }, "Copied!"), isOverflowing && /*#__PURE__*/React__default.createElement("button", {
+  }, value))), /*#__PURE__*/React__default.createElement(CopyButton, {
+    className: "absolute top-2 right-3",
+    value: value
+  }), isOverflowing && /*#__PURE__*/React__default.createElement("button", {
     onClick: () => setIsCollapsed(!isCollapsed),
     className: "absolute -bottom-3 left-1/2 w-6 h-6 -translate-x-1/2 rounded-full flex items-center justify-center text-xs ~bg-white text-indigo-500 hover:shadow-lg opacity-0 transform scale-80 transition-animation delay-100 shadow-md group-hover:opacity-100 group-hover:scale-100 active:shadow-sm active:translate-y-px"
   }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
@@ -20398,7 +20414,7 @@ function DefinitionListRow({
     valueOutput = value;
   } else if (typeof value === 'boolean') {
     valueOutput = /*#__PURE__*/React__default.createElement("span", {
-      className: `${value ? 'text-green-500 bg-green-500/5' : 'text-red-500 bg-red-500/5'} text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`
+      className: `${value ? 'text-emerald-500 bg-emerald-500/5' : 'text-red-500 bg-red-500/5'} text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`
     }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       className: `${value} ? 'text-emerald-500' : 'text-red-500`,
       icon: value ? faCheck : faTimes
@@ -23624,34 +23640,6 @@ function Debug() {
   }));
 }
 
-function CopyButton({
-  value
-}) {
-  const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    let timeout;
-
-    if (copied) {
-      timeout = window.setTimeout(() => setCopied(false), 3000);
-    }
-
-    return () => window.clearTimeout(timeout);
-  }, [copied]);
-
-  function copy() {
-    copyToClipboard(value);
-    setCopied(true);
-  }
-
-  return /*#__PURE__*/React__default.createElement("button", {
-    onClick: copy,
-    title: "Copy to clipboard",
-    className: `hover:text-indigo-500 opacity-0 transition-opacity duration-150 ${copied ? '' : 'group-hover:opacity-100'}`
-  }, /*#__PURE__*/React__default.createElement("i", {
-    className: "far fa-copy"
-  }));
-}
-
 function InlineCodeSnippet({
   children,
   className = ''
@@ -23721,4 +23709,4 @@ function IgnitionIcon() {
   }))));
 }
 
-export { Button, Context, CopyButton, Debug, ErrorCard, ErrorOccurrenceContext, FlareIcon, IgnitionConfigContext, IgnitionConfigContextProvider, IgnitionIcon, InlineCodeSnippet, StackTrace, hasDebugInfo };
+export { Button, CodeSnippet, Context, CopyButton, Debug, ErrorCard, ErrorOccurrenceContext, FlareIcon, IgnitionConfigContext, IgnitionConfigContextProvider, IgnitionIcon, InlineCodeSnippet, StackTrace, hasDebugInfo };

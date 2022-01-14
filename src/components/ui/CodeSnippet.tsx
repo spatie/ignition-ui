@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { copyToClipboard } from '../../util';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import sqlFormatter from 'sql-formatter';
+import CopyButton from './CopyButton';
 
 type Props = {
     value: string;
@@ -21,7 +21,6 @@ export default function CodeSnippet({
     transparent = false,
     overflowX = true,
 }: Props) {
-    const [copied, setCopied] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(limitHeight);
     const [isOverflowing, setIsOverflowing] = useState(language === 'sql');
     const ref = useRef<HTMLPreElement>(null);
@@ -31,22 +30,6 @@ export default function CodeSnippet({
             setIsOverflowing(ref.current.scrollHeight > ref.current.clientHeight);
         }
     }, [ref.current, isCollapsed, value, limitHeight]);
-
-    useEffect(() => {
-        let timeout: number;
-
-        if (copied) {
-            timeout = window.setTimeout(() => setCopied(false), 3000);
-        }
-
-        return () => window.clearTimeout(timeout);
-    }, [copied]);
-
-    function copy(event: React.MouseEvent) {
-        event.stopPropagation();
-        copyToClipboard(value);
-        setCopied(true);
-    }
 
     return (
         <div
@@ -93,24 +76,8 @@ export default function CodeSnippet({
                 )}
             </div>
 
-            <button
-                onClick={copy}
-                title="Copy to clipboard"
-                className={`absolute top-2 right-2 ~text-gray-500 hover:text-indigo-500 opacity-0
-                    transform scale-80 transition-animation delay-100
-                    ${copied ? '' : 'group-hover:opacity-100 group-hover:scale-100'}
-                `}
-            >
-                <FontAwesomeIcon icon={faCopy} />
-            </button>
-            {copied && (
-                <p
-                    className="hidden z-10 sm:inline-flex absolute top-2 right-2 gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap text-emerald-500"
-                    onClick={() => setCopied(false)}
-                >
-                    Copied!
-                </p>
-            )}
+            <CopyButton className="absolute top-2 right-3" value={value}/>
+
             {isOverflowing && (
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}

@@ -52,7 +52,7 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
         valueOutput = (
             <span
                 className={`${
-                    value ? 'text-green-500 bg-green-500/5' : 'text-red-500 bg-red-500/5'
+                    value ? 'text-emerald-500 bg-emerald-500/5' : 'text-red-500 bg-red-500/5'
                 } text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`}
             >
                 <FontAwesomeIcon
