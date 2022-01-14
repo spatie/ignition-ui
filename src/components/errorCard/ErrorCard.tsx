@@ -6,13 +6,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaravel } from '@fortawesome/free-brands-svg-icons';
 import ExceptionSelector from './ExceptionSelector';
 
-export default function ErrorCard() {
+type Props = {
+    warning?: JSX.Element | null;
+};
+
+export default function ErrorCard({warning}: Props) {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
 
     const hasSolutions = errorOccurrence.solutions.length > 0;
 
     return (
         <section className="lg:flex items-stretch ~bg-white shadow-lg">
+            {warning && <aside id="warning" className="flex flex-col lg:w-2/5 flex-none">
+                {warning}
+                </aside>}
+                
             <main id="exception" className="z-10 flex-grow min-w-0">
                 <div className="overflow-hidden">
                     <div className="px-6 sm:px-10 py-8 overflow-x-auto">
@@ -54,6 +62,8 @@ export default function ErrorCard() {
             </main>
 
             {hasSolutions && <Solutions />}
+
+            
         </section>
     );
 }
