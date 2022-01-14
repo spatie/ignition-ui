@@ -33,7 +33,7 @@ export default function DebugItem({ children, context = null, level = null, meta
     } as Record<LogLevel, 'red' | 'orange' | 'green' | 'blue' | 'purple' | 'gray' | undefined>;
 
     return (
-        <div className="min-w-0 overflow-hidden grid grid-cols-1 gap-2">
+        <div className="min-w-0 grid grid-cols-1 gap-2">
             <div className="flex items-center gap-1">
                 <Tag color={level ? logLevelColors[level] : 'gray'} className="font-mono">
                     {time.toLocaleTimeString()}

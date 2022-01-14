@@ -23847,7 +23847,7 @@ function DebugItem({
     emergency: 'red'
   };
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "min-w-0 overflow-hidden grid grid-cols-1 gap-2"
+    className: "min-w-0 grid grid-cols-1 gap-2"
   }, /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-center gap-1"
   }, /*#__PURE__*/React__default.createElement(Tag, {
