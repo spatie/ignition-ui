@@ -88,7 +88,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
     }, [state.selected, selectedRange]);
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem,1fr] items-stretch shadow-lg ~bg-white overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem] items-stretch shadow-lg ~bg-white overflow-hidden">
             <aside className="z-30 flex flex-col border-r ~border-gray-200">
                 <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
                     <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">

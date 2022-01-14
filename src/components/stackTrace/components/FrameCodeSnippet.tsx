@@ -18,8 +18,8 @@ import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascr
 // @ts-ignore
 import handlebars from 'react-syntax-highlighter/dist/esm/languages/hljs/handlebars';
 import blade from 'languages/blade';
-import light from 'themes/light';
-import dark from 'themes/dark';
+import light from 'prism-themes/light';
+import dark from 'prism-themes/dark';
 
 // We need to register all styles and languages manually if we want to use the light
 // export of the SyntaxHighlighter. Including all sub-languages used in e.g. Blade:

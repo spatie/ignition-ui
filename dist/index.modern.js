@@ -14807,8 +14807,6 @@ var featureFlags_1 = createCommonjsModule(function (module, exports) {
   }
 
   let defaults = {
-    // TODO: Drop this once we can safely rely on optimizeUniversalDefaults being
-    // the default.
     optimizeUniversalDefaults: false
   };
   let featureFlags = {
@@ -16084,7 +16082,7 @@ function StackTrace({
     window.history.replaceState(window.history.state, '', `#F${state.selected}${lineNumber ? 'L' + lineNumber : ''}`);
   }, [state.selected, selectedRange]);
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem,1fr] items-stretch shadow-lg ~bg-white overflow-hidden"
+    className: "grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem] items-stretch shadow-lg ~bg-white overflow-hidden"
   }, /*#__PURE__*/React__default.createElement("aside", {
     className: "z-30 flex flex-col border-r ~border-gray-200"
   }, /*#__PURE__*/React__default.createElement("div", {
@@ -19992,17 +19990,12 @@ function ExceptionSelector() {
   }
 }
 
-function ErrorCard({
-  warning
-}) {
+function ErrorCard() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const hasSolutions = errorOccurrence.solutions.length > 0;
   return /*#__PURE__*/React__default.createElement("section", {
     className: "lg:flex items-stretch ~bg-white shadow-lg"
-  }, warning && /*#__PURE__*/React__default.createElement("aside", {
-    id: "warning",
-    className: "lg:w-2/5 flex-none empty:hidden"
-  }, warning), /*#__PURE__*/React__default.createElement("main", {
+  }, /*#__PURE__*/React__default.createElement("main", {
     id: "exception",
     className: "z-10 flex-grow min-w-0"
   }, /*#__PURE__*/React__default.createElement("div", {

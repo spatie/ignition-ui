@@ -6,22 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaravel } from '@fortawesome/free-brands-svg-icons';
 import ExceptionSelector from './ExceptionSelector';
 
-type Props = {
-    warning?: React.ReactNode;
-};
-
-export default function ErrorCard({warning}: Props) {
+export default function ErrorCard() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
 
     const hasSolutions = errorOccurrence.solutions.length > 0;
 
     return (
-        <section className="lg:flex items-stretch ~bg-white shadow-lg">
-            {warning && 
-                <aside id="warning" className="lg:w-2/5 flex-none empty:hidden">
-                    {warning}
-                </aside>}
-                
+        <section className="lg:flex items-stretch ~bg-white shadow-lg">                
             <main id="exception" className="z-10 flex-grow min-w-0">
                 <div className="overflow-hidden">
                     <div className="px-6 sm:px-10 py-8 overflow-x-auto">
@@ -45,19 +36,6 @@ export default function ErrorCard({warning}: Props) {
                             message={errorOccurrence.exception_message}
                         />
 
-                        {/*<div className="grid grid-cols-1 gap-x-10 gap-y-2 text-sm">*/}
-                        {/*    <span className="flex flex-wrap leading-tight">*/}
-                        {/*        <span>https:</span>*/}
-                        {/*        <span className="mx-0.5">//</span>*/}
-                        {/*        <a href="" className="hover:underline">webapp.test</a>*/}
-                        {/*        <span className="mx-0.5">/</span>*/}
-                        {/*        <a className="hover:underline" href="">admin</a>*/}
-                        {/*        <span className="mx-0.5">/</span>*/}
-                        {/*        <a className="hover:underline" href="">products</a>*/}
-                        {/*        <span className="mx-0.5">/</span>*/}
-                        {/*        <a className="hover:underline" href="">details</a>*/}
-                        {/*    </span>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
             </main>
