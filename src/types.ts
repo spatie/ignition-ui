@@ -40,6 +40,8 @@ export type ErrorOccurrence = {
         queries: null | Array<ContextItem>;
         livewire: null | LivewireContext;
         view: null | ViewContext;
+        session: null | Array<ContextItem>;
+        cookies: null | Array<ContextItem>;
     };
     first_frame_class: string;
     first_frame_method: string;
