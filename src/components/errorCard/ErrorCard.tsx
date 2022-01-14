@@ -7,7 +7,7 @@ import { faLaravel } from '@fortawesome/free-brands-svg-icons';
 import ExceptionSelector from './ExceptionSelector';
 
 type Props = {
-    warning?: JSX.Element | null;
+    warning?: React.ReactNode;
 };
 
 export default function ErrorCard({warning}: Props) {
@@ -17,8 +17,9 @@ export default function ErrorCard({warning}: Props) {
 
     return (
         <section className="lg:flex items-stretch ~bg-white shadow-lg">
-            {warning && <aside id="warning" className="flex flex-col lg:w-2/5 flex-none">
-                {warning}
+            {warning && 
+                <aside id="warning" className="lg:w-2/5 flex-none empty:hidden">
+                    {warning}
                 </aside>}
                 
             <main id="exception" className="z-10 flex-grow min-w-0">

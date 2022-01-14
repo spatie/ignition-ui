@@ -14807,6 +14807,8 @@ var featureFlags_1 = createCommonjsModule(function (module, exports) {
   }
 
   let defaults = {
+    // TODO: Drop this once we can safely rely on optimizeUniversalDefaults being
+    // the default.
     optimizeUniversalDefaults: false
   };
   let featureFlags = {
@@ -19999,7 +20001,7 @@ function ErrorCard({
     className: "lg:flex items-stretch ~bg-white shadow-lg"
   }, warning && /*#__PURE__*/React__default.createElement("aside", {
     id: "warning",
-    className: "flex flex-col lg:w-2/5 flex-none"
+    className: "lg:w-2/5 flex-none empty:hidden"
   }, warning), /*#__PURE__*/React__default.createElement("main", {
     id: "exception",
     className: "z-10 flex-grow min-w-0"
