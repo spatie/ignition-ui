@@ -20,16 +20,12 @@ export default function User() {
                         />
                     </div>
                     <div className="leading-tight">
-                        {user.name && (
-                            <p className="font-semibold">
-                                {user.name}
-                            </p>
-                        )}
+                        {user.name && <p className="font-semibold">{user.name}</p>}
                         <p className="text-sm">{user.email}</p>
                     </div>
                 </div>
             )}
-            <CodeSnippet value={jsonStringify(user)} />
+            <CodeSnippet value={jsonStringify(user)} language="json" />
         </>
     );
 }

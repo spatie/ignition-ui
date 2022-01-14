@@ -35,19 +35,19 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
     let valueOutput: React.ReactNode = value;
     const [expandLabel, setExpandLabel] = useState(false);
 
-    let timeout : NodeJS.Timeout ;
+    let timeout: NodeJS.Timeout;
 
     function startExpandLabel() {
         timeout = setTimeout(() => setExpandLabel(true), 500);
     }
-      
+
     function stopExpandLabel() {
         clearTimeout(timeout);
-        setExpandLabel(false)
-    };
+        setExpandLabel(false);
+    }
 
     if (React.isValidElement(value)) {
-        valueOutput = value ;
+        valueOutput = value;
     } else if (typeof value === 'boolean') {
         valueOutput = (
             <span
@@ -63,7 +63,7 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
             </span>
         );
     } else if (typeof value === 'object') {
-        valueOutput = <CodeSnippet value={jsonStringify(value)} />;
+        valueOutput = <CodeSnippet value={jsonStringify(value)} language="json" />;
     } else if (typeof value === 'string') {
         valueOutput = <CodeSnippet value={value} />;
     } else if (typeof value === 'number') {

@@ -3,7 +3,6 @@ import { ErrorFrame } from '../../../types';
 import IgnitionConfigContext from '../../../contexts/IgnitionConfigContext';
 import FrameCodeSnippetLine from './FrameCodeSnippetLine';
 // @ts-ignore
-// @ts-ignore
 import { createElement, Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 // @ts-ignore
 import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';

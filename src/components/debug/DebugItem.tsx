@@ -40,24 +40,27 @@ export default function DebugItem({ children, context = null, level = null, meta
                 </Tag>
                 {level && <Tag color={logLevelColors[level]}>{level}</Tag>}
                 {meta &&
-                    Object.entries(meta).map(([key, value]) => 
-                    <>
-                        {key ==='runtime' &&
-                            <Tag className="inline-flex items-center gap-2" key={key}>
-                                <FontAwesomeIcon title="Runtime" className="opacity-50" icon={faStopwatch}/> {value}
-                            </Tag>
-                        }
-                        {key ==='connection' &&
-                            <Tag className="inline-flex items-center gap-2" key={key}>
-                                <FontAwesomeIcon title="Connection" className="opacity-50" icon={faDatabase}/> {value}
-                            </Tag>
-                        }
-                        {key !=='runtime' && key !=='connection' &&
-                            <Tag key={key}>    
-                                {key}: {value}
-                            </Tag>
-                        }
-                    </>)}
+                    Object.entries(meta).map(([key, value]) => (
+                        <>
+                            {key === 'runtime' && (
+                                <Tag className="inline-flex items-center gap-2" key={key}>
+                                    <FontAwesomeIcon title="Runtime" className="opacity-50" icon={faStopwatch} />{' '}
+                                    {value}
+                                </Tag>
+                            )}
+                            {key === 'connection' && (
+                                <Tag className="inline-flex items-center gap-2" key={key}>
+                                    <FontAwesomeIcon title="Connection" className="opacity-50" icon={faDatabase} />{' '}
+                                    {value}
+                                </Tag>
+                            )}
+                            {key !== 'runtime' && key !== 'connection' && (
+                                <Tag key={key}>
+                                    {key}: {value}
+                                </Tag>
+                            )}
+                        </>
+                    ))}
 
                 {context && (
                     <>
@@ -80,7 +83,7 @@ export default function DebugItem({ children, context = null, level = null, meta
             {context && (
                 <>
                     {showRawContext ? (
-                        <CodeSnippet value={jsonStringify(context)} />
+                        <CodeSnippet value={jsonStringify(context)} language="json" />
                     ) : (
                         <div className="pl-4">
                             <ContextList items={context} />

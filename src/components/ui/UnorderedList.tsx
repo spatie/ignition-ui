@@ -32,7 +32,7 @@ function UnorderedListItem({ value = '' }: UnorderedListItemProps) {
     if (React.isValidElement(value)) {
         valueOutput = value;
     } else if (typeof value === 'object') {
-        valueOutput = <CodeSnippet value={jsonStringify(value)} />;
+        valueOutput = <CodeSnippet value={jsonStringify(value)} language="json" />;
     } else if (typeof value === 'string') {
         valueOutput = <CodeSnippet value={value} />;
     }

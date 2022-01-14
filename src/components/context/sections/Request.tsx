@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
-import CodeSnippet from "../../ui/CodeSnippet";
-import ErrorOccurrenceContext from "../../../contexts/ErrorOccurrenceContext";
-import {curlCommand, getContextValues} from "../../../util";
+import CodeSnippet from '../../ui/CodeSnippet';
+import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
+import { curlCommand, getContextValues } from '../../../util';
 import Tag from 'components/ui/Tag';
 
 export default function Request() {
@@ -24,9 +24,9 @@ export default function Request() {
 
             {curl && (
                 <div className="mt-2">
-                    <CodeSnippet value={curl} />
+                    <CodeSnippet value={curl} language="curl" />
                 </div>
             )}
         </div>
-    )
+    );
 }

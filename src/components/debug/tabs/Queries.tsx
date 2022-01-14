@@ -21,7 +21,7 @@ export default function Queries() {
                     }}
                 >
                     {/* TODO: Bindings */}
-                    <CodeSnippet value={query.sql} />
+                    <CodeSnippet value={query.sql} language="sql" />
                 </DebugItem>
             ))}
         </>

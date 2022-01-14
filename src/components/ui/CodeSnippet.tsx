@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import sqlFormatter from 'sql-formatter';
 import CopyButton from './CopyButton';
+import HighlightedCode from './HighlightedCode';
 
 type Props = {
     value: string;
     limitHeight?: boolean;
-    language?: null | 'sql';
+    language?: null | 'sql' | 'curl' | 'json';
     transparent?: boolean;
     overflowX?: boolean;
 };
@@ -48,14 +49,18 @@ export default function CodeSnippet({
                                     overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'truncate pr-8'
                                 }`}
                             >
-                                <code className="font-mono leading-relaxed text-sm font-normal">{value}</code>
+                                <code className="font-mono leading-relaxed text-sm font-normal">
+                                    <HighlightedCode language="sql">{value}</HighlightedCode>
+                                </code>
                             </pre>
                         ) : (
                             <pre
                                 className={`pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}`}
                             >
                                 <code className="font-mono leading-relaxed text-sm font-normal">
-                                    {sqlFormatter.format(value, { language: 'mysql' })}
+                                    <HighlightedCode language="sql">
+                                        {sqlFormatter.format(value, { language: 'mysql' })}
+                                    </HighlightedCode>
                                 </code>
                             </pre>
                         )}
@@ -71,7 +76,9 @@ export default function CodeSnippet({
                             ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}
                         `}
                     >
-                        <code className="font-mono leading-relaxed text-sm font-normal">{value}</code>
+                        <code className="font-mono leading-relaxed text-sm font-normal">
+                            {language ? <HighlightedCode language={language}>{value}</HighlightedCode> : value}
+                        </code>
                     </pre>
                 )}
             </div>

@@ -4619,14 +4619,8 @@ var objectAssign = shouldUseNative() ? Object.assign : function (target, source)
  * LICENSE file in the root directory of this source tree.
  */
 
-var ReactPropTypesSecret$2 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-var ReactPropTypesSecret_1 = ReactPropTypesSecret$2;
-
-var has$2 = Function.call.bind(Object.prototype.hasOwnProperty);
-
-var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
-
-var has$1 = has$2;
+var ReactPropTypesSecret$1 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var ReactPropTypesSecret_1 = ReactPropTypesSecret$1;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -4638,9 +4632,9 @@ var has$1 = has$2;
 var _printWarning$1 = function printWarning() {};
 
 {
-  var ReactPropTypesSecret = ReactPropTypesSecret$1;
+  var ReactPropTypesSecret = ReactPropTypesSecret_1;
   var loggedTypeFailures = {};
-  var has = has$1;
+  var has$1 = Function.call.bind(Object.prototype.hasOwnProperty);
 
   _printWarning$1 = function (text) {
     var message = 'Warning: ' + text;
@@ -4654,9 +4648,7 @@ var _printWarning$1 = function printWarning() {};
       // This error was thrown as a convenience so that you can use this stack
       // to find the callsite that caused this warning to fire.
       throw new Error(message);
-    } catch (x) {
-      /**/
-    }
+    } catch (x) {}
   };
 }
 /**
@@ -4672,10 +4664,10 @@ var _printWarning$1 = function printWarning() {};
  */
 
 
-function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) {
+function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
   {
     for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
+      if (has$1(typeSpecs, typeSpecName)) {
         var error; // Prop type validation may throw. In case they do, we don't want to
         // fail the render phase where it didn't fail before. So we log it.
         // After these have been cleaned up, we'll let them throw.
@@ -4684,7 +4676,7 @@ function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) 
           // This is intentionally an invariant that gets caught. It's the same
           // behavior as without this statement except with a better message.
           if (typeof typeSpecs[typeSpecName] !== 'function') {
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
+            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.');
             err.name = 'Invariant Violation';
             throw err;
           }
@@ -4717,15 +4709,13 @@ function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) 
  */
 
 
-checkPropTypes$1.resetWarningCache = function () {
+checkPropTypes.resetWarningCache = function () {
   {
     loggedTypeFailures = {};
   }
 };
 
-var checkPropTypes_1 = checkPropTypes$1;
-
-var checkPropTypes = checkPropTypes_1;
+var checkPropTypes_1 = checkPropTypes;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -4733,6 +4723,8 @@ var checkPropTypes = checkPropTypes_1;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
+var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
 var _printWarning = function printWarning() {};
 
@@ -4837,7 +4829,6 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   var ReactPropTypes = {
     array: createPrimitiveTypeChecker('array'),
-    bigint: createPrimitiveTypeChecker('bigint'),
     bool: createPrimitiveTypeChecker('boolean'),
     func: createPrimitiveTypeChecker('function'),
     number: createPrimitiveTypeChecker('number'),
@@ -4885,9 +4876,8 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
    */
 
 
-  function PropTypeError(message, data) {
+  function PropTypeError(message) {
     this.message = message;
-    this.data = data && typeof data === 'object' ? data : {};
     this.stack = '';
   } // Make `instanceof Error` still work for returned errors.
 
@@ -4904,7 +4894,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
       componentName = componentName || ANONYMOUS;
       propFullName = propFullName || propName;
 
-      if (secret !== ReactPropTypesSecret$1) {
+      if (secret !== ReactPropTypesSecret_1) {
         if (throwOnDirectAccess) {
           // New behavior only for users of `prop-types` package
           var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
@@ -4954,9 +4944,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
         // check, but we can offer a more precise error message here rather than
         // 'of type `object`'.
         var preciseType = getPreciseType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'), {
-          expectedType: expectedType
-        });
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
       }
 
       return null;
@@ -4983,7 +4971,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
       }
 
       for (var i = 0; i < propValue.length; i++) {
-        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret$1);
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret_1);
 
         if (error instanceof Error) {
           return error;
@@ -5091,8 +5079,8 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
       }
 
       for (var key in propValue) {
-        if (has$1(propValue, key)) {
-          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
+        if (has(propValue, key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
 
           if (error instanceof Error) {
             return error;
@@ -5123,23 +5111,15 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
     }
 
     function validate(props, propName, componentName, location, propFullName) {
-      var expectedTypes = [];
-
       for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
         var checker = arrayOfTypeCheckers[i];
-        var checkerResult = checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret$1);
 
-        if (checkerResult == null) {
+        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret_1) == null) {
           return null;
-        }
-
-        if (checkerResult.data.hasOwnProperty('expectedType')) {
-          expectedTypes.push(checkerResult.data.expectedType);
         }
       }
 
-      var expectedTypesMessage = expectedTypes.length > 0 ? ', expected one of type [' + expectedTypes.join(', ') + ']' : '';
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`' + expectedTypesMessage + '.'));
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
     }
 
     return createChainableTypeChecker(validate);
@@ -5157,10 +5137,6 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
     return createChainableTypeChecker(validate);
   }
 
-  function invalidValidatorError(componentName, location, propFullName, key, type) {
-    return new PropTypeError((componentName || 'React class') + ': ' + location + ' type `' + propFullName + '.' + key + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + type + '`.');
-  }
-
   function createShapeTypeChecker(shapeTypes) {
     function validate(props, propName, componentName, location, propFullName) {
       var propValue = props[propName];
@@ -5173,11 +5149,11 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
       for (var key in shapeTypes) {
         var checker = shapeTypes[key];
 
-        if (typeof checker !== 'function') {
-          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+        if (!checker) {
+          continue;
         }
 
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
 
         if (error) {
           return error;
@@ -5197,7 +5173,8 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
       if (propType !== 'object') {
         return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      } // We need to check all keys in case some are required but missing from props.
+      } // We need to check all keys in case some are required but missing from
+      // props.
 
 
       var allKeys = objectAssign({}, props[propName], shapeTypes);
@@ -5205,15 +5182,11 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
       for (var key in allKeys) {
         var checker = shapeTypes[key];
 
-        if (has$1(shapeTypes, key) && typeof checker !== 'function') {
-          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
-        }
-
         if (!checker) {
           return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' + '\nBad object: ' + JSON.stringify(props[propName], null, '  ') + '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  '));
         }
 
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
 
         if (error) {
           return error;
@@ -5375,13 +5348,11 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
     return propValue.constructor.name;
   }
 
-  ReactPropTypes.checkPropTypes = checkPropTypes;
-  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
+  ReactPropTypes.checkPropTypes = checkPropTypes_1;
+  ReactPropTypes.resetWarningCache = checkPropTypes_1.resetWarningCache;
   ReactPropTypes.PropTypes = ReactPropTypes;
   return ReactPropTypes;
 };
-
-var require$$1 = factoryWithTypeCheckers;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -5395,10 +5366,9 @@ var propTypes = createCommonjsModule(function (module) {
     // http://fb.me/prop-types-in-prod
 
     var throwOnDirectAccess = true;
-    module.exports = require$$1(ReactIs.isElement, throwOnDirectAccess);
+    module.exports = factoryWithTypeCheckers(ReactIs.isElement, throwOnDirectAccess);
   }
 });
-var PropTypes = propTypes;
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -5743,23 +5713,23 @@ function FontAwesomeIcon(_ref) {
 
 FontAwesomeIcon.displayName = 'FontAwesomeIcon';
 FontAwesomeIcon.propTypes = {
-  border: PropTypes.bool,
-  className: PropTypes.string,
-  mask: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
-  fixedWidth: PropTypes.bool,
-  inverse: PropTypes.bool,
-  flip: PropTypes.oneOf(['horizontal', 'vertical', 'both']),
-  icon: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
-  listItem: PropTypes.bool,
-  pull: PropTypes.oneOf(['right', 'left']),
-  pulse: PropTypes.bool,
-  rotation: PropTypes.oneOf([0, 90, 180, 270]),
-  size: PropTypes.oneOf(['lg', 'xs', 'sm', '1x', '2x', '3x', '4x', '5x', '6x', '7x', '8x', '9x', '10x']),
-  spin: PropTypes.bool,
-  symbol: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  title: PropTypes.string,
-  transform: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  swapOpacity: PropTypes.bool
+  border: propTypes.bool,
+  className: propTypes.string,
+  mask: propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string]),
+  fixedWidth: propTypes.bool,
+  inverse: propTypes.bool,
+  flip: propTypes.oneOf(['horizontal', 'vertical', 'both']),
+  icon: propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string]),
+  listItem: propTypes.bool,
+  pull: propTypes.oneOf(['right', 'left']),
+  pulse: propTypes.bool,
+  rotation: propTypes.oneOf([0, 90, 180, 270]),
+  size: propTypes.oneOf(['lg', 'xs', 'sm', '1x', '2x', '3x', '4x', '5x', '6x', '7x', '8x', '9x', '10x']),
+  spin: propTypes.bool,
+  symbol: propTypes.oneOfType([propTypes.bool, propTypes.string]),
+  title: propTypes.string,
+  transform: propTypes.oneOfType([propTypes.string, propTypes.object]),
+  swapOpacity: propTypes.bool
 };
 FontAwesomeIcon.defaultProps = {
   border: false,
@@ -6806,7 +6776,7 @@ function escape$1(value) {
  */
 
 
-function source$5(re) {
+function source$6(re) {
   if (!re) return null;
   if (typeof re === "string") return re;
   return re.source;
@@ -6817,8 +6787,8 @@ function source$5(re) {
  */
 
 
-function concat$4(...args) {
-  const joined = args.map(x => source$5(x)).join("");
+function concat$5(...args) {
+  const joined = args.map(x => source$6(x)).join("");
   return joined;
 }
 /**
@@ -6830,8 +6800,8 @@ function concat$4(...args) {
  */
 
 
-function either$2(...args) {
-  const joined = '(' + args.map(x => source$5(x)).join("|") + ")";
+function either$3(...args) {
+  const joined = '(' + args.map(x => source$6(x)).join("|") + ")";
   return joined;
 }
 /**
@@ -6879,7 +6849,7 @@ function join(regexps, separator = "|") {
   return regexps.map(regex => {
     numCaptures += 1;
     const offset = numCaptures;
-    let re = source$5(regex);
+    let re = source$6(regex);
     let out = '';
 
     while (re.length > 0) {
@@ -6927,7 +6897,7 @@ const SHEBANG = (opts = {}) => {
   const beginShebang = /^#![ ]*\//;
 
   if (opts.binary) {
-    opts.begin = concat$4(beginShebang, /.*\b/, opts.binary, /\b.*/);
+    opts.begin = concat$5(beginShebang, /.*\b/, opts.binary, /\b.*/);
   }
 
   return inherit({
@@ -7158,7 +7128,7 @@ function beginKeywords(mode, parent) {
 
 function compileIllegal(mode, _parent) {
   if (!Array.isArray(mode.illegal)) return;
-  mode.illegal = either$2(...mode.illegal);
+  mode.illegal = either$3(...mode.illegal);
 }
 /**
  * `match` to match a single expression for readability
@@ -7284,7 +7254,7 @@ function compileLanguage(language, {
    * @param {boolean} [global]
    */
   function langRe(value, global) {
-    return new RegExp(source$5(value), 'm' + (language.case_insensitive ? 'i' : '') + (global ? 'g' : ''));
+    return new RegExp(source$6(value), 'm' + (language.case_insensitive ? 'i' : '') + (global ? 'g' : ''));
   }
   /**
     Stores multiple regular expressions and allows you to quickly search for
@@ -7579,7 +7549,7 @@ function compileLanguage(language, {
       if (mode.endSameAsBegin) mode.end = mode.begin;
       if (!mode.end && !mode.endsWithParent) mode.end = /\B|\b/;
       if (mode.end) cmode.endRe = langRe(mode.end);
-      cmode.terminatorEnd = source$5(mode.end) || '';
+      cmode.terminatorEnd = source$6(mode.end) || '';
 
       if (mode.endsWithParent && parent.terminatorEnd) {
         cmode.terminatorEnd += (mode.end ? '|' : '') + parent.terminatorEnd;
@@ -9474,7 +9444,7 @@ var core = {
  * @param {RegExp | string } re
  * @returns {string}
  */
-function source$4(re) {
+function source$5(re) {
   if (!re) return null;
   if (typeof re === "string") return re;
   return re.source;
@@ -9486,7 +9456,7 @@ function source$4(re) {
 
 
 function lookahead$2(re) {
-  return concat$3('(?=', re, ')');
+  return concat$4('(?=', re, ')');
 }
 /**
  * @param {RegExp | string } re
@@ -9495,7 +9465,7 @@ function lookahead$2(re) {
 
 
 function optional$1(re) {
-  return concat$3('(', re, ')?');
+  return concat$4('(', re, ')?');
 }
 /**
  * @param {...(RegExp | string) } args
@@ -9503,8 +9473,8 @@ function optional$1(re) {
  */
 
 
-function concat$3(...args) {
-  const joined = args.map(x => source$4(x)).join("");
+function concat$4(...args) {
+  const joined = args.map(x => source$5(x)).join("");
   return joined;
 }
 /**
@@ -9516,8 +9486,8 @@ function concat$3(...args) {
  */
 
 
-function either$1(...args) {
-  const joined = '(' + args.map(x => source$4(x)).join("|") + ")";
+function either$2(...args) {
+  const joined = '(' + args.map(x => source$5(x)).join("|") + ")";
   return joined;
 }
 /*
@@ -9532,7 +9502,7 @@ Audit: 2020
 
 function xml(hljs) {
   // Element names can contain letters, digits, hyphens, underscores, and periods
-  const TAG_NAME_RE = concat$3(/[A-Z_]/, optional$1(/[A-Z0-9_.-]*:/), /[A-Z0-9_.-]*/);
+  const TAG_NAME_RE = concat$4(/[A-Z_]/, optional$1(/[A-Z0-9_.-]*:/), /[A-Z0-9_.-]*/);
   const XML_IDENT_RE = /[A-Za-z0-9._:-]+/;
   const XML_ENTITIES = {
     className: 'symbol',
@@ -9655,10 +9625,10 @@ function xml(hljs) {
     }, // open tag
     {
       className: 'tag',
-      begin: concat$3(/</, lookahead$2(concat$3(TAG_NAME_RE, // <tag/>
+      begin: concat$4(/</, lookahead$2(concat$4(TAG_NAME_RE, // <tag/>
       // <tag>
       // <tag ...
-      either$1(/\/>/, />/, /\s/)))),
+      either$2(/\/>/, />/, /\s/)))),
       end: /\/?>/,
       contains: [{
         className: 'name',
@@ -9669,7 +9639,7 @@ function xml(hljs) {
     }, // close tag
     {
       className: 'tag',
-      begin: concat$3(/<\//, lookahead$2(concat$3(TAG_NAME_RE, />/))),
+      begin: concat$4(/<\//, lookahead$2(concat$4(TAG_NAME_RE, />/))),
       contains: [{
         className: 'name',
         begin: TAG_NAME_RE,
@@ -9741,7 +9711,7 @@ const ATTRIBUTES = ['align-content', 'align-items', 'align-self', 'animation', '
  * @returns {string}
  */
 
-function source$3(re) {
+function source$4(re) {
   if (!re) return null;
   if (typeof re === "string") return re;
   return re.source;
@@ -9753,7 +9723,7 @@ function source$3(re) {
 
 
 function lookahead$1(re) {
-  return concat$2('(?=', re, ')');
+  return concat$3('(?=', re, ')');
 }
 /**
  * @param {...(RegExp | string) } args
@@ -9761,8 +9731,8 @@ function lookahead$1(re) {
  */
 
 
-function concat$2(...args) {
-  const joined = args.map(x => source$3(x)).join("");
+function concat$3(...args) {
+  const joined = args.map(x => source$4(x)).join("");
   return joined;
 }
 /*
@@ -9893,7 +9863,7 @@ var css$1 = css_1;
  * @param {RegExp | string } re
  * @returns {string}
  */
-function source$2(re) {
+function source$3(re) {
   if (!re) return null;
   if (typeof re === "string") return re;
   return re.source;
@@ -9905,7 +9875,7 @@ function source$2(re) {
 
 
 function anyNumberOfTimes(re) {
-  return concat$1('(', re, ')*');
+  return concat$2('(', re, ')*');
 }
 /**
  * @param {RegExp | string } re
@@ -9914,7 +9884,7 @@ function anyNumberOfTimes(re) {
 
 
 function optional(re) {
-  return concat$1('(', re, ')?');
+  return concat$2('(', re, ')?');
 }
 /**
  * @param {...(RegExp | string) } args
@@ -9922,8 +9892,8 @@ function optional(re) {
  */
 
 
-function concat$1(...args) {
-  const joined = args.map(x => source$2(x)).join("");
+function concat$2(...args) {
+  const joined = args.map(x => source$3(x)).join("");
   return joined;
 }
 /**
@@ -9935,8 +9905,8 @@ function concat$1(...args) {
  */
 
 
-function either(...args) {
-  const joined = '(' + args.map(x => source$2(x)).join("|") + ")";
+function either$1(...args) {
+  const joined = '(' + args.map(x => source$3(x)).join("|") + ")";
   return joined;
 }
 /*
@@ -9964,11 +9934,11 @@ function handlebars(hljs) {
   const BRACKET_QUOTED_ID_REGEX = /\[\]|\[[^\]]+\]/;
   const PLAIN_ID_REGEX = /[^\s!"#%&'()*+,.\/;<=>@\[\\\]^`{|}~]+/;
   const PATH_DELIMITER_REGEX = /(\.|\/)/;
-  const ANY_ID = either(DOUBLE_QUOTED_ID_REGEX, SINGLE_QUOTED_ID_REGEX, BRACKET_QUOTED_ID_REGEX, PLAIN_ID_REGEX);
-  const IDENTIFIER_REGEX = concat$1(optional(/\.|\.\/|\//), // relative or absolute path
-  ANY_ID, anyNumberOfTimes(concat$1(PATH_DELIMITER_REGEX, ANY_ID))); // identifier followed by a equal-sign (without the equal sign)
+  const ANY_ID = either$1(DOUBLE_QUOTED_ID_REGEX, SINGLE_QUOTED_ID_REGEX, BRACKET_QUOTED_ID_REGEX, PLAIN_ID_REGEX);
+  const IDENTIFIER_REGEX = concat$2(optional(/\.|\.\/|\//), // relative or absolute path
+  ANY_ID, anyNumberOfTimes(concat$2(PATH_DELIMITER_REGEX, ANY_ID))); // identifier followed by a equal-sign (without the equal sign)
 
-  const HASH_PARAM_REGEX = concat$1('(', BRACKET_QUOTED_ID_REGEX, '|', PLAIN_ID_REGEX, ')(?==)');
+  const HASH_PARAM_REGEX = concat$2('(', BRACKET_QUOTED_ID_REGEX, '|', PLAIN_ID_REGEX, ')(?==)');
   const HELPER_NAME_OR_PATH_EXPRESSION = {
     begin: IDENTIFIER_REGEX,
     lexemes: /[\w.\/]+/
@@ -10133,7 +10103,7 @@ const BUILT_INS = [].concat(BUILT_IN_GLOBALS, BUILT_IN_VARIABLES, TYPES, ERROR_T
  * @returns {string}
  */
 
-function source$1(re) {
+function source$2(re) {
   if (!re) return null;
   if (typeof re === "string") return re;
   return re.source;
@@ -10145,7 +10115,7 @@ function source$1(re) {
 
 
 function lookahead(re) {
-  return concat('(?=', re, ')');
+  return concat$1('(?=', re, ')');
 }
 /**
  * @param {...(RegExp | string) } args
@@ -10153,8 +10123,8 @@ function lookahead(re) {
  */
 
 
-function concat(...args) {
-  const joined = args.map(x => source$1(x)).join("");
+function concat$1(...args) {
+  const joined = args.map(x => source$2(x)).join("");
   return joined;
 }
 /*
@@ -10363,7 +10333,7 @@ function javascript(hljs) {
       begin: /^\s*['"]use (strict|asm)['"]/
     }, hljs.APOS_STRING_MODE, hljs.QUOTE_STRING_MODE, HTML_TEMPLATE, CSS_TEMPLATE, TEMPLATE_STRING, COMMENT, NUMBER, {
       // object attr container
-      begin: concat(/[{,\n]\s*/, // we need to look ahead to make sure that we actually have an
+      begin: concat$1(/[{,\n]\s*/, // we need to look ahead to make sure that we actually have an
       // attribute coming up so we don't steal a comma from a potential
       // "value" container
       //
@@ -10373,7 +10343,7 @@ function javascript(hljs) {
       // fails to find any actual attrs. But this still does the job because
       // it prevents the value contain rule from grabbing this instead and
       // prevening this rule from firing when we actually DO have keys.
-      lookahead(concat( // we also need to allow for multiple possible comments inbetween
+      lookahead(concat$1( // we also need to allow for multiple possible comments inbetween
       // the first key:value pairing
       /(((\/\/.*$)|(\/\*(\*[^/]|[^*])*\*\/))\s*)*/, IDENT_RE$1 + '\\s*:'))),
       relevance: 0,
@@ -10514,6 +10484,62 @@ function javascript(hljs) {
 
 var javascript_1 = javascript;
 var javascript$1 = javascript_1;
+
+/*
+Language: JSON
+Description: JSON (JavaScript Object Notation) is a lightweight data-interchange format.
+Author: Ivan Sagalaev <maniac@softwaremaniacs.org>
+Website: http://www.json.org
+Category: common, protocols
+*/
+function json(hljs) {
+  const LITERALS = {
+    literal: 'true false null'
+  };
+  const ALLOWED_COMMENTS = [hljs.C_LINE_COMMENT_MODE, hljs.C_BLOCK_COMMENT_MODE];
+  const TYPES = [hljs.QUOTE_STRING_MODE, hljs.C_NUMBER_MODE];
+  const VALUE_CONTAINER = {
+    end: ',',
+    endsWithParent: true,
+    excludeEnd: true,
+    contains: TYPES,
+    keywords: LITERALS
+  };
+  const OBJECT = {
+    begin: /\{/,
+    end: /\}/,
+    contains: [{
+      className: 'attr',
+      begin: /"/,
+      end: /"/,
+      contains: [hljs.BACKSLASH_ESCAPE],
+      illegal: '\\n'
+    }, hljs.inherit(VALUE_CONTAINER, {
+      begin: /:/
+    })].concat(ALLOWED_COMMENTS),
+    illegal: '\\S'
+  };
+  const ARRAY = {
+    begin: '\\[',
+    end: '\\]',
+    contains: [hljs.inherit(VALUE_CONTAINER)],
+    // inherit is a workaround for a bug that makes shared modes with endsWithParent compile only the ending of one of the parents
+    illegal: '\\S'
+  };
+  TYPES.push(OBJECT, ARRAY);
+  ALLOWED_COMMENTS.forEach(function (rule) {
+    TYPES.push(rule);
+  });
+  return {
+    name: 'JSON',
+    contains: TYPES,
+    keywords: LITERALS,
+    illegal: '\\S'
+  };
+}
+
+var json_1 = json;
+var json$1 = json_1;
 
 /*
 Language: PHP
@@ -10738,6 +10764,156 @@ function phpTemplate(hljs) {
 
 var phpTemplate_1 = phpTemplate;
 var phpTemplate$1 = phpTemplate_1;
+
+/**
+ * @param {string} value
+ * @returns {RegExp}
+ * */
+
+/**
+ * @param {RegExp | string } re
+ * @returns {string}
+ */
+function source$1(re) {
+  if (!re) return null;
+  if (typeof re === "string") return re;
+  return re.source;
+}
+/**
+ * @param {...(RegExp | string) } args
+ * @returns {string}
+ */
+
+
+function concat(...args) {
+  const joined = args.map(x => source$1(x)).join("");
+  return joined;
+}
+/**
+ * Any of the passed expresssions may match
+ *
+ * Creates a huge this | this | that | that match
+ * @param {(RegExp | string)[] } args
+ * @returns {string}
+ */
+
+
+function either(...args) {
+  const joined = '(' + args.map(x => source$1(x)).join("|") + ")";
+  return joined;
+}
+/*
+ Language: SQL
+ Website: https://en.wikipedia.org/wiki/SQL
+ Category: common, database
+ */
+
+
+function sql(hljs) {
+  const COMMENT_MODE = hljs.COMMENT('--', '$');
+  const STRING = {
+    className: 'string',
+    variants: [{
+      begin: /'/,
+      end: /'/,
+      contains: [{
+        begin: /''/
+      }]
+    }]
+  };
+  const QUOTED_IDENTIFIER = {
+    begin: /"/,
+    end: /"/,
+    contains: [{
+      begin: /""/
+    }]
+  };
+  const LITERALS = ["true", "false", // Not sure it's correct to call NULL literal, and clauses like IS [NOT] NULL look strange that way.
+  // "null",
+  "unknown"];
+  const MULTI_WORD_TYPES = ["double precision", "large object", "with timezone", "without timezone"];
+  const TYPES = ['bigint', 'binary', 'blob', 'boolean', 'char', 'character', 'clob', 'date', 'dec', 'decfloat', 'decimal', 'float', 'int', 'integer', 'interval', 'nchar', 'nclob', 'national', 'numeric', 'real', 'row', 'smallint', 'time', 'timestamp', 'varchar', 'varying', // modifier (character varying)
+  'varbinary'];
+  const NON_RESERVED_WORDS = ["add", "asc", "collation", "desc", "final", "first", "last", "view"]; // https://jakewheat.github.io/sql-overview/sql-2016-foundation-grammar.html#reserved-word
+
+  const RESERVED_WORDS = ["abs", "acos", "all", "allocate", "alter", "and", "any", "are", "array", "array_agg", "array_max_cardinality", "as", "asensitive", "asin", "asymmetric", "at", "atan", "atomic", "authorization", "avg", "begin", "begin_frame", "begin_partition", "between", "bigint", "binary", "blob", "boolean", "both", "by", "call", "called", "cardinality", "cascaded", "case", "cast", "ceil", "ceiling", "char", "char_length", "character", "character_length", "check", "classifier", "clob", "close", "coalesce", "collate", "collect", "column", "commit", "condition", "connect", "constraint", "contains", "convert", "copy", "corr", "corresponding", "cos", "cosh", "count", "covar_pop", "covar_samp", "create", "cross", "cube", "cume_dist", "current", "current_catalog", "current_date", "current_default_transform_group", "current_path", "current_role", "current_row", "current_schema", "current_time", "current_timestamp", "current_path", "current_role", "current_transform_group_for_type", "current_user", "cursor", "cycle", "date", "day", "deallocate", "dec", "decimal", "decfloat", "declare", "default", "define", "delete", "dense_rank", "deref", "describe", "deterministic", "disconnect", "distinct", "double", "drop", "dynamic", "each", "element", "else", "empty", "end", "end_frame", "end_partition", "end-exec", "equals", "escape", "every", "except", "exec", "execute", "exists", "exp", "external", "extract", "false", "fetch", "filter", "first_value", "float", "floor", "for", "foreign", "frame_row", "free", "from", "full", "function", "fusion", "get", "global", "grant", "group", "grouping", "groups", "having", "hold", "hour", "identity", "in", "indicator", "initial", "inner", "inout", "insensitive", "insert", "int", "integer", "intersect", "intersection", "interval", "into", "is", "join", "json_array", "json_arrayagg", "json_exists", "json_object", "json_objectagg", "json_query", "json_table", "json_table_primitive", "json_value", "lag", "language", "large", "last_value", "lateral", "lead", "leading", "left", "like", "like_regex", "listagg", "ln", "local", "localtime", "localtimestamp", "log", "log10", "lower", "match", "match_number", "match_recognize", "matches", "max", "member", "merge", "method", "min", "minute", "mod", "modifies", "module", "month", "multiset", "national", "natural", "nchar", "nclob", "new", "no", "none", "normalize", "not", "nth_value", "ntile", "null", "nullif", "numeric", "octet_length", "occurrences_regex", "of", "offset", "old", "omit", "on", "one", "only", "open", "or", "order", "out", "outer", "over", "overlaps", "overlay", "parameter", "partition", "pattern", "per", "percent", "percent_rank", "percentile_cont", "percentile_disc", "period", "portion", "position", "position_regex", "power", "precedes", "precision", "prepare", "primary", "procedure", "ptf", "range", "rank", "reads", "real", "recursive", "ref", "references", "referencing", "regr_avgx", "regr_avgy", "regr_count", "regr_intercept", "regr_r2", "regr_slope", "regr_sxx", "regr_sxy", "regr_syy", "release", "result", "return", "returns", "revoke", "right", "rollback", "rollup", "row", "row_number", "rows", "running", "savepoint", "scope", "scroll", "search", "second", "seek", "select", "sensitive", "session_user", "set", "show", "similar", "sin", "sinh", "skip", "smallint", "some", "specific", "specifictype", "sql", "sqlexception", "sqlstate", "sqlwarning", "sqrt", "start", "static", "stddev_pop", "stddev_samp", "submultiset", "subset", "substring", "substring_regex", "succeeds", "sum", "symmetric", "system", "system_time", "system_user", "table", "tablesample", "tan", "tanh", "then", "time", "timestamp", "timezone_hour", "timezone_minute", "to", "trailing", "translate", "translate_regex", "translation", "treat", "trigger", "trim", "trim_array", "true", "truncate", "uescape", "union", "unique", "unknown", "unnest", "update   ", "upper", "user", "using", "value", "values", "value_of", "var_pop", "var_samp", "varbinary", "varchar", "varying", "versioning", "when", "whenever", "where", "width_bucket", "window", "with", "within", "without", "year"]; // these are reserved words we have identified to be functions
+  // and should only be highlighted in a dispatch-like context
+  // ie, array_agg(...), etc.
+
+  const RESERVED_FUNCTIONS = ["abs", "acos", "array_agg", "asin", "atan", "avg", "cast", "ceil", "ceiling", "coalesce", "corr", "cos", "cosh", "count", "covar_pop", "covar_samp", "cume_dist", "dense_rank", "deref", "element", "exp", "extract", "first_value", "floor", "json_array", "json_arrayagg", "json_exists", "json_object", "json_objectagg", "json_query", "json_table", "json_table_primitive", "json_value", "lag", "last_value", "lead", "listagg", "ln", "log", "log10", "lower", "max", "min", "mod", "nth_value", "ntile", "nullif", "percent_rank", "percentile_cont", "percentile_disc", "position", "position_regex", "power", "rank", "regr_avgx", "regr_avgy", "regr_count", "regr_intercept", "regr_r2", "regr_slope", "regr_sxx", "regr_sxy", "regr_syy", "row_number", "sin", "sinh", "sqrt", "stddev_pop", "stddev_samp", "substring", "substring_regex", "sum", "tan", "tanh", "translate", "translate_regex", "treat", "trim", "trim_array", "unnest", "upper", "value_of", "var_pop", "var_samp", "width_bucket"]; // these functions can
+
+  const POSSIBLE_WITHOUT_PARENS = ["current_catalog", "current_date", "current_default_transform_group", "current_path", "current_role", "current_schema", "current_transform_group_for_type", "current_user", "session_user", "system_time", "system_user", "current_time", "localtime", "current_timestamp", "localtimestamp"]; // those exist to boost relevance making these very
+  // "SQL like" keyword combos worth +1 extra relevance
+
+  const COMBOS = ["create table", "insert into", "primary key", "foreign key", "not null", "alter table", "add constraint", "grouping sets", "on overflow", "character set", "respect nulls", "ignore nulls", "nulls first", "nulls last", "depth first", "breadth first"];
+  const FUNCTIONS = RESERVED_FUNCTIONS;
+  const KEYWORDS = [...RESERVED_WORDS, ...NON_RESERVED_WORDS].filter(keyword => {
+    return !RESERVED_FUNCTIONS.includes(keyword);
+  });
+  const VARIABLE = {
+    className: "variable",
+    begin: /@[a-z0-9]+/
+  };
+  const OPERATOR = {
+    className: "operator",
+    begin: /[-+*/=%^~]|&&?|\|\|?|!=?|<(?:=>?|<|>)?|>[>=]?/,
+    relevance: 0
+  };
+  const FUNCTION_CALL = {
+    begin: concat(/\b/, either(...FUNCTIONS), /\s*\(/),
+    keywords: {
+      built_in: FUNCTIONS
+    }
+  }; // keywords with less than 3 letters are reduced in relevancy
+
+  function reduceRelevancy(list, {
+    exceptions,
+    when
+  } = {}) {
+    const qualifyFn = when;
+    exceptions = exceptions || [];
+    return list.map(item => {
+      if (item.match(/\|\d+$/) || exceptions.includes(item)) {
+        return item;
+      } else if (qualifyFn(item)) {
+        return `${item}|0`;
+      } else {
+        return item;
+      }
+    });
+  }
+
+  return {
+    name: 'SQL',
+    case_insensitive: true,
+    // does not include {} or HTML tags `</`
+    illegal: /[{}]|<\//,
+    keywords: {
+      $pattern: /\b[\w\.]+/,
+      keyword: reduceRelevancy(KEYWORDS, {
+        when: x => x.length < 3
+      }),
+      literal: LITERALS,
+      type: TYPES,
+      built_in: POSSIBLE_WITHOUT_PARENS
+    },
+    contains: [{
+      begin: either(...COMBOS),
+      keywords: {
+        $pattern: /[\w\.]+/,
+        keyword: KEYWORDS.concat(COMBOS),
+        literal: LITERALS,
+        type: TYPES
+      }
+    }, {
+      className: "type",
+      begin: either(...MULTI_WORD_TYPES)
+    }, FUNCTION_CALL, VARIABLE, STRING, QUOTED_IDENTIFIER, hljs.C_NUMBER_MODE, hljs.C_BLOCK_COMMENT_MODE, COMMENT_MODE, OPERATOR]
+  };
+}
+
+var sql_1 = sql;
+var sql$1 = sql_1;
 
 var SyntaxHighlighter = highlight$2(core, {});
 SyntaxHighlighter.registerLanguage = core.registerLanguage;
@@ -14807,8 +14983,6 @@ var featureFlags_1 = createCommonjsModule(function (module, exports) {
   }
 
   let defaults = {
-    // TODO: Drop this once we can safely rely on optimizeUniversalDefaults being
-    // the default.
     optimizeUniversalDefaults: false
   };
   let featureFlags = {
@@ -19707,6 +19881,98 @@ function CopyButton({
   }, "Copied!"));
 }
 
+/*
+ Language: cURL
+ Category: scripting
+ Author: John Foster <jfoster@esri.com>
+ Description: Syntax highlighting for cURL commands.
+*/
+var curl = function curl(hljs) {
+  const QUOTE_STRING = {
+    className: 'string',
+    begin: /"/,
+    end: /"/,
+    contains: [hljs.BACKSLASH_ESCAPE, {
+      className: 'variable',
+      begin: /\$\(/,
+      end: /\)/,
+      contains: [hljs.BACKSLASH_ESCAPE]
+    }],
+    relevance: 0
+  };
+  const OPTION_REQUEST = {
+    className: 'literal',
+    begin: /(--request|-X)\s/,
+    contains: [{
+      className: 'symbol',
+      begin: /(get|post|delete|options|head|put|patch|trace|connect)/,
+      end: /\s/,
+      returnEnd: true
+    }],
+    returnEnd: true,
+    relevance: 10
+  };
+  const OPTION = {
+    className: 'literal',
+    begin: /--/,
+    end: /[\s"]/,
+    returnEnd: true,
+    relevance: 0
+  };
+  const OPTION_SINGLE = {
+    className: 'literal',
+    begin: /-\w/,
+    end: /[\s"]/,
+    returnEnd: true,
+    relevance: 0
+  };
+  const ESCAPED_QUOTE = {
+    className: 'string',
+    begin: /\\"/,
+    relevance: 0
+  };
+  const APOS_STRING = {
+    className: 'string',
+    begin: /'/,
+    end: /'/,
+    relevance: 0
+  };
+  const NUMBER = {
+    className: 'number',
+    variants: [{
+      begin: hljs.C_NUMBER_RE
+    }],
+    relevance: 0
+  }; // to consume paths to prevent keyword matches inside them
+
+  const PATH_MODE = {
+    match: /(\/[a-z._-]+)+/
+  };
+  return {
+    name: "curl",
+    aliases: ["curl"],
+    keywords: "curl",
+    case_insensitive: true,
+    contains: [OPTION_REQUEST, OPTION, OPTION_SINGLE, QUOTE_STRING, ESCAPED_QUOTE, APOS_STRING, hljs.APOS_STRING_MODE, hljs.QUOTE_STRING_MODE, NUMBER, PATH_MODE]
+  };
+};
+
+SyntaxHighlighter$1.registerLanguage('sql', sql$1);
+SyntaxHighlighter$1.registerLanguage('curl', curl);
+SyntaxHighlighter$1.registerLanguage('json', json$1);
+function HighlightedCode({
+  children,
+  language
+}) {
+  const {
+    theme
+  } = useContext(IgnitionConfigContext);
+  return /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, {
+    language: language,
+    style: theme === 'light' ? light : dark
+  }, children);
+}
+
 function CodeSnippet({
   value,
   limitHeight = true,
@@ -19734,13 +20000,17 @@ function CodeSnippet({
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'truncate pr-8'}`
   }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, value)) : /*#__PURE__*/React__default.createElement("pre", {
+  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
+    language: "sql"
+  }, value))) : /*#__PURE__*/React__default.createElement("pre", {
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}`
   }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
+  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
+    language: "sql"
   }, sqlFormatter$1.format(value, {
     language: 'mysql'
-  })))), language !== 'sql' && /*#__PURE__*/React__default.createElement("pre", {
+  }))))), language !== 'sql' && /*#__PURE__*/React__default.createElement("pre", {
     ref: ref,
     className: `
                             pl-4
@@ -19750,7 +20020,9 @@ function CodeSnippet({
                         `
   }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, value))), /*#__PURE__*/React__default.createElement(CopyButton, {
+  }, language ? /*#__PURE__*/React__default.createElement(HighlightedCode, {
+    language: language
+  }, value) : value))), /*#__PURE__*/React__default.createElement(CopyButton, {
     className: "absolute top-2 right-3",
     value: value
   }), isOverflowing && /*#__PURE__*/React__default.createElement("button", {
@@ -20369,7 +20641,8 @@ function Request() {
   }, request.method.toUpperCase())), curl && /*#__PURE__*/React__default.createElement("div", {
     className: "mt-2"
   }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
-    value: curl
+    value: curl,
+    language: "curl"
   })));
 }
 
@@ -20423,7 +20696,8 @@ function DefinitionListRow({
     }, value ? 'true' : 'false'));
   } else if (typeof value === 'object') {
     valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
-      value: jsonStringify(value)
+      value: jsonStringify(value),
+      language: "json"
     });
   } else if (typeof value === 'string') {
     valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
@@ -21027,7 +21301,8 @@ function UnorderedListItem({
     valueOutput = value;
   } else if (typeof value === 'object') {
     valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
-      value: jsonStringify(value)
+      value: jsonStringify(value),
+      language: "json"
     });
   } else if (typeof value === 'string') {
     valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
@@ -21410,7 +21685,8 @@ function User() {
   }, user.name), /*#__PURE__*/React__default.createElement("p", {
     className: "text-sm"
   }, user.email))), /*#__PURE__*/React__default.createElement(CodeSnippet, {
-    value: jsonStringify(user)
+    value: jsonStringify(user),
+    language: "json"
   }));
 }
 
@@ -23532,14 +23808,14 @@ function DebugItem({
     title: "Runtime",
     className: "opacity-50",
     icon: faStopwatch
-  }), " ", value), key === 'connection' && /*#__PURE__*/React__default.createElement(Tag, {
+  }), ' ', value), key === 'connection' && /*#__PURE__*/React__default.createElement(Tag, {
     className: "inline-flex items-center gap-2",
     key: key
   }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     title: "Connection",
     className: "opacity-50",
     icon: faDatabase
-  }), " ", value), key !== 'runtime' && key !== 'connection' && /*#__PURE__*/React__default.createElement(Tag, {
+  }), ' ', value), key !== 'runtime' && key !== 'connection' && /*#__PURE__*/React__default.createElement(Tag, {
     key: key
   }, key, ": ", value))), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
     className: "ml-auto"
@@ -23549,7 +23825,8 @@ function DebugItem({
     icon: showRawContext ? faListUl : faCode,
     className: "text-[8px] ~text-gray-500 group-hover:text-indigo-500"
   }), showRawContext ? 'As list' : 'Raw')))), /*#__PURE__*/React__default.createElement("div", null, children), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
-    value: jsonStringify(context)
+    value: jsonStringify(context),
+    language: "json"
   }) : /*#__PURE__*/React__default.createElement("div", {
     className: "pl-4"
   }, /*#__PURE__*/React__default.createElement(ContextList, {
@@ -23598,7 +23875,8 @@ function Queries() {
       connection: query.connection_name
     }
   }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
-    value: query.sql
+    value: query.sql,
+    language: "sql"
   }))));
 }
 
