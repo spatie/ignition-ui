@@ -42,6 +42,7 @@ export type ErrorOccurrence = {
         view: null | ViewContext;
         session: null | Array<ContextItem>;
         cookies: null | Array<ContextItem>;
+        env: null | Array<ContextItem>;
     };
     first_frame_class: string;
     first_frame_method: string;
