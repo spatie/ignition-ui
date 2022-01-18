@@ -92,16 +92,27 @@ export default function StackTrace({ openFrameIndex }: Props) {
             <aside className="z-30 flex flex-col border-r ~border-gray-200">
                 <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
                     <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
-                            <SmallButton
-                                onClick={() =>  dispatch({ type: vendorFramesExpanded ? 'COLLAPSE_ALL_VENDOR_FRAMES' : 'EXPAND_ALL_VENDOR_FRAMES'})}
-                            >
-                                <div className={`flex ${vendorFramesExpanded ? 'flex-col-reverse' :'flex-col'}`}>
-                                    <FontAwesomeIcon icon={faAngleUp} className="-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500" />
-                                    <FontAwesomeIcon icon={faAngleDown} className="-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500" />
-                                </div>
-                                {vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames'}
-                            </SmallButton>
-                        
+                        <SmallButton
+                            onClick={() =>
+                                dispatch({
+                                    type: vendorFramesExpanded
+                                        ? 'COLLAPSE_ALL_VENDOR_FRAMES'
+                                        : 'EXPAND_ALL_VENDOR_FRAMES',
+                                })
+                            }
+                        >
+                            <div className={`flex ${vendorFramesExpanded ? 'flex-col-reverse' : 'flex-col'}`}>
+                                <FontAwesomeIcon
+                                    icon={faAngleUp}
+                                    className="-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
+                                />
+                                <FontAwesomeIcon
+                                    icon={faAngleDown}
+                                    className="-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
+                                />
+                            </div>
+                            {vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames'}
+                        </SmallButton>
                     </header>
                     <div id="frames" className="flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames">
                         <ol className="text-sm pb-16">
@@ -128,7 +139,7 @@ export default function StackTrace({ openFrameIndex }: Props) {
             <section className="flex flex-col border-t lg:border-t-0 ~border-gray-200">
                 <header className="~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end">
                     <EditorLink
-                        path={selectedFrame?.relative_file}
+                        path={selectedFrame?.file}
                         lineNumber={selectedFrame?.line_number}
                         className="flex items-center text-sm"
                     />
