@@ -1,6 +1,5 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { ErrorFrame } from '../../../types';
-import IgnitionConfigContext from '../../../contexts/IgnitionConfigContext';
 import FrameCodeSnippetLine from './FrameCodeSnippetLine';
 // @ts-ignore
 import { createElement, Light as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -17,8 +16,7 @@ import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascr
 // @ts-ignore
 import handlebars from 'react-syntax-highlighter/dist/esm/languages/hljs/handlebars';
 import blade from 'languages/blade';
-import light from 'themes/light';
-import dark from 'themes/dark';
+
 
 // We need to register all styles and languages manually if we want to use the light
 // export of the SyntaxHighlighter. Including all sub-languages used in e.g. Blade:
@@ -32,8 +30,6 @@ SyntaxHighlighter.registerLanguage('handlebars', handlebars);
 
 type RendererProps = {
     rows: Row[];
-    stylesheet: string;
-    useInlineStyles: boolean;
 };
 
 export type Row = Node[];
@@ -62,8 +58,6 @@ function getLanguage(filename: string): 'php' | 'blade' | 'php-template' {
 }
 
 export default function FrameCodeSnippet({ frame }: Props) {
-    const { theme } = useContext(IgnitionConfigContext);
-
     const code = Object.values(frame.code_snippet).join('\n');
 
     const lineNumbers = Object.keys(frame.code_snippet).map((n) => Number(n));
@@ -71,15 +65,13 @@ export default function FrameCodeSnippet({ frame }: Props) {
 
     const codeRenderer = useMemo(
         () =>
-            ({ rows, stylesheet, useInlineStyles }: RendererProps) => {
+            ({ rows }: RendererProps) => {
                 return rows.map((row, index) => (
                     <FrameCodeSnippetLine
                         key={lineNumbers[index]}
                         frame={frame}
                         highlight={index === highlightedIndex}
                         row={row}
-                        stylesheet={stylesheet}
-                        useInlineStyles={useInlineStyles}
                         lineNumber={lineNumbers[index]}
                     />
                 ));
@@ -110,9 +102,9 @@ export default function FrameCodeSnippet({ frame }: Props) {
             </nav>
             <div className="flex-grow pr-10">
                 <SyntaxHighlighter
-                    style={theme === 'light' ? light : dark}
                     language={getLanguage(frame.relative_file)}
                     renderer={codeRenderer}
+                    customStyle={{background:'transparent'}}
                 >
                     {code}
                 </SyntaxHighlighter>

@@ -13,17 +13,13 @@ type Props = {
     frame: ErrorFrame;
     lineNumber: number;
     row: Row;
-    stylesheet: string;
-    useInlineStyles: boolean;
 };
 
 export default function FrameCodeSnippetLine({
     highlight,
     row,
     frame,
-    lineNumber,
-    stylesheet,
-    useInlineStyles,
+    lineNumber
 }: Props) {
     const editorUrl = useEditorUrl({ file: frame.file, lineNumber });
 
@@ -45,7 +41,7 @@ export default function FrameCodeSnippetLine({
             )}
 
             <span className="pl-6">
-                {createElement({ node: row, stylesheet, useInlineStyles, key: `code-segement-${lineNumber}` })}
+                {createElement({ node: row, useInlineStyles: false, key: `code-segement-${lineNumber}` })}
             </span>
         </span>
     );
