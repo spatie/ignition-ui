@@ -4,6 +4,7 @@ import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 import Solutions from './Solutions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaravel } from '@fortawesome/free-brands-svg-icons';
+import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 import ExceptionSelector from './ExceptionSelector';
 
 export default function ErrorCard() {
@@ -11,8 +12,10 @@ export default function ErrorCard() {
 
     const hasSolutions = errorOccurrence.solutions.length > 0;
 
+    const isLaravelError = errorOccurrence.context_items.env?.find((env) => env.name === 'laravel_version');
+
     return (
-        <section className="lg:flex items-stretch ~bg-white shadow-lg">                
+        <section className="lg:flex items-stretch ~bg-white shadow-lg">
             <main id="exception" className="z-10 flex-grow min-w-0">
                 <div className="overflow-hidden">
                     <div className="px-6 sm:px-10 py-8 overflow-x-auto">
@@ -24,10 +27,12 @@ export default function ErrorCard() {
                                     <span className="tracking-wider">PHP</span>&nbsp;
                                     {errorOccurrence.language_version}
                                 </span>
-                                <span className="inline-flex items-center gap-1">
-                                    <FontAwesomeIcon icon={faLaravel} />
-                                    {errorOccurrence.framework_version}
-                                </span>
+                                {errorOccurrence.framework_version && (
+                                    <span className="inline-flex items-center gap-1">
+                                        <FontAwesomeIcon icon={isLaravelError ? faLaravel : faCodeBranch} />
+                                        {errorOccurrence.framework_version}
+                                    </span>
+                                )}
                             </div>
                         </header>
 
@@ -35,14 +40,11 @@ export default function ErrorCard() {
                             exceptionClass={errorOccurrence.exception_class}
                             message={errorOccurrence.exception_message}
                         />
-
                     </div>
                 </div>
             </main>
 
             {hasSolutions && <Solutions />}
-
-            
         </section>
     );
 }
