@@ -8,7 +8,7 @@ export default function ErrorBoundarySection() {
             </h2>
             <p className="text-base">
                 An error occurred in Ignition's UI. Please open an issue on{' '}
-                <a href="https://github.com/spatie/ignition" className="underline">the Ignition GitHub repo</a>
+                <a href="https://github.com/spatie/ignition" target="_blank" className="underline">the Ignition GitHub repo</a>
                 {' '}
                 and make sure to include any errors or warnings in the developer console.
             </p>
