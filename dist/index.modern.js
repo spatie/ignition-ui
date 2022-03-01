@@ -16067,7 +16067,9 @@ function ExceptionSelector() {
   }
 }
 
-function ErrorBoundaryCard() {
+function ErrorBoundaryCard({
+  githubLink
+}) {
   return /*#__PURE__*/React__default.createElement("section", {
     className: "flex flex-col flex-grow px-6 sm:px-10 py-8 bg-red-600 text-red-100 shadow-lg gap-3"
   }, /*#__PURE__*/React__default.createElement("h2", {
@@ -16075,7 +16077,7 @@ function ErrorBoundaryCard() {
   }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
     className: "text-base"
   }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
-    href: "https://github.com/spatie/ignition",
+    href: githubLink,
     target: "_blank",
     className: "underline"
   }, "the Ignition GitHub repo"), ' ', "and make sure to include any errors or warnings in the developer console."));
@@ -16085,18 +16087,36 @@ class ErrorBoundary extends React__default.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasError: false
+      error: null
     };
   }
 
-  static getDerivedStateFromError() {
+  static getDerivedStateFromError(error) {
     return {
-      hasError: true
+      error: error
     };
   }
 
   render() {
-    return this.state.hasError ? this.props.fallbackComponent || /*#__PURE__*/React__default.createElement(ErrorBoundaryCard, null) : this.props.children;
+    const {
+      error
+    } = this.state;
+
+    if (error) {
+      var _this$props$fallbackC, _this$props;
+
+      let githubLink = 'https://github.com/spatie/ignition/issues';
+
+      if (error instanceof Error) {
+        githubLink = `https://github.com/spatie/ignition/issues/new?title=${error.name}: ${error.message}&labels=bug&body=${'```' + error.stack + '```'}`;
+      }
+
+      return ((_this$props$fallbackC = (_this$props = this.props).fallbackComponent) == null ? void 0 : _this$props$fallbackC.call(_this$props, githubLink)) || /*#__PURE__*/React__default.createElement(ErrorBoundaryCard, {
+        githubLink: githubLink
+      });
+    }
+
+    return this.props.children;
   }
 
 }
@@ -16133,7 +16153,8 @@ function ErrorCard() {
 }
 
 function ErrorBoundarySection({
-  className = ''
+  className = '',
+  githubLink
 }) {
   return /*#__PURE__*/React__default.createElement("div", {
     className: `${className} flex flex-col gap-2 bg-red-50 dark:bg-red-500/10 px-6 py-4`
@@ -16142,7 +16163,7 @@ function ErrorBoundarySection({
   }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
     className: "text-base"
   }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
-    href: "https://github.com/spatie/ignition",
+    href: githubLink,
     target: "_blank",
     className: "underline"
   }, "the Ignition GitHub repo"), ' ', "and make sure to include any errors or warnings in the developer console."));
@@ -16163,7 +16184,9 @@ function ContextGroup({
   }, title), /*#__PURE__*/React__default.createElement("div", {
     className: "mt-3 grid grid-cols-1 gap-10"
   }, /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: /*#__PURE__*/React__default.createElement(ErrorBoundarySection, null)
+    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+      githubLink: githubLink
+    })
   }, children)));
 }
 
@@ -16450,7 +16473,9 @@ function ContextSection({
   }, title, /*#__PURE__*/React__default.createElement("span", {
     className: "opacity-50 ~text-indigo-600 text-sm"
   }, icon)), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: /*#__PURE__*/React__default.createElement(ErrorBoundarySection, null)
+    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+      githubLink: githubLink
+    })
   }, children));
 }
 
@@ -19601,7 +19626,8 @@ function DebugTabs({
   }, /*#__PURE__*/React__default.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
   }, tab.count), /*#__PURE__*/React__default.createElement("span", null, tab.name)))))), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+      githubLink: githubLink,
       className: "pt-10"
     })
   }, /*#__PURE__*/React__default.createElement("div", {

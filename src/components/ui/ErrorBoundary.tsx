@@ -25,9 +25,13 @@ export default class ErrorBoundary extends React.Component<Props, State> {
         const { error } = this.state;
 
         if (error) {
-            const githubLink = `https://github.com/spatie/ignition/issues/new?title=${error.name}: ${
-                error.message
-            }&labels=bug&body=${'```' + error.stack + '```'}`;
+            let githubLink = 'https://github.com/spatie/ignition/issues';
+
+            if (error instanceof Error) {
+                githubLink = `https://github.com/spatie/ignition/issues/new?title=${error.name}: ${
+                    error.message
+                }&labels=bug&body=${'```' + error.stack + '```'}`;
+            }
 
             return this.props.fallbackComponent?.(githubLink) || <ErrorBoundaryCard githubLink={githubLink} />;
         }
