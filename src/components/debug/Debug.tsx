@@ -7,7 +7,6 @@ import Dumps from 'components/debug/tabs/Dumps';
 import Queries from './tabs/Queries';
 import Glows from './tabs/Glows';
 import ErrorBoundary from "../ui/ErrorBoundary";
-import ErrorBoundaryCard from "../ui/ErrorBoundaryCard";
 
 export default function Debug() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);

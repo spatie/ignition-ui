@@ -1,6 +1,6 @@
 import React from 'react';
 import ErrorBoundary from "../ui/ErrorBoundary";
-import ErrorBoundarySection from "./ErrorBoundarySection";
+import ErrorBoundarySection from "../ui/ErrorBoundarySection";
 
 export type ContextGroupProps = {
     title: string;

@@ -16076,6 +16076,7 @@ function ErrorBoundaryCard() {
     className: "text-base"
   }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
     href: "https://github.com/spatie/ignition",
+    target: "_blank",
     className: "underline"
   }, "the Ignition GitHub repo"), ' ', "and make sure to include any errors or warnings in the developer console."));
 }
@@ -16131,15 +16132,18 @@ function ErrorCard() {
   })))), hasSolutions && /*#__PURE__*/React__default.createElement(Solutions, null)));
 }
 
-function ErrorBoundarySection() {
+function ErrorBoundarySection({
+  className = ''
+}) {
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "flex flex-col gap-2 bg-red-50 dark:bg-red-500/10 px-6 py-4"
+    className: `${className} flex flex-col gap-2 bg-red-50 dark:bg-red-500/10 px-6 py-4`
   }, /*#__PURE__*/React__default.createElement("h2", {
     className: "font-semibold leading-snug"
   }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
     className: "text-base"
   }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
     href: "https://github.com/spatie/ignition",
+    target: "_blank",
     className: "underline"
   }, "the Ignition GitHub repo"), ' ', "and make sure to include any errors or warnings in the developer console."));
 }
@@ -19596,9 +19600,13 @@ function DebugTabs({
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium "
   }, /*#__PURE__*/React__default.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
-  }, tab.count), /*#__PURE__*/React__default.createElement("span", null, tab.name)))))), /*#__PURE__*/React__default.createElement("div", {
+  }, tab.count), /*#__PURE__*/React__default.createElement("span", null, tab.name)))))), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
+    fallbackComponent: /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+      className: "pt-10"
+    })
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "grid grid-cols-1 gap-10 py-10 px-6 sm:px-10"
-  }, /*#__PURE__*/React__default.createElement(Tab, null)));
+  }, /*#__PURE__*/React__default.createElement(Tab, null))));
 }
 
 DebugTabs.Tab = _props => null;
@@ -19713,16 +19721,8 @@ function Queries() {
 }
 
 function Glows() {
-  const errorOccurrence = useContext(ErrorOccurrenceContext);
-  const glows = errorOccurrence.glows;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, glows.map((glow, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
-    key: index,
-    level: glow.message_level,
-    context: glow.meta_data,
-    time: unixToDate(glow.microtime)
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
-    value: glow.name
-  }))));
+  useContext(ErrorOccurrenceContext);
+  throw 'nooo';
 }
 
 function Debug() {

@@ -38,7 +38,6 @@ import {
 import InViewContextProvider from '../../contexts/InViewContextProvider';
 import LiveWireIcon from 'components/ui/icons/LivewireIcon';
 import ErrorBoundary from "../ui/ErrorBoundary";
-import ErrorBoundaryCard from "../ui/ErrorBoundaryCard";
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);

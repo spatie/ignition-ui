@@ -1,7 +1,7 @@
 import React from 'react';
 import useSectionInView from '../../hooks/useSectionInView';
 import ErrorBoundary from "../ui/ErrorBoundary";
-import ErrorBoundarySection from "./ErrorBoundarySection";
+import ErrorBoundarySection from "../ui/ErrorBoundarySection";
 
 export type ContextSectionProps = {
     icon: React.ReactNode;

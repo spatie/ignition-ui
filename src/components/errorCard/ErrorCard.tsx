@@ -7,7 +7,6 @@ import {faLaravel} from '@fortawesome/free-brands-svg-icons';
 import {faCodeBranch} from '@fortawesome/free-solid-svg-icons';
 import ExceptionSelector from './ExceptionSelector';
 import ErrorBoundary from "../ui/ErrorBoundary";
-import ErrorBoundaryCard from "../ui/ErrorBoundaryCard";
 
 export default function ErrorCard() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);

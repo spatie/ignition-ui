@@ -1,4 +1,6 @@
-import React, { Children, useState } from 'react';
+import React, {Children, useState} from 'react';
+import ErrorBoundary from "../ui/ErrorBoundary";
+import ErrorBoundarySection from "../ui/ErrorBoundarySection";
 
 type Props = {
     children: Array<React.ReactElement | false>;
@@ -55,9 +57,11 @@ export default function DebugTabs({ children }: Props) {
                 </ul>
             </nav>
 
-            <div className="grid grid-cols-1 gap-10 py-10 px-6 sm:px-10">
-                <Tab />
-            </div>
+            <ErrorBoundary fallbackComponent={<ErrorBoundarySection className="pt-10"/>}>
+                <div className="grid grid-cols-1 gap-10 py-10 px-6 sm:px-10">
+                    <Tab/>
+                </div>
+            </ErrorBoundary>
         </div>
     );
 }
