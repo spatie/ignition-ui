@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 import IgnitionConfigContext from '../contexts/IgnitionConfigContext';
 import mapValues from 'lodash/mapValues';
 
@@ -7,20 +7,18 @@ type Props = {
     lineNumber?: number;
 };
 
-export default function useEditorUrl({ file, lineNumber = 1 }: Props) {
-    const { ignitionConfig } = useContext(IgnitionConfigContext);
-    const editor = ignitionConfig.editor;
+export default function useEditorUrl({file, lineNumber = 1}: Props) {
+    const {ignitionConfig: config} = useContext(IgnitionConfigContext);
+    const editor = config.editor;
 
-    const editors: Record<string, string> = mapValues(ignitionConfig.editorOptions, (e) => e.url);
+    const editors: Record<string, string> = mapValues(config.editorOptions, (e) => e.url);
 
-    // TODO: fix this with config context provider
-    // file =
-    //     (config.remoteSitesPath || '').length > 0 && (config.localSitesPath || '').length > 0
-    //         ? file.replace(config.remoteSitesPath, config.localSitesPath)
-    //         : file;
+    file = (config.remoteSitesPath || '').length > 0 && (config.localSitesPath || '').length > 0
+        ? file.replace(config.remoteSitesPath, config.localSitesPath)
+        : file;
 
     if (!Object.keys(editors).includes(editor)) {
-        console.error(`'${editor}' is not supported. Support editors are: ${Object.keys(editors).join(', ')}`);
+        console.warn(`Editor '${editor}' is not supported. Support editors are: ${Object.keys(editors).join(', ')}`);
 
         return null;
     }
