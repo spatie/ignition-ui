@@ -29,7 +29,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
                 error.message
             }&labels=bug&body=${'```' + error.stack + '```'}`;
 
-            return this.props.fallbackComponent?.('') || <ErrorBoundaryCard githubLink={githubLink} />;
+            return this.props.fallbackComponent?.(githubLink) || <ErrorBoundaryCard githubLink={githubLink} />;
         }
 
         return this.props.children;
