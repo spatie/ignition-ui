@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useMemo, useReducer, useState } from 'react';
+import React, { useContext, useMemo, useReducer } from 'react';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
 import FrameCodeSnippet from './FrameCodeSnippet';
 import useKeyboardShortcut from '../../../hooks/useKeyboardShortcut';
@@ -50,43 +50,6 @@ export default function StackTrace({ openFrameIndex }: Props) {
         dispatch({ type: 'SELECT_PREVIOUS_FRAME' });
     });
 
-    const [selectedRange, setSelectedRange] = useState<[number, number] | null>(null);
-
-    useLayoutEffect(() => {
-        const framePattern = /F([0-9]+)?/gm;
-        const linePattern = /L([0-9]+)(-([0-9]+))?/gm;
-
-        const frameMatches = framePattern.exec(window.location.hash);
-        const lineMatches = linePattern.exec(window.location.hash);
-
-        if (frameMatches) {
-            const frameNumber = parseInt(frameMatches[1]);
-
-            dispatch({ type: 'SELECT_FRAME', frame: frameNumber });
-        }
-
-        if (lineMatches) {
-            const minLineNumber = parseInt(lineMatches[1]);
-            const maxLineNumber = lineMatches[3] ? parseInt(lineMatches[3]) : minLineNumber;
-
-            setSelectedRange([minLineNumber, maxLineNumber]);
-        }
-    }, []);
-
-    useEffect(() => {
-        const lineNumber = selectedRange
-            ? selectedRange[0] === selectedRange[1]
-                ? selectedRange[0]
-                : `${selectedRange[0]}-${selectedRange[1]}`
-            : null;
-
-        window.history.replaceState(
-            window.history.state,
-            '',
-            `#F${state.selected}${lineNumber ? 'L' + lineNumber : ''}`,
-        );
-    }, [state.selected, selectedRange]);
-
     return (
         <div className="grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem] items-stretch shadow-lg ~bg-white overflow-hidden">
             <aside className="z-30 flex flex-col border-r ~border-gray-200">
@@ -128,7 +91,6 @@ export default function StackTrace({ openFrameIndex }: Props) {
                                     }
                                     onSelect={(frameNumber) => {
                                         dispatch({ type: 'SELECT_FRAME', frame: frameNumber });
-                                        setSelectedRange(null);
                                     }}
                                 />
                             ))}
