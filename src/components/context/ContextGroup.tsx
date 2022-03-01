@@ -16,7 +16,7 @@ export default function ContextGroup({ title, children, anchor }: ContextGroupPr
                 {title}
             </h2>
             <div className="mt-3 grid grid-cols-1 gap-10">
-                <ErrorBoundary fallbackComponent={<ErrorBoundarySection/>}>
+                <ErrorBoundary fallbackComponent={(githubLink) => <ErrorBoundarySection githubLink={githubLink} />}>
                     {children}
                 </ErrorBoundary>
             </div>

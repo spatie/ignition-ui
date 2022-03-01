@@ -20,7 +20,7 @@ export default function ContextSection({icon, title, children, anchor}: ContextS
                 {title}
                 <span className="opacity-50 ~text-indigo-600 text-sm">{icon}</span>
             </h1>
-            <ErrorBoundary fallbackComponent={<ErrorBoundarySection/>}>
+            <ErrorBoundary fallbackComponent={(githubLink) => <ErrorBoundarySection githubLink={githubLink} />}>
                 {children}
             </ErrorBoundary>
         </div>

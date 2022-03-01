@@ -57,7 +57,7 @@ export default function DebugTabs({ children }: Props) {
                 </ul>
             </nav>
 
-            <ErrorBoundary fallbackComponent={<ErrorBoundarySection className="pt-10"/>}>
+            <ErrorBoundary fallbackComponent={(githubLink) =>  <ErrorBoundarySection githubLink={githubLink} className="pt-10"/>}>
                 <div className="grid grid-cols-1 gap-10 py-10 px-6 sm:px-10">
                     <Tab/>
                 </div>
