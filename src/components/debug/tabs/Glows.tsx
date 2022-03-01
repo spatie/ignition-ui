@@ -8,8 +8,6 @@ export default function Glows() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
     const glows = errorOccurrence.glows;
 
-    throw 'nooo';
-
     return (
         <>
             {glows.map((glow, index) => (
