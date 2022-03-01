@@ -54,7 +54,7 @@ export default function DebugTabs({ children }: Props) {
                     ))}
                 </ul>
             </nav>
-            
+
             <div className="grid grid-cols-1 gap-10 py-10 px-6 sm:px-10">
                 <Tab />
             </div>

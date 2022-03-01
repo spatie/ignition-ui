@@ -1,5 +1,7 @@
 import React from 'react';
 import useSectionInView from '../../hooks/useSectionInView';
+import ErrorBoundary from "../ui/ErrorBoundary";
+import ErrorBoundarySection from "./ErrorBoundarySection";
 
 export type ContextSectionProps = {
     icon: React.ReactNode;
@@ -8,17 +10,19 @@ export type ContextSectionProps = {
     anchor: string;
 };
 
-export default function ContextSection({ icon, title, children, anchor }: ContextSectionProps) {
+export default function ContextSection({icon, title, children, anchor}: ContextSectionProps) {
     const ref = useSectionInView(title);
 
     return (
         <div ref={ref}>
-            <a id={`context-${anchor}`} className="scroll-target" />
+            <a id={`context-${anchor}`} className="scroll-target"/>
             <h1 className="mb-2 flex items-center gap-2 font-semibold text-lg ~text-indigo-600">
                 {title}
                 <span className="opacity-50 ~text-indigo-600 text-sm">{icon}</span>
             </h1>
-            {children}
+            <ErrorBoundary fallbackComponent={<ErrorBoundarySection/>}>
+                {children}
+            </ErrorBoundary>
         </div>
     );
 }

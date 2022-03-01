@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
-import { getContextValues } from '../../util';
+import React, {useContext} from 'react';
+import {getContextValues} from '../../util';
 import ErrorOccurrenceContext from 'contexts/ErrorOccurrenceContext';
 import DebugTabs from './DebugTabs';
 import Logs from 'components/debug/tabs/Logs';
 import Dumps from 'components/debug/tabs/Dumps';
 import Queries from './tabs/Queries';
 import Glows from './tabs/Glows';
+import ErrorBoundary from "../ui/ErrorBoundary";
+import ErrorBoundaryCard from "../ui/ErrorBoundaryCard";
 
 export default function Debug() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -16,11 +18,13 @@ export default function Debug() {
     const logs = getContextValues(errorOccurrence, 'logs');
 
     return (
-        <DebugTabs>
-            <DebugTabs.Tab component={Dumps} name="Dumps" count={Object.keys(dumps).length} />
-            <DebugTabs.Tab component={Glows} name="Glows" count={glows.length} />
-            <DebugTabs.Tab component={Queries} name="Queries" count={Object.keys(queries).length} />
-            <DebugTabs.Tab component={Logs} name="Logs" count={Object.keys(logs).length} />
-        </DebugTabs>
+        <ErrorBoundary>
+            <DebugTabs>
+                <DebugTabs.Tab component={Dumps} name="Dumps" count={Object.keys(dumps).length}/>
+                <DebugTabs.Tab component={Glows} name="Glows" count={glows.length}/>
+                <DebugTabs.Tab component={Queries} name="Queries" count={Object.keys(queries).length}/>
+                <DebugTabs.Tab component={Logs} name="Logs" count={Object.keys(logs).length}/>
+            </DebugTabs>
+        </ErrorBoundary>
     );
 }
