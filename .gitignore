@@ -8,5 +8,3 @@ composer.lock
 .phpunit.result.cache
 package-lock.json
 .php-cs-fixer.cache
-/types
-
