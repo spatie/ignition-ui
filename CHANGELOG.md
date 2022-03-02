@@ -2,6 +2,14 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 3.3.2 - 2022-03-02
+
+- Include types in build
+
+## 3.3.1 - 2022-03-02
+
+- Improve "create GitHub issue" default content
+
 ## 3.3.0 - 2022-03-01
 
 - Add error boundaries
