@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 3.3.3 - 2022-03-04
+
+- Fix errors when there is only one (non-application) frame in the stack
+
 ## 3.3.2 - 2022-03-02
 
 - Include types in build
