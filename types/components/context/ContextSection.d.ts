@@ -6,4 +6,3 @@ export declare type ContextSectionProps = {
     anchor: string;
 };
 export default function ContextSection({ icon, title, children, anchor }: ContextSectionProps): JSX.Element;
-//# sourceMappingURL=ContextSection.d.ts.map

@@ -13,4 +13,3 @@ declare type UnorderedListItemProps = {
     value?: string | React.ReactNode | Array<any> | Object;
 };
 declare function UnorderedListItem({ value }: UnorderedListItemProps): JSX.Element;
-//# sourceMappingURL=UnorderedList.d.ts.map

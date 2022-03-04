@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function ContextSections({ children }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ContextSections.d.ts.map

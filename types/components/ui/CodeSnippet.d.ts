@@ -8,4 +8,3 @@ declare type Props = {
 };
 export default function CodeSnippet({ value, limitHeight, language, transparent, overflowX, }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=CodeSnippet.d.ts.map

@@ -4,4 +4,3 @@ declare type Props = {
 };
 export default function SfDump({ value, ...props }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=SfDump.d.ts.map

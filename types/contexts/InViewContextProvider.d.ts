@@ -4,4 +4,3 @@ declare type Props = {
 };
 export default function InViewContextProvider({ children }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=InViewContextProvider.d.ts.map

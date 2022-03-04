@@ -4,4 +4,3 @@ export default function blade(hljs: any): {
     subLanguage: string;
     contains: any[];
 };
-//# sourceMappingURL=blade.d.ts.map

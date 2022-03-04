@@ -9,4 +9,3 @@ declare type Props = {
 };
 export default function FrameCodeSnippetLine({ highlight, row, frame, lineNumber }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=FrameCodeSnippetLine.d.ts.map

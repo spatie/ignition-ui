@@ -6,4 +6,3 @@ declare type Props = {
 };
 export default function FormattedExceptionMessage({ message, exceptionClass, className }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=FormattedExceptionMessage.d.ts.map

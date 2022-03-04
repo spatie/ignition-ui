@@ -19,4 +19,3 @@ export declare type Action = {
 } | {
     type: 'SELECT_PREVIOUS_FRAME';
 };
-//# sourceMappingURL=types.d.ts.map

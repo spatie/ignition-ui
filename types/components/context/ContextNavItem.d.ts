@@ -7,4 +7,3 @@ declare type Props = {
 };
 export default function ContextNavItem({ icon, title, anchor, active }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ContextNavItem.d.ts.map

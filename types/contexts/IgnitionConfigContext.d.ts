@@ -6,4 +6,3 @@ declare const _default: import("react").Context<{
     theme: IgnitionConfig['theme'];
 }>;
 export default _default;
-//# sourceMappingURL=IgnitionConfigContext.d.ts.map

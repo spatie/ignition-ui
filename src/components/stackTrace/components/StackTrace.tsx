@@ -22,9 +22,10 @@ export default function StackTrace({ openFrameIndex }: Props) {
     const { frames } = useContext(ErrorOccurrenceContext);
 
     const initialState = useMemo(() => {
-        let selectedFrame = 0;
+        let selectedFrame = 1;
 
         const firstAppFrameIndex = findIndex(frames, (frame) => getFrameType(frame) === 'application');
+
         if (firstAppFrameIndex !== -1) {
             selectedFrame = frames.length - firstAppFrameIndex;
         }

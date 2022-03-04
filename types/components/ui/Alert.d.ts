@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function Alert({ children, className }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=Alert.d.ts.map

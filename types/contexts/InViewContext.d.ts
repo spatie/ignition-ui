@@ -4,4 +4,3 @@ declare const _default: import("react").Context<{
     setInView: React.Dispatch<React.SetStateAction<Array<string>>>;
 }>;
 export default _default;
-//# sourceMappingURL=InViewContext.d.ts.map

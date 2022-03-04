@@ -6,4 +6,3 @@ declare type Props = {
 };
 export default function EditorLink({ path, lineNumber, className }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=EditorLink.d.ts.map

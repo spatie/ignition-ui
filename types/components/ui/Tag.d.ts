@@ -6,4 +6,3 @@ declare type Props = {
 };
 export default function Tag({ children, className, color }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=Tag.d.ts.map

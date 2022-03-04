@@ -14,4 +14,3 @@ declare type Props = {
 };
 export default function FrameCodeSnippet({ frame }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=FrameCodeSnippet.d.ts.map

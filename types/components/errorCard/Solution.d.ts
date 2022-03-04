@@ -8,4 +8,3 @@ declare type Props = {
 };
 export default function Solution({ solution, isOpen: initialIsOpen, isCollapsible, canExecute, }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=Solution.d.ts.map

@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function InlineCodeSnippet({ children, className }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=InlineCodeSnippet.d.ts.map

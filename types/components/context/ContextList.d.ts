@@ -4,4 +4,3 @@ declare type Props = {
 };
 export default function ContextList({ items }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ContextList.d.ts.map

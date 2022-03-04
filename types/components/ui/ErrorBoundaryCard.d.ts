@@ -4,4 +4,3 @@ declare type Props = {
 };
 export default function ErrorBoundaryCard({ githubLink }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ErrorBoundaryCard.d.ts.map

@@ -109,4 +109,3 @@ declare const light: {
         fontWeight: string;
     };
 };
-//# sourceMappingURL=light.d.ts.map

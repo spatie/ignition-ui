@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function ErrorBoundarySection({ className, githubLink }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ErrorBoundarySection.d.ts.map

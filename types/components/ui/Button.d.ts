@@ -5,4 +5,3 @@ declare type Props = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 export default function Button({ children, className, disabled, ...props }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=Button.d.ts.map

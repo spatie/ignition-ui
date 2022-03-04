@@ -5,4 +5,3 @@ export declare type ContextGroupProps = {
     anchor: string;
 };
 export default function ContextGroup({ title, children, anchor }: ContextGroupProps): JSX.Element;
-//# sourceMappingURL=ContextGroup.d.ts.map

@@ -7,4 +7,3 @@ export declare function getContextValues(errorOccurrence: ErrorOccurrence, group
 export declare function unixToDate(timestamp: number): Date;
 export declare function jsonStringify(value: any): string;
 export declare function hasDebugInfo(errorOccurrence: ErrorOccurrence): boolean;
-//# sourceMappingURL=util.d.ts.map

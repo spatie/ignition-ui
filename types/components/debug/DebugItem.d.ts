@@ -9,4 +9,3 @@ declare type Props = {
 };
 export default function DebugItem({ children, context, level, meta, time }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=DebugItem.d.ts.map

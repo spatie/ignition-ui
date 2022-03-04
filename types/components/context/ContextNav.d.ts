@@ -4,4 +4,3 @@ declare type Props = {
 };
 export default function ContextNav({ children }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ContextNav.d.ts.map

@@ -7,4 +7,3 @@ declare type Props = {
 };
 export default function FrameGroup({ frameGroup, onExpand, onSelect }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=FrameGroup.d.ts.map

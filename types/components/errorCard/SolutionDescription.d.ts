@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function SolutionDescription({ solution }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=SolutionDescription.d.ts.map

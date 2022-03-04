@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function ExceptionMessage({ message, className }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ExceptionMessage.d.ts.map

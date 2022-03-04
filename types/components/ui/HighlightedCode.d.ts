@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function HighlightedCode({ children, language }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=HighlightedCode.d.ts.map

@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function RelaxedFullyQualifiedClassName({ path, lineNumber }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=RelaxedFullyQualifiedClassName.d.ts.map

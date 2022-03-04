@@ -5,4 +5,3 @@ declare type Props = {
 };
 export default function RelaxedFilePath({ path: fullPath, lineNumber }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=RelaxedFilePath.d.ts.map

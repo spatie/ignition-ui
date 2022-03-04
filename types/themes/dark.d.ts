@@ -108,4 +108,3 @@ declare const dark: {
         fontWeight: string;
     };
 };
-//# sourceMappingURL=dark.d.ts.map

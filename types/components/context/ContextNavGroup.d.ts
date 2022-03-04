@@ -6,4 +6,3 @@ declare type Props = {
 };
 export default function ContextNavGroup({ title, children, anchor }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=ContextNavGroup.d.ts.map

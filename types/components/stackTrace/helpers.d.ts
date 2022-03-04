@@ -3,4 +3,3 @@ export declare function addFrameNumbers(frames: Array<ErrorFrame>): Array<ErrorF
     frame_number: number;
 }>;
 export declare function getFrameType(frame: ErrorFrame): FrameType;
-//# sourceMappingURL=helpers.d.ts.map

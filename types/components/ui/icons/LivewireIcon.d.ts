@@ -4,4 +4,3 @@ declare type Props = {
 };
 export default function LiveWireIcon({ className }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=LivewireIcon.d.ts.map

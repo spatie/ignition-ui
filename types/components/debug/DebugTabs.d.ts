@@ -12,4 +12,3 @@ declare namespace DebugTabs {
     var Tab: (_props: Tab) => null;
 }
 export default DebugTabs;
-//# sourceMappingURL=DebugTabs.d.ts.map

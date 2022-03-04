@@ -5,4 +5,3 @@ declare type Props = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 export default function RoundedButton({ children, className, ...props }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=RoundedButton.d.ts.map

@@ -161,4 +161,3 @@ export declare type LogDebug = {
     message: string;
     microtime: number;
 };
-//# sourceMappingURL=types.d.ts.map

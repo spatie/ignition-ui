@@ -7,4 +7,3 @@ declare type Props = {
 };
 export default function CopyButton({ value, className, alwaysVisible, direction }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=CopyButton.d.ts.map

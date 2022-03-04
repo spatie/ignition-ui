@@ -6,4 +6,3 @@ declare type Props = {
 };
 export default function IgnitionConfigContextProvider({ children, ignitionConfig: initialIgnitionConfig }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=IgnitionConfigContextProvider.d.ts.map

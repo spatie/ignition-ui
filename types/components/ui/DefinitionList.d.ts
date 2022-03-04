@@ -16,4 +16,3 @@ declare type DefinitionListRowProps = {
     stacked?: boolean;
 };
 declare function DefinitionListRow({ value, label, className, stacked }: DefinitionListRowProps): JSX.Element;
-//# sourceMappingURL=DefinitionList.d.ts.map

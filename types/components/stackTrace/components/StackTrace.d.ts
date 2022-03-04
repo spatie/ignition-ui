@@ -4,4 +4,3 @@ declare type Props = {
 };
 export default function StackTrace({ openFrameIndex }: Props): JSX.Element;
 export {};
-//# sourceMappingURL=StackTrace.d.ts.map

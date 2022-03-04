@@ -7,4 +7,3 @@ declare namespace gitUrlParse {
     var stringify: (obj: any, type: any) => any;
 }
 export default gitUrlParse;
-//# sourceMappingURL=git-url-parse.d.ts.map
