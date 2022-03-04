@@ -32,9 +32,15 @@ export default class ErrorBoundary extends React.Component<Props, State> {
                 const body = `
 **Please include some context and the contents of the console in your browser's developer tools.**
 
+## JavaScript Error
 \`\`\`
 ${error.stack}
 \`\`\`
+
+## Reproduction Steps
+Please tell us what you were doing when this error occurred, so we can more easily debug it and find a solution.
+
+1. …
 
 ## User Agent
 \`\`\`
