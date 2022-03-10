@@ -23,6 +23,8 @@ export default function Solutions() {
                 setCanExecuteSolutions(healthCheck.can_execute_commands); // TODO: rename to can_execute_solutions (in laravel-ignition as well)
             })();
         } catch (error) {
+            console.error(error);
+
             setCanExecuteSolutions(false);
         }
     }, []);
