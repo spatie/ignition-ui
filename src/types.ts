@@ -36,6 +36,7 @@ export type ErrorOccurrence = {
     stage: string;
     context_items: { [key: string]: Array<ContextItem> | null | LivewireContext | ViewContext } & {
         dumps: null | Array<ContextItem>;
+        request_data: null | RequestDataContext;
         logs: null | Array<ContextItem>;
         queries: null | Array<ContextItem>;
         livewire: null | LivewireContext;
@@ -52,6 +53,12 @@ export type ErrorOccurrence = {
     solutions: Array<ErrorSolution>;
     documentation_links: Array<string>;
     frames: Array<ErrorFrame>;
+};
+
+export type RequestDataContext = {
+    queryString: null | string;
+    body: null | string;
+    files: null | string | Array<any>; // TODO: figure out what this is
 };
 
 export type EnvContext = {

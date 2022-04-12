@@ -8,7 +8,7 @@ export default function Request() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
 
     const request = getContextValues(errorOccurrence, 'request');
-    const requestData = getContextValues(errorOccurrence, 'request_data');
+    const requestData = errorOccurrence.context_items?.request_data;
     const headers = getContextValues(errorOccurrence, 'headers');
 
     const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
