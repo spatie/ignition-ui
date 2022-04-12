@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { StackFrameGroupType } from '../../../types';
 declare type Props = {
     frameGroup: StackFrameGroupType;
