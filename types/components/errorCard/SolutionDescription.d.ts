@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ErrorSolution } from '../../types';
 declare type Props = {
     solution: ErrorSolution;

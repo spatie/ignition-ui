@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ErrorFrame } from '../../../types';
 import { Row } from './FrameCodeSnippet';
 declare type Props = {
