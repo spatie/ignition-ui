@@ -2,9 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
-## [Unreleased]
+## 3.3.4 - 2022-04-23
 
 - Log error to console if healthcheck fails
+- Fix flash of unstyled content in Livewire modals
 
 ## 3.3.3 - 2022-03-04
 
