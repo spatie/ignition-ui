@@ -15,7 +15,7 @@ export default function IgnitionConfigContextProvider({ children, ignitionConfig
     const theme = ignitionConfig.theme === 'auto' ? (scheme !== 'none' ? scheme : 'light') : ignitionConfig.theme;
 
     useEffect(() => {
-        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.remove('light', 'dark', 'auto');
         document.documentElement.classList.add(theme);
     }, [theme]);
 
