@@ -1,6 +1,4 @@
-import React, { useContext } from 'react';
-import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { getContextValues } from '../../../util';
+import React from 'react';
 import { GitContext } from '../../../types';
 import DefinitionList from '../../ui/DefinitionList';
 import CodeSnippet from '../../ui/CodeSnippet';
@@ -31,11 +29,11 @@ function getGitInfo(remote?: string, hash?: string): GitInfo {
     };
 }
 
-export default function Git() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
+type Props = {
+    git: GitContext;
+};
 
-    const git = getContextValues(errorOccurrence, 'git') as GitContext;
-
+export default function Git({ git }: Props) {
     const { commitUrl } = getGitInfo(git.remote, git.hash);
 
     return (

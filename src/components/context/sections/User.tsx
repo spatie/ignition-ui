@@ -1,13 +1,10 @@
 import md5 from 'md5';
-import React, { useContext } from 'react';
-import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { getContextValues, jsonStringify } from '../../../util';
+import React from 'react';
+import { jsonStringify } from '../../../util';
 import CodeSnippet from '../../ui/CodeSnippet';
+import { UserContext } from '../../../types';
 
-export default function User() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
-    const user = getContextValues(errorOccurrence, 'user');
-
+export default function User({ user }: { user: UserContext }) {
     return (
         <>
             {user.email && (

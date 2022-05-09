@@ -26,6 +26,7 @@ export default function CodeSnippet({
     const [isCollapsed, setIsCollapsed] = useState(limitHeight);
     const [isOverflowing, setIsOverflowing] = useState(language === 'sql');
     const ref = useRef<HTMLPreElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (ref.current) {
@@ -33,13 +34,41 @@ export default function CodeSnippet({
         }
     }, [ref.current, isCollapsed, value, limitHeight]);
 
+    function handleClick(event: React.MouseEvent<HTMLDivElement>) {
+        // Triple click means select all
+        if (event.detail === 3) {
+            selectAll();
+            return;
+        }
+
+        if (!isOverflowing) {
+            return;
+        }
+
+        // Ignore click even when selecting expanded code.
+        if ((!isCollapsed && window.getSelection()?.toString().length) || 0 > 0) {
+            return;
+        }
+
+        setIsCollapsed(!isCollapsed);
+    }
+
+    function selectAll() {
+        const range = document.createRange();
+        range.selectNodeContents(containerRef.current!);
+        const selection = window.getSelection()!;
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+
     return (
         <div
+            ref={containerRef}
             className={`
                 ${isOverflowing ? 'cursor-pointer' : ''}
                 ${transparent ? '' : '~bg-gray-500/5'}
                 group py-2`}
-            onClick={() => (isOverflowing ? setIsCollapsed(!isCollapsed) : null)}
+            onClick={handleClick}
         >
             <div className={`${overflowX ? 'mask-fade-x' : ''}`}>
                 {language === 'sql' && (
@@ -84,14 +113,14 @@ export default function CodeSnippet({
                 )}
             </div>
 
-            <CopyButton className="absolute top-2 right-3" value={value}/>
+            <CopyButton className="absolute top-2 right-3" value={value} />
 
             {isOverflowing && (
                 <RoundedButton
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     className="
                         absolute -bottom-3 left-1/2 -translate-x-1/2
-                        opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100 
+                        opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100
                     "
                 >
                     <FontAwesomeIcon

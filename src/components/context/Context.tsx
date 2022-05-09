@@ -48,60 +48,64 @@ export default function Context() {
             <div className="flex items-stretch">
                 <InViewContextProvider>
                     <ContextSections>
-                        <ContextGroup title="Request" anchor="request">
-                            <Request />
-                            <ContextSection
-                                title="Headers"
-                                anchor="request-headers"
-                                icon={<FontAwesomeIcon fixedWidth icon={faExchangeAlt} />}
-                                children={<Headers />}
-                            />
-                            {!!requestData?.queryString?.length && (
+                        {context.request_data && context.request && context.headers && (
+                            <ContextGroup title="Request" anchor="request">
+                                <Request
+                                    request={context.request}
+                                    requestData={context.request_data}
+                                    headers={context.headers}
+                                />
+                                <ContextSection
+                                    title="Headers"
+                                    anchor="request-headers"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faExchangeAlt} />}
+                                    children={<Headers headers={context.headers} />}
+                                />
                                 <ContextSection
                                     title="Query String"
                                     anchor="request-query-string"
                                     icon={<FontAwesomeIcon fixedWidth icon={faQuestionCircle} />}
-                                    children={<QueryString />}
+                                    children={<QueryString requestData={context.request_data} />}
                                 />
-                            )}
-                            <ContextSection
-                                title="Body"
-                                anchor="request-body"
-                                icon={<FontAwesomeIcon fixedWidth icon={faCode} />}
-                                children={<Body />}
-                            />
-                            {!!requestData?.files?.length && (
                                 <ContextSection
-                                    title="Files"
-                                    anchor="request-files"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faFile} />}
-                                    children={<Files />}
+                                    title="Body"
+                                    anchor="request-body"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faCode} />}
+                                    children={<Body />}
                                 />
-                            )}
-                            {!!context.session?.length && (
-                                <ContextSection
-                                    title="Session"
-                                    anchor="request-session"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faHourglassHalf} />}
-                                    children={<Session />}
-                                />
-                            )}
-                            {!!context.cookies?.length && (
-                                <ContextSection
-                                    title="Cookies"
-                                    anchor="request-cookies"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faCookieBite} />}
-                                    children={<Cookies />}
-                                />
-                            )}
-                        </ContextGroup>
+                                {!!requestData?.files?.length && (
+                                    <ContextSection
+                                        title="Files"
+                                        anchor="request-files"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faFile} />}
+                                        children={<Files />}
+                                    />
+                                )}
+                                {!!context.session?.length && (
+                                    <ContextSection
+                                        title="Session"
+                                        anchor="request-session"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faHourglassHalf} />}
+                                        children={<Session session={context.session} />}
+                                    />
+                                )}
+                                {!!context.cookies?.length && (
+                                    <ContextSection
+                                        title="Cookies"
+                                        anchor="request-cookies"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faCookieBite} />}
+                                        children={<Cookies cookies={context.cookies} />}
+                                    />
+                                )}
+                            </ContextGroup>
+                        )}
                         <ContextGroup title="App" anchor="app">
                             {context.route && (
                                 <ContextSection
                                     title="Routing"
                                     anchor="app-routing"
                                     icon={<FontAwesomeIcon fixedWidth icon={faRandom} />}
-                                    children={<Routing />}
+                                    children={<Routing route={context.route} />}
                                 />
                             )}
                             {context.view && (
@@ -141,7 +145,7 @@ export default function Context() {
                                     title="User"
                                     anchor="user-user"
                                     icon={<FontAwesomeIcon fixedWidth icon={faUser} />}
-                                    children={<User />}
+                                    children={<User user={context.user} />}
                                 />
                             )}
                             {context.git && (
@@ -149,14 +153,14 @@ export default function Context() {
                                     title="Git"
                                     anchor="context-git"
                                     icon={<FontAwesomeIcon fixedWidth icon={faCodeBranch} />}
-                                    children={<Git />}
+                                    children={<Git git={context.git} />}
                                 />
                             )}
                             <ContextSection
                                 title="Versions"
                                 anchor="context-versions"
                                 icon={<FontAwesomeIcon fixedWidth icon={faSlidersH} />}
-                                children={<Versions />}
+                                children={<Versions env={context.env || {}} />}
                             />
                         </ContextGroup>
                     </ContextSections>

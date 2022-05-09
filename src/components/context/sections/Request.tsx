@@ -1,16 +1,16 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import CodeSnippet from '../../ui/CodeSnippet';
-import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { curlCommand, getContextValues } from '../../../util';
+import { curlCommand } from '../../../util';
 import Tag from 'components/ui/Tag';
+import { HeadersContext, RequestContext, RequestDataContext } from '../../../types';
 
-export default function Request() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
+type Props = {
+    request: RequestContext;
+    requestData: RequestDataContext;
+    headers: HeadersContext;
+};
 
-    const request = getContextValues(errorOccurrence, 'request');
-    const requestData = errorOccurrence.context_items?.request_data;
-    const headers = getContextValues(errorOccurrence, 'headers');
-
+export default function Request({ request, requestData, headers }: Props) {
     const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
 
     return (

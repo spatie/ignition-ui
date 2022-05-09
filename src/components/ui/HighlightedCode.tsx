@@ -18,9 +18,8 @@ type Props = {
 };
 
 export default function HighlightedCode({ children, language }: Props) {
-
     return (
-        <SyntaxHighlighter language={language} customStyle={{background:'transparent'}}>
+        <SyntaxHighlighter language={language} customStyle={{ background: 'transparent' }}>
             {children}
         </SyntaxHighlighter>
     );

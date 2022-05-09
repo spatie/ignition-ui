@@ -1,16 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ContextList from '../ContextList';
-import { getContextValues } from '../../../util';
-import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
 import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
 import omitBy from 'lodash/omitBy';
+import { HeadersContext } from '../../../types';
 
-export default function Headers() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
+type Props = {
+    headers: HeadersContext;
+};
 
-    let headers = omitBy(getContextValues(errorOccurrence, 'headers'), isNil);
-    headers = omitBy(headers, isEmpty);
+export default function Headers({ headers }: Props) {
+    let filteredHeaders = omitBy(headers, isNil);
+    filteredHeaders = omitBy(filteredHeaders, isEmpty);
 
-    return <ContextList items={headers} />;
+    return <ContextList items={filteredHeaders} />;
 }

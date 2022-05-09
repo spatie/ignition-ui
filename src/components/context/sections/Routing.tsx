@@ -1,14 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import DefinitionList from '../../ui/DefinitionList';
-import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { getContextValues } from '../../../util';
 import { RouteContext } from '../../../types';
 import UnorderedList from '../../ui/UnorderedList';
 
-export default function Routing() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
-    const route = getContextValues(errorOccurrence, 'route') as RouteContext;
-
+export default function Routing({ route }: { route: RouteContext }) {
     return (
         <DefinitionList>
             <DefinitionList.Row value={route.controllerAction} label="Controller" />

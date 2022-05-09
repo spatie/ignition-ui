@@ -1,1 +1,4 @@
-export default function Versions(): JSX.Element;
+import { EnvContext } from '../../../types';
+export default function Versions({ env }: {
+    env: EnvContext;
+}): JSX.Element;

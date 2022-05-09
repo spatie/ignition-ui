@@ -23,54 +23,64 @@ export declare type ErrorFrame = {
     application_frame: boolean;
 };
 export declare type ErrorOccurrence = {
-    id: number;
-    error_id: number;
-    occurrence_number: number;
-    received_at: string;
-    seen_at_url: string;
+    type: 'web' | 'cli' | 'queue' | null;
+    entry_point: string;
     exception_message: string;
     exception_class: string;
     application_path: string;
-    application_version?: string | null;
+    application_version: string | null;
     notifier_client_name: string;
     language_version?: string;
     framework_version?: string;
-    open_frame_index?: number;
     stage: string;
     context_items: {
-        [key: string]: Array<ContextItem> | null | LivewireContext | ViewContext;
-    } & {
-        dumps: null | Array<ContextItem>;
+        env: EnvContext;
+        dumps: null | DumpContext;
+        request: null | RequestContext;
         request_data: null | RequestDataContext;
-        logs: null | Array<ContextItem>;
-        queries: null | Array<ContextItem>;
+        logs: null | LogContext;
+        queries: null | QueryContext;
         livewire: null | LivewireContext;
         view: null | ViewContext;
-        session: null | Array<ContextItem>;
-        cookies: null | Array<ContextItem>;
-        env: null | Array<ContextItem>;
+        headers: null | HeadersContext;
+        session: null | SessionContext;
+        cookies: null | CookiesContext;
+        user: null | UserContext;
+        route: null | RouteContext;
+        git: null | GitContext;
     };
     first_frame_class: string;
     first_frame_method: string;
-    group_first_seen_at?: string;
-    group_last_seen_at?: string;
     glows: Array<ErrorGlow>;
     solutions: Array<ErrorSolution>;
     documentation_links: Array<string>;
     frames: Array<ErrorFrame>;
 };
+export declare type HeadersContext = Record<string, string>;
+export declare type SessionContext = Record<string, string>;
+export declare type CookiesContext = Record<string, string | object | boolean>;
+export declare type RequestContext = {
+    url: string;
+    ip: string | null;
+    method: string;
+    useragent: string;
+};
 export declare type RequestDataContext = {
-    queryString: null | string;
-    body: null | string;
+    queryString: Record<string, string>;
+    body: null | string | Record<string, string>;
     files: null | string | Array<any>;
 };
 export declare type EnvContext = {
-    laravel_version: string;
-    laravel_locale: string;
-    laravel_config_cached: boolean;
-    app_debug: boolean;
-    app_env: string;
-    php_version: string;
+    laravel_version?: string;
+    laravel_locale?: string;
+    laravel_config_cached?: boolean;
+    app_debug?: boolean;
+    app_env?: string;
+    php_version?: string;
+    [key: string]: any;
+};
+export declare type UserContext = {
+    [key: string]: string | null;
 };
 export declare type GitContext = {
     hash: string;
@@ -99,14 +109,10 @@ export declare type LivewireContext = {
         type: string;
     }>;
 };
-export declare type ContextItem = {
-    group: string;
-    name: string;
-    value: any;
-};
+export declare type QueryContext = Array<QueryDebug>;
+export declare type DumpContext = Array<DumpDebug>;
+export declare type LogContext = Array<LogDebug>;
 export declare type ErrorGlow = {
-    id: number;
-    received_at: string;
     message_level: LogLevel;
     meta_data: Record<string, string | object>;
     microtime: number;
@@ -114,7 +120,6 @@ export declare type ErrorGlow = {
     time: number;
 };
 export declare type ErrorSolution = {
-    id: number;
     class: string;
     title: string;
     description: string;
@@ -149,7 +154,6 @@ export declare type QueryDebug = {
         value: string;
     }>;
     microtime: number;
-    replace_bindings: boolean;
     sql: string;
     time: number;
     connection_name: string;

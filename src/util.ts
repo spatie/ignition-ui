@@ -1,5 +1,3 @@
-import keyBy from 'lodash/keyBy';
-import mapValues from 'lodash/mapValues';
 import { ErrorOccurrence } from './types';
 
 export function copyToClipboard(text: string) {
@@ -49,10 +47,6 @@ function curlBody(requestData: any, headers: any) {
     });
 
     return `   ${formValues.join(' ')}`;
-}
-
-export function getContextValues(errorOccurrence: ErrorOccurrence, group: string): { [name: string]: any } {
-    return mapValues(keyBy(errorOccurrence.context_items[group] || [], 'name'), 'value');
 }
 
 export function unixToDate(timestamp: number) {

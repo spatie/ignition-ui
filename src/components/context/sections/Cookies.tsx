@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ContextList from '../ContextList';
-import { getContextValues } from '../../../util';
-import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
+import { CookiesContext } from '../../../types';
 
-export default function Cookies() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
+type Props = {
+    cookies: CookiesContext;
+};
 
-    return <ContextList items={getContextValues(errorOccurrence, 'cookies')} />;
+export default function Cookies({ cookies }: Props) {
+    return <ContextList items={cookies} />;
 }

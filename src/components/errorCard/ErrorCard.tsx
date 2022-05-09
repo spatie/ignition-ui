@@ -1,19 +1,19 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import FormattedExceptionMessage from '../ui/FormattedExceptionMessage';
 import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
 import Solutions from './Solutions';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faLaravel} from '@fortawesome/free-brands-svg-icons';
-import {faCodeBranch} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLaravel } from '@fortawesome/free-brands-svg-icons';
+import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 import ExceptionSelector from './ExceptionSelector';
-import ErrorBoundary from "../ui/ErrorBoundary";
+import ErrorBoundary from '../ui/ErrorBoundary';
 
 export default function ErrorCard() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
 
     const hasSolutions = errorOccurrence.solutions.length > 0;
 
-    const isLaravelError = errorOccurrence.context_items.env?.find((env) => env.name === 'laravel_version');
+    const isLaravelError = !!errorOccurrence.context_items.env?.laravel_version;
 
     return (
         <ErrorBoundary>
@@ -22,7 +22,7 @@ export default function ErrorCard() {
                     <div className="overflow-hidden">
                         <div className="px-6 sm:px-10 py-8 overflow-x-auto">
                             <header className="flex items-center justify-between gap-2">
-                                <ExceptionSelector/>
+                                <ExceptionSelector />
 
                                 <div className="grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500">
                                     <span>
@@ -32,7 +32,7 @@ export default function ErrorCard() {
                                     </span>
                                     {errorOccurrence.framework_version && (
                                         <span className="inline-flex items-center gap-1">
-                                            <FontAwesomeIcon icon={isLaravelError ? faLaravel : faCodeBranch}/>
+                                            <FontAwesomeIcon icon={isLaravelError ? faLaravel : faCodeBranch} />
                                             {errorOccurrence.framework_version}
                                         </span>
                                     )}
@@ -47,7 +47,7 @@ export default function ErrorCard() {
                     </div>
                 </main>
 
-                {hasSolutions && <Solutions/>}
+                {hasSolutions && <Solutions />}
             </section>
         </ErrorBoundary>
     );
