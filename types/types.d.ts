@@ -16,7 +16,9 @@ export declare type IgnitionConfig = {
 export declare type ErrorFrame = {
     class?: string;
     method: string;
-    code_snippet: Record<string | number, string>;
+    code_snippet: {
+        [lineNumber: string]: string;
+    };
     file: string;
     relative_file: string;
     line_number: number;
@@ -91,7 +93,7 @@ export declare type GitContext = {
 };
 export declare type RouteContext = {
     route: string | null;
-    routeParameters: Record<string, number | string | null>;
+    routeParameters: null | Record<string, number | string | null>;
     controllerAction: string | null;
     middleware: Array<string>;
 };
@@ -109,15 +111,20 @@ export declare type LivewireContext = {
         type: string;
     }>;
 };
-export declare type QueryContext = Array<QueryDebug>;
-export declare type DumpContext = Array<DumpDebug>;
-export declare type LogContext = Array<LogDebug>;
+export declare type QueryContext = Array<QueryDebug> | {
+    [key: string]: QueryDebug;
+};
+export declare type DumpContext = Array<DumpDebug> | {
+    [key: string]: DumpDebug;
+};
+export declare type LogContext = Array<LogDebug> | {
+    [key: string]: LogDebug;
+};
 export declare type ErrorGlow = {
     message_level: LogLevel;
     meta_data: Record<string, string | object>;
     microtime: number;
     name: string;
-    time: number;
 };
 export declare type ErrorSolution = {
     class: string;

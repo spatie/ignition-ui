@@ -1,4 +1,4 @@
-import { HeadersContext, RequestContext, RequestDataContext } from "../../../types";
+import { HeadersContext, RequestContext, RequestDataContext } from '../../../types';
 declare type Props = {
     request: RequestContext;
     requestData: RequestDataContext;

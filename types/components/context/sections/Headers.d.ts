@@ -1,4 +1,4 @@
-import { HeadersContext } from "../../../types";
+import { HeadersContext } from '../../../types';
 declare type Props = {
     headers: HeadersContext;
 };

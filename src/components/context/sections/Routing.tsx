@@ -8,11 +8,11 @@ export default function Routing({ route }: { route: RouteContext }) {
         <DefinitionList>
             <DefinitionList.Row value={route.controllerAction} label="Controller" />
             {route.route && <DefinitionList.Row value={route.route} label="Route name" />}
-            {Object.entries(route.routeParameters).length > 0 && (
+            {route.routeParameters && (
                 <DefinitionList.Row
                     value={
                         <DefinitionList>
-                            {Object.entries(route.routeParameters || []).map(([key, parameter]) => (
+                            {Object.entries(route.routeParameters).map(([key, parameter]) => (
                                 <DefinitionList.Row stacked key={key} label={key} value={parameter as string} />
                             ))}
                         </DefinitionList>

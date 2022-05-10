@@ -1,4 +1,4 @@
-import { CookiesContext } from "../../../types";
+import { CookiesContext } from '../../../types';
 declare type Props = {
     cookies: CookiesContext;
 };
