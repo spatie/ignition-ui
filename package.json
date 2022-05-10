@@ -1,6 +1,6 @@
 {
   "name": "@flareapp/ignition-ui",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "description": "UI components for Laravel's Ignition error page",
   "main": "dist/index.modern.js",
   "repository": "https://github.com/spatie/ignition-ui",

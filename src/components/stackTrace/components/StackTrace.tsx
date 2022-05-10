@@ -100,15 +100,19 @@ export default function StackTrace({ openFrameIndex }: Props) {
                 </div>
             </aside>
             <section className="flex flex-col border-t lg:border-t-0 ~border-gray-200">
-                <header className="~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end">
-                    <EditorLink
-                        path={selectedFrame?.file}
-                        lineNumber={selectedFrame?.line_number}
-                        className="flex items-center text-sm"
-                    />
-                </header>
+                {selectedFrame && (
+                    <>
+                        <header className="~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end">
+                            <EditorLink
+                                path={selectedFrame.file}
+                                lineNumber={selectedFrame.line_number}
+                                className="flex items-center text-sm"
+                            />
+                        </header>
 
-                <FrameCodeSnippet frame={selectedFrame} />
+                        <FrameCodeSnippet frame={selectedFrame} />
+                    </>
+                )}
             </section>
         </div>
     );

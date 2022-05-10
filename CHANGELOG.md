@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 3.3.5 - 2022-05-10
+
+- Handle missing stack trace frames better
+
 ## 3.3.4 - 2022-04-23
 
 - Log error to console if healthcheck fails
