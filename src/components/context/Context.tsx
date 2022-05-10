@@ -61,12 +61,14 @@ export default function Context() {
                                     icon={<FontAwesomeIcon fixedWidth icon={faExchangeAlt} />}
                                     children={<Headers headers={context.headers} />}
                                 />
-                                <ContextSection
-                                    title="Query String"
-                                    anchor="request-query-string"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faQuestionCircle} />}
-                                    children={<QueryString requestData={context.request_data} />}
-                                />
+                                {!!Object.values(context.request_data.queryString).length && (
+                                    <ContextSection
+                                        title="Query String"
+                                        anchor="request-query-string"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faQuestionCircle} />}
+                                        children={<QueryString requestData={context.request_data} />}
+                                    />
+                                )}
                                 <ContextSection
                                     title="Body"
                                     anchor="request-body"

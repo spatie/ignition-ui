@@ -8,7 +8,7 @@ export default function Routing({ route }: { route: RouteContext }) {
         <DefinitionList>
             <DefinitionList.Row value={route.controllerAction} label="Controller" />
             {route.route && <DefinitionList.Row value={route.route} label="Route name" />}
-            {route.routeParameters && (
+            {!!route.routeParameters?.length && (
                 <DefinitionList.Row
                     value={
                         <DefinitionList>

@@ -7,5 +7,5 @@ type Props = {
 };
 
 export default function QueryString({ requestData }: Props) {
-    return <ContextList items={requestData.queryString} />;
+    return <ContextList items={requestData.queryString || {}} />;
 }
