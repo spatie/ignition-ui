@@ -41,25 +41,25 @@ export default function DebugItem({ children, context = null, level = null, meta
                 {level && <Tag color={logLevelColors[level]}>{level}</Tag>}
                 {meta &&
                     Object.entries(meta).map(([key, value]) => (
-                        <>
+                        <React.Fragment key={key}>
                             {key === 'runtime' && (
-                                <Tag className="inline-flex items-center gap-2" key={key}>
+                                <Tag className="inline-flex items-center gap-2">
                                     <FontAwesomeIcon title="Runtime" className="opacity-50" icon={faStopwatch} />{' '}
                                     {value}
                                 </Tag>
                             )}
                             {key === 'connection' && (
-                                <Tag className="inline-flex items-center gap-2" key={key}>
+                                <Tag className="inline-flex items-center gap-2">
                                     <FontAwesomeIcon title="Connection" className="opacity-50" icon={faDatabase} />{' '}
                                     {value}
                                 </Tag>
                             )}
                             {key !== 'runtime' && key !== 'connection' && (
-                                <Tag key={key}>
+                                <Tag>
                                     {key}: {value}
                                 </Tag>
                             )}
-                        </>
+                        </React.Fragment>
                     ))}
 
                 {context && (

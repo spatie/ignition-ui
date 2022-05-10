@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { getContextValues, unixToDate } from '../../../util';
+import { unixToDate } from '../../../util';
 import CodeSnippet from '../../ui/CodeSnippet';
-import { QueryDebug } from '../../../types';
 import DebugItem from '../DebugItem';
 
 export default function Queries() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
-    const queries = Object.values(getContextValues(errorOccurrence, 'queries') as QueryDebug[]);
+    const queries = Object.values(errorOccurrence.context_items.queries!);
 
     return (
         <>

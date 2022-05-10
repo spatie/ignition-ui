@@ -1,5 +1,3 @@
-import keyBy from 'lodash/keyBy';
-import mapValues from 'lodash/mapValues';
 import { ErrorOccurrence } from './types';
 
 export function copyToClipboard(text: string) {
@@ -51,10 +49,6 @@ function curlBody(requestData: any, headers: any) {
     return `   ${formValues.join(' ')}`;
 }
 
-export function getContextValues(errorOccurrence: ErrorOccurrence, group: string): { [name: string]: any } {
-    return mapValues(keyBy(errorOccurrence.context_items[group] || [], 'name'), 'value');
-}
-
 export function unixToDate(timestamp: number) {
     return new Date(timestamp * 1000);
 }
@@ -68,15 +62,15 @@ export function hasDebugInfo(errorOccurrence: ErrorOccurrence) {
         return true;
     }
 
-    if (errorOccurrence.context_items.dumps?.length) {
+    if (Object.values(errorOccurrence.context_items.dumps || []).length) {
         return true;
     }
 
-    if (errorOccurrence.context_items.logs?.length) {
+    if (Object.values(errorOccurrence.context_items.logs || []).length) {
         return true;
     }
 
-    if (errorOccurrence.context_items.queries?.length) {
+    if (Object.values(errorOccurrence.context_items.queries || []).length) {
         return true;
     }
 

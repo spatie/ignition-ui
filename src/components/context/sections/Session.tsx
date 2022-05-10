@@ -1,12 +1,11 @@
-import React, {useContext} from 'react';
-import ContextList from "../ContextList";
-import {getContextValues} from "../../../util";
-import ErrorOccurrenceContext from "../../../contexts/ErrorOccurrenceContext";
+import React from 'react';
+import ContextList from '../ContextList';
+import { SessionContext } from '../../../types';
 
-export default function Session() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
+type Props = {
+    session: SessionContext;
+};
 
-    return (
-        <ContextList items={getContextValues(errorOccurrence, 'session')} />
-    )
+export default function Session({ session }: Props) {
+    return <ContextList items={session} />;
 }

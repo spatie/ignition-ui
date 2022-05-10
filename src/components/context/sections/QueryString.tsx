@@ -1,12 +1,11 @@
-import React, {useContext} from 'react';
-import ContextList from "../ContextList";
-import {getContextValues} from "../../../util";
-import ErrorOccurrenceContext from "../../../contexts/ErrorOccurrenceContext";
+import React from 'react';
+import ContextList from '../ContextList';
+import { RequestDataContext } from '../../../types';
 
-export default function QueryString() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
+type Props = {
+    requestData: RequestDataContext;
+};
 
-    return (
-        <ContextList items={getContextValues(errorOccurrence, 'request').queryString} />
-    )
+export default function QueryString({ requestData }: Props) {
+    return <ContextList items={requestData.queryString || {}} />;
 }

@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { getContextValues } from '../../../util';
 import { EnvContext } from '../../../types';
 import DefinitionList from '../../ui/DefinitionList';
 import startCase from 'lodash/startCase';
 
-export default function Versions() {
+export default function Versions({ env }: { env: EnvContext }) {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
-
-    const env = getContextValues(errorOccurrence, 'env') as EnvContext;
 
     return (
         <DefinitionList>

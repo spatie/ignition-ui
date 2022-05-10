@@ -17,7 +17,6 @@ import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascr
 import handlebars from 'react-syntax-highlighter/dist/esm/languages/hljs/handlebars';
 import blade from 'languages/blade';
 
-
 // We need to register all styles and languages manually if we want to use the light
 // export of the SyntaxHighlighter. Including all sub-languages used in e.g. Blade:
 SyntaxHighlighter.registerLanguage('php', php);
@@ -104,7 +103,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
                 <SyntaxHighlighter
                     language={getLanguage(frame.relative_file)}
                     renderer={codeRenderer}
-                    customStyle={{background:'transparent'}}
+                    customStyle={{ background: 'transparent' }}
                 >
                     {code}
                 </SyntaxHighlighter>

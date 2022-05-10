@@ -1,1 +1,4 @@
-export default function Routing(): JSX.Element;
+import { RouteContext } from '../../../types';
+export default function Routing({ route }: {
+    route: RouteContext;
+}): JSX.Element;

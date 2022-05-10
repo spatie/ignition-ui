@@ -15,16 +15,18 @@ export default function View() {
     return (
         <DefinitionList>
             <DefinitionList.Row value={<EditorLink path={view.view} />} label="View" />
-            <DefinitionList.Row
-                value={
-                    <DefinitionList>
-                        {Object.entries(view.data).map(([key, data]) => (
-                            <DefinitionList.Row stacked key={key} label={key} value={<SfDump value={data} />} />
-                        ))}
-                    </DefinitionList>
-                }
-                label="Data"
-            />
+            {view.data && (
+                <DefinitionList.Row
+                    value={
+                        <DefinitionList>
+                            {Object.entries(view.data).map(([key, data]) => (
+                                <DefinitionList.Row stacked key={key} label={key} value={<SfDump value={data} />} />
+                            ))}
+                        </DefinitionList>
+                    }
+                    label="Data"
+                />
+            )}
         </DefinitionList>
     );
 }

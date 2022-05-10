@@ -1,1 +1,4 @@
-export default function User(): JSX.Element;
+import { UserContext } from '../../../types';
+export default function User({ user }: {
+    user: UserContext;
+}): JSX.Element;
