@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.0.1 - 2022-05-10
+
+- Fix `Context` component when no `queryString` is provided
+
 ## 4.0.0 - 2022-05-10
 
 - Flare specific properties have been removed from the `ErrorOccurrence` type (e.g. `id`, `error_id`, `received_at`, ...)

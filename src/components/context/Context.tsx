@@ -61,7 +61,7 @@ export default function Context() {
                                     icon={<FontAwesomeIcon fixedWidth icon={faExchangeAlt} />}
                                     children={<Headers headers={context.headers} />}
                                 />
-                                {!!Object.values(context.request_data.queryString).length && (
+                                {!!Object.values(context.request_data.queryString || []).length && (
                                     <ContextSection
                                         title="Query String"
                                         anchor="request-query-string"
