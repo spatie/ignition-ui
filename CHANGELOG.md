@@ -2,6 +2,19 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.0.0 - 2022-05-10
+
+- Flare specific properties have been removed from the `ErrorOccurrence` type (e.g. `id`, `error_id`, `received_at`, ...)
+- All `ErrorOccurrence.context_items` are properly typed now
+- Removed any untyped `ContextItem`s (no more `{ group:string; name:string; value:any; }` context items)
+- Removed `getContextValues` helper because we no longer need to extract data from untyped `ContextItem`s
+- Fixed a missing key in `Query` debug section
+- Fixed selecting exceptions without accidentally collapsing the error card
+
+### Upgrading
+
+Implementations of the Ignition components, for example `spatie/laraval-ignition` and Flare, should make sure to provide an update `errorOccurrence` object that adheres to the `ErrorOccurrence` type. This mainly involves transforming the `context_items` to their proper types as described in `types/types.d.ts`.
+
 ## 3.3.5 - 2022-05-10
 
 - Handle missing stack trace frames better
