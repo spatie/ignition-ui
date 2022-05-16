@@ -13,8 +13,7 @@
     "dev": "NODE_ENV=development concurrently -n \"dev,typescript\" -c \",green\" \"microbundle watch -i src/index.ts -o dist/index.js --tsconfig tsconfig.dev.json --jsx React.createElement --jsxFragment React.Fragment -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='development' --no-compress\" \"yarn typecheck\"",
     "format": "prettier --write 'src/**/*.{css,js,ts,tsx}'",
     "typecheck": "tsc -w --preserveWatchOutput --p tsconfig.json",
-    "prepublishOnly": "yarn bundle",
-    "postinstall": "sed -i '' '/For example <script/d' ./node_modules/@fortawesome/fontawesome-svg-core/index.es.js; sed -i '' '/For example <script/d' ../node_modules/@fortawesome/fontawesome-svg-core/index.es.js; exit 0"
+    "prepublishOnly": "yarn bundle"
   },
   "types": "./types/index.d.ts",
   "dependencies": {
