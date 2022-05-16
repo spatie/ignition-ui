@@ -36,7 +36,7 @@ export declare type ErrorOccurrence = {
     framework_version?: string;
     stage: string;
     context_items: {
-        env: EnvContext;
+        env: null | EnvContext;
         dumps: null | DumpContext;
         request: null | RequestContext;
         request_data: null | RequestDataContext;
