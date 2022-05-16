@@ -2,6 +2,11 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.0.2 - 2022-05-16
+
+- Update `EnvContext` type: can be `null` or `undefined`
+- Don't compress bundle (makes debugging easier down the line)
+
 ## 4.0.1 - 2022-05-10
 
 - Fix `Context` component when no `queryString` is provided
