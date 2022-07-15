@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { GitContext } from '../../../types';
 declare type Props = {
     git: GitContext;
