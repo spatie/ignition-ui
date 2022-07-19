@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { SessionContext } from '../../../types';
 declare type Props = {
     session: SessionContext;

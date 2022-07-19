@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { HeadersContext } from '../../../types';
 declare type Props = {
     headers: HeadersContext;

@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { ErrorFrame } from '../../../types';
 export declare type Row = Node[];
 declare type Node = {

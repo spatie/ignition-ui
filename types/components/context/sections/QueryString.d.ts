@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { RequestDataContext } from '../../../types';
 declare type Props = {
     requestData: RequestDataContext;

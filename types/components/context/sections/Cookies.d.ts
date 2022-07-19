@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { CookiesContext } from '../../../types';
 declare type Props = {
     cookies: CookiesContext;
