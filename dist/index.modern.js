@@ -12326,7 +12326,7 @@ function addFrameNumbers(frames) {
   }));
 }
 function getFrameType(frame) {
-  if (frame.relative_file.startsWith('vendor/')) {
+  if (frame.relative_file.indexOf('vendor') !== -1) {
     return 'vendor';
   }
 
@@ -12590,7 +12590,7 @@ function stackReducer(state, action) {
 
     case 'COLLAPSE_ALL_VENDOR_FRAMES':
       {
-        const applicationFrameNumbers = addFrameNumbers(state.frames).filter(frame => !frame.relative_file.startsWith('vendor/') && frame.relative_file !== 'unknown').map(frame => frame.frame_number);
+        const applicationFrameNumbers = addFrameNumbers(state.frames).filter(frame => frame.relative_file.indexOf('vendor') === -1 && frame.relative_file !== 'unknown').map(frame => frame.frame_number);
         const expanded = uniq_1([...applicationFrameNumbers]);
         return _extends({}, state, {
           expanded

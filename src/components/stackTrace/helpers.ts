@@ -8,7 +8,7 @@ export function addFrameNumbers(frames: Array<ErrorFrame>): Array<ErrorFrame & {
 }
 
 export function getFrameType(frame: ErrorFrame): FrameType {
-    if (frame.relative_file.startsWith('vendor/')) {
+    if (frame.relative_file.indexOf('vendor') !== -1) {
         return 'vendor';
     }
 
