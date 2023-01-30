@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import IgnitionConfigContext from './IgnitionConfigContext';
 import { IgnitionConfig } from '../types';
-import { useColorScheme } from 'use-color-scheme';
+import usePrefersColorScheme from 'use-prefers-color-scheme';
 
 type Props = {
     children: React.ReactNode;
@@ -10,9 +10,10 @@ type Props = {
 
 export default function IgnitionConfigContextProvider({ children, ignitionConfig: initialIgnitionConfig }: Props) {
     const [ignitionConfig, setIgnitionConfig] = useState<IgnitionConfig>(initialIgnitionConfig);
-    const { scheme } = useColorScheme();
+    const scheme = usePrefersColorScheme();
 
-    const theme = ignitionConfig.theme === 'auto' ? (scheme !== 'none' ? scheme : 'light') : ignitionConfig.theme;
+    const theme =
+        ignitionConfig.theme === 'auto' ? (scheme !== 'no-preference' ? scheme : 'light') : ignitionConfig.theme;
 
     useEffect(() => {
         document.documentElement.classList.remove('light', 'dark', 'auto');

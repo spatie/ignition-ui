@@ -2,6 +2,11 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.0.3 - 2023-01-26
+
+- SSR support
+- Right-align line numbers in stacktrace
+
 ## 4.0.2 - 2022-05-16
 
 - Update `EnvContext` type: can be `null` or `undefined`
