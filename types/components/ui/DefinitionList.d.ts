@@ -9,8 +9,9 @@ declare namespace DefinitionList {
     var Row: typeof DefinitionListRow;
 }
 export default DefinitionList;
+declare type Value = string | React.ReactNode | Array<any> | Object | boolean | number;
 declare type DefinitionListRowProps = {
-    value?: string | React.ReactNode | Array<any> | Object | boolean;
+    value?: Value;
     label?: string | React.ReactNode;
     className?: string;
     stacked?: boolean;
