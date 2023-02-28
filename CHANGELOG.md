@@ -2,6 +2,11 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.0.4 - 2023-02-28
+
+- Old UI not found
+- Tweak card UI to better match Laravel's splash screen (#7)
+
 ## 4.0.3 - 2023-02-28
 
 - SSR support
