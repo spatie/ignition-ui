@@ -2,7 +2,7 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
-## 4.0.3 - 2023-01-26
+## 4.0.3 - 2023-02-28
 
 - SSR support
 - Right-align line numbers in stacktrace
