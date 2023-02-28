@@ -5,7 +5,7 @@ import { jsonStringify } from '../../util';
 type Props = {
     className?: string;
     style?: React.CSSProperties;
-    children?: React.ReactNode | Array<React.ReactNode>;
+    children?: React.ReactNode | React.ReactNodeArray;
 };
 
 export default function UnorderedList({ children, className = '', ...props }: Props) {
@@ -22,12 +22,14 @@ export default function UnorderedList({ children, className = '', ...props }: Pr
 
 UnorderedList.Item = UnorderedListItem;
 
+type Value = string | React.ReactNode | Array<any> | Object;
+
 type UnorderedListItemProps = {
-    value?: string | React.ReactNode | Array<any> | Object;
+    value?: Value;
 };
 
 function UnorderedListItem({ value = '' }: UnorderedListItemProps) {
-    let valueOutput: React.ReactNode = value;
+    let valueOutput = value;
 
     if (React.isValidElement(value)) {
         valueOutput = value;
@@ -37,5 +39,5 @@ function UnorderedListItem({ value = '' }: UnorderedListItemProps) {
         valueOutput = <CodeSnippet value={value} />;
     }
 
-    return <li>{valueOutput}</li>;
+    return <li>{valueOutput as React.ReactNode}</li>;
 }

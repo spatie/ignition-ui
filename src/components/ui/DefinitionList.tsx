@@ -24,15 +24,17 @@ export default function DefinitionList({ children, className = '', ...props }: P
 
 DefinitionList.Row = DefinitionListRow;
 
+type Value = string | React.ReactNode | Array<any> | Object | boolean | number;
+
 type DefinitionListRowProps = {
-    value?: string | React.ReactNode | Array<any> | Object | boolean;
+    value?: Value;
     label?: string | React.ReactNode;
     className?: string;
     stacked?: boolean;
 };
 
 function DefinitionListRow({ value = '', label = '', className = '', stacked = false }: DefinitionListRowProps) {
-    let valueOutput: React.ReactNode = value;
+    let valueOutput = value;
     const [expandLabel, setExpandLabel] = useState(false);
 
     let timeout: NodeJS.Timeout;
@@ -52,7 +54,7 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
         valueOutput = (
             <span
                 className={`${
-                    value ? 'text-emerald-500 bg-emerald-500/5' : 'text-red-500 bg-red-500/5'
+                    value ? 'text-emerald-500 bg-emerald-500/5' : 'text-red-500 bg-red-800/5'
                 } text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`}
             >
                 <FontAwesomeIcon
@@ -91,7 +93,7 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
             >
                 {label}
             </dt>
-            <dd className="flex-grow min-w-0">{valueOutput}</dd>
+            <dd className="flex-grow min-w-0">{valueOutput as React.ReactNode}</dd>
         </div>
     );
 }
