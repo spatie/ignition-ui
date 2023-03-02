@@ -53,7 +53,7 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
 
     return (
         <>
-            <aside className="z-30 flex flex-col border-r ~border-gray-200">
+            <aside className="z-30 flex flex-col border-r ~border-gray-200 relative">
                 <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
                     <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
                         <SmallButton
@@ -99,7 +99,7 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
                     </div>
                 </div>
             </aside>
-            <section className="flex flex-col border-t lg:border-t-0 ~border-gray-200">
+            <section className="flex flex-col border-t lg:border-t-0 ~border-gray-200 relative">
                 {selectedFrame && (
                     <>
                         <header className="~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end">
