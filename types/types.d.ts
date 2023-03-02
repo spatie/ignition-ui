@@ -173,7 +173,7 @@ export declare type DumpDebug = {
 };
 export declare type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error' | 'critical' | 'alert' | 'emergency' | 'warn';
 export declare type LogDebug = {
-    context: Record<string, string | object>;
+    context: Record<string, string | int | null | object>;
     level: LogLevel;
     message: string;
     microtime: number;
