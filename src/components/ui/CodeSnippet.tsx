@@ -67,7 +67,7 @@ export default function CodeSnippet({
             className={`
                 ${isOverflowing ? 'cursor-pointer' : ''}
                 ${transparent ? '' : '~bg-gray-500/5'}
-                group py-2`}
+                group py-2 relative`}
             onClick={handleClick}
         >
             <div className={`${overflowX ? 'mask-fade-x' : ''}`}>

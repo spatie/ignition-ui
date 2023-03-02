@@ -17,7 +17,7 @@ export default function ErrorCard() {
 
     return (
         <ErrorBoundary>
-            <section className="lg:flex items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20">
+            <section className="lg:flex items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 overflow-hidden">
                 <main id="exception" className="z-10 flex-grow min-w-0">
                     <div className="overflow-hidden">
                         <div className="px-6 sm:px-10 py-8 overflow-x-auto">

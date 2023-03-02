@@ -3,6 +3,7 @@ export { default as ErrorOccurrenceContext } from './contexts/ErrorOccurrenceCon
 export { default as IgnitionConfigContext } from './contexts/IgnitionConfigContext';
 export { default as IgnitionConfigContextProvider } from './contexts/IgnitionConfigContextProvider';
 export { default as StackTrace } from './components/stackTrace/components/StackTrace';
+export { default as StackTraceExplorer } from './components/stackTrace/components/StackTraceExplorer';
 export { default as ErrorCard } from './components/errorCard/ErrorCard';
 export { default as Context } from './components/context/Context';
 export { default as Debug } from './components/debug/Debug';
