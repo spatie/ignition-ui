@@ -30,6 +30,7 @@
     "md5": "^2.3.0",
     "parse-path": "^4.0.3",
     "react": "^17.0.2",
+    "react-markdown": "^8.0.7",
     "react-syntax-highlighter": "^15.4.5",
     "sql-formatter": "^4.0.2",
     "use-prefers-color-scheme": "^1.1.2"

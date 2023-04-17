@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { StackFrameGroupType } from '../../../types';
-declare type Props = {
+type Props = {
     frameGroup: StackFrameGroupType;
     onExpand: () => void;
     onSelect: (frameNumber: number) => void;

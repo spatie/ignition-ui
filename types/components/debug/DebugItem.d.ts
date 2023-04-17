@@ -1,6 +1,6 @@
 import React from 'react';
 import { LogLevel } from '../../types';
-declare type Props = {
+type Props = {
     children: React.ReactNode;
     context?: Record<string, string | object> | null;
     time: Date;
