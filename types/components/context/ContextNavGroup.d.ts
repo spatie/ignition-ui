@@ -1,5 +1,5 @@
 import React from 'react';
-declare type Props = {
+type Props = {
     children: React.ReactNode;
     title: string;
     anchor: string;

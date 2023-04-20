@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type Props = {
+type Props = {
     value: string;
     limitHeight?: boolean;
     language?: null | 'sql' | 'curl' | 'json';
