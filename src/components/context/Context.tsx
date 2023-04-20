@@ -101,24 +101,26 @@ export default function Context() {
                                 )}
                             </ContextGroup>
                         )}
-                        <ContextGroup title="App" anchor="app">
-                            {context.route && (
-                                <ContextSection
-                                    title="Routing"
-                                    anchor="app-routing"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faRandom} />}
-                                    children={<Routing route={context.route} />}
-                                />
-                            )}
-                            {context.view && (
-                                <ContextSection
-                                    title="Views"
-                                    anchor="app-views"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faPaintRoller} />}
-                                    children={<View />}
-                                />
-                            )}
-                        </ContextGroup>
+                        {(context.route || context.view) && (
+                            <ContextGroup title="App" anchor="app">
+                                {context.route && (
+                                    <ContextSection
+                                        title="Routing"
+                                        anchor="app-routing"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faRandom} />}
+                                        children={<Routing route={context.route} />}
+                                    />
+                                )}
+                                {context.view && (
+                                    <ContextSection
+                                        title="Views"
+                                        anchor="app-views"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faPaintRoller} />}
+                                        children={<View />}
+                                    />
+                                )}
+                            </ContextGroup>
+                        )}
                         {context.livewire && (
                             <ContextGroup title="Livewire" anchor="livewire">
                                 <ContextSection
