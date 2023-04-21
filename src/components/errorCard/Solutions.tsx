@@ -33,7 +33,7 @@ export default function Solutions() {
         <>
             {showSolutions ? (
                 <aside id="solution" className="flex flex-col lg:w-2/5 flex-none">
-                    <div className="flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800">
+                    <div className="flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800 rounded-r-lg">
                         <button
                             onClick={() => setShowSolutions(false)}
                             className="absolute top-3 right-4 leading-none text-emerald-500 hover:text-emerald-700 text-sm"
