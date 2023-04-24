@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { ErrorFrame } from '../../../types';
 import { Row } from './FrameCodeSnippet';
-type Props = {
+declare type Props = {
     highlight: boolean;
     frame: ErrorFrame;
     lineNumber: number;

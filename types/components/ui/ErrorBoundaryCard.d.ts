@@ -1,5 +1,5 @@
 /// <reference types="react" />
-type Props = {
+declare type Props = {
     githubLink: string;
 };
 export default function ErrorBoundaryCard({ githubLink }: Props): JSX.Element;

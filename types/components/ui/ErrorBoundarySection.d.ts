@@ -1,5 +1,5 @@
 /// <reference types="react" />
-type Props = {
+declare type Props = {
     className?: string;
     githubLink: string;
 };

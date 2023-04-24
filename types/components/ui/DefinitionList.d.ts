@@ -1,5 +1,5 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode | Array<React.ReactNode>;
@@ -9,8 +9,8 @@ declare namespace DefinitionList {
     var Row: typeof DefinitionListRow;
 }
 export default DefinitionList;
-type Value = string | React.ReactNode | Array<any> | Object | boolean | number;
-type DefinitionListRowProps = {
+declare type Value = string | React.ReactNode | Array<any> | Object | boolean | number;
+declare type DefinitionListRowProps = {
     value?: Value;
     label?: string | React.ReactNode;
     className?: string;

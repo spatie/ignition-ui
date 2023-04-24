@@ -18,7 +18,7 @@ export default function stackReducer(state: State, action: Action): State {
         }
         case 'COLLAPSE_ALL_VENDOR_FRAMES': {
             const applicationFrameNumbers = addFrameNumbers(state.frames)
-                .filter((frame) => !frame.relative_file.startsWith('vendor/') && frame.relative_file !== 'unknown')
+                .filter((frame) => !frame.relative_file.startsWith('vendor/') && !frame.relative_file.startsWith('vendor\\') && frame.relative_file !== 'unknown')
                 .map((frame) => frame.frame_number);
 
             const expanded = uniq([...applicationFrameNumbers]);

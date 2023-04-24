@@ -1,10 +1,10 @@
 import { ErrorFrame } from '../../types';
-export type State = {
+export declare type State = {
     frames: Array<ErrorFrame>;
     selected: number;
     expanded: Array<number>;
 };
-export type Action = {
+export declare type Action = {
     type: 'EXPAND_FRAMES';
     frames: Array<number>;
 } | {
