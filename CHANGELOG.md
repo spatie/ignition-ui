@@ -2,6 +2,12 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.2.0 - 2023-04-24
+
+- Add indicator for AI-generated solutions (#10)
+- Add support for rendering markdown in solutions (#9)
+- Fix vendor frame grouping on Windows (#8)
+
 ## 4.1.2 - 2023-04-20
 
 - Only show App section when there is information to show
