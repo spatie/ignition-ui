@@ -134,7 +134,7 @@ export type ErrorSolution = {
     title: string;
     description: string;
     links: { [label: string]: string };
-    ai_generated: boolean;
+    ai_generated?: boolean;
     is_runnable: boolean;
     action_description?: string;
     run_button_text?: string;
