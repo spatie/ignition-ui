@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.1.2 - 2023-04-20
+
+- Only show App section when there is information to show
+
 ## 4.0.4 - 2023-02-28
 
 - Old UI not found

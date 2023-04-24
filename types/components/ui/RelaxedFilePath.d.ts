@@ -1,5 +1,5 @@
 /// <reference types="react" />
-type Props = {
+declare type Props = {
     path: string;
     lineNumber?: null | number;
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-export type ContextGroupProps = {
+export declare type ContextGroupProps = {
     title: string;
     children: Array<React.ReactElement | null | false>;
     anchor: string;

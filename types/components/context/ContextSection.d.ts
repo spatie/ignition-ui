@@ -1,5 +1,5 @@
 import React from 'react';
-export type ContextSectionProps = {
+export declare type ContextSectionProps = {
     icon: React.ReactNode;
     title: string;
     children: React.ReactNode;

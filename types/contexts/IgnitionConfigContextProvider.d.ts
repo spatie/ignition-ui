@@ -1,6 +1,6 @@
 import React from 'react';
 import { IgnitionConfig } from '../types';
-type Props = {
+declare type Props = {
     children: React.ReactNode;
     ignitionConfig: IgnitionConfig;
 };

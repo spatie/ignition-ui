@@ -1,5 +1,5 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     children: React.ReactNode;
     className?: string;
     color?: 'red' | 'orange' | 'green' | 'blue' | 'purple' | 'gray' | undefined;
