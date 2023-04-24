@@ -61,20 +61,20 @@ var a = () => {
       }
     }, []), c;
   },
-  d$2 = a;
+  d$1 = a;
 
 function IgnitionConfigContextProvider({
   children,
   ignitionConfig: initialIgnitionConfig
 }) {
   const [ignitionConfig, setIgnitionConfig] = useState(initialIgnitionConfig);
-  const scheme = d$2();
+  const scheme = d$1();
   const theme = ignitionConfig.theme === 'auto' ? scheme !== 'no-preference' ? scheme : 'light' : ignitionConfig.theme;
   useEffect(() => {
     document.documentElement.classList.remove('light', 'dark', 'auto');
     document.documentElement.classList.add(theme);
   }, [theme]);
-  return React__default.createElement(IgnitionConfigContext.Provider, {
+  return /*#__PURE__*/React__default.createElement(IgnitionConfigContext.Provider, {
     value: {
       ignitionConfig,
       setIgnitionConfig,
@@ -225,7 +225,7 @@ var _Symbol = Symbol$1;
 var objectProto$e = Object.prototype;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$b = objectProto$e.hasOwnProperty;
+var hasOwnProperty$c = objectProto$e.hasOwnProperty;
 
 /**
  * Used to resolve the
@@ -245,7 +245,7 @@ var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
  * @returns {string} Returns the raw `toStringTag`.
  */
 function getRawTag(value) {
-  var isOwn = hasOwnProperty$b.call(value, symToStringTag$1),
+  var isOwn = hasOwnProperty$c.call(value, symToStringTag$1),
     tag = value[symToStringTag$1];
   try {
     value[symToStringTag$1] = undefined;
@@ -437,10 +437,10 @@ var funcProto = Function.prototype,
 var funcToString = funcProto.toString;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$a = objectProto$c.hasOwnProperty;
+var hasOwnProperty$b = objectProto$c.hasOwnProperty;
 
 /** Used to detect if a method is native. */
-var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$a).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$b).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
 
 /**
  * The base implementation of `_.isNative` without bad shim checks.
@@ -527,7 +527,7 @@ var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
 var objectProto$b = Object.prototype;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$9 = objectProto$b.hasOwnProperty;
+var hasOwnProperty$a = objectProto$b.hasOwnProperty;
 
 /**
  * Gets the hash value for `key`.
@@ -544,7 +544,7 @@ function hashGet(key) {
     var result = data[key];
     return result === HASH_UNDEFINED$2 ? undefined : result;
   }
-  return hasOwnProperty$9.call(data, key) ? data[key] : undefined;
+  return hasOwnProperty$a.call(data, key) ? data[key] : undefined;
 }
 var _hashGet = hashGet;
 
@@ -552,7 +552,7 @@ var _hashGet = hashGet;
 var objectProto$a = Object.prototype;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$8 = objectProto$a.hasOwnProperty;
+var hasOwnProperty$9 = objectProto$a.hasOwnProperty;
 
 /**
  * Checks if a hash value for `key` exists.
@@ -565,7 +565,7 @@ var hasOwnProperty$8 = objectProto$a.hasOwnProperty;
  */
 function hashHas(key) {
   var data = this.__data__;
-  return _nativeCreate ? data[key] !== undefined : hasOwnProperty$8.call(data, key);
+  return _nativeCreate ? data[key] !== undefined : hasOwnProperty$9.call(data, key);
 }
 var _hashHas = hashHas;
 
@@ -1389,7 +1389,7 @@ function SmallButton(_ref) {
       className = ''
     } = _ref,
     props = _objectWithoutPropertiesLoose$2(_ref, _excluded$7);
-  return React__default.createElement("button", _extends$1({
+  return /*#__PURE__*/React__default.createElement("button", _extends$1({
     type: props.type || 'button',
     className: `group inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap
             transform
@@ -1408,15 +1408,15 @@ function RelaxedFullyQualifiedClassName({
 }) {
   const parts = path.split('\\');
   const tightSpace = String.fromCharCode(8201);
-  return React__default.createElement("span", {
+  return /*#__PURE__*/React__default.createElement("span", {
     className: "inline-flex flex-wrap items-baseline"
-  }, parts.map((part, index) => React__default.createElement(React__default.Fragment, {
+  }, parts.map((part, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
     key: index
-  }, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", {
     key: index
-  }, part), index !== parts.length - 1 && React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && React__default.createElement(React__default.Fragment, null, tightSpace, React__default.createElement("span", {
+  }, part), index !== parts.length - 1 && /*#__PURE__*/React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
     className: "whitespace-nowrap"
-  }, ":", tightSpace, React__default.createElement("span", {
+  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
     className: "font-mono text-xs"
   }, lineNumber))));
 }
@@ -1582,7 +1582,7 @@ var MUTATION_APPROACH_ASYNC = 'async';
 var TAGNAMES_TO_SKIP_FOR_PSEUDOELEMENTS = ['HTML', 'HEAD', 'STYLE', 'SCRIPT'];
 var PRODUCTION$1 = function () {
   try {
-    return "production" === 'production';
+    return "development" === 'production';
   } catch (e) {
     return false;
   }
@@ -1778,7 +1778,7 @@ function onChange(cb) {
     _onChangeCb.splice(_onChangeCb.indexOf(cb), 1);
   };
 }
-var d$1 = UNITS_IN_GRID;
+var d = UNITS_IN_GRID;
 var meaninglessTransform = {
   size: 16,
   x: 0,
@@ -1879,13 +1879,13 @@ function transformForCss(_ref2) {
     startCentered = _ref2$startCentered === void 0 ? false : _ref2$startCentered;
   var val = '';
   if (startCentered && IS_IE) {
-    val += "translate(".concat(transform.x / d$1 - width / 2, "em, ").concat(transform.y / d$1 - height / 2, "em) ");
+    val += "translate(".concat(transform.x / d - width / 2, "em, ").concat(transform.y / d - height / 2, "em) ");
   } else if (startCentered) {
-    val += "translate(calc(-50% + ".concat(transform.x / d$1, "em), calc(-50% + ").concat(transform.y / d$1, "em)) ");
+    val += "translate(calc(-50% + ".concat(transform.x / d, "em), calc(-50% + ").concat(transform.y / d, "em)) ");
   } else {
-    val += "translate(".concat(transform.x / d$1, "em, ").concat(transform.y / d$1, "em) ");
+    val += "translate(".concat(transform.x / d, "em, ").concat(transform.y / d, "em) ");
   }
-  val += "scale(".concat(transform.size / d$1 * (transform.flipX ? -1 : 1), ", ").concat(transform.size / d$1 * (transform.flipY ? -1 : 1), ") ");
+  val += "scale(".concat(transform.size / d * (transform.flipX ? -1 : 1), ", ").concat(transform.size / d * (transform.flipY ? -1 : 1), ") ");
   val += "rotate(".concat(transform.rotate, "deg) ");
   return val;
 }
@@ -1931,12 +1931,12 @@ var InjectCSS = {
     };
   }
 };
-var w$1 = WINDOW || {};
-if (!w$1[NAMESPACE_IDENTIFIER]) w$1[NAMESPACE_IDENTIFIER] = {};
-if (!w$1[NAMESPACE_IDENTIFIER].styles) w$1[NAMESPACE_IDENTIFIER].styles = {};
-if (!w$1[NAMESPACE_IDENTIFIER].hooks) w$1[NAMESPACE_IDENTIFIER].hooks = {};
-if (!w$1[NAMESPACE_IDENTIFIER].shims) w$1[NAMESPACE_IDENTIFIER].shims = [];
-var namespace = w$1[NAMESPACE_IDENTIFIER];
+var w = WINDOW || {};
+if (!w[NAMESPACE_IDENTIFIER]) w[NAMESPACE_IDENTIFIER] = {};
+if (!w[NAMESPACE_IDENTIFIER].styles) w[NAMESPACE_IDENTIFIER].styles = {};
+if (!w[NAMESPACE_IDENTIFIER].hooks) w[NAMESPACE_IDENTIFIER].hooks = {};
+if (!w[NAMESPACE_IDENTIFIER].shims) w[NAMESPACE_IDENTIFIER].shims = [];
+var namespace = w[NAMESPACE_IDENTIFIER];
 var functions = [];
 var listener = function listener() {
   DOCUMENT.removeEventListener('DOMContentLoaded', listener);
@@ -2855,20 +2855,20 @@ function findIcon(iconName, prefix) {
   });
 }
 var noop$1$1 = function noop() {};
-var p$1 = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
+var p = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
   mark: noop$1$1,
   measure: noop$1$1
 };
 var preamble = "FA \"6.4.0\"";
 var begin = function begin(name) {
-  p$1.mark("".concat(preamble, " ").concat(name, " begins"));
+  p.mark("".concat(preamble, " ").concat(name, " begins"));
   return function () {
     return end(name);
   };
 };
 var end = function end(name) {
-  p$1.mark("".concat(preamble, " ").concat(name, " ends"));
-  p$1.measure("".concat(preamble, " ").concat(name), "".concat(preamble, " ").concat(name, " begins"), "".concat(preamble, " ").concat(name, " ends"));
+  p.mark("".concat(preamble, " ").concat(name, " ends"));
+  p.measure("".concat(preamble, " ").concat(name), "".concat(preamble, " ").concat(name, " begins"), "".concat(preamble, " ").concat(name, " ends"));
 };
 var perf = {
   begin: begin,
@@ -4058,152 +4058,6 @@ var parse$1 = api.parse;
 var icon = api.icon;
 
 /** @license React v16.13.1
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var b = "function" === typeof Symbol && Symbol.for,
-  c = b ? Symbol.for("react.element") : 60103,
-  d = b ? Symbol.for("react.portal") : 60106,
-  e = b ? Symbol.for("react.fragment") : 60107,
-  f = b ? Symbol.for("react.strict_mode") : 60108,
-  g = b ? Symbol.for("react.profiler") : 60114,
-  h = b ? Symbol.for("react.provider") : 60109,
-  k = b ? Symbol.for("react.context") : 60110,
-  l = b ? Symbol.for("react.async_mode") : 60111,
-  m = b ? Symbol.for("react.concurrent_mode") : 60111,
-  n = b ? Symbol.for("react.forward_ref") : 60112,
-  p = b ? Symbol.for("react.suspense") : 60113,
-  q = b ? Symbol.for("react.suspense_list") : 60120,
-  r = b ? Symbol.for("react.memo") : 60115,
-  t = b ? Symbol.for("react.lazy") : 60116,
-  v = b ? Symbol.for("react.block") : 60121,
-  w = b ? Symbol.for("react.fundamental") : 60117,
-  x = b ? Symbol.for("react.responder") : 60118,
-  y = b ? Symbol.for("react.scope") : 60119;
-function z(a) {
-  if ("object" === typeof a && null !== a) {
-    var u = a.$$typeof;
-    switch (u) {
-      case c:
-        switch (a = a.type, a) {
-          case l:
-          case m:
-          case e:
-          case g:
-          case f:
-          case p:
-            return a;
-          default:
-            switch (a = a && a.$$typeof, a) {
-              case k:
-              case n:
-              case t:
-              case r:
-              case h:
-                return a;
-              default:
-                return u;
-            }
-        }
-      case d:
-        return u;
-    }
-  }
-}
-function A(a) {
-  return z(a) === m;
-}
-var AsyncMode = l;
-var ConcurrentMode = m;
-var ContextConsumer = k;
-var ContextProvider = h;
-var Element = c;
-var ForwardRef = n;
-var Fragment = e;
-var Lazy = t;
-var Memo = r;
-var Portal = d;
-var Profiler = g;
-var StrictMode = f;
-var Suspense = p;
-var isAsyncMode = function isAsyncMode(a) {
-  return A(a) || z(a) === l;
-};
-var isConcurrentMode = A;
-var isContextConsumer = function isContextConsumer(a) {
-  return z(a) === k;
-};
-var isContextProvider = function isContextProvider(a) {
-  return z(a) === h;
-};
-var isElement = function isElement(a) {
-  return "object" === typeof a && null !== a && a.$$typeof === c;
-};
-var isForwardRef = function isForwardRef(a) {
-  return z(a) === n;
-};
-var isFragment = function isFragment(a) {
-  return z(a) === e;
-};
-var isLazy = function isLazy(a) {
-  return z(a) === t;
-};
-var isMemo = function isMemo(a) {
-  return z(a) === r;
-};
-var isPortal = function isPortal(a) {
-  return z(a) === d;
-};
-var isProfiler = function isProfiler(a) {
-  return z(a) === g;
-};
-var isStrictMode = function isStrictMode(a) {
-  return z(a) === f;
-};
-var isSuspense = function isSuspense(a) {
-  return z(a) === p;
-};
-var isValidElementType = function isValidElementType(a) {
-  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === typeof a && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
-};
-var typeOf = z;
-var reactIs_production_min = {
-  AsyncMode: AsyncMode,
-  ConcurrentMode: ConcurrentMode,
-  ContextConsumer: ContextConsumer,
-  ContextProvider: ContextProvider,
-  Element: Element,
-  ForwardRef: ForwardRef,
-  Fragment: Fragment,
-  Lazy: Lazy,
-  Memo: Memo,
-  Portal: Portal,
-  Profiler: Profiler,
-  StrictMode: StrictMode,
-  Suspense: Suspense,
-  isAsyncMode: isAsyncMode,
-  isConcurrentMode: isConcurrentMode,
-  isContextConsumer: isContextConsumer,
-  isContextProvider: isContextProvider,
-  isElement: isElement,
-  isForwardRef: isForwardRef,
-  isFragment: isFragment,
-  isLazy: isLazy,
-  isMemo: isMemo,
-  isPortal: isPortal,
-  isProfiler: isProfiler,
-  isStrictMode: isStrictMode,
-  isSuspense: isSuspense,
-  isValidElementType: isValidElementType,
-  typeOf: typeOf
-};
-
-/** @license React v16.13.1
  * react-is.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -4211,81 +4065,896 @@ var reactIs_production_min = {
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-createCommonjsModule(function (module, exports) {
-});
-
-createCommonjsModule(function (module) {
+var reactIs_development = createCommonjsModule(function (module, exports) {
 
   {
-    module.exports = reactIs_production_min;
+    (function () {
+
+      // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+      // nor polyfill, then a plain number is used for performance.
+      var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+      var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+      var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+      var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+      var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+      var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+      var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+      var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+      // (unstable) APIs that have been removed. Can we remove the symbols?
+
+      var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
+      var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+      var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+      var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+      var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
+      var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+      var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+      var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
+      var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
+      var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
+      var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
+      function isValidElementType(type) {
+        return typeof type === 'string' || typeof type === 'function' ||
+        // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+      }
+      function typeOf(object) {
+        if (typeof object === 'object' && object !== null) {
+          var $$typeof = object.$$typeof;
+          switch ($$typeof) {
+            case REACT_ELEMENT_TYPE:
+              var type = object.type;
+              switch (type) {
+                case REACT_ASYNC_MODE_TYPE:
+                case REACT_CONCURRENT_MODE_TYPE:
+                case REACT_FRAGMENT_TYPE:
+                case REACT_PROFILER_TYPE:
+                case REACT_STRICT_MODE_TYPE:
+                case REACT_SUSPENSE_TYPE:
+                  return type;
+                default:
+                  var $$typeofType = type && type.$$typeof;
+                  switch ($$typeofType) {
+                    case REACT_CONTEXT_TYPE:
+                    case REACT_FORWARD_REF_TYPE:
+                    case REACT_LAZY_TYPE:
+                    case REACT_MEMO_TYPE:
+                    case REACT_PROVIDER_TYPE:
+                      return $$typeofType;
+                    default:
+                      return $$typeof;
+                  }
+              }
+            case REACT_PORTAL_TYPE:
+              return $$typeof;
+          }
+        }
+        return undefined;
+      } // AsyncMode is deprecated along with isAsyncMode
+
+      var AsyncMode = REACT_ASYNC_MODE_TYPE;
+      var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+      var ContextConsumer = REACT_CONTEXT_TYPE;
+      var ContextProvider = REACT_PROVIDER_TYPE;
+      var Element = REACT_ELEMENT_TYPE;
+      var ForwardRef = REACT_FORWARD_REF_TYPE;
+      var Fragment = REACT_FRAGMENT_TYPE;
+      var Lazy = REACT_LAZY_TYPE;
+      var Memo = REACT_MEMO_TYPE;
+      var Portal = REACT_PORTAL_TYPE;
+      var Profiler = REACT_PROFILER_TYPE;
+      var StrictMode = REACT_STRICT_MODE_TYPE;
+      var Suspense = REACT_SUSPENSE_TYPE;
+      var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
+
+      function isAsyncMode(object) {
+        {
+          if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+            hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+            console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+          }
+        }
+        return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+      }
+      function isConcurrentMode(object) {
+        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+      }
+      function isContextConsumer(object) {
+        return typeOf(object) === REACT_CONTEXT_TYPE;
+      }
+      function isContextProvider(object) {
+        return typeOf(object) === REACT_PROVIDER_TYPE;
+      }
+      function isElement(object) {
+        return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+      }
+      function isForwardRef(object) {
+        return typeOf(object) === REACT_FORWARD_REF_TYPE;
+      }
+      function isFragment(object) {
+        return typeOf(object) === REACT_FRAGMENT_TYPE;
+      }
+      function isLazy(object) {
+        return typeOf(object) === REACT_LAZY_TYPE;
+      }
+      function isMemo(object) {
+        return typeOf(object) === REACT_MEMO_TYPE;
+      }
+      function isPortal(object) {
+        return typeOf(object) === REACT_PORTAL_TYPE;
+      }
+      function isProfiler(object) {
+        return typeOf(object) === REACT_PROFILER_TYPE;
+      }
+      function isStrictMode(object) {
+        return typeOf(object) === REACT_STRICT_MODE_TYPE;
+      }
+      function isSuspense(object) {
+        return typeOf(object) === REACT_SUSPENSE_TYPE;
+      }
+      exports.AsyncMode = AsyncMode;
+      exports.ConcurrentMode = ConcurrentMode;
+      exports.ContextConsumer = ContextConsumer;
+      exports.ContextProvider = ContextProvider;
+      exports.Element = Element;
+      exports.ForwardRef = ForwardRef;
+      exports.Fragment = Fragment;
+      exports.Lazy = Lazy;
+      exports.Memo = Memo;
+      exports.Portal = Portal;
+      exports.Profiler = Profiler;
+      exports.StrictMode = StrictMode;
+      exports.Suspense = Suspense;
+      exports.isAsyncMode = isAsyncMode;
+      exports.isConcurrentMode = isConcurrentMode;
+      exports.isContextConsumer = isContextConsumer;
+      exports.isContextProvider = isContextProvider;
+      exports.isElement = isElement;
+      exports.isForwardRef = isForwardRef;
+      exports.isFragment = isFragment;
+      exports.isLazy = isLazy;
+      exports.isMemo = isMemo;
+      exports.isPortal = isPortal;
+      exports.isProfiler = isProfiler;
+      exports.isStrictMode = isStrictMode;
+      exports.isSuspense = isSuspense;
+      exports.isValidElementType = isValidElementType;
+      exports.typeOf = typeOf;
+    })();
   }
 });
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+var reactIs = createCommonjsModule(function (module) {
 
-var ReactPropTypesSecret$1 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-var ReactPropTypesSecret_1 = ReactPropTypesSecret$1;
+  {
+    module.exports = reactIs_development;
+  }
+});
 
-var ReactPropTypesSecret = ReactPropTypesSecret_1;
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-function emptyFunction() {}
-function emptyFunctionWithReset() {}
-emptyFunctionWithReset.resetWarningCache = emptyFunction;
-var factoryWithThrowingShims = function factoryWithThrowingShims() {
-  function shim(props, propName, componentName, location, propFullName, secret) {
-    if (secret === ReactPropTypesSecret) {
-      // It is still safe when called from React.
-      return;
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty$8 = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+function toObject(val) {
+  if (val === null || val === undefined) {
+    throw new TypeError('Object.assign cannot be called with null or undefined');
+  }
+  return Object(val);
+}
+function shouldUseNative() {
+  try {
+    if (!Object.assign) {
+      return false;
     }
-    var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use PropTypes.checkPropTypes() to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
-    err.name = 'Invariant Violation';
-    throw err;
+
+    // Detect buggy property enumeration order in older V8 versions.
+
+    // https://bugs.chromium.org/p/v8/issues/detail?id=4118
+    var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
+    test1[5] = 'de';
+    if (Object.getOwnPropertyNames(test1)[0] === '5') {
+      return false;
+    }
+
+    // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+    var test2 = {};
+    for (var i = 0; i < 10; i++) {
+      test2['_' + String.fromCharCode(i)] = i;
+    }
+    var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+      return test2[n];
+    });
+    if (order2.join('') !== '0123456789') {
+      return false;
+    }
+
+    // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+    var test3 = {};
+    'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+      test3[letter] = letter;
+    });
+    if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
+      return false;
+    }
+    return true;
+  } catch (err) {
+    // We don't expect any of the above to throw, but better to be safe.
+    return false;
   }
-  shim.isRequired = shim;
-  function getShim() {
-    return shim;
+}
+var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
+  var from;
+  var to = toObject(target);
+  var symbols;
+  for (var s = 1; s < arguments.length; s++) {
+    from = Object(arguments[s]);
+    for (var key in from) {
+      if (hasOwnProperty$8.call(from, key)) {
+        to[key] = from[key];
+      }
+    }
+    if (getOwnPropertySymbols) {
+      symbols = getOwnPropertySymbols(from);
+      for (var i = 0; i < symbols.length; i++) {
+        if (propIsEnumerable.call(from, symbols[i])) {
+          to[symbols[i]] = from[symbols[i]];
+        }
+      }
+    }
   }
-  // Important!
-  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-  var ReactPropTypes = {
-    array: shim,
-    bigint: shim,
-    bool: shim,
-    func: shim,
-    number: shim,
-    object: shim,
-    string: shim,
-    symbol: shim,
-    any: shim,
-    arrayOf: getShim,
-    element: shim,
-    elementType: shim,
-    instanceOf: getShim,
-    node: shim,
-    objectOf: getShim,
-    oneOf: getShim,
-    oneOfType: getShim,
-    shape: getShim,
-    exact: getShim,
-    checkPropTypes: emptyFunctionWithReset,
-    resetWarningCache: emptyFunction
+  return to;
+};
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var ReactPropTypesSecret$2 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var ReactPropTypesSecret_1 = ReactPropTypesSecret$2;
+
+var has$2 = Function.call.bind(Object.prototype.hasOwnProperty);
+
+var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
+
+var has$1 = has$2;
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var _printWarning$1 = function printWarning() {};
+{
+  var ReactPropTypesSecret = ReactPropTypesSecret$1;
+  var loggedTypeFailures = {};
+  var has = has$1;
+  _printWarning$1 = function (text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {/**/}
   };
+}
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param {object} typeSpecs Map of name to a ReactPropType
+ * @param {object} values Runtime values that need to be type-checked
+ * @param {string} location e.g. "prop", "context", "child context"
+ * @param {string} componentName Name of the component for error messages.
+ * @param {?Function} getStack Returns the component stack.
+ * @private
+ */
+function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) {
+  {
+    for (var typeSpecName in typeSpecs) {
+      if (has(typeSpecs, typeSpecName)) {
+        var error;
+        // Prop type validation may throw. In case they do, we don't want to
+        // fail the render phase where it didn't fail before. So we log it.
+        // After these have been cleaned up, we'll let them throw.
+        try {
+          // This is intentionally an invariant that gets caught. It's the same
+          // behavior as without this statement except with a better message.
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
+            err.name = 'Invariant Violation';
+            throw err;
+          }
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+        } catch (ex) {
+          error = ex;
+        }
+        if (error && !(error instanceof Error)) {
+          _printWarning$1((componentName || 'React class') + ': type specification of ' + location + ' `' + typeSpecName + '` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a ' + typeof error + '. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).');
+        }
+        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+          // Only monitor this failure once because there tends to be a lot of the
+          // same error.
+          loggedTypeFailures[error.message] = true;
+          var stack = getStack ? getStack() : '';
+          _printWarning$1('Failed ' + location + ' type: ' + error.message + (stack != null ? stack : ''));
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Resets warning cache when testing.
+ *
+ * @private
+ */
+checkPropTypes$1.resetWarningCache = function () {
+  {
+    loggedTypeFailures = {};
+  }
+};
+var checkPropTypes_1 = checkPropTypes$1;
+
+var checkPropTypes = checkPropTypes_1;
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var _printWarning = function printWarning() {};
+{
+  _printWarning = function (text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+function emptyFunctionThatReturnsNull() {
+  return null;
+}
+var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, throwOnDirectAccess) {
+  /* global Symbol */
+  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+  /**
+   * Returns the iterator method function contained on the iterable object.
+   *
+   * Be sure to invoke the function with the iterable as context:
+   *
+   *     var iteratorFn = getIteratorFn(myIterable);
+   *     if (iteratorFn) {
+   *       var iterator = iteratorFn.call(myIterable);
+   *       ...
+   *     }
+   *
+   * @param {?object} maybeIterable
+   * @return {?function}
+   */
+  function getIteratorFn(maybeIterable) {
+    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+    if (typeof iteratorFn === 'function') {
+      return iteratorFn;
+    }
+  }
+
+  /**
+   * Collection of methods that allow declaration and validation of props that are
+   * supplied to React components. Example usage:
+   *
+   *   var Props = require('ReactPropTypes');
+   *   var MyArticle = React.createClass({
+   *     propTypes: {
+   *       // An optional string prop named "description".
+   *       description: Props.string,
+   *
+   *       // A required enum prop named "category".
+   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *
+   *       // A prop named "dialog" that requires an instance of Dialog.
+   *       dialog: Props.instanceOf(Dialog).isRequired
+   *     },
+   *     render: function() { ... }
+   *   });
+   *
+   * A more formal specification of how these methods are used:
+   *
+   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+   *   decl := ReactPropTypes.{type}(.isRequired)?
+   *
+   * Each and every declaration produces a function with the same signature. This
+   * allows the creation of custom validation functions. For example:
+   *
+   *  var MyLink = React.createClass({
+   *    propTypes: {
+   *      // An optional string or URI prop named "href".
+   *      href: function(props, propName, componentName) {
+   *        var propValue = props[propName];
+   *        if (propValue != null && typeof propValue !== 'string' &&
+   *            !(propValue instanceof URI)) {
+   *          return new Error(
+   *            'Expected a string or an URI for ' + propName + ' in ' +
+   *            componentName
+   *          );
+   *        }
+   *      }
+   *    },
+   *    render: function() {...}
+   *  });
+   *
+   * @internal
+   */
+
+  var ANONYMOUS = '<<anonymous>>';
+
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  var ReactPropTypes = {
+    array: createPrimitiveTypeChecker('array'),
+    bigint: createPrimitiveTypeChecker('bigint'),
+    bool: createPrimitiveTypeChecker('boolean'),
+    func: createPrimitiveTypeChecker('function'),
+    number: createPrimitiveTypeChecker('number'),
+    object: createPrimitiveTypeChecker('object'),
+    string: createPrimitiveTypeChecker('string'),
+    symbol: createPrimitiveTypeChecker('symbol'),
+    any: createAnyTypeChecker(),
+    arrayOf: createArrayOfTypeChecker,
+    element: createElementTypeChecker(),
+    elementType: createElementTypeTypeChecker(),
+    instanceOf: createInstanceTypeChecker,
+    node: createNodeChecker(),
+    objectOf: createObjectOfTypeChecker,
+    oneOf: createEnumTypeChecker,
+    oneOfType: createUnionTypeChecker,
+    shape: createShapeTypeChecker,
+    exact: createStrictShapeTypeChecker
+  };
+
+  /**
+   * inlined Object.is polyfill to avoid requiring consumers ship their own
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+   */
+  /*eslint-disable no-self-compare*/
+  function is(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y;
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y;
+    }
+  }
+  /*eslint-enable no-self-compare*/
+
+  /**
+   * We use an Error-like object for backward compatibility as people may call
+   * PropTypes directly and inspect their output. However, we don't use real
+   * Errors anymore. We don't inspect their stack anyway, and creating them
+   * is prohibitively expensive if they are created too often, such as what
+   * happens in oneOfType() for any type before the one that matched.
+   */
+  function PropTypeError(message, data) {
+    this.message = message;
+    this.data = data && typeof data === 'object' ? data : {};
+    this.stack = '';
+  }
+  // Make `instanceof Error` still work for returned errors.
+  PropTypeError.prototype = Error.prototype;
+  function createChainableTypeChecker(validate) {
+    {
+      var manualPropTypeCallCache = {};
+      var manualPropTypeWarningCount = 0;
+    }
+    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+      componentName = componentName || ANONYMOUS;
+      propFullName = propFullName || propName;
+      if (secret !== ReactPropTypesSecret$1) {
+        if (throwOnDirectAccess) {
+          // New behavior only for users of `prop-types` package
+          var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
+          err.name = 'Invariant Violation';
+          throw err;
+        } else if (typeof console !== 'undefined') {
+          // Old behavior for people using React.PropTypes
+          var cacheKey = componentName + ':' + propName;
+          if (!manualPropTypeCallCache[cacheKey] &&
+          // Avoid spamming the console because they are often not actionable except for lib authors
+          manualPropTypeWarningCount < 3) {
+            _printWarning('You are manually calling a React.PropTypes validation ' + 'function for the `' + propFullName + '` prop on `' + componentName + '`. This is deprecated ' + 'and will throw in the standalone `prop-types` package. ' + 'You may be seeing this warning due to a third-party PropTypes ' + 'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.');
+            manualPropTypeCallCache[cacheKey] = true;
+            manualPropTypeWarningCount++;
+          }
+        }
+      }
+      if (props[propName] == null) {
+        if (isRequired) {
+          if (props[propName] === null) {
+            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+          }
+          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+        }
+        return null;
+      } else {
+        return validate(props, propName, componentName, location, propFullName);
+      }
+    }
+    var chainedCheckType = checkType.bind(null, false);
+    chainedCheckType.isRequired = checkType.bind(null, true);
+    return chainedCheckType;
+  }
+  function createPrimitiveTypeChecker(expectedType) {
+    function validate(props, propName, componentName, location, propFullName, secret) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== expectedType) {
+        // `propValue` being instance of, say, date/regexp, pass the 'object'
+        // check, but we can offer a more precise error message here rather than
+        // 'of type `object`'.
+        var preciseType = getPreciseType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'), {
+          expectedType: expectedType
+        });
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createAnyTypeChecker() {
+    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
+  }
+  function createArrayOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+      }
+      var propValue = props[propName];
+      if (!Array.isArray(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+      }
+      for (var i = 0; i < propValue.length; i++) {
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret$1);
+        if (error instanceof Error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createElementTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!isValidElement(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createElementTypeTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!reactIs.isValidElementType(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createInstanceTypeChecker(expectedClass) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!(props[propName] instanceof expectedClass)) {
+        var expectedClassName = expectedClass.name || ANONYMOUS;
+        var actualClassName = getClassName(props[propName]);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createEnumTypeChecker(expectedValues) {
+    if (!Array.isArray(expectedValues)) {
+      {
+        if (arguments.length > 1) {
+          _printWarning('Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' + 'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).');
+        } else {
+          _printWarning('Invalid argument supplied to oneOf, expected an array.');
+        }
+      }
+      return emptyFunctionThatReturnsNull;
+    }
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      for (var i = 0; i < expectedValues.length; i++) {
+        if (is(propValue, expectedValues[i])) {
+          return null;
+        }
+      }
+      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
+        var type = getPreciseType(value);
+        if (type === 'symbol') {
+          return String(value);
+        }
+        return value;
+      });
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createObjectOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+      }
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+      }
+      for (var key in propValue) {
+        if (has$1(propValue, key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
+          if (error instanceof Error) {
+            return error;
+          }
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createUnionTypeChecker(arrayOfTypeCheckers) {
+    if (!Array.isArray(arrayOfTypeCheckers)) {
+      _printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') ;
+      return emptyFunctionThatReturnsNull;
+    }
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        _printWarning('Invalid argument supplied to oneOfType. Expected an array of check functions, but ' + 'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.');
+        return emptyFunctionThatReturnsNull;
+      }
+    }
+    function validate(props, propName, componentName, location, propFullName) {
+      var expectedTypes = [];
+      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+        var checker = arrayOfTypeCheckers[i];
+        var checkerResult = checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret$1);
+        if (checkerResult == null) {
+          return null;
+        }
+        if (checkerResult.data && has$1(checkerResult.data, 'expectedType')) {
+          expectedTypes.push(checkerResult.data.expectedType);
+        }
+      }
+      var expectedTypesMessage = expectedTypes.length > 0 ? ', expected one of type [' + expectedTypes.join(', ') + ']' : '';
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`' + expectedTypesMessage + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createNodeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!isNode(props[propName])) {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function invalidValidatorError(componentName, location, propFullName, key, type) {
+    return new PropTypeError((componentName || 'React class') + ': ' + location + ' type `' + propFullName + '.' + key + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + type + '`.');
+  }
+  function createShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      for (var key in shapeTypes) {
+        var checker = shapeTypes[key];
+        if (typeof checker !== 'function') {
+          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function createStrictShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      // We need to check all keys in case some are required but missing from props.
+      var allKeys = objectAssign({}, props[propName], shapeTypes);
+      for (var key in allKeys) {
+        var checker = shapeTypes[key];
+        if (has$1(shapeTypes, key) && typeof checker !== 'function') {
+          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+        }
+        if (!checker) {
+          return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' + '\nBad object: ' + JSON.stringify(props[propName], null, '  ') + '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  '));
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+  function isNode(propValue) {
+    switch (typeof propValue) {
+      case 'number':
+      case 'string':
+      case 'undefined':
+        return true;
+      case 'boolean':
+        return !propValue;
+      case 'object':
+        if (Array.isArray(propValue)) {
+          return propValue.every(isNode);
+        }
+        if (propValue === null || isValidElement(propValue)) {
+          return true;
+        }
+        var iteratorFn = getIteratorFn(propValue);
+        if (iteratorFn) {
+          var iterator = iteratorFn.call(propValue);
+          var step;
+          if (iteratorFn !== propValue.entries) {
+            while (!(step = iterator.next()).done) {
+              if (!isNode(step.value)) {
+                return false;
+              }
+            }
+          } else {
+            // Iterator will provide entry [k,v] tuples rather than values.
+            while (!(step = iterator.next()).done) {
+              var entry = step.value;
+              if (entry) {
+                if (!isNode(entry[1])) {
+                  return false;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
+        return true;
+      default:
+        return false;
+    }
+  }
+  function isSymbol(propType, propValue) {
+    // Native Symbol.
+    if (propType === 'symbol') {
+      return true;
+    }
+
+    // falsy value can't be a Symbol
+    if (!propValue) {
+      return false;
+    }
+
+    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+    if (propValue['@@toStringTag'] === 'Symbol') {
+      return true;
+    }
+
+    // Fallback for non-spec compliant Symbols which are polyfilled.
+    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+      return true;
+    }
+    return false;
+  }
+
+  // Equivalent of `typeof` but with special handling for array and regexp.
+  function getPropType(propValue) {
+    var propType = typeof propValue;
+    if (Array.isArray(propValue)) {
+      return 'array';
+    }
+    if (propValue instanceof RegExp) {
+      // Old webkits (at least until Android 4.0) return 'function' rather than
+      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+      // passes PropTypes.object.
+      return 'object';
+    }
+    if (isSymbol(propType, propValue)) {
+      return 'symbol';
+    }
+    return propType;
+  }
+
+  // This handles more types than `getPropType`. Only used for error messages.
+  // See `createPrimitiveTypeChecker`.
+  function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
+    var propType = getPropType(propValue);
+    if (propType === 'object') {
+      if (propValue instanceof Date) {
+        return 'date';
+      } else if (propValue instanceof RegExp) {
+        return 'regexp';
+      }
+    }
+    return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
+  }
+
+  // Returns class name of the object, if any.
+  function getClassName(propValue) {
+    if (!propValue.constructor || !propValue.constructor.name) {
+      return ANONYMOUS;
+    }
+    return propValue.constructor.name;
+  }
+  ReactPropTypes.checkPropTypes = checkPropTypes;
+  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
   ReactPropTypes.PropTypes = ReactPropTypes;
   return ReactPropTypes;
 };
 
-var require$$2 = factoryWithThrowingShims;
+var require$$1 = factoryWithTypeCheckers;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -4295,9 +4964,12 @@ var require$$2 = factoryWithThrowingShims;
  */
 var propTypes = createCommonjsModule(function (module) {
   {
-    // By explicitly using `prop-types` you are opting into new production behavior.
+    var ReactIs = reactIs;
+
+    // By explicitly using `prop-types` you are opting into new development behavior.
     // http://fb.me/prop-types-in-prod
-    module.exports = require$$2();
+    var throwOnDirectAccess = true;
+    module.exports = require$$1(ReactIs.isElement, throwOnDirectAccess);
   }
 });
 var PropTypes = propTypes;
@@ -4526,7 +5198,7 @@ function convert(createElement, element) {
 }
 var PRODUCTION = false;
 try {
-  PRODUCTION = "production" === 'production';
+  PRODUCTION = "development" === 'production';
 } catch (e) {}
 function log() {
   if (!PRODUCTION && console && typeof console.error === 'function') {
@@ -4675,7 +5347,7 @@ FontAwesomeIcon.defaultProps = {
 };
 var convertCurry = convert.bind(null, React__default.createElement);
 
-var faPencil={prefix:'fas',iconName:'pencil',icon:[512,512,[9999,61504,"pencil-alt"],"f303","M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"]};var faPencilAlt=faPencil;var faLightbulb={prefix:'fas',iconName:'lightbulb',icon:[384,512,[128161],"f0eb","M272 384c9.6-31.9 29.5-59.1 49.2-86.2l0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4l0 0c19.8 27.1 39.7 54.4 49.2 86.2H272zM192 512c44.2 0 80-35.8 80-80V416H112v16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9 50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"]};var faHourglassHalf={prefix:'fas',iconName:'hourglass-half',icon:[384,512,["hourglass-2"],"f252","M32 0C14.3 0 0 14.3 0 32S14.3 64 32 64V75c0 42.4 16.9 83.1 46.9 113.1L146.7 256 78.9 323.9C48.9 353.9 32 394.6 32 437v11c-17.7 0-32 14.3-32 32s14.3 32 32 32H64 320h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V437c0-42.4-16.9-83.1-46.9-113.1L237.3 256l67.9-67.9c30-30 46.9-70.7 46.9-113.1V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H320 64 32zM96 75V64H288V75c0 19-5.6 37.4-16 53H112c-10.3-15.6-16-34-16-53zm16 309c3.5-5.3 7.6-10.3 12.1-14.9L192 301.3l67.9 67.9c4.6 4.6 8.6 9.6 12.1 14.9H112z"]};var faStopwatch={prefix:'fas',iconName:'stopwatch',icon:[448,512,[9201],"f2f2","M176 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h16V98.4C92.3 113.8 16 200 16 304c0 114.9 93.1 208 208 208s208-93.1 208-208c0-41.8-12.3-80.7-33.5-113.2l24.1-24.1c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L355.7 143c-28.1-23-62.2-38.8-99.7-44.6V64h16c17.7 0 32-14.3 32-32s-14.3-32-32-32H224 176zm72 192V320c0 13.3-10.7 24-24 24s-24-10.7-24-24V192c0-13.3 10.7-24 24-24s24 10.7 24 24z"]};var faUser={prefix:'fas',iconName:'user',icon:[448,512,[128100,62144],"f007","M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"]};var faShuffle={prefix:'fas',iconName:'shuffle',icon:[512,512,[128256,"random"],"f074","M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160H352c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V64c0-12.9 7.8-24.6 19.8-29.6zM164 282.7L204 336l-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V416H352c-30.2 0-58.7-14.2-76.8-38.4L121.6 172.8c-6-8.1-15.5-12.8-25.6-12.8H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c30.2 0 58.7 14.2 76.8 38.4L326.4 339.2c6 8.1 15.5 12.8 25.6 12.8h32V320c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64z"]};var faRandom=faShuffle;var faCode={prefix:'fas',iconName:'code',icon:[640,512,[],"f121","M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"]};var faSatelliteDish={prefix:'fas',iconName:'satellite-dish',icon:[512,512,[128225],"f7c0","M192 32c0-17.7 14.3-32 32-32C383.1 0 512 128.9 512 288c0 17.7-14.3 32-32 32s-32-14.3-32-32C448 164.3 347.7 64 224 64c-17.7 0-32-14.3-32-32zM60.6 220.6L164.7 324.7l28.4-28.4c-.7-2.6-1.1-5.4-1.1-8.3c0-17.7 14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32c-2.9 0-5.6-.4-8.3-1.1l-28.4 28.4L291.4 451.4c14.5 14.5 11.8 38.8-7.3 46.3C260.5 506.9 234.9 512 208 512C93.1 512 0 418.9 0 304c0-26.9 5.1-52.5 14.4-76.1c7.5-19 31.8-21.8 46.3-7.3zM224 96c106 0 192 86 192 192c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-70.7-57.3-128-128-128c-17.7 0-32-14.3-32-32s14.3-32 32-32z"]};var faWrench={prefix:'fas',iconName:'wrench',icon:[512,512,[128295],"f0ad","M352 320c88.4 0 160-71.6 160-160c0-15.3-2.2-30.1-6.2-44.2c-3.1-10.8-16.4-13.2-24.3-5.3l-76.8 76.8c-3 3-7.1 4.7-11.3 4.7H336c-8.8 0-16-7.2-16-16V118.6c0-4.2 1.7-8.3 4.7-11.3l76.8-76.8c7.9-7.9 5.4-21.2-5.3-24.3C382.1 2.2 367.3 0 352 0C263.6 0 192 71.6 192 160c0 19.1 3.4 37.5 9.5 54.5L19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L297.5 310.5c17 6.2 35.4 9.5 54.5 9.5zM80 408a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"]};var faCircleQuestion={prefix:'fas',iconName:'circle-question',icon:[512,512,[62108,"question-circle"],"f059","M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"]};var faQuestionCircle=faCircleQuestion;var faCodeBranch={prefix:'fas',iconName:'code-branch',icon:[448,512,[],"f126","M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"]};var faUpRightFromSquare={prefix:'fas',iconName:'up-right-from-square',icon:[512,512,["external-link-alt"],"f35d","M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"]};var faExternalLinkAlt=faUpRightFromSquare;var faTableCells={prefix:'fas',iconName:'table-cells',icon:[512,512,["th"],"f00a","M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 64v64H64V96h88zm56 0h88v64H208V96zm240 0v64H360V96h88zM64 224h88v64H64V224zm232 0v64H208V224h88zm64 0h88v64H360V224zM152 352v64H64V352h88zm56 0h88v64H208V352zm240 0v64H360V352h88z"]};var faTh=faTableCells;var faSliders={prefix:'fas',iconName:'sliders',icon:[512,512,["sliders-h"],"f1de","M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"]};var faSlidersH=faSliders;var faRotateRight={prefix:'fas',iconName:'rotate-right',icon:[512,512,["redo-alt","rotate-forward"],"f2f9","M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"]};var faRedoAlt=faRotateRight;var faAngleDown={prefix:'fas',iconName:'angle-down',icon:[448,512,[8964],"f107","M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"]};var faPaintRoller={prefix:'fas',iconName:'paint-roller',icon:[512,512,[],"f5aa","M0 64C0 28.7 28.7 0 64 0H352c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM160 352c0-17.7 14.3-32 32-32V304c0-44.2 35.8-80 80-80H416c17.7 0 32-14.3 32-32V160 69.5c37.3 13.2 64 48.7 64 90.5v32c0 53-43 96-96 96H272c-8.8 0-16 7.2-16 16v16c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V352z"]};var faFile={prefix:'fas',iconName:'file',icon:[384,512,[128196,128459,61462],"f15b","M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"]};var faListUl={prefix:'fas',iconName:'list-ul',icon:[512,512,["list-dots"],"f0ca","M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z"]};var faCopy={prefix:'fas',iconName:'copy',icon:[512,512,[],"f0c5","M272 0H396.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H272c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128H192v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"]};var faXmark={prefix:'fas',iconName:'xmark',icon:[384,512,[128473,10005,10006,10060,215,"close","multiply","remove","times"],"f00d","M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"]};var faTimes=faXmark;var faAngleUp={prefix:'fas',iconName:'angle-up',icon:[448,512,[8963],"f106","M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"]};var faCookieBite={prefix:'fas',iconName:'cookie-bite',icon:[512,512,[],"f564","M257.5 27.6c-.8-5.4-4.9-9.8-10.3-10.6c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9c-.9-5.3-5.3-9.3-10.6-10.1c-51.5-8.2-92.8-47.1-104.5-97.4c-1.8-7.6-8-13.4-15.7-14.6c-54.6-8.7-97.7-52-106.2-106.8zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"]};var faCheck={prefix:'fas',iconName:'check',icon:[448,512,[10003,10004],"f00c","M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"]};var faTriangleExclamation={prefix:'fas',iconName:'triangle-exclamation',icon:[512,512,[9888,"exclamation-triangle","warning"],"f071","M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"]};var faExclamationTriangle=faTriangleExclamation;var faDatabase={prefix:'fas',iconName:'database',icon:[448,512,[],"f1c0","M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z"]};var faRightLeft={prefix:'fas',iconName:'right-left',icon:[512,512,["exchange-alt"],"f362","M32 96l320 0V32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 352c17.7 0 32 14.3 32 32s-14.3 32-32 32H160v64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64H480z"]};var faExchangeAlt=faRightLeft;
+var faPencil={prefix:'fas',iconName:'pencil',icon:[512,512,[9999,61504,"pencil-alt"],"f303","M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"]};var faPencilAlt=faPencil;var faLightbulb={prefix:'fas',iconName:'lightbulb',icon:[384,512,[128161],"f0eb","M272 384c9.6-31.9 29.5-59.1 49.2-86.2l0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4l0 0c19.8 27.1 39.7 54.4 49.2 86.2H272zM192 512c44.2 0 80-35.8 80-80V416H112v16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9 50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"]};var faHourglassHalf={prefix:'fas',iconName:'hourglass-half',icon:[384,512,["hourglass-2"],"f252","M32 0C14.3 0 0 14.3 0 32S14.3 64 32 64V75c0 42.4 16.9 83.1 46.9 113.1L146.7 256 78.9 323.9C48.9 353.9 32 394.6 32 437v11c-17.7 0-32 14.3-32 32s14.3 32 32 32H64 320h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V437c0-42.4-16.9-83.1-46.9-113.1L237.3 256l67.9-67.9c30-30 46.9-70.7 46.9-113.1V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H320 64 32zM96 75V64H288V75c0 19-5.6 37.4-16 53H112c-10.3-15.6-16-34-16-53zm16 309c3.5-5.3 7.6-10.3 12.1-14.9L192 301.3l67.9 67.9c4.6 4.6 8.6 9.6 12.1 14.9H112z"]};var faStopwatch={prefix:'fas',iconName:'stopwatch',icon:[448,512,[9201],"f2f2","M176 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h16V98.4C92.3 113.8 16 200 16 304c0 114.9 93.1 208 208 208s208-93.1 208-208c0-41.8-12.3-80.7-33.5-113.2l24.1-24.1c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L355.7 143c-28.1-23-62.2-38.8-99.7-44.6V64h16c17.7 0 32-14.3 32-32s-14.3-32-32-32H224 176zm72 192V320c0 13.3-10.7 24-24 24s-24-10.7-24-24V192c0-13.3 10.7-24 24-24s24 10.7 24 24z"]};var faUser={prefix:'fas',iconName:'user',icon:[448,512,[128100,62144],"f007","M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"]};var faShuffle={prefix:'fas',iconName:'shuffle',icon:[512,512,[128256,"random"],"f074","M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160H352c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V64c0-12.9 7.8-24.6 19.8-29.6zM164 282.7L204 336l-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V416H352c-30.2 0-58.7-14.2-76.8-38.4L121.6 172.8c-6-8.1-15.5-12.8-25.6-12.8H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c30.2 0 58.7 14.2 76.8 38.4L326.4 339.2c6 8.1 15.5 12.8 25.6 12.8h32V320c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64z"]};var faRandom=faShuffle;var faCode={prefix:'fas',iconName:'code',icon:[640,512,[],"f121","M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"]};var faSatelliteDish={prefix:'fas',iconName:'satellite-dish',icon:[512,512,[128225],"f7c0","M192 32c0-17.7 14.3-32 32-32C383.1 0 512 128.9 512 288c0 17.7-14.3 32-32 32s-32-14.3-32-32C448 164.3 347.7 64 224 64c-17.7 0-32-14.3-32-32zM60.6 220.6L164.7 324.7l28.4-28.4c-.7-2.6-1.1-5.4-1.1-8.3c0-17.7 14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32c-2.9 0-5.6-.4-8.3-1.1l-28.4 28.4L291.4 451.4c14.5 14.5 11.8 38.8-7.3 46.3C260.5 506.9 234.9 512 208 512C93.1 512 0 418.9 0 304c0-26.9 5.1-52.5 14.4-76.1c7.5-19 31.8-21.8 46.3-7.3zM224 96c106 0 192 86 192 192c0 17.7-14.3 32-32 32s-32-14.3-32-32c0-70.7-57.3-128-128-128c-17.7 0-32-14.3-32-32s14.3-32 32-32z"]};var faWrench={prefix:'fas',iconName:'wrench',icon:[512,512,[128295],"f0ad","M352 320c88.4 0 160-71.6 160-160c0-15.3-2.2-30.1-6.2-44.2c-3.1-10.8-16.4-13.2-24.3-5.3l-76.8 76.8c-3 3-7.1 4.7-11.3 4.7H336c-8.8 0-16-7.2-16-16V118.6c0-4.2 1.7-8.3 4.7-11.3l76.8-76.8c7.9-7.9 5.4-21.2-5.3-24.3C382.1 2.2 367.3 0 352 0C263.6 0 192 71.6 192 160c0 19.1 3.4 37.5 9.5 54.5L19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L297.5 310.5c17 6.2 35.4 9.5 54.5 9.5zM80 408a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"]};var faCircleQuestion={prefix:'fas',iconName:'circle-question',icon:[512,512,[62108,"question-circle"],"f059","M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"]};var faQuestionCircle=faCircleQuestion;var faCodeBranch={prefix:'fas',iconName:'code-branch',icon:[448,512,[],"f126","M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"]};var faUpRightFromSquare={prefix:'fas',iconName:'up-right-from-square',icon:[512,512,["external-link-alt"],"f35d","M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"]};var faExternalLinkAlt=faUpRightFromSquare;var faTableCells={prefix:'fas',iconName:'table-cells',icon:[512,512,["th"],"f00a","M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 64v64H64V96h88zm56 0h88v64H208V96zm240 0v64H360V96h88zM64 224h88v64H64V224zm232 0v64H208V224h88zm64 0h88v64H360V224zM152 352v64H64V352h88zm56 0h88v64H208V352zm240 0v64H360V352h88z"]};var faTh=faTableCells;var faSliders={prefix:'fas',iconName:'sliders',icon:[512,512,["sliders-h"],"f1de","M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"]};var faSlidersH=faSliders;var faRotateRight={prefix:'fas',iconName:'rotate-right',icon:[512,512,["redo-alt","rotate-forward"],"f2f9","M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"]};var faRedoAlt=faRotateRight;var faAngleDown={prefix:'fas',iconName:'angle-down',icon:[448,512,[8964],"f107","M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"]};var faPaintRoller={prefix:'fas',iconName:'paint-roller',icon:[512,512,[],"f5aa","M0 64C0 28.7 28.7 0 64 0H352c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM160 352c0-17.7 14.3-32 32-32V304c0-44.2 35.8-80 80-80H416c17.7 0 32-14.3 32-32V160 69.5c37.3 13.2 64 48.7 64 90.5v32c0 53-43 96-96 96H272c-8.8 0-16 7.2-16 16v16c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V352z"]};var faFile={prefix:'fas',iconName:'file',icon:[384,512,[128196,128459,61462],"f15b","M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"]};var faListUl={prefix:'fas',iconName:'list-ul',icon:[512,512,["list-dots"],"f0ca","M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z"]};var faCopy={prefix:'fas',iconName:'copy',icon:[512,512,[],"f0c5","M272 0H396.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H272c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128H192v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"]};var faXmark={prefix:'fas',iconName:'xmark',icon:[384,512,[128473,10005,10006,10060,215,"close","multiply","remove","times"],"f00d","M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"]};var faTimes=faXmark;var faAngleUp={prefix:'fas',iconName:'angle-up',icon:[448,512,[8963],"f106","M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"]};var faRobot={prefix:'fas',iconName:'robot',icon:[640,512,[129302],"f544","M320 0c17.7 0 32 14.3 32 32V96H472c39.8 0 72 32.2 72 72V440c0 39.8-32.2 72-72 72H168c-39.8 0-72-32.2-72-72V168c0-39.8 32.2-72 72-72H288V32c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H208zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H304zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H400zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224H64V416H48c-26.5 0-48-21.5-48-48V272c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H576V224h16z"]};var faCookieBite={prefix:'fas',iconName:'cookie-bite',icon:[512,512,[],"f564","M257.5 27.6c-.8-5.4-4.9-9.8-10.3-10.6c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9c-.9-5.3-5.3-9.3-10.6-10.1c-51.5-8.2-92.8-47.1-104.5-97.4c-1.8-7.6-8-13.4-15.7-14.6c-54.6-8.7-97.7-52-106.2-106.8zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"]};var faCheck={prefix:'fas',iconName:'check',icon:[448,512,[10003,10004],"f00c","M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"]};var faTriangleExclamation={prefix:'fas',iconName:'triangle-exclamation',icon:[512,512,[9888,"exclamation-triangle","warning"],"f071","M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"]};var faExclamationTriangle=faTriangleExclamation;var faDatabase={prefix:'fas',iconName:'database',icon:[448,512,[],"f1c0","M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z"]};var faRightLeft={prefix:'fas',iconName:'right-left',icon:[512,512,["exchange-alt"],"f362","M32 96l320 0V32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 352c17.7 0 32 14.3 32 32s-14.3 32-32 32H160v64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64H480z"]};var faExchangeAlt=faRightLeft;
 
 function RelaxedFilePath({
   path: fullPath,
@@ -4691,17 +5363,17 @@ function RelaxedFilePath({
   const extension = fileParts.pop();
   const fileName = fileParts.join('.');
   const tightSpace = String.fromCharCode(8201);
-  return React__default.createElement("span", {
+  return /*#__PURE__*/React__default.createElement("span", {
     className: "inline-flex flex-wrap items-baseline"
-  }, parts.map((part, index) => React__default.createElement(React__default.Fragment, {
+  }, parts.map((part, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
     key: index
-  }, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", {
     key: index
-  }, part), React__default.createElement("span", null, tightSpace, "/", tightSpace))), React__default.createElement("span", {
+  }, part), /*#__PURE__*/React__default.createElement("span", null, tightSpace, "/", tightSpace))), /*#__PURE__*/React__default.createElement("span", {
     className: "font-semibold"
-  }, fileName), React__default.createElement("span", null, ".", extension), lineNumber && React__default.createElement(React__default.Fragment, null, tightSpace, React__default.createElement("span", {
+  }, fileName), /*#__PURE__*/React__default.createElement("span", null, ".", extension), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
     className: "whitespace-nowrap"
-  }, ":", tightSpace, React__default.createElement("span", {
+  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
     className: "font-mono text-xs"
   }, lineNumber))));
 }
@@ -4712,33 +5384,33 @@ function FrameGroup({
   onSelect
 }) {
   if (frameGroup.type === 'vendor' && !frameGroup.expanded) {
-    return React__default.createElement("li", {
+    return /*#__PURE__*/React__default.createElement("li", {
       className: "group cursor-pointer px-6 sm:px-10 py-4 flex gap-2 lg:justify-start border-b ~border-gray-200 hover:~bg-gray-500/5 items-center",
       onClick: onExpand
-    }, frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame', React__default.createElement(FontAwesomeIcon, {
+    }, frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame', /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       icon: faAngleDown,
       className: "~text-gray-500 group-hover:text-indigo-500"
     }));
   }
-  return React__default.createElement(React__default.Fragment, null, frameGroup.frames.map((frame, index) => React__default.createElement(React__default.Fragment, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, frameGroup.frames.map((frame, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
     key: index
-  }, React__default.createElement("li", {
+  }, /*#__PURE__*/React__default.createElement("li", {
     key: frame.frame_number,
     className: `px-6 sm:px-10 py-4
                             ${frame.selected ? 'bg-red-500 text-white' : 'cursor-pointer border-b ~border-gray-200 hover:~bg-red-500/10'}
                         `,
     onClick: () => onSelect(frame.frame_number)
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-baseline"
-  }, frame.class ? React__default.createElement(RelaxedFullyQualifiedClassName, {
+  }, frame.class ? /*#__PURE__*/React__default.createElement(RelaxedFullyQualifiedClassName, {
     path: frame.class,
     lineNumber: frame.line_number
-  }) : React__default.createElement(RelaxedFilePath, {
+  }) : /*#__PURE__*/React__default.createElement(RelaxedFilePath, {
     path: frame.file,
     lineNumber: frame.line_number
-  })), React__default.createElement("div", {
+  })), /*#__PURE__*/React__default.createElement("div", {
     className: "font-semibold"
-  }, frame.method)), frame.selected && React__default.createElement("li", {
+  }, frame.method)), frame.selected && /*#__PURE__*/React__default.createElement("li", {
     className: "z-10 mt-[-4px] sticky top-0 bg-red-500 h-[4px]"
   }))));
 }
@@ -6710,10 +7382,10 @@ function EditorLink({
     file: path,
     lineNumber
   });
-  return React__default.createElement("a", {
+  return /*#__PURE__*/React__default.createElement("a", {
     href: editorUrl || '#',
     className: `hover:underline ${className}`
-  }, React__default.createElement(RelaxedFilePath, {
+  }, /*#__PURE__*/React__default.createElement(RelaxedFilePath, {
     path: path,
     lineNumber: lineNumber
   }));
@@ -11622,7 +12294,7 @@ function RoundedButton(_ref) {
       className = ''
     } = _ref,
     props = _objectWithoutPropertiesLoose$2(_ref, _excluded$4);
-  return React__default.createElement("button", _extends$1({
+  return /*#__PURE__*/React__default.createElement("button", _extends$1({
     type: props.type || 'button',
     className: `w-6 h-6 rounded-full flex items-center justify-center
             text-xs ~bg-white text-indigo-500 hover:~text-indigo-600 
@@ -11643,20 +12315,20 @@ function FrameCodeSnippetLine({
     file: frame.file,
     lineNumber
   });
-  return React__default.createElement("span", {
+  return /*#__PURE__*/React__default.createElement("span", {
     className: `
                 flex group leading-loose hover:~bg-red-500/10
                 ${highlight ? ' ~bg-red-500/20' : ''}
             `
-  }, editorUrl && React__default.createElement("span", {
+  }, editorUrl && /*#__PURE__*/React__default.createElement("span", {
     className: "z-30 opacity-0 group-hover:opacity-100 sticky left-10 w-0 h-full"
-  }, React__default.createElement("a", {
+  }, /*#__PURE__*/React__default.createElement("a", {
     href: editorUrl,
     className: "-ml-3 block"
-  }, React__default.createElement(RoundedButton, null, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(RoundedButton, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     className: "text-xs",
     icon: faPencilAlt
-  })))), React__default.createElement("span", {
+  })))), /*#__PURE__*/React__default.createElement("span", {
     className: "pl-6"
   }, createElement({
     node: row,
@@ -11780,7 +12452,7 @@ function FrameCodeSnippet({
   const codeRenderer = useMemo(() => ({
     rows
   }) => {
-    return rows.map((row, index) => React__default.createElement(FrameCodeSnippetLine, {
+    return rows.map((row, index) => /*#__PURE__*/React__default.createElement(FrameCodeSnippetLine, {
       key: lineNumbers[index],
       frame: frame,
       highlight: index === highlightedIndex,
@@ -11788,23 +12460,23 @@ function FrameCodeSnippet({
       lineNumber: lineNumbers[index]
     }));
   }, [frame]);
-  return React__default.createElement("main", {
+  return /*#__PURE__*/React__default.createElement("main", {
     className: "flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-r text-sm"
-  }, React__default.createElement("nav", {
+  }, /*#__PURE__*/React__default.createElement("nav", {
     className: "sticky left-0 flex flex-none z-20 ~bg-white"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "select-none text-right"
-  }, lineNumbers.map(number => React__default.createElement("p", {
+  }, lineNumbers.map(number => /*#__PURE__*/React__default.createElement("p", {
     key: number,
     className: `
                                 px-2 font-mono leading-loose select-none
                                 ${Number(number) === frame.line_number ? ' text-opacity-75 ~text-red-700 ~bg-red-500/30' : ''}
                             `
-  }, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", {
     className: "~text-gray-500"
-  }, number))))), React__default.createElement("div", {
+  }, number))))), /*#__PURE__*/React__default.createElement("div", {
     className: "flex-grow pr-10"
-  }, React__default.createElement(SyntaxHighlighter$1, {
+  }, /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, {
     language: getLanguage(frame.relative_file),
     renderer: codeRenderer,
     customStyle: {
@@ -12063,30 +12735,30 @@ function StackTraceExplorer({
       type: 'SELECT_PREVIOUS_FRAME'
     });
   });
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement("aside", {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("aside", {
     className: "z-30 flex flex-col border-r ~border-gray-200 relative"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white"
-  }, React__default.createElement("header", {
+  }, /*#__PURE__*/React__default.createElement("header", {
     className: "flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200"
-  }, React__default.createElement(SmallButton, {
+  }, /*#__PURE__*/React__default.createElement(SmallButton, {
     onClick: () => dispatch({
       type: vendorFramesExpanded ? 'COLLAPSE_ALL_VENDOR_FRAMES' : 'EXPAND_ALL_VENDOR_FRAMES'
     })
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: `flex ${vendorFramesExpanded ? 'flex-col-reverse' : 'flex-col'}`
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faAngleUp,
     className: "-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  }), React__default.createElement(FontAwesomeIcon, {
+  }), /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: "-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  })), vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames')), React__default.createElement("div", {
+  })), vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames')), /*#__PURE__*/React__default.createElement("div", {
     id: "frames",
     className: "flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames"
-  }, React__default.createElement("ol", {
+  }, /*#__PURE__*/React__default.createElement("ol", {
     className: "text-sm pb-16"
-  }, frameGroups.map((frameGroup, i) => React__default.createElement(FrameGroup, {
+  }, frameGroups.map((frameGroup, i) => /*#__PURE__*/React__default.createElement(FrameGroup, {
     key: i,
     frameGroup: frameGroup,
     onExpand: () => dispatch({
@@ -12099,15 +12771,15 @@ function StackTraceExplorer({
         frame: frameNumber
       });
     }
-  })))))), React__default.createElement("section", {
+  })))))), /*#__PURE__*/React__default.createElement("section", {
     className: "flex flex-col border-t lg:border-t-0 ~border-gray-200 relative"
-  }, selectedFrame && React__default.createElement(React__default.Fragment, null, React__default.createElement("header", {
+  }, selectedFrame && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("header", {
     className: "~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end"
-  }, React__default.createElement(EditorLink, {
+  }, /*#__PURE__*/React__default.createElement(EditorLink, {
     path: selectedFrame.file,
     lineNumber: selectedFrame.line_number,
     className: "flex items-center text-sm"
-  })), React__default.createElement(FrameCodeSnippet, {
+  })), /*#__PURE__*/React__default.createElement(FrameCodeSnippet, {
     frame: selectedFrame
   }))));
 }
@@ -12118,9 +12790,9 @@ function StackTrace({
   const {
     frames
   } = useContext(ErrorOccurrenceContext);
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem] items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 overflow-hidden"
-  }, React__default.createElement(StackTraceExplorer, {
+  }, /*#__PURE__*/React__default.createElement(StackTraceExplorer, {
     frames: frames,
     openFrameIndex: openFrameIndex
   }));
@@ -12139,13 +12811,13 @@ function ExceptionMessage({
     }
     setFullException(!fullException);
   }
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: `
                 my-4 font-semibold leading-snug text-xl
                 ${className}
             `,
     onClick: handleClick
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: fullException ? 'line-clamp-none' : 'line-clamp-2'
   }, message));
 }
@@ -15045,18 +15717,18 @@ function CopyButton({
     copyToClipboard(value);
     setCopied(true);
   }
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: className
-  }, React__default.createElement(RoundedButton, {
+  }, /*#__PURE__*/React__default.createElement(RoundedButton, {
     onClick: copy,
     title: "Copy to clipboard",
     className: `
                     ${alwaysVisible ? '' : 'opacity-0 transform scale-80 transition-animation delay-100'}
                     ${copied ? 'opacity-0' : 'group-hover:opacity-100 group-hover:scale-100'}
                 `
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faCopy
-  })), copied && React__default.createElement("p", {
+  })), copied && /*#__PURE__*/React__default.createElement("p", {
     className: `absolute top-0 ${direction == 'right' ? 'right-0' : 'left-0'} hidden z-10 sm:inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap text-emerald-500`,
     onClick: () => setCopied(false)
   }, "Copied!"));
@@ -15145,7 +15817,7 @@ function HighlightedCode({
   children,
   language
 }) {
-  return React__default.createElement(SyntaxHighlighter$1, {
+  return /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, {
     language: language,
     customStyle: {
       background: 'transparent'
@@ -15193,30 +15865,30 @@ function CodeSnippet({
     selection.removeAllRanges();
     selection.addRange(range);
   }
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     ref: containerRef,
     className: `
                 ${isOverflowing ? 'cursor-pointer' : ''}
                 ${transparent ? '' : '~bg-gray-500/5'}
                 group py-2 relative`,
     onClick: handleClick
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: `${overflowX ? 'mask-fade-x' : ''}`
-  }, language === 'sql' && React__default.createElement(React__default.Fragment, null, isCollapsed ? React__default.createElement("pre", {
+  }, language === 'sql' && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, isCollapsed ? /*#__PURE__*/React__default.createElement("pre", {
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'truncate pr-8'}`
-  }, React__default.createElement("code", {
+  }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, React__default.createElement(HighlightedCode, {
+  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
     language: "sql"
-  }, value))) : React__default.createElement("pre", {
+  }, value))) : /*#__PURE__*/React__default.createElement("pre", {
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}`
-  }, React__default.createElement("code", {
+  }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, React__default.createElement(HighlightedCode, {
+  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
     language: "sql"
   }, sqlFormatter$1.format(value, {
     language: 'mysql'
-  }))))), language !== 'sql' && React__default.createElement("pre", {
+  }))))), language !== 'sql' && /*#__PURE__*/React__default.createElement("pre", {
     ref: ref,
     className: `
                             pl-4
@@ -15224,17 +15896,17 @@ function CodeSnippet({
                             ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
                             ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}
                         `
-  }, React__default.createElement("code", {
+  }, /*#__PURE__*/React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, language ? React__default.createElement(HighlightedCode, {
+  }, language ? /*#__PURE__*/React__default.createElement(HighlightedCode, {
     language: language
-  }, value) : value))), React__default.createElement(CopyButton, {
+  }, value) : value))), /*#__PURE__*/React__default.createElement(CopyButton, {
     className: "absolute top-2 right-3",
     value: value
-  }), isOverflowing && React__default.createElement(RoundedButton, {
+  }), isOverflowing && /*#__PURE__*/React__default.createElement(RoundedButton, {
     onClick: () => setIsCollapsed(!isCollapsed),
-    className: "\n                        absolute -bottom-3 left-1/2 -translate-x-1/2\n                        opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100\n                    "
-  }, React__default.createElement(FontAwesomeIcon, {
+    className: " absolute -bottom-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100 "
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: `transition-transform duration-300 transform ${isCollapsed ? '' : 'rotate-180'}`
   })));
@@ -15257,10 +15929,10 @@ function FormattedExceptionMessage({
       setCleanedUpMessage(message.replace(sqlQueryPattern, '$2'));
     }
   }, [message, exceptionClass]);
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(ExceptionMessage, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ExceptionMessage, {
     message: cleanedUpMessage,
     className: className
-  }), sqlQuery && React__default.createElement(CodeSnippet, {
+  }), sqlQuery && /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: sqlQuery,
     language: "sql"
   }));
@@ -15274,7 +15946,7 @@ function Button(_ref) {
       disabled = false
     } = _ref,
     props = _objectWithoutPropertiesLoose$2(_ref, _excluded$3);
-  return React__default.createElement("button", _extends$1({
+  return /*#__PURE__*/React__default.createElement("button", _extends$1({
     disabled: disabled,
     className: `px-4 h-8 whitespace-nowrap border-b
             text-xs uppercase tracking-wider font-bold rounded-sm
@@ -15293,13 +15965,13 @@ function Button(_ref) {
 function SolutionDescription({
   solution
 }) {
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "grid grid-cols-1 gap-2"
-  }, solution.description && React__default.createElement("p", null, solution.description), solution.action_description && React__default.createElement("p", null, solution.action_description), React__default.createElement("ul", {
+  }, solution.description && /*#__PURE__*/React__default.createElement("p", null, solution.description), solution.action_description && /*#__PURE__*/React__default.createElement("p", null, solution.action_description), /*#__PURE__*/React__default.createElement("ul", {
     className: "grid grid-cols-1 gap-1 text-sm"
-  }, Object.entries(solution.links).map(([title, link], index) => React__default.createElement("li", {
+  }, Object.entries(solution.links).map(([title, link], index) => /*#__PURE__*/React__default.createElement("li", {
     key: index
-  }, React__default.createElement("a", {
+  }, /*#__PURE__*/React__default.createElement("a", {
     href: link,
     target: "_blank",
     className: "underline text-emerald-700 hover:text-emerald-800"
@@ -15343,31 +16015,31 @@ function SolutionRunner({
     event.preventDefault();
     location.reload();
   }
-  return React__default.createElement(React__default.Fragment, null, wasExecutionSuccessful === null && React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, wasExecutionSuccessful === null && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Button, {
     onClick: executeSolution,
     disabled: isRunningSolution,
     className: "mb-4 inline-flex items-center gap-2 bg-emerald-600 border-emerald-500/25 text-white"
-  }, isRunningSolution ? React__default.createElement("span", null, "Running...") : React__default.createElement(React__default.Fragment, null, React__default.createElement(FontAwesomeIcon, {
+  }, isRunningSolution ? /*#__PURE__*/React__default.createElement("span", null, "Running...") : /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     className: "opacity-50",
     icon: faWrench
-  }), solution.run_button_text || 'Run')), React__default.createElement(SolutionDescription, {
+  }), solution.run_button_text || 'Run')), /*#__PURE__*/React__default.createElement(SolutionDescription, {
     solution: solution
-  })), wasExecutionSuccessful === true && React__default.createElement("p", {
+  })), wasExecutionSuccessful === true && /*#__PURE__*/React__default.createElement("p", {
     className: ""
-  }, "The solution was executed ", React__default.createElement("strong", null, "successfully"), ".", React__default.createElement("br", null), React__default.createElement("a", {
+  }, "The solution was executed ", /*#__PURE__*/React__default.createElement("strong", null, "successfully"), ".", /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement("a", {
     href: "#",
     className: "mt-2 inline-flex items-center gap-2 underline text-emerald-700 hover:text-emerald-800",
     onClick: refresh
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faRedoAlt,
     className: "text-sm opacity-50"
-  }), "Refresh now")), wasExecutionSuccessful === false && React__default.createElement(React__default.Fragment, null, React__default.createElement("p", {
+  }), "Refresh now")), wasExecutionSuccessful === false && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("p", {
     className: "bg-red-200 px-4 py-2"
-  }, "Something ", React__default.createElement("strong", null, "went wrong"), ". Please try refreshing the page and try again.", React__default.createElement("br", null), React__default.createElement("a", {
+  }, "Something ", /*#__PURE__*/React__default.createElement("strong", null, "went wrong"), ". Please try refreshing the page and try again.", /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement("a", {
     href: "#",
     className: "mt-2 inline-flex items-center gap-2 underline text-red-700 hover:text-red-800",
     onClick: refresh
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faRedoAlt,
     className: "text-sm opacity-50"
   }), "Refresh now"))));
@@ -15380,29 +16052,43 @@ function Solution({
   canExecute = false
 }) {
   const [isOpen, setIsOpen] = useState(initialIsOpen);
-  return React__default.createElement("section", null, React__default.createElement("header", {
+  return /*#__PURE__*/React__default.createElement("section", null, /*#__PURE__*/React__default.createElement("header", {
     className: "group mb-4"
-  }, isCollapsible ? React__default.createElement("button", {
+  }, isCollapsible ? /*#__PURE__*/React__default.createElement("button", {
     className: "flex items-center justify-start",
     onClick: () => {
       setIsOpen(!isOpen);
     }
-  }, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", {
     className: "w-6 -ml-6"
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: `group-hover:opacity-50 opacity-0 text-sm transform transition ${isOpen ? '' : '-rotate-90'}`
-  })), React__default.createElement("h2", {
+  })), /*#__PURE__*/React__default.createElement("h2", {
     className: "min-w-0 truncate font-semibold leading-snug"
-  }, solution.title)) : React__default.createElement("h2", {
+  }, solution.title)) : /*#__PURE__*/React__default.createElement("h2", {
     className: "truncate font-semibold leading-snug"
-  }, solution.title)), React__default.createElement("div", {
+  }, solution.title)), /*#__PURE__*/React__default.createElement("div", {
     className: `${isOpen ? '' : 'hidden'}`
-  }, solution.is_runnable && canExecute ? React__default.createElement(SolutionRunner, {
+  }, solution.is_runnable && canExecute ? /*#__PURE__*/React__default.createElement(SolutionRunner, {
     solution: solution
-  }) : React__default.createElement(SolutionDescription, {
+  }) : /*#__PURE__*/React__default.createElement(SolutionDescription, {
     solution: solution
-  })));
+  }), solution.ai_generated && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("hr", {
+    className: "border-green-700 mb-2"
+  }), /*#__PURE__*/React__default.createElement("div", {
+    className: "flex items-center gap-x-2 text-green-700"
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    fixedWidth: true,
+    icon: faRobot
+  }), /*#__PURE__*/React__default.createElement("span", {
+    id: "ai-message",
+    className: "text-xs"
+  }, "This solution was ", /*#__PURE__*/React__default.createElement("a", {
+    className: "underline",
+    target: "_blank",
+    href: "https://flareapp.io/docs/ignition/solutions/ai-powered-solutions"
+  }, "generated by AI"), " and might not be 100% accurate.")))));
 }
 
 function Solutions() {
@@ -15426,29 +16112,29 @@ function Solutions() {
       setCanExecuteSolutions(false);
     }
   }, []);
-  return React__default.createElement(React__default.Fragment, null, showSolutions ? React__default.createElement("aside", {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showSolutions ? /*#__PURE__*/React__default.createElement("aside", {
     id: "solution",
-    className: "flex flex-col lg:w-2/5 flex-none"
-  }, React__default.createElement("div", {
-    className: "flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800"
-  }, React__default.createElement("button", {
+    className: "relative flex flex-col lg:w-2/5 flex-none"
+  }, /*#__PURE__*/React__default.createElement("div", {
+    className: "flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800 rounded-r-lg"
+  }, /*#__PURE__*/React__default.createElement("button", {
     onClick: () => setShowSolutions(false),
     className: "absolute top-3 right-4 leading-none text-emerald-500 hover:text-emerald-700 text-sm"
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faTimes
-  })), solutions.map((solution, index) => React__default.createElement("div", {
+  })), solutions.map((solution, index) => /*#__PURE__*/React__default.createElement("div", {
     key: index
-  }, React__default.createElement(Solution, {
+  }, /*#__PURE__*/React__default.createElement(Solution, {
     solution: solution,
     canExecute: canExecuteSolutions,
     isOpen: index === 0,
     isCollapsible: solutions.length > 1
-  }), index !== solutions.length - 1 && React__default.createElement("hr", {
+  }), index !== solutions.length - 1 && /*#__PURE__*/React__default.createElement("hr", {
     className: "my-4 border-t border-gray-800/20"
-  }))))) : React__default.createElement("button", {
+  }))))) : /*#__PURE__*/React__default.createElement("button", {
     onClick: () => setShowSolutions(true),
-    className: "\n        absolute -top-3 -right-3 z-20\n        w-6 h-6 rounded-full flex items-center justify-center\n        text-xs bg-emerald-500 text-white hover:shadow-lg\n        shadow-md\n        active:shadow-sm active:translate-y-px"
-  }, React__default.createElement(FontAwesomeIcon, {
+    className: " absolute -top-3 -right-3 z-20 w-6 h-6 rounded-full flex items-center justify-center text-xs bg-emerald-500 text-white hover:shadow-lg shadow-md active:shadow-sm active:translate-y-px"
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: faLightbulb
   })));
 }
@@ -15458,9 +16144,9 @@ var faLaravel={prefix:'fab',iconName:'laravel',icon:[512,512,[],"f3bd","M504.4,1
 function ExceptionSelector() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   {
-    return React__default.createElement("span", {
+    return /*#__PURE__*/React__default.createElement("span", {
       className: "py-1 px-4 items-center flex gap-3 rounded-sm ~bg-gray-500/5"
-    }, React__default.createElement(RelaxedFullyQualifiedClassName, {
+    }, /*#__PURE__*/React__default.createElement(RelaxedFullyQualifiedClassName, {
       path: errorOccurrence.exception_class
     }));
   }
@@ -15469,13 +16155,13 @@ function ExceptionSelector() {
 function ErrorBoundaryCard({
   githubLink
 }) {
-  return React__default.createElement("section", {
+  return /*#__PURE__*/React__default.createElement("section", {
     className: "flex flex-col flex-grow px-6 sm:px-10 py-8 bg-red-600 text-red-100 shadow-lg gap-3"
-  }, React__default.createElement("h2", {
+  }, /*#__PURE__*/React__default.createElement("h2", {
     className: "text-xl font-semibold leading-snug"
-  }, "Something went wrong in Ignition!"), React__default.createElement("p", {
+  }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
     className: "text-base"
-  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', React__default.createElement("a", {
+  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
     href: githubLink,
     target: "_blank",
     className: "underline"
@@ -15523,7 +16209,7 @@ ${navigator.userAgent}
 `;
         githubLink = `https://github.com/spatie/ignition/issues/new?title=${title}&labels=bug&body=${encodeURIComponent(body)}`;
       }
-      return ((_this$props$fallbackC = (_this$props = this.props).fallbackComponent) == null ? void 0 : _this$props$fallbackC.call(_this$props, githubLink)) || React__default.createElement(ErrorBoundaryCard, {
+      return ((_this$props$fallbackC = (_this$props = this.props).fallbackComponent) == null ? void 0 : _this$props$fallbackC.call(_this$props, githubLink)) || /*#__PURE__*/React__default.createElement(ErrorBoundaryCard, {
         githubLink: githubLink
       });
     }
@@ -15536,42 +16222,42 @@ function ErrorCard() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const hasSolutions = errorOccurrence.solutions.length > 0;
   const isLaravelError = !!((_errorOccurrence$cont = errorOccurrence.context_items.env) != null && _errorOccurrence$cont.laravel_version);
-  return React__default.createElement(ErrorBoundary, null, React__default.createElement("section", {
+  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("section", {
     className: "lg:flex items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
-  }, React__default.createElement("main", {
+  }, /*#__PURE__*/React__default.createElement("main", {
     id: "exception",
     className: "z-10 flex-grow min-w-0"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "overflow-hidden"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "px-6 sm:px-10 py-8 overflow-x-auto"
-  }, React__default.createElement("header", {
+  }, /*#__PURE__*/React__default.createElement("header", {
     className: "flex items-center justify-between gap-2"
-  }, React__default.createElement(ExceptionSelector, null), React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement(ExceptionSelector, null), /*#__PURE__*/React__default.createElement("div", {
     className: "grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500"
-  }, React__default.createElement("span", null, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement("span", {
     className: "tracking-wider"
-  }, "PHP"), "\u00A0", errorOccurrence.language_version), errorOccurrence.framework_version && React__default.createElement("span", {
+  }, "PHP"), "\xA0", errorOccurrence.language_version), errorOccurrence.framework_version && /*#__PURE__*/React__default.createElement("span", {
     className: "inline-flex items-center gap-1"
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: isLaravelError ? faLaravel : faCodeBranch
-  }), errorOccurrence.framework_version))), React__default.createElement(FormattedExceptionMessage, {
+  }), errorOccurrence.framework_version))), /*#__PURE__*/React__default.createElement(FormattedExceptionMessage, {
     exceptionClass: errorOccurrence.exception_class,
     message: errorOccurrence.exception_message
-  })))), hasSolutions && React__default.createElement(Solutions, null)));
+  })))), hasSolutions && /*#__PURE__*/React__default.createElement(Solutions, null)));
 }
 
 function ErrorBoundarySection({
   className = '',
   githubLink
 }) {
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: `${className} flex flex-col gap-2 bg-red-50 dark:bg-red-500/10 px-6 py-4`
-  }, React__default.createElement("h2", {
+  }, /*#__PURE__*/React__default.createElement("h2", {
     className: "font-semibold leading-snug"
-  }, "Something went wrong in Ignition!"), React__default.createElement("p", {
+  }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
     className: "text-base"
-  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', React__default.createElement("a", {
+  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
     href: githubLink,
     target: "_blank",
     className: "underline"
@@ -15583,17 +16269,17 @@ function ContextGroup({
   children,
   anchor
 }) {
-  return React__default.createElement("section", {
+  return /*#__PURE__*/React__default.createElement("section", {
     className: "py-10 ~bg-white px-6 sm:px-10 min-w-0"
-  }, React__default.createElement("a", {
+  }, /*#__PURE__*/React__default.createElement("a", {
     id: `context-${anchor}`,
     className: "scroll-target"
-  }), React__default.createElement("h2", {
+  }), /*#__PURE__*/React__default.createElement("h2", {
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider"
-  }, title), React__default.createElement("div", {
+  }, title), /*#__PURE__*/React__default.createElement("div", {
     className: "mt-3 grid grid-cols-1 gap-10"
-  }, React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
+  }, /*#__PURE__*/React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink
     })
   }, children)));
@@ -15854,17 +16540,17 @@ function ContextSection({
   anchor
 }) {
   const ref = useSectionInView(title);
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     ref: ref
-  }, React__default.createElement("a", {
+  }, /*#__PURE__*/React__default.createElement("a", {
     id: `context-${anchor}`,
     className: "scroll-target"
-  }), React__default.createElement("h1", {
+  }), /*#__PURE__*/React__default.createElement("h1", {
     className: "mb-2 flex items-center gap-2 font-semibold text-lg ~text-indigo-600"
-  }, title, React__default.createElement("span", {
+  }, title, /*#__PURE__*/React__default.createElement("span", {
     className: "opacity-50 ~text-indigo-600 text-sm"
-  }, icon)), React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
+  }, icon)), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink
     })
   }, children));
@@ -15883,7 +16569,7 @@ function Tag({
     purple: '~text-violet-600 border-violet-600/50',
     gray: '~text-gray-500 border-gray-500/50'
   }[color];
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: `${className} ${tagColors} px-1.5 py-0.5 rounded-sm bg-opacity-20 border text-xs font-medium uppercase tracking-wider`
   }, children);
 }
@@ -15894,15 +16580,15 @@ function Request({
   headers
 }) {
   const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
-  return React__default.createElement("div", null, React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", {
     className: "text-lg font-semibold flex items-center gap-2"
-  }, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", {
     className: "~text-indigo-600"
-  }, request.url), React__default.createElement(Tag, {
+  }, request.url), /*#__PURE__*/React__default.createElement(Tag, {
     color: request.method.toUpperCase() == 'DELETE' ? 'red' : 'blue'
-  }, request.method.toUpperCase())), curl && React__default.createElement("div", {
+  }, request.method.toUpperCase())), curl && /*#__PURE__*/React__default.createElement("div", {
     className: "mt-2"
-  }, React__default.createElement(CodeSnippet, {
+  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: curl,
     language: "curl"
   })));
@@ -15918,7 +16604,7 @@ function DefinitionList(_ref) {
   if (!children) {
     return null;
   }
-  return React__default.createElement("dl", _extends$1({
+  return /*#__PURE__*/React__default.createElement("dl", _extends$1({
     className: `grid grid-cols-1 gap-2 ${className}`
   }, props), children);
 }
@@ -15942,31 +16628,31 @@ function DefinitionListRow({
   if (React__default.isValidElement(value)) {
     valueOutput = value;
   } else if (typeof value === 'boolean') {
-    valueOutput = React__default.createElement("span", {
+    valueOutput = /*#__PURE__*/React__default.createElement("span", {
       className: `${value ? 'text-emerald-500 bg-emerald-500/5' : 'text-red-500 bg-red-800/5'} text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`
-    }, React__default.createElement(FontAwesomeIcon, {
+    }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       className: `${value} ? 'text-emerald-500' : 'text-red-500`,
       icon: value ? faCheck : faTimes
-    }), React__default.createElement("span", {
+    }), /*#__PURE__*/React__default.createElement("span", {
       className: "font-mono"
     }, value ? 'true' : 'false'));
   } else if (typeof value === 'object') {
-    valueOutput = React__default.createElement(CodeSnippet, {
+    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
       value: jsonStringify(value),
       language: "json"
     });
   } else if (typeof value === 'string') {
-    valueOutput = React__default.createElement(CodeSnippet, {
+    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
       value: value
     });
   } else if (typeof value === 'number') {
-    valueOutput = React__default.createElement(CodeSnippet, {
+    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
       value: String(value)
     });
   }
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: `${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`
-  }, React__default.createElement("dt", {
+  }, /*#__PURE__*/React__default.createElement("dt", {
     className: `
                 ${stacked ? 'self-start pt-2 pb-1.5 leading-tight' : expandLabel ? 'flex-grow truncate min-w-[8rem] max-w-max' : 'flex-none truncate w-32'}
             `,
@@ -15976,7 +16662,7 @@ function DefinitionListRow({
     onMouseOut: () => {
       stopExpandLabel();
     }
-  }, label), React__default.createElement("dd", {
+  }, label), /*#__PURE__*/React__default.createElement("dd", {
     className: "flex-grow min-w-0"
   }, valueOutput));
 }
@@ -15984,7 +16670,7 @@ function DefinitionListRow({
 function ContextList({
   items
 }) {
-  return React__default.createElement(DefinitionList, null, Object.entries(items || {}).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
+  return /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(items || {}).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     key: key,
     label: key,
     value: value
@@ -16388,7 +17074,7 @@ function Headers({
 }) {
   let filteredHeaders = omitBy_1(headers, isNil_1);
   filteredHeaders = omitBy_1(filteredHeaders, isEmpty_1);
-  return React__default.createElement(ContextList, {
+  return /*#__PURE__*/React__default.createElement(ContextList, {
     items: filteredHeaders
   });
 }
@@ -16396,7 +17082,7 @@ function Headers({
 function QueryString({
   requestData
 }) {
-  return React__default.createElement(ContextList, {
+  return /*#__PURE__*/React__default.createElement(ContextList, {
     items: requestData.queryString || {}
   });
 }
@@ -16408,7 +17094,7 @@ function Body() {
   if (!body) {
     return null;
   }
-  return React__default.createElement(CodeSnippet, {
+  return /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: jsonStringify(body)
   });
 }
@@ -16420,9 +17106,9 @@ function Files() {
   if (!files) {
     return null;
   }
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "col-span-2"
-  }, React__default.createElement(CodeSnippet, {
+  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: jsonStringify(files)
   }));
 }
@@ -16430,7 +17116,7 @@ function Files() {
 function Session({
   session
 }) {
-  return React__default.createElement(ContextList, {
+  return /*#__PURE__*/React__default.createElement(ContextList, {
     items: session
   });
 }
@@ -16438,7 +17124,7 @@ function Session({
 function Cookies({
   cookies
 }) {
-  return React__default.createElement(ContextList, {
+  return /*#__PURE__*/React__default.createElement(ContextList, {
     items: cookies
   });
 }
@@ -16449,7 +17135,7 @@ function LivewireData() {
   if (!livewire) {
     return null;
   }
-  return React__default.createElement(ContextList, {
+  return /*#__PURE__*/React__default.createElement(ContextList, {
     items: livewire.data
   });
 }
@@ -16460,7 +17146,7 @@ function LivewireComponent() {
   if (!livewire) {
     return null;
   }
-  return React__default.createElement(ContextList, {
+  return /*#__PURE__*/React__default.createElement(ContextList, {
     items: {
       Component: livewire.component_class,
       Alias: livewire.component_alias,
@@ -16475,10 +17161,10 @@ function LivewireUpdates() {
   if (!livewire) {
     return null;
   }
-  return React__default.createElement(DefinitionList, null, livewire.updates.map(({
+  return /*#__PURE__*/React__default.createElement(DefinitionList, null, livewire.updates.map(({
     payload,
     type
-  }, index) => React__default.createElement(DefinitionList.Row, {
+  }, index) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     key: index,
     label: type,
     value: payload
@@ -16492,7 +17178,7 @@ function UnorderedList(_ref) {
       className = ''
     } = _ref,
     props = _objectWithoutPropertiesLoose$2(_ref, _excluded$1);
-  return React__default.createElement(React__default.Fragment, null, children && React__default.createElement("ul", _extends$1({
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children && /*#__PURE__*/React__default.createElement("ul", _extends$1({
     className: `gap-y-2 flex flex-col ${className}`
   }, props), children));
 }
@@ -16504,38 +17190,38 @@ function UnorderedListItem({
   if (React__default.isValidElement(value)) {
     valueOutput = value;
   } else if (typeof value === 'object') {
-    valueOutput = React__default.createElement(CodeSnippet, {
+    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
       value: jsonStringify(value),
       language: "json"
     });
   } else if (typeof value === 'string') {
-    valueOutput = React__default.createElement(CodeSnippet, {
+    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
       value: value
     });
   }
-  return React__default.createElement("li", null, valueOutput);
+  return /*#__PURE__*/React__default.createElement("li", null, valueOutput);
 }
 
 function Routing({
   route
 }) {
   var _route$routeParameter;
-  return React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
+  return /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     value: route.controllerAction,
     label: "Controller"
-  }), route.route && React__default.createElement(DefinitionList.Row, {
+  }), route.route && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     value: route.route,
     label: "Route name"
-  }), !!((_route$routeParameter = route.routeParameters) != null && _route$routeParameter.length) && React__default.createElement(DefinitionList.Row, {
-    value: React__default.createElement(DefinitionList, null, Object.entries(route.routeParameters).map(([key, parameter]) => React__default.createElement(DefinitionList.Row, {
+  }), !!((_route$routeParameter = route.routeParameters) != null && _route$routeParameter.length) && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(route.routeParameters).map(([key, parameter]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
       stacked: true,
       key: key,
       label: key,
       value: parameter
     }))),
     label: "Route parameters"
-  }), route.middleware && React__default.createElement(DefinitionList.Row, {
-    value: React__default.createElement(UnorderedList, null, (route.middleware || []).map((middleware, i) => React__default.createElement(UnorderedList.Item, {
+  }), route.middleware && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React__default.createElement(UnorderedList, null, (route.middleware || []).map((middleware, i) => /*#__PURE__*/React__default.createElement(UnorderedList.Item, {
       key: i,
       value: middleware
     }))),
@@ -16557,7 +17243,7 @@ function SfDump(_ref) {
     // @ts-ignore
     window.Sfdump(match[0]);
   }, [value]);
-  return React__default.createElement("div", _extends$1({
+  return /*#__PURE__*/React__default.createElement("div", _extends$1({
     className: "~bg-gray-500/5 px-4 py-2",
     dangerouslySetInnerHTML: {
       __html: value
@@ -16571,17 +17257,17 @@ function View() {
   if (!view) {
     return null;
   }
-  return React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
-    value: React__default.createElement(EditorLink, {
+  return /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React__default.createElement(EditorLink, {
       path: view.view
     }),
     label: "View"
-  }), view.data && React__default.createElement(DefinitionList.Row, {
-    value: React__default.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => React__default.createElement(DefinitionList.Row, {
+  }), view.data && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+    value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
       stacked: true,
       key: key,
       label: key,
-      value: React__default.createElement(SfDump, {
+      value: /*#__PURE__*/React__default.createElement(SfDump, {
         value: data
       })
     }))),
@@ -16855,19 +17541,19 @@ var md5 = createCommonjsModule(function (module) {
 function User({
   user
 }) {
-  return React__default.createElement(React__default.Fragment, null, user.email && React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, user.email && /*#__PURE__*/React__default.createElement("div", {
     className: "mb-2 flex items-center gap-3"
-  }, React__default.createElement("div", null, React__default.createElement("img", {
+  }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("img", {
     className: "inline-block h-9 w-9 rounded-full",
     alt: user.email,
     src: `https://gravatar.com/avatar/${md5(user.email)}/?s=240`
-  })), React__default.createElement("div", {
+  })), /*#__PURE__*/React__default.createElement("div", {
     className: "leading-tight"
-  }, user.name && React__default.createElement("p", {
+  }, user.name && /*#__PURE__*/React__default.createElement("p", {
     className: "font-semibold"
-  }, user.name), React__default.createElement("p", {
+  }, user.name), /*#__PURE__*/React__default.createElement("p", {
     className: "text-sm"
-  }, user.email))), React__default.createElement(CodeSnippet, {
+  }, user.email))), /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: jsonStringify(user),
     language: "json"
   }));
@@ -16877,17 +17563,17 @@ function Alert({
   children,
   className = ''
 }) {
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: `${className}`
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-center gap-2 bg-yellow-50 dark:bg-yellow-500/10 px-4 py-2"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "flex-shrink-0",
     "aria-hidden": "true"
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     className: "text-yellow-500 ",
     icon: faExclamationTriangle
-  })), React__default.createElement("p", {
+  })), /*#__PURE__*/React__default.createElement("p", {
     className: "text-sm"
   }, children)));
 }
@@ -17803,26 +18489,26 @@ function Git({
   const {
     commitUrl
   } = getGitInfo(git.remote, git.hash);
-  return React__default.createElement(React__default.Fragment, null, git.hash && git.message && React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, git.hash && git.message && /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-center gap-4"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "flex-grow font-semibold"
-  }, git.message), React__default.createElement("div", {
+  }, git.message), /*#__PURE__*/React__default.createElement("div", {
     className: "~bg-gray-500/5 flex items-center"
-  }, React__default.createElement(CodeSnippet, {
+  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
     transparent: true,
     overflowX: false,
     value: git.hash
-  }), commitUrl && React__default.createElement("a", {
+  }), commitUrl && /*#__PURE__*/React__default.createElement("a", {
     href: commitUrl,
     target: "_blank",
     className: "mr-4"
-  }, React__default.createElement(SmallButton, null, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(SmallButton, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     className: "group-hover:text-indigo-500",
     icon: faExternalLinkAlt
-  }), "View commit ", git.hash.substr(0, 7))))), git.isDirty && React__default.createElement("div", null, React__default.createElement(Alert, {
+  }), "View commit ", git.hash.substr(0, 7))))), git.isDirty && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(Alert, {
     className: "mt-4"
-  }, "Last commit is dirty. (Un)staged changes have been made since this commit.")), git.tag && React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
+  }, "Last commit is dirty. (Un)staged changes have been made since this commit.")), git.tag && /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     label: "Latest tag",
     value: git.tag
   })));
@@ -18458,11 +19144,11 @@ function Versions({
   env
 }) {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
-  return React__default.createElement(DefinitionList, null, errorOccurrence.application_version && React__default.createElement(DefinitionList.Row, {
+  return /*#__PURE__*/React__default.createElement(DefinitionList, null, errorOccurrence.application_version && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     key: "app_version",
     value: errorOccurrence.application_version,
     label: "App Version"
-  }), Object.entries(env).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
+  }), Object.entries(env).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     key: key,
     value: value,
     label: startCase_1(key)
@@ -18472,7 +19158,7 @@ function Versions({
 function ContextNav({
   children
 }) {
-  return React__default.createElement("ul", {
+  return /*#__PURE__*/React__default.createElement("ul", {
     className: "grid grid-cols-1 gap-10"
   }, children);
 }
@@ -18482,10 +19168,10 @@ function ContextNavGroup({
   children,
   anchor
 }) {
-  return React__default.createElement("li", null, React__default.createElement("a", {
+  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
     href: `#context-${anchor}`,
     className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
-  }, title), React__default.createElement("ul", {
+  }, title), /*#__PURE__*/React__default.createElement("ul", {
     className: "mt-3 grid grid-cols-1 gap-3"
   }, children));
 }
@@ -18496,16 +19182,16 @@ function ContextNavItem({
   anchor,
   active = false
 }) {
-  return React__default.createElement("li", null, React__default.createElement("a", {
+  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
     href: `#context-${anchor}`,
     className: `
                 flex items-center gap-3
                 group text-base hover:text-indigo-500
                 ${active ? '~text-indigo-600' : ''}
             `
-  }, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", {
     className: "opacity-50"
-  }, icon), React__default.createElement("span", null, title)));
+  }, icon), /*#__PURE__*/React__default.createElement("span", null, title)));
 }
 
 function ContextSections({
@@ -18514,19 +19200,19 @@ function ContextSections({
   const {
     inView
   } = useContext(InViewContext);
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement("nav", {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("nav", {
     className: "hidden sm:block min-w-[8rem] flex-none mr-10 lg:mr-20"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "sticky top-[7.5rem]"
-  }, React__default.createElement(ContextNav, null, Children.map(children, group => React__default.createElement(React__default.Fragment, null, group && React__default.createElement(ContextNavGroup, {
+  }, /*#__PURE__*/React__default.createElement(ContextNav, null, Children.map(children, group => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, group && /*#__PURE__*/React__default.createElement(ContextNavGroup, {
     title: group.props.title,
     anchor: group.props.anchor
-  }, Children.map(group.props.children, section => React__default.createElement(React__default.Fragment, null, section && section.type === ContextSection && React__default.createElement(ContextNavItem, {
+  }, Children.map(group.props.children, section => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, section && section.type === ContextSection && /*#__PURE__*/React__default.createElement(ContextNavItem, {
     icon: section.props.icon,
     active: inView[inView.length - 1] === section.props.title,
     title: section.props.title,
     anchor: section.props.anchor
-  }))))))))), React__default.createElement("div", {
+  }))))))))), /*#__PURE__*/React__default.createElement("div", {
     className: "overflow-hidden grid grid-cols-1 gap-px bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 flex-grow"
   }, children));
 }
@@ -18535,7 +19221,7 @@ function InViewContextProvider({
   children
 }) {
   const [inView, setInView] = useState([]);
-  return React__default.createElement(InViewContext.Provider, {
+  return /*#__PURE__*/React__default.createElement(InViewContext.Provider, {
     value: {
       inView,
       setInView
@@ -18546,7 +19232,7 @@ function InViewContextProvider({
 function LiveWireIcon({
   className = ''
 }) {
-  return React__default.createElement("svg", {
+  return /*#__PURE__*/React__default.createElement("svg", {
     version: "1.1",
     xmlns: "http://www.w3.org/2000/svg",
     x: "0px",
@@ -18554,28 +19240,28 @@ function LiveWireIcon({
     viewBox: "0 0 512 512",
     enableBackground: "new 0 0 512 512",
     className: `${className}`
-  }, React__default.createElement("path", {
+  }, /*#__PURE__*/React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M381.6,334.8c-24.7,0-27.7,33.6-45.2,44.6v52c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-88.6\n        C395,338.1,389.2,334.8,381.6,334.8z"
-  }), React__default.createElement("path", {
+    d: "M381.6,334.8c-24.7,0-27.7,33.6-45.2,44.6v52c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-88.6 C395,338.1,389.2,334.8,381.6,334.8z"
+  }), /*#__PURE__*/React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M263.2,334.8c-25.5,0-27.8,35.8-46.9,45.7v96.2c0,19.5,15.8,35.3,35.3,35.3s35.3-15.8,35.3-35.3V349.1\n        C280.9,341.1,273.9,334.8,263.2,334.8z"
-  }), React__default.createElement("path", {
+    d: "M263.2,334.8c-25.5,0-27.8,35.8-46.9,45.7v96.2c0,19.5,15.8,35.3,35.3,35.3s35.3-15.8,35.3-35.3V349.1 C280.9,341.1,273.9,334.8,263.2,334.8z"
+  }), /*#__PURE__*/React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M144.8,334.8c-22.9,0-27.1,28.9-41.6,41.9l0,38c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-67.9\n        C161.2,339.9,154.5,334.8,144.8,334.8z"
-  }), React__default.createElement("path", {
+    d: "M144.8,334.8c-22.9,0-27.1,28.9-41.6,41.9l0,38c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-67.9 C161.2,339.9,154.5,334.8,144.8,334.8z"
+  }), /*#__PURE__*/React__default.createElement("path", {
     id: "Body-Copy-4",
     fill: "currentcolor",
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M458.9,340.2c-8.3,12.6-14.7,28.2-31.7,28.2\n\t\tc-28.6,0-30.1-44-58.7-44c-28.6,0-27,44-55.6,44c-28.6,0-30.1-44-58.7-44s-27,44-55.6,44s-30.1-44-58.7-44s-27,44-55.6,44\n\t\tc-9,0-15.3-4.4-20.6-10.3c-20.4-35.6-32.2-77.2-32.2-121.8C31.6,105.8,132.4,0,256.7,0s225.1,105.8,225.1,236.2\n\t\tC481.8,273.5,473.6,308.8,458.9,340.2z"
-  }), React__default.createElement("path", {
+    d: "M458.9,340.2c-8.3,12.6-14.7,28.2-31.7,28.2 c-28.6,0-30.1-44-58.7-44c-28.6,0-27,44-55.6,44c-28.6,0-30.1-44-58.7-44s-27,44-55.6,44s-30.1-44-58.7-44s-27,44-55.6,44 c-9,0-15.3-4.4-20.6-10.3c-20.4-35.6-32.2-77.2-32.2-121.8C31.6,105.8,132.4,0,256.7,0s225.1,105.8,225.1,236.2 C481.8,273.5,473.6,308.8,458.9,340.2z"
+  }), /*#__PURE__*/React__default.createElement("path", {
     id: "Oval",
     fillRule: "evenodd",
     clipRule: "evenodd",
     fill: "#FFFFFF",
-    d: "M244.6,295.1c78.3,0,111.2-45.4,111.2-109.9\n\t\tS306.1,61.4,244.6,61.4s-111.2,59.4-111.2,123.9S166.4,295.1,244.6,295.1z"
-  }), React__default.createElement("ellipse", {
+    d: "M244.6,295.1c78.3,0,111.2-45.4,111.2-109.9 S306.1,61.4,244.6,61.4s-111.2,59.4-111.2,123.9S166.4,295.1,244.6,295.1z"
+  }), /*#__PURE__*/React__default.createElement("ellipse", {
     id: "Oval_1_",
     fill: "currentcolor",
     fillRule: "evenodd",
@@ -18584,7 +19270,7 @@ function LiveWireIcon({
     cy: "142.9",
     rx: "41.7",
     ry: "46"
-  }), React__default.createElement("ellipse", {
+  }), /*#__PURE__*/React__default.createElement("ellipse", {
     id: "Oval_2_",
     fillRule: "evenodd",
     clipRule: "evenodd",
@@ -18601,149 +19287,149 @@ function Context() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const context = errorOccurrence.context_items;
   const requestData = context.request_data;
-  return React__default.createElement(ErrorBoundary, null, React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-stretch"
-  }, React__default.createElement(InViewContextProvider, null, React__default.createElement(ContextSections, null, context.request_data && context.request && context.headers && React__default.createElement(ContextGroup, {
+  }, /*#__PURE__*/React__default.createElement(InViewContextProvider, null, /*#__PURE__*/React__default.createElement(ContextSections, null, context.request_data && context.request && context.headers && /*#__PURE__*/React__default.createElement(ContextGroup, {
     title: "Request",
     anchor: "request"
-  }, React__default.createElement(Request, {
+  }, /*#__PURE__*/React__default.createElement(Request, {
     request: context.request,
     requestData: context.request_data,
     headers: context.headers
-  }), React__default.createElement(ContextSection, {
+  }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Headers",
     anchor: "request-headers",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faExchangeAlt
     }),
-    children: React__default.createElement(Headers, {
+    children: /*#__PURE__*/React__default.createElement(Headers, {
       headers: context.headers
     })
-  }), !!Object.values(context.request_data.queryString || []).length && React__default.createElement(ContextSection, {
+  }), !!Object.values(context.request_data.queryString || []).length && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Query String",
     anchor: "request-query-string",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faQuestionCircle
     }),
-    children: React__default.createElement(QueryString, {
+    children: /*#__PURE__*/React__default.createElement(QueryString, {
       requestData: context.request_data
     })
-  }), React__default.createElement(ContextSection, {
+  }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Body",
     anchor: "request-body",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCode
     }),
-    children: React__default.createElement(Body, null)
-  }), !!(requestData != null && (_requestData$files = requestData.files) != null && _requestData$files.length) && React__default.createElement(ContextSection, {
+    children: /*#__PURE__*/React__default.createElement(Body, null)
+  }), !!(requestData != null && (_requestData$files = requestData.files) != null && _requestData$files.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Files",
     anchor: "request-files",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faFile
     }),
-    children: React__default.createElement(Files, null)
-  }), !!((_context$session = context.session) != null && _context$session.length) && React__default.createElement(ContextSection, {
+    children: /*#__PURE__*/React__default.createElement(Files, null)
+  }), !!((_context$session = context.session) != null && _context$session.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Session",
     anchor: "request-session",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faHourglassHalf
     }),
-    children: React__default.createElement(Session, {
+    children: /*#__PURE__*/React__default.createElement(Session, {
       session: context.session
     })
-  }), !!((_context$cookies = context.cookies) != null && _context$cookies.length) && React__default.createElement(ContextSection, {
+  }), !!((_context$cookies = context.cookies) != null && _context$cookies.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Cookies",
     anchor: "request-cookies",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCookieBite
     }),
-    children: React__default.createElement(Cookies, {
+    children: /*#__PURE__*/React__default.createElement(Cookies, {
       cookies: context.cookies
     })
-  })), (context.route || context.view) && React__default.createElement(ContextGroup, {
+  })), (context.route || context.view) && /*#__PURE__*/React__default.createElement(ContextGroup, {
     title: "App",
     anchor: "app"
-  }, context.route && React__default.createElement(ContextSection, {
+  }, context.route && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Routing",
     anchor: "app-routing",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faRandom
     }),
-    children: React__default.createElement(Routing, {
+    children: /*#__PURE__*/React__default.createElement(Routing, {
       route: context.route
     })
-  }), context.view && React__default.createElement(ContextSection, {
+  }), context.view && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Views",
     anchor: "app-views",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faPaintRoller
     }),
-    children: React__default.createElement(View, null)
-  })), context.livewire && React__default.createElement(ContextGroup, {
+    children: /*#__PURE__*/React__default.createElement(View, null)
+  })), context.livewire && /*#__PURE__*/React__default.createElement(ContextGroup, {
     title: "Livewire",
     anchor: "livewire"
-  }, React__default.createElement(ContextSection, {
+  }, /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Component",
     anchor: "livewire-component",
-    icon: React__default.createElement(LiveWireIcon, {
+    icon: /*#__PURE__*/React__default.createElement(LiveWireIcon, {
       className: "svg-inline--fa fa-w-16 fa-fw"
     }),
-    children: React__default.createElement(LivewireComponent, null)
-  }), React__default.createElement(ContextSection, {
+    children: /*#__PURE__*/React__default.createElement(LivewireComponent, null)
+  }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Updates",
     anchor: "livewire-updates",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faSatelliteDish
     }),
-    children: React__default.createElement(LivewireUpdates, null)
-  }), React__default.createElement(ContextSection, {
+    children: /*#__PURE__*/React__default.createElement(LivewireUpdates, null)
+  }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Data",
     anchor: "livewire-data",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faTh
     }),
-    children: React__default.createElement(LivewireData, null)
-  })), React__default.createElement(ContextGroup, {
+    children: /*#__PURE__*/React__default.createElement(LivewireData, null)
+  })), /*#__PURE__*/React__default.createElement(ContextGroup, {
     title: "Context",
     anchor: "context"
-  }, context.user && React__default.createElement(ContextSection, {
+  }, context.user && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "User",
     anchor: "user-user",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faUser
     }),
-    children: React__default.createElement(User, {
+    children: /*#__PURE__*/React__default.createElement(User, {
       user: context.user
     })
-  }), context.git && React__default.createElement(ContextSection, {
+  }), context.git && /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Git",
     anchor: "context-git",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCodeBranch
     }),
-    children: React__default.createElement(Git, {
+    children: /*#__PURE__*/React__default.createElement(Git, {
       git: context.git
     })
-  }), React__default.createElement(ContextSection, {
+  }), /*#__PURE__*/React__default.createElement(ContextSection, {
     title: "Versions",
     anchor: "context-versions",
-    icon: React__default.createElement(FontAwesomeIcon, {
+    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faSlidersH
     }),
-    children: React__default.createElement(Versions, {
+    children: /*#__PURE__*/React__default.createElement(Versions, {
       env: context.env || {}
     })
   }))))));
@@ -18764,13 +19450,13 @@ function DebugTabs({
     };
   }).filter(tab => tab.count);
   const Tab = tabs[currentTabIndex].component;
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "bg-gray-300/50 dark:bg-black/10 shadow-inner rounded-lg"
-  }, React__default.createElement("nav", {
+  }, /*#__PURE__*/React__default.createElement("nav", {
     className: "z-10 flex justify-center items-center"
-  }, React__default.createElement("ul", {
+  }, /*#__PURE__*/React__default.createElement("ul", {
     className: "-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-500 text-white space-x-px"
-  }, tabs.map((tab, i) => React__default.createElement("li", {
+  }, tabs.map((tab, i) => /*#__PURE__*/React__default.createElement("li", {
     key: i,
     className: `
                                     ${i === currentTabIndex ? 'bg-indigo-600' : 'bg-indigo-500 text-indigo-100'}
@@ -18778,19 +19464,19 @@ function DebugTabs({
                                     ${i === tabs.length - 1 ? 'rounded-r-full' : ''}
                                     hover:text-white
                                 `
-  }, React__default.createElement("button", {
+  }, /*#__PURE__*/React__default.createElement("button", {
     onClick: () => setCurrentTabIndex(i),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium "
-  }, React__default.createElement("span", {
+  }, /*#__PURE__*/React__default.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
-  }, tab.count), React__default.createElement("span", null, tab.name)))))), React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
+  }, tab.count), /*#__PURE__*/React__default.createElement("span", null, tab.name)))))), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink,
       className: "pt-10"
     })
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "grid grid-cols-1 gap-10 py-10 px-6 sm:px-10"
-  }, React__default.createElement(Tab, null))));
+  }, /*#__PURE__*/React__default.createElement(Tab, null))));
 }
 DebugTabs.Tab = _props => null;
 
@@ -18814,42 +19500,42 @@ function DebugItem({
     alert: 'red',
     emergency: 'red'
   };
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "min-w-0 grid grid-cols-1 gap-2"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-center gap-1"
-  }, React__default.createElement(Tag, {
+  }, /*#__PURE__*/React__default.createElement(Tag, {
     color: level ? logLevelColors[level] : 'gray',
     className: "font-mono"
-  }, time.toLocaleTimeString()), level && React__default.createElement(Tag, {
+  }, time.toLocaleTimeString()), level && /*#__PURE__*/React__default.createElement(Tag, {
     color: logLevelColors[level]
-  }, level), meta && Object.entries(meta).map(([key, value]) => React__default.createElement(React__default.Fragment, {
+  }, level), meta && Object.entries(meta).map(([key, value]) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
     key: key
-  }, key === 'runtime' && React__default.createElement(Tag, {
+  }, key === 'runtime' && /*#__PURE__*/React__default.createElement(Tag, {
     className: "inline-flex items-center gap-2"
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     title: "Runtime",
     className: "opacity-50",
     icon: faStopwatch
-  }), ' ', value), key === 'connection' && React__default.createElement(Tag, {
+  }), ' ', value), key === 'connection' && /*#__PURE__*/React__default.createElement(Tag, {
     className: "inline-flex items-center gap-2"
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     title: "Connection",
     className: "opacity-50",
     icon: faDatabase
-  }), ' ', value), key !== 'runtime' && key !== 'connection' && React__default.createElement(Tag, null, key, ": ", value))), context && React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
+  }), ' ', value), key !== 'runtime' && key !== 'connection' && /*#__PURE__*/React__default.createElement(Tag, null, key, ": ", value))), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
     className: "ml-auto"
-  }, React__default.createElement(SmallButton, {
+  }, /*#__PURE__*/React__default.createElement(SmallButton, {
     onClick: () => setShowRawContext(!showRawContext)
-  }, React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
     icon: showRawContext ? faListUl : faCode,
     className: "text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  }), showRawContext ? 'As list' : 'Raw')))), React__default.createElement("div", null, children), context && React__default.createElement(React__default.Fragment, null, showRawContext ? React__default.createElement(CodeSnippet, {
+  }), showRawContext ? 'As list' : 'Raw')))), /*#__PURE__*/React__default.createElement("div", null, children), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: jsonStringify(context),
     language: "json"
-  }) : React__default.createElement("div", {
+  }) : /*#__PURE__*/React__default.createElement("div", {
     className: "pl-4"
-  }, React__default.createElement(ContextList, {
+  }, /*#__PURE__*/React__default.createElement(ContextList, {
     items: context
   }))));
 }
@@ -18857,12 +19543,12 @@ function DebugItem({
 function Logs() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const logs = Object.values(errorOccurrence.context_items.logs);
-  return React__default.createElement(React__default.Fragment, null, logs.map((log, index) => React__default.createElement(DebugItem, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, logs.map((log, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
     key: index,
     context: log.context,
     level: log.level,
     time: unixToDate(log.microtime)
-  }, React__default.createElement(CodeSnippet, {
+  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: log.message
   }))));
 }
@@ -18870,16 +19556,16 @@ function Logs() {
 function Dumps() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const dumps = Object.values(errorOccurrence.context_items.dumps);
-  return React__default.createElement(React__default.Fragment, null, dumps.map((dump, index) => React__default.createElement(DebugItem, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, dumps.map((dump, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
     key: index,
     time: unixToDate(dump.microtime)
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "mb-2"
-  }, React__default.createElement(EditorLink, {
+  }, /*#__PURE__*/React__default.createElement(EditorLink, {
     path: dump.file,
     lineNumber: dump.line_number,
     className: "text-sm"
-  })), React__default.createElement(SfDump, {
+  })), /*#__PURE__*/React__default.createElement(SfDump, {
     value: dump.html_dump
   }))));
 }
@@ -18887,14 +19573,14 @@ function Dumps() {
 function Queries() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const queries = Object.values(errorOccurrence.context_items.queries);
-  return React__default.createElement(React__default.Fragment, null, queries.map((query, index) => React__default.createElement(DebugItem, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, queries.map((query, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
     key: index,
     time: unixToDate(query.microtime),
     meta: {
       runtime: `${query.time}ms`,
       connection: query.connection_name
     }
-  }, React__default.createElement(CodeSnippet, {
+  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: query.sql,
     language: "sql"
   }))));
@@ -18903,12 +19589,12 @@ function Queries() {
 function Glows() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const glows = errorOccurrence.glows;
-  return React__default.createElement(React__default.Fragment, null, glows.map((glow, index) => React__default.createElement(DebugItem, {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, glows.map((glow, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
     key: index,
     level: glow.message_level,
     context: glow.meta_data,
     time: unixToDate(glow.microtime)
-  }, React__default.createElement(CodeSnippet, {
+  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
     value: glow.name
   }))));
 }
@@ -18919,19 +19605,19 @@ function Debug() {
   const queries = errorOccurrence.context_items.queries;
   const logs = errorOccurrence.context_items.logs;
   const glows = errorOccurrence.glows;
-  return React__default.createElement(ErrorBoundary, null, React__default.createElement(DebugTabs, null, React__default.createElement(DebugTabs.Tab, {
+  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement(DebugTabs, null, /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
     component: Dumps,
     name: "Dumps",
     count: Object.keys(dumps || []).length
-  }), React__default.createElement(DebugTabs.Tab, {
+  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
     component: Glows,
     name: "Glows",
     count: glows.length
-  }), React__default.createElement(DebugTabs.Tab, {
+  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
     component: Queries,
     name: "Queries",
     count: Object.keys(queries || []).length
-  }), React__default.createElement(DebugTabs.Tab, {
+  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
     component: Logs,
     name: "Logs",
     count: Object.keys(logs || []).length
@@ -18942,31 +19628,31 @@ function InlineCodeSnippet({
   children,
   className = ''
 }) {
-  return React__default.createElement("code", {
+  return /*#__PURE__*/React__default.createElement("code", {
     className: `font-mono leading-relaxed font-normal ~bg-gray-500/5 px-1 py-1 ${className}`
   }, children);
 }
 
 function FlareIcon() {
-  return React__default.createElement("svg", {
+  return /*#__PURE__*/React__default.createElement("svg", {
     viewBox: "0 0 682 1024",
     className: "w-4 h-5 ml-1.5"
-  }, React__default.createElement("polygon", {
+  }, /*#__PURE__*/React__default.createElement("polygon", {
     points: "235.3,510.5 21.5,387 21.5,140.2 236.5,264.1 ",
     style: {
       fill: 'rgb(81, 219, 158)'
     }
-  }), React__default.createElement("polygon", {
+  }), /*#__PURE__*/React__default.createElement("polygon", {
     points: "235.3,1004.8 21.5,881.4 21.5,634.5 234.8,757.9 ",
     style: {
       fill: 'rgb(121, 0, 245)'
     }
-  }), React__default.createElement("polygon", {
+  }), /*#__PURE__*/React__default.createElement("polygon", {
     points: "448.9,386.9 21.5,140.2 235.3,16.7 663.2,263.4 ",
     style: {
       fill: 'rgb(148, 242, 200)'
     }
-  }), React__default.createElement("polygon", {
+  }), /*#__PURE__*/React__default.createElement("polygon", {
     points: "234.8,757.9 21.5,634.5 235.3,511 449.1,634.5 ",
     style: {
       fill: 'rgb(164, 117, 244)'
@@ -18975,31 +19661,31 @@ function FlareIcon() {
 }
 
 function IgnitionIcon() {
-  return React__default.createElement("svg", {
+  return /*#__PURE__*/React__default.createElement("svg", {
     id: "ignition",
     className: "w-8 h-8 -ml-1",
     viewBox: "0 0 500 500"
-  }, React__default.createElement("g", null, React__default.createElement("polygon", {
+  }, /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("polygon", {
     style: {
       fill: 'transparent'
     },
     points: "466.5,375 466.5,125 250,0 33.5,125 33.5,375 250,500 \t"
-  }), React__default.createElement("g", null, React__default.createElement("polygon", {
+  }), /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("polygon", {
     style: {
       fill: '#ff4590'
     },
     points: "314.2,176 314.2,250 250,287 250,212.6 \t\t"
-  }), React__default.createElement("polygon", {
+  }), /*#__PURE__*/React__default.createElement("polygon", {
     style: {
       fill: '#ffd000'
     },
     points: "185.9,398.1 185.9,324.1 250,287 249.9,360.9 \t\t"
-  }), React__default.createElement("polygon", {
+  }), /*#__PURE__*/React__default.createElement("polygon", {
     style: {
       fill: '#de075d'
     },
     points: "250,139.1 250,287 185.9,250 185.8,101.9 \t\t"
-  }), React__default.createElement("polygon", {
+  }), /*#__PURE__*/React__default.createElement("polygon", {
     style: {
       fill: '#e0b800'
     },
