@@ -1,5 +1,5 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     children: React.ReactNode;
 };
 export default function ContextNav({ children }: Props): JSX.Element;

@@ -1,5 +1,5 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     title: string;
     icon: React.ReactNode;
     anchor: string;

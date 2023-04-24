@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { ErrorFrame } from "../../../types";
-type Props = {
+declare type Props = {
     openFrameIndex?: number;
     frames: ErrorFrame[];
 };
