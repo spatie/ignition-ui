@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.2.1 - 2023-05-02
+
+- Add additional margin in AI solution disclaimer
+
 ## 4.2.0 - 2023-04-24
 
 - Add indicator for AI-generated solutions (#10)
