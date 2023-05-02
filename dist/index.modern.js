@@ -24412,7 +24412,8 @@ function SolutionDescription({
           customStyle: {
             margin: '0.5rem 0',
             background: 'rgba(255,255,255,0.75)',
-            padding: '0.25rem 0.5rem'
+            padding: '0.25rem 0.5rem',
+            overflowX: 'scroll'
           }
         })) : /*#__PURE__*/React__default.createElement("code", _extends$1({}, props, {
           className: className,
@@ -24538,7 +24539,7 @@ function Solution({
   }) : /*#__PURE__*/React__default.createElement(SolutionDescription, {
     solution: solution
   }), solution.ai_generated && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("hr", {
-    className: "border-green-700 my-4"
+    className: "border-emerald-500/50 my-4"
   }), /*#__PURE__*/React__default.createElement("div", {
     className: "flex items-center gap-x-2 text-green-700"
   }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {

@@ -54,7 +54,7 @@ export default function Solution({
 
                 {solution.ai_generated && (
                     <>
-                        <hr className="border-green-700 my-4" />
+                        <hr className="border-emerald-500/50 my-4" />
                         <div className="flex items-center gap-x-2 text-green-700">
                             <FontAwesomeIcon fixedWidth icon={faRobot} />
                             <span id="ai-message" className="text-xs">
