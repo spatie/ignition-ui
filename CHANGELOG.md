@@ -2,6 +2,11 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.2.2 - 2023-05-02
+
+- Use scroll overflow for code blocks in solutions
+- Make AI disclaimer more subtle
+
 ## 4.2.1 - 2023-05-02
 
 - Add additional margin in AI solution disclaimer
