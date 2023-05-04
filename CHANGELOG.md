@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.2.4 - 2023-05-04
+
+- Fix typo in regex (non-breaking)
+
 ## 4.2.3 - 2023-05-04
 
 - Fix extracting SQL queries from Laravel 10 exception messages

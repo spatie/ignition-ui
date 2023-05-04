@@ -16797,8 +16797,8 @@ function FormattedExceptionMessage({
   const [cleanedUpMessage, setCleanedUpMessage] = useState(message);
   const [sqlQuery, setSqlQuery] = useState(null);
   useEffect(() => {
-    if (exceptionClass === 'Illuminate\\Database\\QueryException' || message.match(/SQLSTATE\[.*\].*\(SQL: .*\)/)) {
-      const sqlQueryPattern = /*#__PURE__*/_wrapRegExp(/\(SQL: (.*?)\)($| \(View: .*\)$)/, {
+    if (exceptionClass === 'Illuminate\\Database\\QueryException' || message.match(/SQLSTATE\[.*\].*\SQL: .*\)/)) {
+      const sqlQueryPattern = /*#__PURE__*/_wrapRegExp(/\((?:|Connection: .*?, )SQL: (.*?)\)($| \(View: .*\)$)/, {
         query: 1
       });
 
