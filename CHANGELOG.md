@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.2.3 - 2023-05-04
+
+- Fix extracting SQL queries from Laravel 10 exception messages
+
 ## 4.2.2 - 2023-05-02
 
 - Use scroll overflow for code blocks in solutions
