@@ -46,6 +46,10 @@ export type ErrorOccurrence = {
         route: null | RouteContext;
         git: null | GitContext;
     };
+    custom_context_items: Array<{
+        name: string;
+        items: {[key: string]: any};
+    }>
     first_frame_class: string;
     first_frame_method: string;
     glows: Array<ErrorGlow>;
@@ -160,7 +164,7 @@ export type SharePostData = {
 };
 
 export type QueryDebug = {
-    bindings: Array<string>|null;
+    bindings: Array<string> | null;
     microtime: number;
     sql: string;
     time: number;
