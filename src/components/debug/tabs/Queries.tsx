@@ -8,6 +8,13 @@ export default function Queries() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
     const queries = Object.values(errorOccurrence.context_items.queries!);
 
+    function replaceBindings(sql: string, bindings: any[]) {
+        bindings.forEach((binding) => {
+            sql = sql.replace('?', binding);
+        });
+        return sql;
+    }
+
     return (
         <>
             {queries.map((query, index) => (
@@ -19,8 +26,7 @@ export default function Queries() {
                         connection: query.connection_name,
                     }}
                 >
-                    {/* TODO: Bindings */}
-                    <CodeSnippet value={query.sql} language="sql" />
+                    <CodeSnippet value={replaceBindings(query.sql, query.bindings)} language="sql" />
                 </DebugItem>
             ))}
         </>
