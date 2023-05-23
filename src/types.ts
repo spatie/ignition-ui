@@ -160,14 +160,15 @@ export type SharePostData = {
 };
 
 export type QueryDebug = {
-    bindings: Array<{
-        type: 'string' | 'int' | 'float' | 'bool' | 'null';
-        value: string;
-    }>;
+    bindings: Array<string>|null;
     microtime: number;
     sql: string;
     time: number;
     connection_name: string;
+};
+
+export type QueryDebugWithBindings = QueryDebug & {
+    bindings: Array<string>;
 };
 
 export type DumpDebug = {

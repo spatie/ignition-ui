@@ -1,17 +1,56 @@
-import React, { useContext } from 'react';
+import React, {useContext, useState} from 'react';
 import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
-import { unixToDate } from '../../../util';
+import {unixToDate} from '../../../util';
 import CodeSnippet from '../../ui/CodeSnippet';
 import DebugItem from '../DebugItem';
+import {QueryDebug} from "types";
+import DefinitionList from "components/ui/DefinitionList";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import RoundedButton from "components/ui/RoundedButton";
+
+function Bindings({bindings, hidden = false}: { bindings: String[], hidden: boolean }) {
+    const [isHidden, setHidden] = useState(hidden);
+
+    return (
+        <div>
+            <h1 className="mb-2 flex items-center gap-2 font-medium text-lg">
+                Bindings
+                <RoundedButton
+                    onClick={() => setHidden(!isHidden)}
+                >
+                    <FontAwesomeIcon
+                        icon={faAngleDown}
+                        className={`transition-transform duration-300 transform ${isHidden ? '' : 'rotate-180'}`}
+                    />
+                </RoundedButton>
+            </h1>
+            {!isHidden && (
+                <DefinitionList>
+                    {bindings.map((binding, index) => (
+                        <DefinitionList.Row key={index} value={binding} label={index + 1}/>
+                    ))}
+                </DefinitionList>
+            )}
+        </div>
+    )
+}
 
 export default function Queries() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
-    const queries = Object.values(errorOccurrence.context_items.queries!);
+    let queries = Object.values(errorOccurrence.context_items.queries!);
 
-    function replaceBindings(sql: string, bindings: any[]) {
-        bindings.forEach((binding) => {
+    function canReplaceBindings(query: QueryDebug) {
+        return query.bindings !== null && query.sql.split('?').length - 1 === query.bindings.length;
+    }
+
+    function replaceBindings(query: QueryDebug) {
+        let sql = query.sql;
+
+        query.bindings?.forEach((binding) => {
             sql = sql.replace('?', binding);
         });
+
         return sql;
     }
 
@@ -26,7 +65,14 @@ export default function Queries() {
                         connection: query.connection_name,
                     }}
                 >
-                    <CodeSnippet value={replaceBindings(query.sql, query.bindings)} language="sql" />
+                    {query.bindings && query.bindings.length > 0 ? (
+                        <div className="grid gap-4 grid-cols-1">
+                            <CodeSnippet value={canReplaceBindings(query) ? replaceBindings(query) : query.sql} language="sql"/>
+                            <Bindings bindings={query.bindings} hidden={canReplaceBindings(query)}/>
+                        </div>
+                    ) : (
+                        <CodeSnippet value={query.sql} language="sql"/>
+                    )}
                 </DebugItem>
             ))}
         </>
