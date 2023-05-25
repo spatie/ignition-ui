@@ -7,7 +7,7 @@ import ContextSection from './ContextSection';
 import InViewContext from '../../contexts/InViewContext';
 
 type Props = {
-    children: Array<React.ReactElement<ContextGroupProps> | null>;
+    children: Array<React.ReactElement<ContextGroupProps> | null | false>;
 };
 
 export default function ContextSections({ children }: Props) {

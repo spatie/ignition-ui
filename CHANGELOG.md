@@ -2,6 +2,12 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.3.0 - 2023-05-25
+
+- Add support for custom context
+- Add support for exception context
+- Show SQL bindings inline in debug section 
+
 ## 4.2.4 - 2023-05-04
 
 - Fix typo in regex (non-breaking)
