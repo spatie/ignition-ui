@@ -50,7 +50,12 @@ export declare type ErrorOccurrence = {
         user: null | UserContext;
         route: null | RouteContext;
         git: null | GitContext;
+        exception: null | ExceptionContext;
     };
+    custom_context_items: Array<{
+        name: string;
+        items: Record<string, any>;
+    }>;
     first_frame_class: string;
     first_frame_method: string;
     glows: Array<ErrorGlow>;
@@ -60,7 +65,7 @@ export declare type ErrorOccurrence = {
 };
 export declare type HeadersContext = Record<string, string>;
 export declare type SessionContext = Record<string, string>;
-export declare type CookiesContext = Record<string, string | object | boolean>;
+export declare type CookiesContext = Record<string, string | object | boolean | number>;
 export declare type RequestContext = {
     url: string;
     ip: string | null;
@@ -84,6 +89,7 @@ export declare type EnvContext = {
 export declare type UserContext = {
     [key: string]: string | null;
 };
+export declare type ExceptionContext = Record<string, any>;
 export declare type GitContext = {
     hash: string;
     message: string;
@@ -157,14 +163,14 @@ export declare type SharePostData = {
     lineSelection: string;
 };
 export declare type QueryDebug = {
-    bindings: Array<{
-        type: 'string' | 'int' | 'float' | 'bool' | 'null';
-        value: string;
-    }>;
+    bindings: Array<string> | null;
     microtime: number;
     sql: string;
     time: number;
     connection_name: string;
+};
+export declare type QueryDebugWithBindings = QueryDebug & {
+    bindings: Array<string>;
 };
 export declare type DumpDebug = {
     html_dump: string;

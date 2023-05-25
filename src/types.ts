@@ -19,6 +19,7 @@ export type ErrorFrame = {
     application_frame: boolean;
 };
 
+// The ErrorOccurrence Ignition UI needs to render.
 export type ErrorOccurrence = {
     type: 'web' | 'cli' | 'queue' | null;
     entry_point: string;
@@ -45,7 +46,12 @@ export type ErrorOccurrence = {
         user: null | UserContext;
         route: null | RouteContext;
         git: null | GitContext;
+        exception: null | ExceptionContext;
     };
+    custom_context_items: Array<{
+        name: string;
+        items: Record<string, any>;
+    }>
     first_frame_class: string;
     first_frame_method: string;
     glows: Array<ErrorGlow>;
@@ -56,7 +62,7 @@ export type ErrorOccurrence = {
 
 export type HeadersContext = Record<string, string>;
 export type SessionContext = Record<string, string>;
-export type CookiesContext = Record<string, string | object | boolean>;
+export type CookiesContext = Record<string, string | object | boolean | number>;
 
 export type RequestContext = {
     url: string;
@@ -84,6 +90,8 @@ export type EnvContext = {
 export type UserContext = {
     [key: string]: string | null;
 };
+
+export type ExceptionContext = Record<string, any>;
 
 export type GitContext = {
     hash: string;
@@ -160,14 +168,15 @@ export type SharePostData = {
 };
 
 export type QueryDebug = {
-    bindings: Array<{
-        type: 'string' | 'int' | 'float' | 'bool' | 'null';
-        value: string;
-    }>;
+    bindings: Array<string> | null;
     microtime: number;
     sql: string;
     time: number;
     connection_name: string;
+};
+
+export type QueryDebugWithBindings = QueryDebug & {
+    bindings: Array<string>;
 };
 
 export type DumpDebug = {
