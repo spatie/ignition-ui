@@ -10,11 +10,6 @@ All notable changes to `ignition-ui` will be documented in this file.
 
 ## 4.3.0 - 2023-05-23
 
-- ?
-
-
-## 4.3.0 - 2023-05-23
-
 - Add export for HighlightedCode component
 
 ## 4.2.4 - 2023-05-04
