@@ -14,6 +14,7 @@ export { default as Button } from './components/ui/Button';
 export { default as CopyButton } from './components/ui/CopyButton';
 export { default as InlineCodeSnippet } from './components/ui/InlineCodeSnippet';
 export { default as CodeSnippet } from './components/ui/CodeSnippet';
+export { default as HighlightedCode } from './components/ui/HighlightedCode';
 export { default as ErrorBoundary } from './components/ui/ErrorBoundary';
 
 export { default as FlareIcon } from './components/ui/icons/FlareIcon';
