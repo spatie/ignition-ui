@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.4.1 - 2023-05-25
+
+- Include changes from 4.3.0 again
+
 ## 4.4.0 - 2023-05-25
 
 - Add support for custom context
