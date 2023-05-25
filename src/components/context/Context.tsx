@@ -34,11 +34,13 @@ import {
     faTh,
     faSlidersH,
     faAsterisk,
+    faBomb,
 } from '@fortawesome/free-solid-svg-icons';
 import InViewContextProvider from '../../contexts/InViewContextProvider';
 import LiveWireIcon from 'components/ui/icons/LivewireIcon';
 import ErrorBoundary from '../ui/ErrorBoundary';
 import Custom from "components/context/sections/Custom";
+import startCase from 'lodash/startCase';
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -168,20 +170,28 @@ export default function Context() {
                                 icon={<FontAwesomeIcon fixedWidth icon={faSlidersH}/>}
                                 children={<Versions env={context.env || {}}/>}
                             />
+                            {context.exception && (
+                                <ContextSection
+                                    title="Exception"
+                                    anchor="context-exception"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faBomb}/>}
+                                    children={<Custom items={context.exception || {}}/>}
+                                />
+                            )}
                         </ContextGroup>
-                        {errorOccurrence.custom_context_items.length > 0 ? (
-                            <ContextGroup title="Custom context" anchor="custom-context">
+                        {errorOccurrence.custom_context_items?.length > 0 && (
+                            <ContextGroup title="Custom" anchor="custom-context">
                                 {errorOccurrence.custom_context_items.map((group) => (
                                     <ContextSection
                                         key={group.name}
-                                        title={group.name}
+                                        title={startCase(group.name)}
                                         anchor={`custom-context-${group.name}`}
                                         icon={<FontAwesomeIcon fixedWidth icon={faAsterisk}/>}
                                         children={<Custom items={group.items}/>}
                                     />
                                 ))}
                             </ContextGroup>
-                        ) : (<></>)}
+                        )}
                     </ContextSections>
                 </InViewContextProvider>
             </div>
