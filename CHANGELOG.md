@@ -6,7 +6,11 @@ All notable changes to `ignition-ui` will be documented in this file.
 
 - Add support for custom context
 - Add support for exception context
-- Show SQL bindings inline in debug section 
+- Show SQL bindings inline in debug section
+
+## 4.3.0 - 2023-05-23
+
+- ?
 
 
 ## 4.3.0 - 2023-05-23
