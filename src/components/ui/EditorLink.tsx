@@ -9,10 +9,10 @@ type Props = {
 };
 
 export default function EditorLink({ path, lineNumber, className }: Props) {
-    const editorUrl = useEditorUrl({ file: path, lineNumber });
+    const editorUrlData = useEditorUrl({ file: path, lineNumber });
 
     return (
-        <a href={editorUrl || '#'} className={`hover:underline ${className}`}>
+        <a href={editorUrlData.url || '#'} onClick={editorUrlData.onClick} className={`hover:underline ${className}`}>
             <RelaxedFilePath path={path} lineNumber={lineNumber} />
         </a>
     );

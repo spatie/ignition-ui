@@ -1,6 +1,6 @@
 export type IgnitionConfig = {
     editor: string;
-    editorOptions: { [editor: string]: { label: string; url: string } };
+    editorOptions: { [editor: string]: { label: string; url: string, openInBackground: boolean } };
     remoteSitesPath: string;
     localSitesPath: string;
     theme: 'light' | 'dark' | 'auto';

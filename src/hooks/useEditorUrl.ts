@@ -1,6 +1,5 @@
 import {useContext} from 'react';
 import IgnitionConfigContext from '../contexts/IgnitionConfigContext';
-import mapValues from 'lodash/mapValues';
 
 type Props = {
     file: string;
@@ -9,19 +8,38 @@ type Props = {
 
 export default function useEditorUrl({file, lineNumber = 1}: Props) {
     const {ignitionConfig: config} = useContext(IgnitionConfigContext);
-    const editor = config.editor;
+    const selectedEditor = config.editor;
+    const editorConfig = config.editorOptions[selectedEditor];
+    const result = {
+        url: '',
+        onClick: (e) => {}
+    };
 
-    const editors: Record<string, string> = mapValues(config.editorOptions, (e) => e.url);
+    if (!editorConfig) {
+        console.warn(
+            `Ignition editor '${selectedEditor}' is not supported. `
+            + `Supported editors are: ${Object.keys(config.editorOptions).join(', ')}`
+        );
 
-    file = (config.remoteSitesPath || '').length > 0 && (config.localSitesPath || '').length > 0
-        ? file.replace(config.remoteSitesPath, config.localSitesPath)
-        : file;
-
-    if (!Object.keys(editors).includes(editor)) {
-        console.warn(`Editor '${editor}' is not supported. Support editors are: ${Object.keys(editors).join(', ')}`);
-
-        return null;
+        return result;
     }
 
-    return editors[editor].replace('%path', encodeURIComponent(file)).replace('%line', encodeURIComponent(lineNumber));
+    if (config.remoteSitesPath) {
+        file = file.replace(config.remoteSitesPath, config.localSitesPath);
+    }
+
+    if (editorConfig.openInBackground) {
+        result.onClick = (e) => {
+            e.preventDefault();
+            const backgroundRequest = new XMLHttpRequest();
+            backgroundRequest.open("get", e.target.href);
+            backgroundRequest.send();
+        }
+    }
+
+    result.url = editorConfig.url
+        .replace('%path', encodeURIComponent(file))
+        .replace('%line', encodeURIComponent(lineNumber));
+
+    return result;
 }

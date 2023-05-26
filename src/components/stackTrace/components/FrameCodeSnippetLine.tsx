@@ -21,7 +21,7 @@ export default function FrameCodeSnippetLine({
     frame,
     lineNumber
 }: Props) {
-    const editorUrl = useEditorUrl({ file: frame.file, lineNumber });
+    const editorUrlData = useEditorUrl({ file: frame.file, lineNumber });
 
     return (
         <span
@@ -30,9 +30,9 @@ export default function FrameCodeSnippetLine({
                 ${highlight ? ' ~bg-red-500/20' : ''}
             `}
         >
-            {editorUrl && (
+            {editorUrlData.url && (
                 <span className="z-30 opacity-0 group-hover:opacity-100 sticky left-10 w-0 h-full">
-                    <a href={editorUrl} className="-ml-3 block">
+                    <a href={editorUrlData.url} onClick={editorUrlData.onClick} className="-ml-3 block">
                         <RoundedButton>
                             <FontAwesomeIcon className="text-xs" icon={faPencilAlt} />
                         </RoundedButton>
