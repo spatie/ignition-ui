@@ -36,7 +36,7 @@ import {
     faAsterisk,
     faBomb,
     faTerminal,
-    faCirclePlay
+    faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import InViewContextProvider from '../../contexts/InViewContextProvider';
 import LiveWireIcon from 'components/ui/icons/LivewireIcon';
@@ -138,7 +138,7 @@ export default function Context() {
                                     <ContextSection
                                         title="Job"
                                         anchor="context-job"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faCirclePlay}/>}
+                                        icon={<FontAwesomeIcon fixedWidth icon={faLayerGroup}/>}
                                         children={<Custom items={context.job || {}}/>}
                                     />
                                 )}
