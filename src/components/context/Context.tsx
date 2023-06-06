@@ -35,12 +35,15 @@ import {
     faSlidersH,
     faAsterisk,
     faBomb,
+    faTerminal,
+    faCirclePlay
 } from '@fortawesome/free-solid-svg-icons';
 import InViewContextProvider from '../../contexts/InViewContextProvider';
 import LiveWireIcon from 'components/ui/icons/LivewireIcon';
 import ErrorBoundary from '../ui/ErrorBoundary';
 import Custom from "components/context/sections/Custom";
 import startCase from 'lodash/startCase';
+import Command from "components/context/sections/Command";
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -105,7 +108,7 @@ export default function Context() {
                                 )}
                             </ContextGroup>
                         )}
-                        {(context.route || context.view) && (
+                        {(context.route || context.view || context.arguments || context.job) && (
                             <ContextGroup title="App" anchor="app">
                                 {context.route && (
                                     <ContextSection
@@ -121,6 +124,22 @@ export default function Context() {
                                         anchor="app-views"
                                         icon={<FontAwesomeIcon fixedWidth icon={faPaintRoller}/>}
                                         children={<View/>}
+                                    />
+                                )}
+                                {context.arguments && (
+                                    <ContextSection
+                                        title="Command"
+                                        anchor="context-command"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faTerminal}/>}
+                                        children={<Command commandArguments={context.arguments}/>}
+                                    />
+                                )}
+                                {context.job && (
+                                    <ContextSection
+                                        title="Job"
+                                        anchor="context-job"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faCirclePlay}/>}
+                                        children={<Custom items={context.job || {}}/>}
                                     />
                                 )}
                             </ContextGroup>

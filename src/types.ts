@@ -47,6 +47,8 @@ export type ErrorOccurrence = {
         route: null | RouteContext;
         git: null | GitContext;
         exception: null | ExceptionContext;
+        arguments: null |  ArgumentsContext;
+        job: null | JobContext;
     };
     custom_context_items: Array<{
         name: string;
@@ -91,7 +93,11 @@ export type UserContext = {
     [key: string]: string | null;
 };
 
+export type ArgumentsContext = Array<string>;
+
 export type ExceptionContext = Record<string, any>;
+
+export type JobContext = Record<string, any>;
 
 export type GitContext = {
     hash: string;
