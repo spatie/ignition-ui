@@ -1,5 +1,5 @@
-/// <reference types="react" />
+import React from 'react';
 import { RouteContext } from '../../../types';
 export default function Routing({ route }: {
     route: RouteContext;
-}): JSX.Element;
+}): React.JSX.Element;

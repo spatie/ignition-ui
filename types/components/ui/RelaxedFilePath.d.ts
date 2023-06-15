@@ -1,7 +1,7 @@
-/// <reference types="react" />
-declare type Props = {
+import React from 'react';
+type Props = {
     path: string;
     lineNumber?: null | number;
 };
-export default function RelaxedFilePath({ path: fullPath, lineNumber }: Props): JSX.Element;
+export default function RelaxedFilePath({ path: fullPath, lineNumber }: Props): React.JSX.Element;
 export {};

@@ -9,6 +9,15 @@ export type IgnitionConfig = {
     shareEndpoint: string;
 };
 
+export type ErrorFrameArgument = {
+    name: string,
+    value: string | number | boolean | Array<any>,
+    passed_by_reference: boolean,
+    is_variadic: boolean,
+    truncated: boolean,
+    original_type: string,
+}
+
 export type ErrorFrame = {
     class?: string;
     method: string;
@@ -17,6 +26,7 @@ export type ErrorFrame = {
     relative_file: string;
     line_number: number;
     application_frame: boolean;
+    arguments: Array<ErrorFrameArgument>|null;
 };
 
 // The ErrorOccurrence Ignition UI needs to render.

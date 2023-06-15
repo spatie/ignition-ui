@@ -13,6 +13,7 @@ import {ErrorFrame} from "../../../types";
 import findIndex from 'lodash/findIndex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import FrameArguments from "components/stackTrace/components/FrameArguments";
 
 type Props = {
     openFrameIndex?: number;
@@ -111,6 +112,8 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
                         </header>
 
                         <FrameCodeSnippet frame={selectedFrame} />
+
+                        <FrameArguments frame={selectedFrame} />
                     </>
                 )}
             </section>

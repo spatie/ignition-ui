@@ -1,7 +1,7 @@
-/// <reference types="react" />
+import React from 'react';
 import { RequestDataContext } from '../../../types';
-declare type Props = {
+type Props = {
     requestData: RequestDataContext;
 };
-export default function QueryString({ requestData }: Props): JSX.Element;
+export default function QueryString({ requestData }: Props): React.JSX.Element;
 export {};
