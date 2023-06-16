@@ -1,28 +1,28 @@
 import React from 'react';
-import {ErrorFrame} from '../../../types';
-import DefinitionList from "components/ui/DefinitionList";
+import { ErrorFrame } from '../../../types';
+import DefinitionList from 'components/ui/DefinitionList';
 
-type Props = {
-    frame: ErrorFrame;
-};
-
-/* @ts-ignore */
-export default function FrameArguments({frame}: Props) {
-    console.log(frame.arguments);
-
+export default function FrameArguments({ frame }: { frame: ErrorFrame; }) {
     return (
-        <>
-            <div className="p-4">
-                <div className="text-xl mb-2">Arguments</div>
-                <DefinitionList>
-                    {frame.arguments?.map((argument, key) => (
-                        <DefinitionList.Row key={key} label={<div>
-                            <div>{argument.is_variadic && '...'}{argument.passed_by_reference && '&'}{argument.name}</div>
-                            <div className="text-xs">{argument.original_type}{argument.truncated && ' - truncated'}</div>
-                        </div>} value={argument.value} />
-                    ))}
-                </DefinitionList>
-            </div>
-        </>
+        <DefinitionList className="pl-6 pr-4 pb-4 lg:pl-4">
+            {frame.arguments?.map((argument, key) => (
+                <DefinitionList.Row
+                    key={key}
+                    label={
+                        <div className="font-mono">
+                            <span>
+                                <span className="text-sm ~text-gray-700" title="by reference">{argument.is_variadic && '…'}</span>
+                                <span className="text-sm ~text-gray-700">{argument.passed_by_reference && '&'}</span>
+                                <span className="text-sm ~text-gray-700" title="variadic">$</span>
+                                {argument.name}
+                            </span>
+                            <span className="text-xs pl-px">:{argument.original_type}{argument.truncated && ' - truncated'}</span>
+                        </div>
+                    }
+                    value={argument.value}
+
+                />
+            ))}
+        </DefinitionList>
     )
 }

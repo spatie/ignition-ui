@@ -1,7 +1,5 @@
 import React from 'react';
 import { ErrorFrame } from '../../../types';
-type Props = {
+export default function FrameArguments({ frame }: {
     frame: ErrorFrame;
-};
-export default function FrameArguments({ frame }: Props): React.JSX.Element;
-export {};
+}): React.JSX.Element;

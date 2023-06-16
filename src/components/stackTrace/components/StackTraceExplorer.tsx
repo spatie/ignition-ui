@@ -113,10 +113,17 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
 
                         <FrameCodeSnippet frame={selectedFrame} />
 
-                        <FrameArguments frame={selectedFrame} />
                     </>
                 )}
             </section>
+            {selectedFrame?.arguments && selectedFrame.arguments.length > 0 && (
+                <aside className="max-lg:border-t lg:border-l ~border-gray-200">
+                    <header className="text-lg font-semibold ~text-indigo-600 h-16 px-6 lg:px-4 flex items-center">
+                        {selectedFrame.method} arguments
+                    </header>
+                    <FrameArguments frame={selectedFrame} />
+                </aside>
+            )}
         </>
     );
 }

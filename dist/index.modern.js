@@ -15865,23 +15865,29 @@ function DefinitionListRow({
   }, valueOutput));
 }
 
-/* @ts-ignore */
 function FrameArguments({
   frame
 }) {
   var _frame$arguments;
-  console.log(frame.arguments);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
-    className: "p-4"
-  }, /*#__PURE__*/React__default.createElement("div", {
-    className: "text-xl mb-2"
-  }, "Arguments"), /*#__PURE__*/React__default.createElement(DefinitionList, null, (_frame$arguments = frame.arguments) == null ? void 0 : _frame$arguments.map((argument, key) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return /*#__PURE__*/React__default.createElement(DefinitionList, {
+    className: "pl-6 pr-4 pb-4 lg:pl-4"
+  }, (_frame$arguments = frame.arguments) == null ? void 0 : _frame$arguments.map((argument, key) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     key: key,
-    label: /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", null, argument.is_variadic && '...', argument.passed_by_reference && '&', argument.name), /*#__PURE__*/React__default.createElement("div", {
-      className: "text-xs"
-    }, argument.original_type, argument.truncated && ' - truncated')),
+    label: /*#__PURE__*/React__default.createElement("div", {
+      className: "font-mono"
+    }, /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement("span", {
+      className: "text-sm ~text-gray-700",
+      title: "by reference"
+    }, argument.is_variadic && '…'), /*#__PURE__*/React__default.createElement("span", {
+      className: "text-sm ~text-gray-700"
+    }, argument.passed_by_reference && '&'), /*#__PURE__*/React__default.createElement("span", {
+      className: "text-sm ~text-gray-700",
+      title: "variadic"
+    }, "$"), argument.name), /*#__PURE__*/React__default.createElement("span", {
+      className: "text-xs pl-px"
+    }, ":", argument.original_type, argument.truncated && ' - truncated')),
     value: argument.value
-  })))));
+  })));
 }
 
 function StackTraceExplorer({
@@ -15965,9 +15971,13 @@ function StackTraceExplorer({
     className: "flex items-center text-sm"
   })), /*#__PURE__*/React__default.createElement(FrameCodeSnippet, {
     frame: selectedFrame
-  }), /*#__PURE__*/React__default.createElement(FrameArguments, {
+  }))), (selectedFrame == null ? void 0 : selectedFrame.arguments) && selectedFrame.arguments.length > 0 && /*#__PURE__*/React__default.createElement("aside", {
+    className: "max-lg:border-t lg:border-l ~border-gray-200"
+  }, /*#__PURE__*/React__default.createElement("header", {
+    className: "text-lg font-semibold ~text-indigo-600 h-16 px-6 lg:px-4 flex items-center"
+  }, selectedFrame.method, " arguments"), /*#__PURE__*/React__default.createElement(FrameArguments, {
     frame: selectedFrame
-  }))));
+  })));
 }
 
 function StackTrace({
@@ -15977,7 +15987,7 @@ function StackTrace({
     frames
   } = useContext(ErrorOccurrenceContext);
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "grid grid-cols-1 lg:grid-cols-[33.33%,66.66%] lg:grid-rows-[57rem] items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 overflow-hidden"
+    className: "grid grid-cols-1 lg:grid-cols-[1fr_2fr_2fr] lg:grid-rows-[57rem] items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 overflow-hidden"
   }, /*#__PURE__*/React__default.createElement(StackTraceExplorer, {
     frames: frames,
     openFrameIndex: openFrameIndex
@@ -22174,7 +22184,6 @@ let unsupportedValue = undefined;
  * Generate a unique ID for the root element
  * @param root
  */
-
 function getRootId(root) {
   if (!root) return '0';
   if (RootIds.has(root)) return RootIds.get(root);
@@ -22187,7 +22196,6 @@ function getRootId(root) {
  * Ensures we can reuse the same observer when observing elements with the same options.
  * @param options
  */
-
 function optionsToId(options) {
   return Object.keys(options).sort().filter(key => options[key] !== undefined).map(key => {
     return `${key}_${key === 'root' ? getRootId(options.root) : options[key]}`;
@@ -22204,11 +22212,10 @@ function createObserver(options) {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         var _elements$get;
-
         // While it would be nice if you could just look at isIntersecting to determine if the component is inside the viewport, browsers can't agree on how to use it.
         // -Firefox ignores `threshold` when considering `isIntersecting`, so it will never be false again if `threshold` is > 0
-        const inView = entry.isIntersecting && thresholds.some(threshold => entry.intersectionRatio >= threshold); // @ts-ignore support IntersectionObserver v2
-
+        const inView = entry.isIntersecting && thresholds.some(threshold => entry.intersectionRatio >= threshold);
+        // @ts-ignore support IntersectionObserver v2
         if (options.trackVisibility && typeof entry.isVisible === 'undefined') {
           // The browser doesn't support Intersection Observer v2, falling back to v1 behavior.
           // @ts-ignore
@@ -22218,8 +22225,8 @@ function createObserver(options) {
           callback(inView, entry);
         });
       });
-    }, options); // Ensure we have a valid thresholds array. If not, use the threshold from the options
-
+    }, options);
+    // Ensure we have a valid thresholds array. If not, use the threshold from the options
     thresholds = observer.thresholds || (Array.isArray(options.threshold) ? options.threshold : [options.threshold || 0]);
     instance = {
       id,
@@ -22237,7 +22244,6 @@ function createObserver(options) {
  * @param fallbackInView - Fallback inView value.
  * @return Function - Cleanup function that should be triggered to unregister the observer
  */
-
 function observe(element, callback, options = {}, fallbackInView = unsupportedValue) {
   if (typeof window.IntersectionObserver === 'undefined' && fallbackInView !== undefined) {
     const bounds = element.getBoundingClientRect();
@@ -22250,16 +22256,17 @@ function observe(element, callback, options = {}, fallbackInView = unsupportedVa
       intersectionRect: bounds,
       rootBounds: bounds
     });
-    return () => {// Nothing to cleanup
+    return () => {
+      // Nothing to cleanup
     };
-  } // An observer with the same options can be reused, so lets use this fact
-
+  }
+  // An observer with the same options can be reused, so lets use this fact
   const {
     id,
     observer,
     elements
-  } = createObserver(options); // Register the callback listener for this element
-
+  } = createObserver(options);
+  // Register the callback listener for this element
   let callbacks = elements.get(element) || [];
   if (!elements.has(element)) {
     elements.set(element, callbacks);
@@ -22308,7 +22315,6 @@ function observe(element, callback, options = {}, fallbackInView = unsupportedVa
  * };
  * ```
  */
-
 function useInView({
   threshold,
   delay,
@@ -22327,9 +22333,9 @@ function useInView({
   const [state, setState] = React.useState({
     inView: !!initialInView,
     entry: undefined
-  }); // Store the onChange callback in a `ref`, so we can access the latest instance
+  });
+  // Store the onChange callback in a `ref`, so we can access the latest instance
   // inside the `useEffect`, but without triggering a rerender.
-
   callback.current = onChange;
   React.useEffect(() => {
     // Ensure we have node ref, and that we shouldn't skip observing
@@ -22378,8 +22384,8 @@ function useInView({
       entry: undefined
     });
   }
-  const result = [setRef, state.inView, state.entry]; // Support object destructuring, by adding the specific values.
-
+  const result = [setRef, state.inView, state.entry];
+  // Support object destructuring, by adding the specific values.
   result.ref = result[0];
   result.inView = result[1];
   result.entry = result[2];
