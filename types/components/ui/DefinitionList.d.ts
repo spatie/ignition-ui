@@ -15,5 +15,6 @@ type DefinitionListRowProps = {
     label?: string | React.ReactNode;
     className?: string;
     stacked?: boolean;
+    type?: string;
 };
-declare function DefinitionListRow({ value, label, className, stacked }: DefinitionListRowProps): React.JSX.Element;
+declare function DefinitionListRow({ value, label, className, stacked, type }: DefinitionListRowProps): React.JSX.Element;

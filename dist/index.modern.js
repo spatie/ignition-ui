@@ -15811,7 +15811,8 @@ function DefinitionListRow({
   value = '',
   label = '',
   className = '',
-  stacked = false
+  stacked = false,
+  type
 }) {
   let valueOutput = value;
   const [expandLabel, setExpandLabel] = useState(false);
@@ -15834,7 +15835,7 @@ function DefinitionListRow({
     }), /*#__PURE__*/React__default.createElement("span", {
       className: "font-mono"
     }, value ? 'true' : 'false'));
-  } else if (typeof value === 'object') {
+  } else if (type === 'string' || typeof value === 'object') {
     valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
       value: jsonStringify(value),
       language: "json"
@@ -15870,23 +15871,23 @@ function FrameArguments({
 }) {
   var _frame$arguments;
   return /*#__PURE__*/React__default.createElement(DefinitionList, {
-    className: "pl-6 pr-4 pb-4 lg:pl-4"
+    className: "pb-10 px-6 sm:px-10"
   }, (_frame$arguments = frame.arguments) == null ? void 0 : _frame$arguments.map((argument, key) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
     key: key,
     label: /*#__PURE__*/React__default.createElement("div", {
-      className: "font-mono"
-    }, /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement("span", {
-      className: "text-sm ~text-gray-700",
+      className: "font-mono text-sm"
+    }, /*#__PURE__*/React__default.createElement("span", {
+      className: "hljs-function hljs-params hljs-variable"
+    }, /*#__PURE__*/React__default.createElement("span", {
       title: "by reference"
-    }, argument.is_variadic && '…'), /*#__PURE__*/React__default.createElement("span", {
-      className: "text-sm ~text-gray-700"
-    }, argument.passed_by_reference && '&'), /*#__PURE__*/React__default.createElement("span", {
-      className: "text-sm ~text-gray-700",
+    }, argument.is_variadic && '…'), /*#__PURE__*/React__default.createElement("span", null, argument.passed_by_reference && '&'), /*#__PURE__*/React__default.createElement("span", {
       title: "variadic"
     }, "$"), argument.name), /*#__PURE__*/React__default.createElement("span", {
-      className: "text-xs pl-px"
+      className: "text-xs pl-px hljs-function hljs-keyword"
     }, ":", argument.original_type, argument.truncated && ' - truncated')),
-    value: argument.value
+    value: argument.value,
+    type: argument.original_type,
+    stacked: true
   })));
 }
 
@@ -15971,11 +15972,11 @@ function StackTraceExplorer({
     className: "flex items-center text-sm"
   })), /*#__PURE__*/React__default.createElement(FrameCodeSnippet, {
     frame: selectedFrame
-  }))), (selectedFrame == null ? void 0 : selectedFrame.arguments) && selectedFrame.arguments.length > 0 && /*#__PURE__*/React__default.createElement("aside", {
-    className: "max-lg:border-t lg:border-l ~border-gray-200"
+  }))), (selectedFrame == null ? void 0 : selectedFrame.arguments) && selectedFrame.arguments.length > 0 && /*#__PURE__*/React__default.createElement("section", {
+    className: "border-t ~border-gray-200 lg:col-span-2"
   }, /*#__PURE__*/React__default.createElement("header", {
-    className: "text-lg font-semibold ~text-indigo-600 h-16 px-6 lg:px-4 flex items-center"
-  }, selectedFrame.method, " arguments"), /*#__PURE__*/React__default.createElement(FrameArguments, {
+    className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider h-16 px-6 sm:px-10 flex items-center"
+  }, "arguments"), /*#__PURE__*/React__default.createElement(FrameArguments, {
     frame: selectedFrame
   })));
 }
@@ -15987,7 +15988,7 @@ function StackTrace({
     frames
   } = useContext(ErrorOccurrenceContext);
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "grid grid-cols-1 lg:grid-cols-[1fr_2fr_2fr] lg:grid-rows-[57rem] items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 overflow-hidden"
+    className: "grid grid-cols-1 lg:grid-cols-[33.33%_66.66%] lg:grid-rows-[57rem] items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 overflow-hidden"
   }, /*#__PURE__*/React__default.createElement(StackTraceExplorer, {
     frames: frames,
     openFrameIndex: openFrameIndex

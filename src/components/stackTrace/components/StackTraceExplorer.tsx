@@ -1,19 +1,19 @@
-import React,{useMemo,useReducer} from 'react';
-import {getFrameType} from "../helpers";
-import stackReducer from "../reducer";
-import allVendorFramesAreExpanded from "../selectors/allVendorFramesAreExpanded";
-import getFrameGroups from "../selectors/getFrameGroups";
-import getSelectedFrame from "../selectors/getSelectedFrame";
-import useKeyboardShortcut from "../../../hooks/useKeyboardShortcut";
-import SmallButton from "../../ui/SmallButton";
-import FrameGroup from "./FrameGroup";
-import EditorLink from "../../ui/EditorLink";
-import FrameCodeSnippet from "./FrameCodeSnippet";
-import {ErrorFrame} from "../../../types";
+import React, { useMemo, useReducer } from 'react';
+import { getFrameType } from '../helpers';
+import stackReducer from '../reducer';
+import allVendorFramesAreExpanded from '../selectors/allVendorFramesAreExpanded';
+import getFrameGroups from '../selectors/getFrameGroups';
+import getSelectedFrame from '../selectors/getSelectedFrame';
+import useKeyboardShortcut from '../../../hooks/useKeyboardShortcut';
+import SmallButton from '../../ui/SmallButton';
+import FrameGroup from './FrameGroup';
+import EditorLink from '../../ui/EditorLink';
+import FrameCodeSnippet from './FrameCodeSnippet';
+import { ErrorFrame } from '../../../types';
 import findIndex from 'lodash/findIndex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import FrameArguments from "components/stackTrace/components/FrameArguments";
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import FrameArguments from 'components/stackTrace/components/FrameArguments';
 
 type Props = {
     openFrameIndex?: number;
@@ -21,7 +21,6 @@ type Props = {
 };
 
 export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
-
     const initialState = useMemo(() => {
         let selectedFrame = 1;
 
@@ -112,17 +111,16 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
                         </header>
 
                         <FrameCodeSnippet frame={selectedFrame} />
-
                     </>
                 )}
             </section>
             {selectedFrame?.arguments && selectedFrame.arguments.length > 0 && (
-                <aside className="max-lg:border-t lg:border-l ~border-gray-200">
-                    <header className="text-lg font-semibold ~text-indigo-600 h-16 px-6 lg:px-4 flex items-center">
-                        {selectedFrame.method} arguments
+                <section className="border-t ~border-gray-200 lg:col-span-2">
+                    <header className="font-bold text-xs ~text-gray-500 uppercase tracking-wider h-16 px-6 sm:px-10 flex items-center">
+                        arguments
                     </header>
                     <FrameArguments frame={selectedFrame} />
-                </aside>
+                </section>
             )}
         </>
     );
