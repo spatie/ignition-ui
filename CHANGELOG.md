@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.6.0 - 2023-06-28
+
+- Add support for stacktrace arguments
+
 ## 4.5.0 - 2023-06-06
 
 - Add job section
