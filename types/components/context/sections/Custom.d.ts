@@ -1,6 +1,6 @@
-/// <reference types="react" />
+import React from 'react';
 export default function Custom({ items }: {
     items: {
         [key: string]: any;
     };
-}): JSX.Element;
+}): React.JSX.Element;

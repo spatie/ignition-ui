@@ -1,2 +1,2 @@
-/// <reference types="react" />
-export default function LivewireComponent(): JSX.Element | null;
+import React from 'react';
+export default function LivewireComponent(): React.JSX.Element | null;

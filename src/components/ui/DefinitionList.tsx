@@ -31,9 +31,10 @@ type DefinitionListRowProps = {
     label?: string | React.ReactNode;
     className?: string;
     stacked?: boolean;
+    type?: string;
 };
 
-function DefinitionListRow({ value = '', label = '', className = '', stacked = false }: DefinitionListRowProps) {
+function DefinitionListRow({ value = '', label = '', className = '', stacked = false, type }: DefinitionListRowProps) {
     let valueOutput = value;
     const [expandLabel, setExpandLabel] = useState(false);
 
@@ -64,7 +65,7 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
                 <span className="font-mono">{value ? 'true' : 'false'}</span>
             </span>
         );
-    } else if (typeof value === 'object') {
+    } else if (type === 'string' || typeof value === 'object') {
         valueOutput = <CodeSnippet value={jsonStringify(value)} language="json" />;
     } else if (typeof value === 'string') {
         valueOutput = <CodeSnippet value={value} />;

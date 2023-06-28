@@ -1,2 +1,2 @@
-/// <reference types="react" />
-export default function Body(): JSX.Element | null;
+import React from 'react';
+export default function Body(): React.JSX.Element | null;
