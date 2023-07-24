@@ -55,20 +55,22 @@ export default function Context() {
             <div className="flex items-stretch">
                 <InViewContextProvider>
                     <ContextSections>
-                        {context.request_data && context.request && context.headers && (
+                        {context.request && (
                             <ContextGroup title="Request" anchor="request">
                                 <Request
                                     request={context.request}
                                     requestData={context.request_data}
                                     headers={context.headers}
                                 />
-                                <ContextSection
-                                    title="Headers"
-                                    anchor="request-headers"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faExchangeAlt}/>}
-                                    children={<Headers headers={context.headers}/>}
-                                />
-                                {!!Object.values(context.request_data.queryString || []).length && (
+                                {context.headers && (
+                                    <ContextSection
+                                        title="Headers"
+                                        anchor="request-headers"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faExchangeAlt}/>}
+                                        children={<Headers headers={context.headers}/>}
+                                    />
+                                )}
+                                {context.request_data && !!Object.values(context.request_data.queryString || []).length && (
                                     <ContextSection
                                         title="Query String"
                                         anchor="request-query-string"
@@ -183,12 +185,14 @@ export default function Context() {
                                     children={<Git git={context.git}/>}
                                 />
                             )}
-                            <ContextSection
-                                title="Versions"
-                                anchor="context-versions"
-                                icon={<FontAwesomeIcon fixedWidth icon={faSlidersH}/>}
-                                children={<Versions env={context.env || {}}/>}
-                            />
+                            {!!(context.env || errorOccurrence.application_version) && (
+                                <ContextSection
+                                    title="Versions"
+                                    anchor="context-versions"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faSlidersH}/>}
+                                    children={<Versions env={context.env || {}}/>}
+                                />
+                            )}
                             {context.exception && (
                                 <ContextSection
                                     title="Exception"

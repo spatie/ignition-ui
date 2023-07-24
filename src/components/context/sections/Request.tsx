@@ -6,8 +6,8 @@ import { HeadersContext, RequestContext, RequestDataContext } from '../../../typ
 
 type Props = {
     request: RequestContext;
-    requestData: RequestDataContext;
-    headers: HeadersContext;
+    requestData: RequestDataContext|null;
+    headers: HeadersContext|null;
 };
 
 export default function Request({ request, requestData, headers }: Props) {
