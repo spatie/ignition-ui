@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.6.1 - 2023-07-24
+
+- Fix request tab not showing up for JS errors
+
 ## 4.6.0 - 2023-06-28
 
 - Add support for stacktrace arguments
