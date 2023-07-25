@@ -90,7 +90,7 @@ export default function Context() {
                                         children={<QueryString requestData={context.request_data}/>}
                                     />
                                 )}
-                                {!!context.request_data.body && (
+                                {!!context.request_data?.body && (
                                     <ContextSection
                                         title="Body"
                                         anchor="request-body"
