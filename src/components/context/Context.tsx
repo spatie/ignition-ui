@@ -44,6 +44,7 @@ import ErrorBoundary from '../ui/ErrorBoundary';
 import Custom from "components/context/sections/Custom";
 import startCase from 'lodash/startCase';
 import Command from "components/context/sections/Command";
+import Browser from "./sections/Browser";
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -62,6 +63,11 @@ export default function Context() {
                                     requestData={context.request_data}
                                     headers={context.headers}
                                 />
+                                {!!context.request.useragent && (
+                                    <Browser
+                                        request={context.request}
+                                    />
+                                )}
                                 {context.headers && (
                                     <ContextSection
                                         title="Headers"

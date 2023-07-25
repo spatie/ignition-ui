@@ -17,9 +17,11 @@ export default function Request({ request, requestData, headers }: Props) {
         <div>
             <div className="text-lg font-semibold flex items-center gap-2">
                 <span className="~text-indigo-600">{request.url}</span>
-                <Tag color={request.method.toUpperCase() == 'DELETE' ? 'red' : 'blue'}>
-                    {request.method.toUpperCase()}
-                </Tag>
+                {request.method && (
+                    <Tag color={request.method.toUpperCase() == 'DELETE' ? 'red' : 'blue'}>
+                        {request.method.toUpperCase()}
+                    </Tag>
+                )}
             </div>
 
             {curl && (

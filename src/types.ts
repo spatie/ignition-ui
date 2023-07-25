@@ -77,10 +77,15 @@ export type SessionContext = Record<string, string>;
 export type CookiesContext = Record<string, string | object | boolean | number>;
 
 export type RequestContext = {
+    // PHP context
     url: string;
-    ip: string | null;
-    method: string;
-    useragent: string;
+    ip?: string | null;
+    method?: string|null;
+    useragent?: string|null;
+
+    // JS context
+    referrer?: string|null;
+    readyState?: string|null;
 };
 
 export type RequestDataContext = {
