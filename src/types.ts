@@ -11,7 +11,7 @@ export type IgnitionConfig = {
 
 export type ErrorFrameArgument = {
     name: string,
-    value: string | number | boolean | Array<any>,
+    value: string | number | boolean | object | Array<any> | null,
     passed_by_reference: boolean,
     is_variadic: boolean,
     truncated: boolean,
@@ -19,7 +19,7 @@ export type ErrorFrameArgument = {
 }
 
 export type ErrorFrame = {
-    class?: string;
+    class?: string|null;
     method: string;
     code_snippet: { [lineNumber: string]: string };
     file: string;
@@ -72,8 +72,8 @@ export type ErrorOccurrence = {
     frames: Array<ErrorFrame>;
 };
 
-export type HeadersContext = Record<string, string>;
-export type SessionContext = Record<string, string>;
+export type HeadersContext = Record<string, string | number>;
+export type SessionContext = Record<string, string | number>;
 export type CookiesContext = Record<string, string | object | boolean | number>;
 
 export type RequestContext = {
@@ -117,8 +117,8 @@ export type JobContext = Record<string, any>;
 export type GitContext = {
     hash: string;
     message: string;
-    tag: string;
-    remote: string;
+    tag: string|null;
+    remote: string|null;
     isDirty: boolean;
 };
 

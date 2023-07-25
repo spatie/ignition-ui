@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.7.0 - 2023-07-25
+
+- Add browser section displaying the user agent
+
 ## 4.6.1 - 2023-07-24
 
 - Fix request tab not showing up for JS errors

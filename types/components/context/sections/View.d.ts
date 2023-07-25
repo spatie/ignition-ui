@@ -1,2 +1,2 @@
-import React from 'react';
-export default function View(): React.JSX.Element | null;
+/// <reference types="react" />
+export default function View(): JSX.Element | null;

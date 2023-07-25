@@ -1,13 +1,13 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     children: Array<React.ReactElement | false>;
 };
-type Tab = {
+declare type Tab = {
     name: string | React.ReactElement;
     count: number;
     component: React.ComponentType<any>;
 };
-declare function DebugTabs({ children }: Props): React.JSX.Element;
+declare function DebugTabs({ children }: Props): JSX.Element;
 declare namespace DebugTabs {
     var Tab: (_props: Tab) => null;
 }

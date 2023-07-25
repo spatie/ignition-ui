@@ -11,7 +11,7 @@ import SmallButton from 'components/ui/SmallButton';
 
 type GitInfo = { resource: string | null; repoUrl: string | null; commitUrl: string | null };
 
-function getGitInfo(remote?: string, hash?: string): GitInfo {
+function getGitInfo(remote?: string|null, hash?: string): GitInfo {
     if (!remote) {
         return {
             resource: null,

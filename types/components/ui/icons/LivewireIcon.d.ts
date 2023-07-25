@@ -1,6 +1,6 @@
-import React from 'react';
-type Props = {
+/// <reference types="react" />
+declare type Props = {
     className?: string;
 };
-export default function LiveWireIcon({ className }: Props): React.JSX.Element;
+export default function LiveWireIcon({ className }: Props): JSX.Element;
 export {};

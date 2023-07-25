@@ -1,2 +1,2 @@
-import React from 'react';
-export default function FlareIcon(): React.JSX.Element;
+/// <reference types="react" />
+export default function FlareIcon(): JSX.Element;

@@ -36,7 +36,8 @@ import {
     faAsterisk,
     faBomb,
     faTerminal,
-    faLayerGroup
+    faLayerGroup,
+    faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
 import InViewContextProvider from '../../contexts/InViewContextProvider';
 import LiveWireIcon from 'components/ui/icons/LivewireIcon';
@@ -64,8 +65,13 @@ export default function Context() {
                                     headers={context.headers}
                                 />
                                 {!!context.request.useragent && (
-                                    <Browser
-                                        request={context.request}
+                                    <ContextSection
+                                        title="Browser"
+                                        anchor="request-browser"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faWindowMaximize}/>}
+                                        children={<Browser
+                                            request={context.request}
+                                        />}
                                     />
                                 )}
                                 {context.headers && (

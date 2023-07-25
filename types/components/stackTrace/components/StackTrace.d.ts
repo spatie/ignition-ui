@@ -1,6 +1,6 @@
-import React from 'react';
-type Props = {
+/// <reference types="react" />
+declare type Props = {
     openFrameIndex?: number;
 };
-export default function StackTrace({ openFrameIndex }: Props): React.JSX.Element;
+export default function StackTrace({ openFrameIndex }: Props): JSX.Element;
 export {};

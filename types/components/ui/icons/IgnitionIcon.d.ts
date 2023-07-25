@@ -1,2 +1,2 @@
-import React from 'react';
-export default function IgnitionIcon(): React.JSX.Element;
+/// <reference types="react" />
+export default function IgnitionIcon(): JSX.Element;

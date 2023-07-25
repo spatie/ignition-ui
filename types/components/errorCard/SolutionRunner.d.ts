@@ -1,7 +1,7 @@
-import React from 'react';
+/// <reference types="react" />
 import { ErrorSolution } from '../../types';
-type Props = {
+declare type Props = {
     solution: ErrorSolution;
 };
-export default function SolutionRunner({ solution }: Props): React.JSX.Element;
+export default function SolutionRunner({ solution }: Props): JSX.Element;
 export {};
