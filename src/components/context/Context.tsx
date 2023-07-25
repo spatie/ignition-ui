@@ -90,12 +90,14 @@ export default function Context() {
                                         children={<QueryString requestData={context.request_data}/>}
                                     />
                                 )}
-                                <ContextSection
-                                    title="Body"
-                                    anchor="request-body"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faCode}/>}
-                                    children={<Body/>}
-                                />
+                                {!!context.request_data.body && (
+                                    <ContextSection
+                                        title="Body"
+                                        anchor="request-body"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faCode}/>}
+                                        children={<Body/>}
+                                    />
+                                )}
                                 {!!requestData?.files?.length && (
                                     <ContextSection
                                         title="Files"
@@ -180,40 +182,42 @@ export default function Context() {
                                 />
                             </ContextGroup>
                         )}
-                        <ContextGroup title="Context" anchor="context">
-                            {context.user && (
-                                <ContextSection
-                                    title="User"
-                                    anchor="user-user"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faUser}/>}
-                                    children={<User user={context.user}/>}
-                                />
-                            )}
-                            {context.git && (
-                                <ContextSection
-                                    title="Git"
-                                    anchor="context-git"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faCodeBranch}/>}
-                                    children={<Git git={context.git}/>}
-                                />
-                            )}
-                            {!!(context.env || errorOccurrence.application_version) && (
-                                <ContextSection
-                                    title="Versions"
-                                    anchor="context-versions"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faSlidersH}/>}
-                                    children={<Versions env={context.env || {}}/>}
-                                />
-                            )}
-                            {context.exception && (
-                                <ContextSection
-                                    title="Exception"
-                                    anchor="context-exception"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faBomb}/>}
-                                    children={<Custom items={context.exception || {}}/>}
-                                />
-                            )}
-                        </ContextGroup>
+                        {!!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && (
+                            <ContextGroup title="Context" anchor="context">
+                                {context.user && (
+                                    <ContextSection
+                                        title="User"
+                                        anchor="user-user"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faUser}/>}
+                                        children={<User user={context.user}/>}
+                                    />
+                                )}
+                                {context.git && (
+                                    <ContextSection
+                                        title="Git"
+                                        anchor="context-git"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faCodeBranch}/>}
+                                        children={<Git git={context.git}/>}
+                                    />
+                                )}
+                                {!!(context.env || errorOccurrence.application_version) && (
+                                    <ContextSection
+                                        title="Versions"
+                                        anchor="context-versions"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faSlidersH}/>}
+                                        children={<Versions env={context.env || {}}/>}
+                                    />
+                                )}
+                                {context.exception && (
+                                    <ContextSection
+                                        title="Exception"
+                                        anchor="context-exception"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faBomb}/>}
+                                        children={<Custom items={context.exception || {}}/>}
+                                    />
+                                )}
+                            </ContextGroup>
+                        )}
                         {errorOccurrence.custom_context_items?.length > 0 && (
                             <ContextGroup title="Custom" anchor="custom-context">
                                 {errorOccurrence.custom_context_items.map((group) => (
