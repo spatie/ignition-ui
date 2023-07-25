@@ -27236,7 +27236,7 @@ function Browser({
 }
 
 function Context() {
-  var _requestData$files, _context$session, _context$cookies, _errorOccurrence$cust;
+  var _context$request_data, _requestData$files, _context$session, _context$cookies, _errorOccurrence$cust;
 
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const context = errorOccurrence.context_items;
@@ -27280,7 +27280,7 @@ function Context() {
     children: React__default.createElement(QueryString, {
       requestData: context.request_data
     })
-  }), React__default.createElement(ContextSection, {
+  }), !!((_context$request_data = context.request_data) != null && _context$request_data.body) && React__default.createElement(ContextSection, {
     title: "Body",
     anchor: "request-body",
     icon: React__default.createElement(FontAwesomeIcon, {
@@ -27383,7 +27383,7 @@ function Context() {
       icon: faTh
     }),
     children: React__default.createElement(LivewireData, null)
-  })), React__default.createElement(ContextGroup, {
+  })), !!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && React__default.createElement(ContextGroup, {
     title: "Context",
     anchor: "context"
   }, context.user && React__default.createElement(ContextSection, {
