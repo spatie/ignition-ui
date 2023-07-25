@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.7.1 - 2023-07-25
+
+- Only show context section when relevant
+
 ## 4.7.0 - 2023-07-25
 
 - Add browser section displaying the user agent
