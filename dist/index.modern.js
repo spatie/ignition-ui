@@ -17673,11 +17673,13 @@ function StackTrace({
     frames
   } = useContext(ErrorOccurrenceContext);
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "grid grid-cols-1 lg:grid-cols-[33.33%_66.66%] lg:grid-rows-[57rem] items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 overflow-hidden"
+    className: "@container bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
+  }, /*#__PURE__*/React__default.createElement("div", {
+    className: "grid grid-cols-1 @4xl:grid-cols-[33.33%_66.66%] @4xl:grid-rows-[57rem] items-stretch overflow-hidden"
   }, /*#__PURE__*/React__default.createElement(StackTraceExplorer, {
     frames: frames,
     openFrameIndex: openFrameIndex
-  }));
+  })));
 }
 
 function ExceptionMessage({
@@ -24695,7 +24697,7 @@ function Solutions() {
     id: "solution",
     className: "relative flex flex-col lg:w-2/5 flex-none"
   }, /*#__PURE__*/React__default.createElement("div", {
-    className: "flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800 rounded-r-lg"
+    className: "flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800 rounded-bl-lg rounded-br-lg @4xl:rounded-bl-none @4xl:rounded-r-lg"
   }, /*#__PURE__*/React__default.createElement("button", {
     onClick: () => setShowSolutions(false),
     className: "absolute top-3 right-4 leading-none text-emerald-500 hover:text-emerald-700 text-sm"
@@ -24812,14 +24814,16 @@ function ErrorCard() {
   const hasSolutions = errorOccurrence.solutions.length > 0;
   const isLaravelError = !!((_errorOccurrence$cont = errorOccurrence.context_items.env) != null && _errorOccurrence$cont.laravel_version);
   return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("section", {
-    className: "lg:flex items-stretch bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
+    className: "@container | bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
+  }, /*#__PURE__*/React__default.createElement("div", {
+    className: "@4xl:flex items-stretch"
   }, /*#__PURE__*/React__default.createElement("main", {
     id: "exception",
     className: "z-10 flex-grow min-w-0"
   }, /*#__PURE__*/React__default.createElement("div", {
     className: "overflow-hidden"
   }, /*#__PURE__*/React__default.createElement("div", {
-    className: "px-6 sm:px-10 py-8 overflow-x-auto"
+    className: "px-6 @sm:px-10 py-8 overflow-x-auto"
   }, /*#__PURE__*/React__default.createElement("header", {
     className: "flex items-center justify-between gap-2"
   }, /*#__PURE__*/React__default.createElement(ExceptionSelector, null), /*#__PURE__*/React__default.createElement("div", {
@@ -24833,7 +24837,7 @@ function ErrorCard() {
   }), errorOccurrence.framework_version))), /*#__PURE__*/React__default.createElement(FormattedExceptionMessage, {
     exceptionClass: errorOccurrence.exception_class,
     message: errorOccurrence.exception_message
-  })))), hasSolutions && /*#__PURE__*/React__default.createElement(Solutions, null)));
+  })))), hasSolutions && /*#__PURE__*/React__default.createElement(Solutions, null))));
 }
 
 function ErrorBoundarySection({
