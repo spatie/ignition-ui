@@ -1,17 +1,18 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Button from "./Button";
 import Alert from "./Alert";
 
-const meta: Meta<typeof Button> = {
-    title: "Components/Alert",
+const meta: Meta<typeof Alert> = {
+    title: "UI/Alert",
     component: Alert,
+    parameters: { layout: "centered" },
+    args: {
+        children: 'Hello World'
+    },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Alert>;
 
 export const Primary: Story = {
-    args: {},
 };

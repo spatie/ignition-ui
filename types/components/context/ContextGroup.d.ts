@@ -4,4 +4,4 @@ export declare type ContextGroupProps = {
     children: Array<React.ReactElement | null | false>;
     anchor: string;
 };
-export default function ContextGroup({ title, children, anchor }: ContextGroupProps): JSX.Element;
+export default function ContextGroup({ title, children, anchor }: ContextGroupProps): React.JSX.Element;

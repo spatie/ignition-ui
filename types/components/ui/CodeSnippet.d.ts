@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 declare type Props = {
     value: string;
     limitHeight?: boolean;
@@ -6,5 +6,5 @@ declare type Props = {
     transparent?: boolean;
     overflowX?: boolean;
 };
-export default function CodeSnippet({ value, limitHeight, language, transparent, overflowX, }: Props): JSX.Element;
+export default function CodeSnippet({ value, limitHeight, language, transparent, overflowX, }: Props): React.JSX.Element;
 export {};

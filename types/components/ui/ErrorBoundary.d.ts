@@ -11,6 +11,6 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     static getDerivedStateFromError(error: Error): {
         error: Error;
     };
-    render(): React.ReactNode;
+    render(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined;
 }
 export {};

@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { ErrorFrame } from '../../../types';
 export declare type Row = Node[];
 declare type Node = {
@@ -12,5 +12,5 @@ declare type Node = {
 declare type Props = {
     frame: ErrorFrame;
 };
-export default function FrameCodeSnippet({ frame }: Props): JSX.Element;
+export default function FrameCodeSnippet({ frame }: Props): React.JSX.Element;
 export {};

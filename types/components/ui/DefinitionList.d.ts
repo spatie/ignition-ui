@@ -4,7 +4,7 @@ declare type Props = {
     style?: React.CSSProperties;
     children?: React.ReactNode | Array<React.ReactNode>;
 };
-declare function DefinitionList({ children, className, ...props }: Props): JSX.Element | null;
+declare function DefinitionList({ children, className, ...props }: Props): React.JSX.Element | null;
 declare namespace DefinitionList {
     var Row: typeof DefinitionListRow;
 }
@@ -17,4 +17,4 @@ declare type DefinitionListRowProps = {
     stacked?: boolean;
     type?: string;
 };
-declare function DefinitionListRow({ value, label, className, stacked, type }: DefinitionListRowProps): JSX.Element;
+declare function DefinitionListRow({ value, label, className, stacked, type }: DefinitionListRowProps): React.JSX.Element;

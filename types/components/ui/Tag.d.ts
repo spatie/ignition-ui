@@ -4,5 +4,5 @@ declare type Props = {
     className?: string;
     color?: 'red' | 'orange' | 'green' | 'blue' | 'purple' | 'gray' | undefined;
 };
-export default function Tag({ children, className, color }: Props): JSX.Element;
+export default function Tag({ children, className, color }: Props): React.JSX.Element;
 export {};

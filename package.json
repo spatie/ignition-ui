@@ -13,7 +13,9 @@
     "dev": "NODE_ENV=development concurrently -n \"dev,typescript\" -c \",green\" \"microbundle watch -i src/index.ts -o dist/index.js --tsconfig tsconfig.dev.json --jsx React.createElement --jsxFragment React.Fragment -f modern --no-sourcemap --external react,react-dom --define process.env.NODE_ENV='development' --no-compress\" \"yarn typecheck\"",
     "format": "prettier --write 'src/**/*.{css,js,ts,tsx}'",
     "typecheck": "tsc -w --preserveWatchOutput --p tsconfig.json",
-    "prepublishOnly": "yarn bundle"
+    "prepublishOnly": "yarn bundle",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "types": "./types/index.d.ts",
   "dependencies": {
@@ -40,7 +42,17 @@
     "use-prefers-color-scheme": "^1.1.2"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@storybook/addon-essentials": "^7.2.2",
+    "@storybook/addon-interactions": "^7.2.2",
+    "@storybook/addon-links": "^7.2.2",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.2.2",
+    "@storybook/react": "^7.2.2",
+    "@storybook/react-webpack5": "^7.2.2",
+    "@storybook/testing-library": "^0.2.0",
     "@types/lodash": "^4.14.169",
     "@types/md5": "^2.3.0",
     "@types/react-dom": "^17.0.5",
@@ -50,6 +62,7 @@
     "lint-staged": "^11.0.0",
     "microbundle": "^0.14.2",
     "prettier": "^2.5.1",
+    "storybook": "^7.2.2",
     "typescript": "^4.6.3"
   },
   "husky": {
