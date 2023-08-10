@@ -1,16 +1,26 @@
 import { useEffect } from 'react';
 
-export default function useKeyboardShortcut(key: string, callback: (e: KeyboardEvent) => void) {
+type Options = {
+    ignoreWhenActiveElementMatches?: string | null;
+};
+
+export default function useKeyboardShortcut(
+    key: string,
+    callback: (event: KeyboardEvent) => void,
+    { ignoreWhenActiveElementMatches = 'input, select, textarea, [contenteditable=true]' }: Options = {}
+) {
     useEffect(() => {
-        function handleKeyPressed(e: KeyboardEvent) {
-            if (document.activeElement) {
-                if (document.activeElement.tagName === 'INPUT') {
-                    return;
-                }
+        function handleKeyPressed(event: KeyboardEvent) {
+            if (
+                ignoreWhenActiveElementMatches &&
+                document.activeElement &&
+                document.activeElement.matches(ignoreWhenActiveElementMatches)
+            ) {
+                return;
             }
 
-            if (e.key === key) {
-                callback(e);
+            if (event.key === key) {
+                callback(event);
             }
         }
 

@@ -1512,17 +1512,17 @@ function getSelectedFrame(state) {
   return selectedFrame || frames[0] || null;
 }
 
-function useKeyboardShortcut(key, callback) {
+function useKeyboardShortcut(key, callback, {
+  ignoreWhenActiveElementMatches = 'input, select, textarea, [contenteditable=true]'
+} = {}) {
   useEffect(() => {
-    function handleKeyPressed(e) {
-      if (document.activeElement) {
-        if (document.activeElement.tagName === 'INPUT') {
-          return;
-        }
+    function handleKeyPressed(event) {
+      if (ignoreWhenActiveElementMatches && document.activeElement && document.activeElement.matches(ignoreWhenActiveElementMatches)) {
+        return;
       }
 
-      if (e.key === key) {
-        callback(e);
+      if (event.key === key) {
+        callback(event);
       }
     }
 

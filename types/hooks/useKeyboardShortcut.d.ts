@@ -1,1 +1,5 @@
-export default function useKeyboardShortcut(key: string, callback: (e: KeyboardEvent) => void): void;
+declare type Options = {
+    ignoreWhenActiveElementMatches?: string | null;
+};
+export default function useKeyboardShortcut(key: string, callback: (event: KeyboardEvent) => void, { ignoreWhenActiveElementMatches }?: Options): void;
+export {};
