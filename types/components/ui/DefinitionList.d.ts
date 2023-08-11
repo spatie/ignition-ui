@@ -16,5 +16,6 @@ declare type DefinitionListRowProps = {
     className?: string;
     stacked?: boolean;
     type?: string;
+    small?: boolean;
 };
-declare function DefinitionListRow({ value, label, className, stacked, type }: DefinitionListRowProps): JSX.Element;
+declare function DefinitionListRow({ value, label, className, stacked, type, small }: DefinitionListRowProps): JSX.Element;

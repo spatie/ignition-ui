@@ -32,9 +32,10 @@ type DefinitionListRowProps = {
     className?: string;
     stacked?: boolean;
     type?: string;
+    small?: boolean;
 };
 
-function DefinitionListRow({ value = '', label = '', className = '', stacked = false, type }: DefinitionListRowProps) {
+function DefinitionListRow({ value = '', label = '', className = '', stacked = false, type, small = false }: DefinitionListRowProps) {
     let valueOutput = value;
     const [expandLabel, setExpandLabel] = useState(false);
 
@@ -73,16 +74,21 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
         valueOutput = <CodeSnippet value={String(value)} />;
     }
 
+    const expandedLabelClass = 'flex-grow truncate min-w-[8rem] max-w-max';
+    const expandedSmallLabelClass = 'flex-grow truncate min-w-[2rem] max-w-max';
+    const normalLabelClass = 'flex-none truncate w-[8rem]';
+    const normalSmallLabelClass = 'flex-none truncate w-[2rem]';
+
     return (
-        <div className={`${stacked ? 'flex flex-col' : 'flex items-baseline gap-10'}  ${className}`}>
+        <div className={`${stacked ? 'flex flex-col' : `flex items-baseline ${small ? 'gap-3' : 'gap-10'}`}  ${className}`}>
             <dt
                 className={`
                 ${
                     stacked
                         ? 'self-start pt-2 pb-1.5 leading-tight'
                         : expandLabel
-                        ? 'flex-grow truncate min-w-[8rem] max-w-max'
-                        : 'flex-none truncate w-32'
+                            ? (small ? expandedSmallLabelClass : expandedLabelClass)
+                            : (small ? normalSmallLabelClass : normalLabelClass)
                 }
             `}
                 onMouseOver={() => {

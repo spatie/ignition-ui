@@ -6,29 +6,28 @@ import DebugItem from '../DebugItem';
 import {QueryDebug} from "types";
 import DefinitionList from "components/ui/DefinitionList";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
-import RoundedButton from "components/ui/RoundedButton";
+import {faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
 function Bindings({bindings, hidden = false}: { bindings: String[], hidden: boolean }) {
     const [isHidden, setHidden] = useState(hidden);
 
     return (
         <div>
-            <h1 className="mb-2 flex items-center gap-2 font-medium text-lg">
-                Bindings
-                <RoundedButton
-                    onClick={() => setHidden(!isHidden)}
-                >
-                    <FontAwesomeIcon
-                        icon={faAngleDown}
-                        className={`transition-transform duration-300 transform ${isHidden ? '' : 'rotate-180'}`}
-                    />
-                </RoundedButton>
-            </h1>
+            <button
+                type="button"
+                className="font-bold text-xs ~text-gray-500 uppercase tracking-wider flex flex-row items-center gap-2 mb-2"
+                onClick={() => setHidden(!isHidden)}
+            >
+                <FontAwesomeIcon
+                    icon={faAngleRight}
+                    className={`transition-transform duration-300 transform ${isHidden ? '' : 'rotate-90'}`}
+                />
+                {bindings.length} query {bindings.length > 1 ? 'parameters' : 'parameter'}
+            </button>
             {!isHidden && (
-                <DefinitionList>
+                <DefinitionList className="ml-4">
                     {bindings.map((binding, index) => (
-                        <DefinitionList.Row key={index} value={binding} label={index + 1}/>
+                        <DefinitionList.Row small key={index} value={binding} label={<code className="text-sm text-gray-500">{index+1}</code>}/>
                     ))}
                 </DefinitionList>
             )}
@@ -67,7 +66,8 @@ export default function Queries() {
                 >
                     {query.bindings && query.bindings.length > 0 ? (
                         <div className="grid gap-4 grid-cols-1">
-                            <CodeSnippet value={canReplaceBindings(query) ? replaceBindings(query) : query.sql} language="sql"/>
+                            <CodeSnippet value={canReplaceBindings(query) ? replaceBindings(query) : query.sql}
+                                         language="sql"/>
                             <Bindings bindings={query.bindings} hidden={canReplaceBindings(query)}/>
                         </div>
                     ) : (
