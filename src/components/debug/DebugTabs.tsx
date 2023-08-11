@@ -4,6 +4,7 @@ import ErrorBoundarySection from "../ui/ErrorBoundarySection";
 
 type Props = {
     children: Array<React.ReactElement | false>;
+    className?: string;
 };
 
 type Tab = {
@@ -12,7 +13,7 @@ type Tab = {
     component: React.ComponentType<any>;
 };
 
-export default function DebugTabs({ children }: Props) {
+export default function DebugTabs({ children, className }: Props) {
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
     const validChildren = children.filter((child) => child !== false) as Array<React.ReactElement>;
@@ -30,7 +31,7 @@ export default function DebugTabs({ children }: Props) {
     const Tab = tabs[currentTabIndex].component;
 
     return (
-        <div className="bg-gray-300/50 dark:bg-black/10 shadow-inner rounded-lg">
+        <div className={`${className} | bg-gray-300/50 dark:bg-black/10 shadow-inner rounded-lg`}>
             <nav className="z-10 flex justify-center items-center">
                 <ul className="-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-500 text-white space-x-px">
                     {tabs.map((tab, i) => (
@@ -58,7 +59,7 @@ export default function DebugTabs({ children }: Props) {
             </nav>
 
             <ErrorBoundary fallbackComponent={(githubLink) =>  <ErrorBoundarySection githubLink={githubLink} className="pt-10"/>}>
-                <div className="grid grid-cols-1 gap-10 py-10 px-6 sm:px-10">
+                <div className="grid grid-cols-1 gap-10 py-10 px-6 @lg:px-10">
                     <Tab/>
                 </div>
             </ErrorBoundary>

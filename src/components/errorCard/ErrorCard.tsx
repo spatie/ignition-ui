@@ -21,7 +21,7 @@ export default function ErrorCard() {
                 <div className="@4xl:flex items-stretch">
                     <main id="exception" className="z-10 flex-grow min-w-0">
                         <div className="overflow-hidden">
-                            <div className="px-6 @sm:px-10 py-8 overflow-x-auto">
+                            <div className="px-6 @lg:px-10 py-8 overflow-x-auto">
                                 <header className="flex items-center justify-between gap-2">
                                     <ExceptionSelector />
 

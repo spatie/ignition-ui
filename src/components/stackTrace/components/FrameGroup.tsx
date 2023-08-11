@@ -15,7 +15,7 @@ export default function FrameGroup({ frameGroup, onExpand, onSelect }: Props) {
     if (frameGroup.type === 'vendor' && !frameGroup.expanded) {
         return (
             <li
-                className="group cursor-pointer px-6 sm:px-10 py-4 flex gap-2 lg:justify-start border-b ~border-gray-200 hover:~bg-gray-500/5 items-center"
+                className="group cursor-pointer px-6 @lg:px-10 py-4 flex gap-2 border-b ~border-gray-200 hover:~bg-gray-500/5 items-center"
                 onClick={onExpand}
             >
                 {frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame'}

@@ -54,8 +54,8 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
     return (
         <>
             <aside className="z-30 flex flex-col border-r ~border-gray-200 relative">
-                <div className="max-h-[33vh] lg:max-h-[none] lg:absolute inset-0 flex flex-col overflow-hidden ~bg-white">
-                    <header className="flex-none px-6 sm:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
+                <div className="max-h-[33vh] @4xl:max-h-[none] @4xl:absolute inset-0 flex flex-col overflow-hidden ~bg-white rounded-t-lg">
+                    <header className="flex-none px-6 @lg:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200">
                         <SmallButton
                             onClick={() =>
                                 dispatch({
@@ -99,10 +99,10 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
                     </div>
                 </div>
             </aside>
-            <section className="flex flex-col border-t lg:border-t-0 ~border-gray-200 relative">
+            <section className="flex flex-col border-t @4xl:border-t-0 ~border-gray-200 relative">
                 {selectedFrame && (
                     <>
-                        <header className="~text-gray-500 flex-none z-30 h-16 px-6 sm:px-10 flex items-center justify-end">
+                        <header className="~text-gray-500 flex-none z-30 h-16 px-6 @lg:px-10 flex items-center justify-end">
                             <EditorLink
                                 path={selectedFrame.file}
                                 lineNumber={selectedFrame.line_number}
@@ -115,8 +115,8 @@ export default function StackTraceExplorer({ frames, openFrameIndex }: Props) {
                 )}
             </section>
             {selectedFrame?.arguments && selectedFrame.arguments.length > 0 && (
-                <section className="border-t ~border-gray-200 lg:col-span-2">
-                    <header className="font-bold text-xs ~text-gray-500 uppercase tracking-wider h-16 px-6 sm:px-10 flex items-center">
+                <section className="border-t ~border-gray-200 @4xl:col-span-2">
+                    <header className="font-bold text-xs ~text-gray-500 uppercase tracking-wider h-16 px-6 @lg:px-10 flex items-center">
                         arguments
                     </header>
                     <FrameArguments frame={selectedFrame} />

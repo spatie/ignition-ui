@@ -15,7 +15,7 @@ export default function ContextSections({ children }: Props) {
 
     return (
         <>
-            <nav className="hidden sm:block min-w-[8rem] flex-none mr-10 lg:mr-20">
+            <nav className="hidden @2xl:block min-w-[8rem] flex-none mr-10 @4xl:mr-20">
                 <div className="sticky top-[7.5rem]">
                     <ContextNav>
                         {Children.map(children, (group) => (
