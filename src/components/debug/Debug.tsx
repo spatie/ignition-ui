@@ -17,7 +17,7 @@ export default function Debug() {
 
     return (
         <ErrorBoundary>
-            <DebugTabs>
+            <DebugTabs className="@container">
                 <DebugTabs.Tab component={Dumps} name="Dumps" count={Object.keys(dumps || []).length} />
                 <DebugTabs.Tab component={Glows} name="Glows" count={glows.length} />
                 <DebugTabs.Tab component={Queries} name="Queries" count={Object.keys(queries || []).length} />

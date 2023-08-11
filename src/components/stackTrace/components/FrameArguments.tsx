@@ -4,7 +4,7 @@ import DefinitionList from 'components/ui/DefinitionList';
 
 export default function FrameArguments({ frame }: { frame: ErrorFrame }) {
     return (
-        <DefinitionList className="pb-10 px-6 sm:px-10">
+        <DefinitionList className="pb-10 px-6 @lg:px-10">
             {frame.arguments?.map((argument, key) => (
                 <DefinitionList.Row
                     key={key}

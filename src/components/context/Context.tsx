@@ -54,7 +54,7 @@ export default function Context() {
 
     return (
         <ErrorBoundary>
-            <div className="flex items-stretch">
+            <div className="@container flex items-stretch">
                 <InViewContextProvider>
                     <ContextSections>
                         {context.request && (
