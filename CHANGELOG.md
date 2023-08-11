@@ -2,8 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
-## 4.7.2 - 2023-08-10
+## 4.8.0 - 2023-08-11
 
+- Use container queries for responsive components
+- Tweak SQL parameter bindings in the query debug tab
 - Fix: don't listen to keypress events when typing in input fields or textareas
 
 ## 4.7.1 - 2023-07-25
