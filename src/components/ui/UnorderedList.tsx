@@ -8,7 +8,7 @@ type Props = {
     children?: React.ReactNode | React.ReactNodeArray;
 };
 
-export default function UnorderedList({ children, className = '', ...props }: Props) {
+function UnorderedList({ children, className = '', ...props }: Props) {
     return (
         <>
             {children && (
@@ -41,3 +41,5 @@ function UnorderedListItem({ value = '' }: UnorderedListItemProps) {
 
     return <li>{valueOutput as React.ReactNode}</li>;
 }
+
+export default UnorderedList;

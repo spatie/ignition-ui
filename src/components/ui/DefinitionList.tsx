@@ -10,7 +10,7 @@ type Props = {
     children?: React.ReactNode | Array<React.ReactNode>;
 };
 
-export default function DefinitionList({ children, className = '', ...props }: Props) {
+function DefinitionList({ children, className = '', ...props }: Props) {
     if (!children) {
         return null;
     }
@@ -98,3 +98,5 @@ function DefinitionListRow({ value = '', label = '', className = '', stacked = f
         </div>
     );
 }
+
+export default DefinitionList;
