@@ -1,2 +1,2 @@
-/// <reference types="react" />
-export default function Solutions(): JSX.Element;
+import React from 'react';
+export default function Solutions(): React.JSX.Element;

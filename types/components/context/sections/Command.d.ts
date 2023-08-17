@@ -1,7 +1,7 @@
-/// <reference types="react" />
+import React from 'react';
 import { ArgumentsContext } from "types";
-declare type Props = {
+type Props = {
     commandArguments: ArgumentsContext;
 };
-export default function Command({ commandArguments }: Props): JSX.Element;
+export default function Command({ commandArguments }: Props): React.JSX.Element;
 export {};

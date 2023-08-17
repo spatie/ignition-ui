@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import urlSlug from 'url-slug';
 import ContextGroup from './ContextGroup';
 import ContextSection from './ContextSection';
 import Request from './sections/Request';
@@ -224,7 +225,7 @@ export default function Context() {
                                     <ContextSection
                                         key={group.name}
                                         title={startCase(group.name)}
-                                        anchor={`custom-context-${group.name}`}
+                                        anchor={`custom-context-${urlSlug(group.name)}`}
                                         icon={<FontAwesomeIcon fixedWidth icon={faAsterisk}/>}
                                         children={<Custom items={group.items}/>}
                                     />

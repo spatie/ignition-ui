@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.8.1 - 2023-08-17
+
+- Fix: Navigation for custom contexts not working when context name has whitespaces.
+
 ## 4.8.0 - 2023-08-11
 
 - Use container queries for responsive components
