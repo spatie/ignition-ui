@@ -9,7 +9,7 @@ type Props = {
 export default function ContextNavGroup({ title, children, anchor }: Props) {
     return (
         <li>
-            <a href={`#context-${anchor}`} className="uppercase tracking-wider ~text-gray-500 text-xs font-bold">
+            <a href={`#context-${anchor}`} className="uppercase tracking-wider ~text-gray-500 text-xs font-bold" target="_self">
                 {title}
             </a>
             <ul className="mt-3 grid grid-cols-1 gap-3">
