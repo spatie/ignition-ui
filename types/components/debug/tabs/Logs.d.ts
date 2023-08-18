@@ -1,2 +1,2 @@
-import React from 'react';
-export default function Logs(): React.JSX.Element;
+/// <reference types="react" />
+export default function Logs(): JSX.Element;

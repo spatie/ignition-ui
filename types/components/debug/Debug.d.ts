@@ -1,2 +1,2 @@
-import React from 'react';
-export default function Debug(): React.JSX.Element;
+/// <reference types="react" />
+export default function Debug(): JSX.Element;

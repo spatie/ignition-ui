@@ -1,16 +1,16 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode | Array<React.ReactNode>;
 };
-declare function DefinitionList({ children, className, ...props }: Props): React.JSX.Element | null;
+declare function DefinitionList({ children, className, ...props }: Props): JSX.Element | null;
 declare namespace DefinitionList {
     var Row: typeof DefinitionListRow;
 }
 export default DefinitionList;
-type Value = string | React.ReactNode | Array<any> | Object | boolean | number;
-type DefinitionListRowProps = {
+declare type Value = string | React.ReactNode | Array<any> | Object | boolean | number;
+declare type DefinitionListRowProps = {
     value?: Value;
     label?: string | React.ReactNode;
     className?: string;
@@ -18,4 +18,4 @@ type DefinitionListRowProps = {
     type?: string;
     small?: boolean;
 };
-declare function DefinitionListRow({ value, label, className, stacked, type, small }: DefinitionListRowProps): React.JSX.Element;
+declare function DefinitionListRow({ value, label, className, stacked, type, small }: DefinitionListRowProps): JSX.Element;

@@ -1,2 +1,2 @@
-import React from 'react';
-export default function Context(): React.JSX.Element;
+/// <reference types="react" />
+export default function Context(): JSX.Element;

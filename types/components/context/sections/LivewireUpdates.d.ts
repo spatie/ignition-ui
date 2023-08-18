@@ -1,2 +1,2 @@
-import React from 'react';
-export default function LivewireUpdates(): React.JSX.Element | null;
+/// <reference types="react" />
+export default function LivewireUpdates(): JSX.Element | null;

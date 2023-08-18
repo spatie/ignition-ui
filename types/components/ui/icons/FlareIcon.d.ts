@@ -1,4 +1,4 @@
-import React from 'react';
+/// <reference types="react" />
 export default function FlareIcon({ className }: {
     className?: string | undefined;
-}): React.JSX.Element;
+}): JSX.Element;

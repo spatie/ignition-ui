@@ -1,9 +1,9 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     children: React.ReactNode;
     fallbackComponent?: (githubLink: string) => React.ReactNode;
 };
-type State = {
+declare type State = {
     error: null | Error;
 };
 export default class ErrorBoundary extends React.Component<Props, State> {
@@ -11,6 +11,6 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     static getDerivedStateFromError(error: Error): {
         error: Error;
     };
-    render(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined;
+    render(): React.ReactNode;
 }
 export {};

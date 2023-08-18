@@ -1,7 +1,7 @@
-import React from 'react';
+/// <reference types="react" />
 import { HeadersContext } from '../../../types';
-type Props = {
+declare type Props = {
     headers: HeadersContext;
 };
-export default function Headers({ headers }: Props): React.JSX.Element;
+export default function Headers({ headers }: Props): JSX.Element;
 export {};

@@ -1,7 +1,7 @@
-import React from 'react';
+/// <reference types="react" />
 import { GitContext } from '../../../types';
-type Props = {
+declare type Props = {
     git: GitContext;
 };
-export default function Git({ git }: Props): React.JSX.Element;
+export default function Git({ git }: Props): JSX.Element;
 export {};

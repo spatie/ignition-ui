@@ -1,5 +1,5 @@
-import React from 'react';
+/// <reference types="react" />
 import { UserContext } from '../../../types';
 export default function User({ user }: {
     user: UserContext;
-}): React.JSX.Element;
+}): JSX.Element;

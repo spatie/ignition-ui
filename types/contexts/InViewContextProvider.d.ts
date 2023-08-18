@@ -1,6 +1,6 @@
 import React from 'react';
-type Props = {
+declare type Props = {
     children: React.ReactNode;
 };
-export default function InViewContextProvider({ children }: Props): React.JSX.Element;
+export default function InViewContextProvider({ children }: Props): JSX.Element;
 export {};

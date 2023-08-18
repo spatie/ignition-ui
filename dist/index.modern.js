@@ -66,20 +66,20 @@ var a = () => {
     }
   }, []), s;
 },
-    d$1 = a;
+    d$2 = a;
 
 function IgnitionConfigContextProvider({
   children,
   ignitionConfig: initialIgnitionConfig
 }) {
   const [ignitionConfig, setIgnitionConfig] = useState(initialIgnitionConfig);
-  const scheme = d$1();
+  const scheme = d$2();
   const theme = ignitionConfig.theme === 'auto' ? scheme !== 'no-preference' ? scheme : 'light' : ignitionConfig.theme;
   useEffect(() => {
     document.documentElement.classList.remove('light', 'dark', 'auto');
     document.documentElement.classList.add(theme);
   }, [theme]);
-  return /*#__PURE__*/React__default.createElement(IgnitionConfigContext.Provider, {
+  return React__default.createElement(IgnitionConfigContext.Provider, {
     value: {
       ignitionConfig,
       setIgnitionConfig,
@@ -246,7 +246,7 @@ var _Symbol = Symbol$1;
 var objectProto$e = Object.prototype;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$c = objectProto$e.hasOwnProperty;
+var hasOwnProperty$b = objectProto$e.hasOwnProperty;
 /**
  * Used to resolve the
  * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
@@ -266,7 +266,7 @@ var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
  */
 
 function getRawTag(value) {
-  var isOwn = hasOwnProperty$c.call(value, symToStringTag$1),
+  var isOwn = hasOwnProperty$b.call(value, symToStringTag$1),
       tag = value[symToStringTag$1];
 
   try {
@@ -479,10 +479,10 @@ var funcProto = Function.prototype,
 var funcToString = funcProto.toString;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$b = objectProto$c.hasOwnProperty;
+var hasOwnProperty$a = objectProto$c.hasOwnProperty;
 /** Used to detect if a method is native. */
 
-var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$b).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$a).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
 /**
  * The base implementation of `_.isNative` without bad shim checks.
  *
@@ -579,7 +579,7 @@ var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
 var objectProto$b = Object.prototype;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$a = objectProto$b.hasOwnProperty;
+var hasOwnProperty$9 = objectProto$b.hasOwnProperty;
 /**
  * Gets the hash value for `key`.
  *
@@ -598,7 +598,7 @@ function hashGet(key) {
     return result === HASH_UNDEFINED$2 ? undefined : result;
   }
 
-  return hasOwnProperty$a.call(data, key) ? data[key] : undefined;
+  return hasOwnProperty$9.call(data, key) ? data[key] : undefined;
 }
 
 var _hashGet = hashGet;
@@ -608,7 +608,7 @@ var _hashGet = hashGet;
 var objectProto$a = Object.prototype;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$9 = objectProto$a.hasOwnProperty;
+var hasOwnProperty$8 = objectProto$a.hasOwnProperty;
 /**
  * Checks if a hash value for `key` exists.
  *
@@ -621,7 +621,7 @@ var hasOwnProperty$9 = objectProto$a.hasOwnProperty;
 
 function hashHas(key) {
   var data = this.__data__;
-  return _nativeCreate ? data[key] !== undefined : hasOwnProperty$9.call(data, key);
+  return _nativeCreate ? data[key] !== undefined : hasOwnProperty$8.call(data, key);
 }
 
 var _hashHas = hashHas;
@@ -1541,7 +1541,7 @@ function SmallButton(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$8);
 
-  return /*#__PURE__*/React__default.createElement("button", _extends$1({
+  return React__default.createElement("button", _extends$1({
     type: props.type || 'button',
     className: `group inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap
             transform
@@ -1560,15 +1560,15 @@ function RelaxedFullyQualifiedClassName({
 }) {
   const parts = path.split('\\');
   const tightSpace = String.fromCharCode(8201);
-  return /*#__PURE__*/React__default.createElement("span", {
+  return React__default.createElement("span", {
     className: "inline-flex flex-wrap items-baseline"
-  }, parts.map((part, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  }, parts.map((part, index) => React__default.createElement(React__default.Fragment, {
     key: index
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     key: index
-  }, part), index !== parts.length - 1 && /*#__PURE__*/React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, part), index !== parts.length - 1 && React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && React__default.createElement(React__default.Fragment, null, tightSpace, React__default.createElement("span", {
     className: "whitespace-nowrap"
-  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, ":", tightSpace, React__default.createElement("span", {
     className: "font-mono text-xs"
   }, lineNumber))));
 }
@@ -1771,7 +1771,7 @@ var TAGNAMES_TO_SKIP_FOR_PSEUDOELEMENTS = ['HTML', 'HEAD', 'STYLE', 'SCRIPT'];
 
 var PRODUCTION$1 = function () {
   try {
-    return "development" === 'production';
+    return "production" === 'production';
   } catch (e) {
     return false;
   }
@@ -1926,7 +1926,7 @@ function onChange(cb) {
   };
 }
 
-var d = UNITS_IN_GRID;
+var d$1 = UNITS_IN_GRID;
 var meaninglessTransform = {
   size: 16,
   x: 0,
@@ -2047,14 +2047,14 @@ function transformForCss(_ref2) {
   var val = '';
 
   if (startCentered && IS_IE) {
-    val += "translate(".concat(transform.x / d - width / 2, "em, ").concat(transform.y / d - height / 2, "em) ");
+    val += "translate(".concat(transform.x / d$1 - width / 2, "em, ").concat(transform.y / d$1 - height / 2, "em) ");
   } else if (startCentered) {
-    val += "translate(calc(-50% + ".concat(transform.x / d, "em), calc(-50% + ").concat(transform.y / d, "em)) ");
+    val += "translate(calc(-50% + ".concat(transform.x / d$1, "em), calc(-50% + ").concat(transform.y / d$1, "em)) ");
   } else {
-    val += "translate(".concat(transform.x / d, "em, ").concat(transform.y / d, "em) ");
+    val += "translate(".concat(transform.x / d$1, "em, ").concat(transform.y / d$1, "em) ");
   }
 
-  val += "scale(".concat(transform.size / d * (transform.flipX ? -1 : 1), ", ").concat(transform.size / d * (transform.flipY ? -1 : 1), ") ");
+  val += "scale(".concat(transform.size / d$1 * (transform.flipX ? -1 : 1), ", ").concat(transform.size / d$1 * (transform.flipY ? -1 : 1), ") ");
   val += "rotate(".concat(transform.rotate, "deg) ");
   return val;
 }
@@ -2107,12 +2107,12 @@ var InjectCSS = {
     };
   }
 };
-var w = WINDOW || {};
-if (!w[NAMESPACE_IDENTIFIER]) w[NAMESPACE_IDENTIFIER] = {};
-if (!w[NAMESPACE_IDENTIFIER].styles) w[NAMESPACE_IDENTIFIER].styles = {};
-if (!w[NAMESPACE_IDENTIFIER].hooks) w[NAMESPACE_IDENTIFIER].hooks = {};
-if (!w[NAMESPACE_IDENTIFIER].shims) w[NAMESPACE_IDENTIFIER].shims = [];
-var namespace = w[NAMESPACE_IDENTIFIER];
+var w$1 = WINDOW || {};
+if (!w$1[NAMESPACE_IDENTIFIER]) w$1[NAMESPACE_IDENTIFIER] = {};
+if (!w$1[NAMESPACE_IDENTIFIER].styles) w$1[NAMESPACE_IDENTIFIER].styles = {};
+if (!w$1[NAMESPACE_IDENTIFIER].hooks) w$1[NAMESPACE_IDENTIFIER].hooks = {};
+if (!w$1[NAMESPACE_IDENTIFIER].shims) w$1[NAMESPACE_IDENTIFIER].shims = [];
+var namespace = w$1[NAMESPACE_IDENTIFIER];
 var functions = [];
 
 var listener = function listener() {
@@ -3135,22 +3135,22 @@ function findIcon(iconName, prefix) {
 
 var noop$1$1 = function noop() {};
 
-var p = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
+var p$1 = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
   mark: noop$1$1,
   measure: noop$1$1
 };
 var preamble = "FA \"6.1.1\"";
 
 var begin = function begin(name) {
-  p.mark("".concat(preamble, " ").concat(name, " begins"));
+  p$1.mark("".concat(preamble, " ").concat(name, " begins"));
   return function () {
     return end(name);
   };
 };
 
 var end = function end(name) {
-  p.mark("".concat(preamble, " ").concat(name, " ends"));
-  p.measure("".concat(preamble, " ").concat(name), "".concat(preamble, " ").concat(name, " begins"), "".concat(preamble, " ").concat(name, " ends"));
+  p$1.mark("".concat(preamble, " ").concat(name, " ends"));
+  p$1.measure("".concat(preamble, " ").concat(name), "".concat(preamble, " ").concat(name, " begins"), "".concat(preamble, " ").concat(name, " ends"));
 };
 
 var perf = {
@@ -4021,7 +4021,7 @@ function replaceForPosition(node, position) {
   });
 }
 
-function replace(node) {
+function replace$1(node) {
   return Promise.all([replaceForPosition(node, '::before'), replaceForPosition(node, '::after')]);
 }
 
@@ -4032,7 +4032,7 @@ function processable(node) {
 function searchPseudoElements(root) {
   if (!IS_DOM) return;
   return new Promise(function (resolve, reject) {
-    var operations = toArray(root.querySelectorAll('*')).filter(processable).map(replace);
+    var operations = toArray(root.querySelectorAll('*')).filter(processable).map(replace$1);
     var end = perf.begin('searchPseudoElements');
     disableObservation();
     Promise.all(operations).then(function () {
@@ -4464,6 +4464,175 @@ var parse$1 = api.parse;
 var icon = api.icon;
 
 /** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var b = "function" === typeof Symbol && Symbol.for,
+    c = b ? Symbol.for("react.element") : 60103,
+    d = b ? Symbol.for("react.portal") : 60106,
+    e = b ? Symbol.for("react.fragment") : 60107,
+    f = b ? Symbol.for("react.strict_mode") : 60108,
+    g = b ? Symbol.for("react.profiler") : 60114,
+    h = b ? Symbol.for("react.provider") : 60109,
+    k = b ? Symbol.for("react.context") : 60110,
+    l = b ? Symbol.for("react.async_mode") : 60111,
+    m = b ? Symbol.for("react.concurrent_mode") : 60111,
+    n = b ? Symbol.for("react.forward_ref") : 60112,
+    p = b ? Symbol.for("react.suspense") : 60113,
+    q = b ? Symbol.for("react.suspense_list") : 60120,
+    r = b ? Symbol.for("react.memo") : 60115,
+    t = b ? Symbol.for("react.lazy") : 60116,
+    v = b ? Symbol.for("react.block") : 60121,
+    w = b ? Symbol.for("react.fundamental") : 60117,
+    x = b ? Symbol.for("react.responder") : 60118,
+    y = b ? Symbol.for("react.scope") : 60119;
+
+function z(a) {
+  if ("object" === typeof a && null !== a) {
+    var u = a.$$typeof;
+
+    switch (u) {
+      case c:
+        switch (a = a.type, a) {
+          case l:
+          case m:
+          case e:
+          case g:
+          case f:
+          case p:
+            return a;
+
+          default:
+            switch (a = a && a.$$typeof, a) {
+              case k:
+              case n:
+              case t:
+              case r:
+              case h:
+                return a;
+
+              default:
+                return u;
+            }
+
+        }
+
+      case d:
+        return u;
+    }
+  }
+}
+
+function A(a) {
+  return z(a) === m;
+}
+
+var AsyncMode = l;
+var ConcurrentMode = m;
+var ContextConsumer = k;
+var ContextProvider = h;
+var Element = c;
+var ForwardRef = n;
+var Fragment = e;
+var Lazy = t;
+var Memo = r;
+var Portal = d;
+var Profiler = g;
+var StrictMode = f;
+var Suspense = p;
+
+var isAsyncMode = function isAsyncMode(a) {
+  return A(a) || z(a) === l;
+};
+
+var isConcurrentMode = A;
+
+var isContextConsumer = function isContextConsumer(a) {
+  return z(a) === k;
+};
+
+var isContextProvider = function isContextProvider(a) {
+  return z(a) === h;
+};
+
+var isElement = function isElement(a) {
+  return "object" === typeof a && null !== a && a.$$typeof === c;
+};
+
+var isForwardRef = function isForwardRef(a) {
+  return z(a) === n;
+};
+
+var isFragment = function isFragment(a) {
+  return z(a) === e;
+};
+
+var isLazy = function isLazy(a) {
+  return z(a) === t;
+};
+
+var isMemo = function isMemo(a) {
+  return z(a) === r;
+};
+
+var isPortal = function isPortal(a) {
+  return z(a) === d;
+};
+
+var isProfiler = function isProfiler(a) {
+  return z(a) === g;
+};
+
+var isStrictMode = function isStrictMode(a) {
+  return z(a) === f;
+};
+
+var isSuspense = function isSuspense(a) {
+  return z(a) === p;
+};
+
+var isValidElementType = function isValidElementType(a) {
+  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === typeof a && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
+};
+
+var typeOf = z;
+var reactIs_production_min = {
+  AsyncMode: AsyncMode,
+  ConcurrentMode: ConcurrentMode,
+  ContextConsumer: ContextConsumer,
+  ContextProvider: ContextProvider,
+  Element: Element,
+  ForwardRef: ForwardRef,
+  Fragment: Fragment,
+  Lazy: Lazy,
+  Memo: Memo,
+  Portal: Portal,
+  Profiler: Profiler,
+  StrictMode: StrictMode,
+  Suspense: Suspense,
+  isAsyncMode: isAsyncMode,
+  isConcurrentMode: isConcurrentMode,
+  isContextConsumer: isContextConsumer,
+  isContextProvider: isContextProvider,
+  isElement: isElement,
+  isForwardRef: isForwardRef,
+  isFragment: isFragment,
+  isLazy: isLazy,
+  isMemo: isMemo,
+  isPortal: isPortal,
+  isProfiler: isProfiler,
+  isStrictMode: isStrictMode,
+  isSuspense: isSuspense,
+  isValidElementType: isValidElementType,
+  typeOf: typeOf
+};
+
+/** @license React v16.13.1
  * react-is.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -4471,289 +4640,27 @@ var icon = api.icon;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var reactIs_development = createCommonjsModule(function (module, exports) {
+createCommonjsModule(function (module, exports) {
+});
+
+createCommonjsModule(function (module) {
 
   {
-    (function () {
-      // nor polyfill, then a plain number is used for performance.
-
-      var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-      var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-      var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-      var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-      var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-      var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-      var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-      var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-      // (unstable) APIs that have been removed. Can we remove the symbols?
-
-      var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
-      var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-      var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-      var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-      var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-      var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-      var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-      var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-      var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-      var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-      var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
-
-      function isValidElementType(type) {
-        return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-      }
-
-      function typeOf(object) {
-        if (typeof object === 'object' && object !== null) {
-          var $$typeof = object.$$typeof;
-
-          switch ($$typeof) {
-            case REACT_ELEMENT_TYPE:
-              var type = object.type;
-
-              switch (type) {
-                case REACT_ASYNC_MODE_TYPE:
-                case REACT_CONCURRENT_MODE_TYPE:
-                case REACT_FRAGMENT_TYPE:
-                case REACT_PROFILER_TYPE:
-                case REACT_STRICT_MODE_TYPE:
-                case REACT_SUSPENSE_TYPE:
-                  return type;
-
-                default:
-                  var $$typeofType = type && type.$$typeof;
-
-                  switch ($$typeofType) {
-                    case REACT_CONTEXT_TYPE:
-                    case REACT_FORWARD_REF_TYPE:
-                    case REACT_LAZY_TYPE:
-                    case REACT_MEMO_TYPE:
-                    case REACT_PROVIDER_TYPE:
-                      return $$typeofType;
-
-                    default:
-                      return $$typeof;
-                  }
-
-              }
-
-            case REACT_PORTAL_TYPE:
-              return $$typeof;
-          }
-        }
-
-        return undefined;
-      } // AsyncMode is deprecated along with isAsyncMode
-
-
-      var AsyncMode = REACT_ASYNC_MODE_TYPE;
-      var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
-      var ContextConsumer = REACT_CONTEXT_TYPE;
-      var ContextProvider = REACT_PROVIDER_TYPE;
-      var Element = REACT_ELEMENT_TYPE;
-      var ForwardRef = REACT_FORWARD_REF_TYPE;
-      var Fragment = REACT_FRAGMENT_TYPE;
-      var Lazy = REACT_LAZY_TYPE;
-      var Memo = REACT_MEMO_TYPE;
-      var Portal = REACT_PORTAL_TYPE;
-      var Profiler = REACT_PROFILER_TYPE;
-      var StrictMode = REACT_STRICT_MODE_TYPE;
-      var Suspense = REACT_SUSPENSE_TYPE;
-      var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
-
-      function isAsyncMode(object) {
-        {
-          if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-            hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
-
-            console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
-          }
-        }
-        return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-      }
-
-      function isConcurrentMode(object) {
-        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-      }
-
-      function isContextConsumer(object) {
-        return typeOf(object) === REACT_CONTEXT_TYPE;
-      }
-
-      function isContextProvider(object) {
-        return typeOf(object) === REACT_PROVIDER_TYPE;
-      }
-
-      function isElement(object) {
-        return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-      }
-
-      function isForwardRef(object) {
-        return typeOf(object) === REACT_FORWARD_REF_TYPE;
-      }
-
-      function isFragment(object) {
-        return typeOf(object) === REACT_FRAGMENT_TYPE;
-      }
-
-      function isLazy(object) {
-        return typeOf(object) === REACT_LAZY_TYPE;
-      }
-
-      function isMemo(object) {
-        return typeOf(object) === REACT_MEMO_TYPE;
-      }
-
-      function isPortal(object) {
-        return typeOf(object) === REACT_PORTAL_TYPE;
-      }
-
-      function isProfiler(object) {
-        return typeOf(object) === REACT_PROFILER_TYPE;
-      }
-
-      function isStrictMode(object) {
-        return typeOf(object) === REACT_STRICT_MODE_TYPE;
-      }
-
-      function isSuspense(object) {
-        return typeOf(object) === REACT_SUSPENSE_TYPE;
-      }
-
-      exports.AsyncMode = AsyncMode;
-      exports.ConcurrentMode = ConcurrentMode;
-      exports.ContextConsumer = ContextConsumer;
-      exports.ContextProvider = ContextProvider;
-      exports.Element = Element;
-      exports.ForwardRef = ForwardRef;
-      exports.Fragment = Fragment;
-      exports.Lazy = Lazy;
-      exports.Memo = Memo;
-      exports.Portal = Portal;
-      exports.Profiler = Profiler;
-      exports.StrictMode = StrictMode;
-      exports.Suspense = Suspense;
-      exports.isAsyncMode = isAsyncMode;
-      exports.isConcurrentMode = isConcurrentMode;
-      exports.isContextConsumer = isContextConsumer;
-      exports.isContextProvider = isContextProvider;
-      exports.isElement = isElement;
-      exports.isForwardRef = isForwardRef;
-      exports.isFragment = isFragment;
-      exports.isLazy = isLazy;
-      exports.isMemo = isMemo;
-      exports.isPortal = isPortal;
-      exports.isProfiler = isProfiler;
-      exports.isStrictMode = isStrictMode;
-      exports.isSuspense = isSuspense;
-      exports.isValidElementType = isValidElementType;
-      exports.typeOf = typeOf;
-    })();
+    module.exports = reactIs_production_min;
   }
 });
 
-var reactIs = createCommonjsModule(function (module) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
-  {
-    module.exports = reactIs_development;
-  }
-});
+var ReactPropTypesSecret$1 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var ReactPropTypesSecret_1 = ReactPropTypesSecret$1;
 
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-/* eslint-disable no-unused-vars */
-
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty$8 = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-  if (val === null || val === undefined) {
-    throw new TypeError('Object.assign cannot be called with null or undefined');
-  }
-
-  return Object(val);
-}
-
-function shouldUseNative() {
-  try {
-    if (!Object.assign) {
-      return false;
-    } // Detect buggy property enumeration order in older V8 versions.
-    // https://bugs.chromium.org/p/v8/issues/detail?id=4118
-
-
-    var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
-
-    test1[5] = 'de';
-
-    if (Object.getOwnPropertyNames(test1)[0] === '5') {
-      return false;
-    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
-
-
-    var test2 = {};
-
-    for (var i = 0; i < 10; i++) {
-      test2['_' + String.fromCharCode(i)] = i;
-    }
-
-    var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-      return test2[n];
-    });
-
-    if (order2.join('') !== '0123456789') {
-      return false;
-    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
-
-
-    var test3 = {};
-    'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-      test3[letter] = letter;
-    });
-
-    if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
-      return false;
-    }
-
-    return true;
-  } catch (err) {
-    // We don't expect any of the above to throw, but better to be safe.
-    return false;
-  }
-}
-
-var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-  var from;
-  var to = toObject(target);
-  var symbols;
-
-  for (var s = 1; s < arguments.length; s++) {
-    from = Object(arguments[s]);
-
-    for (var key in from) {
-      if (hasOwnProperty$8.call(from, key)) {
-        to[key] = from[key];
-      }
-    }
-
-    if (getOwnPropertySymbols) {
-      symbols = getOwnPropertySymbols(from);
-
-      for (var i = 0; i < symbols.length; i++) {
-        if (propIsEnumerable.call(from, symbols[i])) {
-          to[symbols[i]] = from[symbols[i]];
-        }
-      }
-    }
-  }
-
-  return to;
-};
+var ReactPropTypesSecret = ReactPropTypesSecret_1;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -4762,769 +4669,58 @@ var objectAssign = shouldUseNative() ? Object.assign : function (target, source)
  * LICENSE file in the root directory of this source tree.
  */
 
-var ReactPropTypesSecret$2 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-var ReactPropTypesSecret_1 = ReactPropTypesSecret$2;
+function emptyFunction() {}
 
-var has$2 = Function.call.bind(Object.prototype.hasOwnProperty);
+function emptyFunctionWithReset() {}
 
-var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
 
-var has$1 = has$2;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var _printWarning$1 = function printWarning() {};
-
-{
-  var ReactPropTypesSecret = ReactPropTypesSecret$1;
-  var loggedTypeFailures = {};
-  var has = has$1;
-
-  _printWarning$1 = function (text) {
-    var message = 'Warning: ' + text;
-
-    if (typeof console !== 'undefined') {
-      console.error(message);
+var factoryWithThrowingShims = function factoryWithThrowingShims() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
     }
 
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {
-      /**/
-    }
-  };
-}
-/**
- * Assert that the values match with the type specs.
- * Error messages are memorized and will only be shown once.
- *
- * @param {object} typeSpecs Map of name to a ReactPropType
- * @param {object} values Runtime values that need to be type-checked
- * @param {string} location e.g. "prop", "context", "child context"
- * @param {string} componentName Name of the component for error messages.
- * @param {?Function} getStack Returns the component stack.
- * @private
- */
-
-
-function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) {
-  {
-    for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
-        var error; // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          if (typeof typeSpecs[typeSpecName] !== 'function') {
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
-            err.name = 'Invariant Violation';
-            throw err;
-          }
-
-          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
-        } catch (ex) {
-          error = ex;
-        }
-
-        if (error && !(error instanceof Error)) {
-          _printWarning$1((componentName || 'React class') + ': type specification of ' + location + ' `' + typeSpecName + '` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a ' + typeof error + '. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).');
-        }
-
-        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error.message] = true;
-          var stack = getStack ? getStack() : '';
-
-          _printWarning$1('Failed ' + location + ' type: ' + error.message + (stack != null ? stack : ''));
-        }
-      }
-    }
+    var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use PropTypes.checkPropTypes() to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
+    err.name = 'Invariant Violation';
+    throw err;
   }
-}
-/**
- * Resets warning cache when testing.
- *
- * @private
- */
+  shim.isRequired = shim;
 
-
-checkPropTypes$1.resetWarningCache = function () {
-  {
-    loggedTypeFailures = {};
+  function getShim() {
+    return shim;
   }
-};
-
-var checkPropTypes_1 = checkPropTypes$1;
-
-var checkPropTypes = checkPropTypes_1;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var _printWarning = function printWarning() {};
-
-{
-  _printWarning = function (text) {
-    var message = 'Warning: ' + text;
-
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-}
-
-function emptyFunctionThatReturnsNull() {
-  return null;
-}
-
-var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, throwOnDirectAccess) {
-  /* global Symbol */
-  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-  /**
-   * Returns the iterator method function contained on the iterable object.
-   *
-   * Be sure to invoke the function with the iterable as context:
-   *
-   *     var iteratorFn = getIteratorFn(myIterable);
-   *     if (iteratorFn) {
-   *       var iterator = iteratorFn.call(myIterable);
-   *       ...
-   *     }
-   *
-   * @param {?object} maybeIterable
-   * @return {?function}
-   */
-
-  function getIteratorFn(maybeIterable) {
-    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-
-    if (typeof iteratorFn === 'function') {
-      return iteratorFn;
-    }
-  }
-  /**
-   * Collection of methods that allow declaration and validation of props that are
-   * supplied to React components. Example usage:
-   *
-   *   var Props = require('ReactPropTypes');
-   *   var MyArticle = React.createClass({
-   *     propTypes: {
-   *       // An optional string prop named "description".
-   *       description: Props.string,
-   *
-   *       // A required enum prop named "category".
-   *       category: Props.oneOf(['News','Photos']).isRequired,
-   *
-   *       // A prop named "dialog" that requires an instance of Dialog.
-   *       dialog: Props.instanceOf(Dialog).isRequired
-   *     },
-   *     render: function() { ... }
-   *   });
-   *
-   * A more formal specification of how these methods are used:
-   *
-   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
-   *   decl := ReactPropTypes.{type}(.isRequired)?
-   *
-   * Each and every declaration produces a function with the same signature. This
-   * allows the creation of custom validation functions. For example:
-   *
-   *  var MyLink = React.createClass({
-   *    propTypes: {
-   *      // An optional string or URI prop named "href".
-   *      href: function(props, propName, componentName) {
-   *        var propValue = props[propName];
-   *        if (propValue != null && typeof propValue !== 'string' &&
-   *            !(propValue instanceof URI)) {
-   *          return new Error(
-   *            'Expected a string or an URI for ' + propName + ' in ' +
-   *            componentName
-   *          );
-   *        }
-   *      }
-   *    },
-   *    render: function() {...}
-   *  });
-   *
-   * @internal
-   */
-
-
-  var ANONYMOUS = '<<anonymous>>'; // Important!
-  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
 
   var ReactPropTypes = {
-    array: createPrimitiveTypeChecker('array'),
-    bigint: createPrimitiveTypeChecker('bigint'),
-    bool: createPrimitiveTypeChecker('boolean'),
-    func: createPrimitiveTypeChecker('function'),
-    number: createPrimitiveTypeChecker('number'),
-    object: createPrimitiveTypeChecker('object'),
-    string: createPrimitiveTypeChecker('string'),
-    symbol: createPrimitiveTypeChecker('symbol'),
-    any: createAnyTypeChecker(),
-    arrayOf: createArrayOfTypeChecker,
-    element: createElementTypeChecker(),
-    elementType: createElementTypeTypeChecker(),
-    instanceOf: createInstanceTypeChecker,
-    node: createNodeChecker(),
-    objectOf: createObjectOfTypeChecker,
-    oneOf: createEnumTypeChecker,
-    oneOfType: createUnionTypeChecker,
-    shape: createShapeTypeChecker,
-    exact: createStrictShapeTypeChecker
+    array: shim,
+    bigint: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
   };
-  /**
-   * inlined Object.is polyfill to avoid requiring consumers ship their own
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-   */
-
-  /*eslint-disable no-self-compare*/
-
-  function is(x, y) {
-    // SameValue algorithm
-    if (x === y) {
-      // Steps 1-5, 7-10
-      // Steps 6.b-6.e: +0 != -0
-      return x !== 0 || 1 / x === 1 / y;
-    } else {
-      // Step 6.a: NaN == NaN
-      return x !== x && y !== y;
-    }
-  }
-  /*eslint-enable no-self-compare*/
-
-  /**
-   * We use an Error-like object for backward compatibility as people may call
-   * PropTypes directly and inspect their output. However, we don't use real
-   * Errors anymore. We don't inspect their stack anyway, and creating them
-   * is prohibitively expensive if they are created too often, such as what
-   * happens in oneOfType() for any type before the one that matched.
-   */
-
-
-  function PropTypeError(message, data) {
-    this.message = message;
-    this.data = data && typeof data === 'object' ? data : {};
-    this.stack = '';
-  } // Make `instanceof Error` still work for returned errors.
-
-
-  PropTypeError.prototype = Error.prototype;
-
-  function createChainableTypeChecker(validate) {
-    {
-      var manualPropTypeCallCache = {};
-      var manualPropTypeWarningCount = 0;
-    }
-
-    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-      componentName = componentName || ANONYMOUS;
-      propFullName = propFullName || propName;
-
-      if (secret !== ReactPropTypesSecret$1) {
-        if (throwOnDirectAccess) {
-          // New behavior only for users of `prop-types` package
-          var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
-          err.name = 'Invariant Violation';
-          throw err;
-        } else if (typeof console !== 'undefined') {
-          // Old behavior for people using React.PropTypes
-          var cacheKey = componentName + ':' + propName;
-
-          if (!manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
-          manualPropTypeWarningCount < 3) {
-            _printWarning('You are manually calling a React.PropTypes validation ' + 'function for the `' + propFullName + '` prop on `' + componentName + '`. This is deprecated ' + 'and will throw in the standalone `prop-types` package. ' + 'You may be seeing this warning due to a third-party PropTypes ' + 'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.');
-
-            manualPropTypeCallCache[cacheKey] = true;
-            manualPropTypeWarningCount++;
-          }
-        }
-      }
-
-      if (props[propName] == null) {
-        if (isRequired) {
-          if (props[propName] === null) {
-            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
-          }
-
-          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
-        }
-
-        return null;
-      } else {
-        return validate(props, propName, componentName, location, propFullName);
-      }
-    }
-
-    var chainedCheckType = checkType.bind(null, false);
-    chainedCheckType.isRequired = checkType.bind(null, true);
-    return chainedCheckType;
-  }
-
-  function createPrimitiveTypeChecker(expectedType) {
-    function validate(props, propName, componentName, location, propFullName, secret) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== expectedType) {
-        // `propValue` being instance of, say, date/regexp, pass the 'object'
-        // check, but we can offer a more precise error message here rather than
-        // 'of type `object`'.
-        var preciseType = getPreciseType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'), {
-          expectedType: expectedType
-        });
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
-  }
-
-  function createArrayOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
-      }
-
-      var propValue = props[propName];
-
-      if (!Array.isArray(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
-      }
-
-      for (var i = 0; i < propValue.length; i++) {
-        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret$1);
-
-        if (error instanceof Error) {
-          return error;
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-
-      if (!isValidElement(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-
-      if (!reactIs.isValidElementType(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createInstanceTypeChecker(expectedClass) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!(props[propName] instanceof expectedClass)) {
-        var expectedClassName = expectedClass.name || ANONYMOUS;
-        var actualClassName = getClassName(props[propName]);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createEnumTypeChecker(expectedValues) {
-    if (!Array.isArray(expectedValues)) {
-      {
-        if (arguments.length > 1) {
-          _printWarning('Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' + 'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).');
-        } else {
-          _printWarning('Invalid argument supplied to oneOf, expected an array.');
-        }
-      }
-
-      return emptyFunctionThatReturnsNull;
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-
-      for (var i = 0; i < expectedValues.length; i++) {
-        if (is(propValue, expectedValues[i])) {
-          return null;
-        }
-      }
-
-      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-        var type = getPreciseType(value);
-
-        if (type === 'symbol') {
-          return String(value);
-        }
-
-        return value;
-      });
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createObjectOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
-      }
-
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
-      }
-
-      for (var key in propValue) {
-        if (has$1(propValue, key)) {
-          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
-
-          if (error instanceof Error) {
-            return error;
-          }
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createUnionTypeChecker(arrayOfTypeCheckers) {
-    if (!Array.isArray(arrayOfTypeCheckers)) {
-      _printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') ;
-      return emptyFunctionThatReturnsNull;
-    }
-
-    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-      var checker = arrayOfTypeCheckers[i];
-
-      if (typeof checker !== 'function') {
-        _printWarning('Invalid argument supplied to oneOfType. Expected an array of check functions, but ' + 'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.');
-
-        return emptyFunctionThatReturnsNull;
-      }
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      var expectedTypes = [];
-
-      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-        var checker = arrayOfTypeCheckers[i];
-        var checkerResult = checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret$1);
-
-        if (checkerResult == null) {
-          return null;
-        }
-
-        if (checkerResult.data && has$1(checkerResult.data, 'expectedType')) {
-          expectedTypes.push(checkerResult.data.expectedType);
-        }
-      }
-
-      var expectedTypesMessage = expectedTypes.length > 0 ? ', expected one of type [' + expectedTypes.join(', ') + ']' : '';
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`' + expectedTypesMessage + '.'));
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createNodeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!isNode(props[propName])) {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function invalidValidatorError(componentName, location, propFullName, key, type) {
-    return new PropTypeError((componentName || 'React class') + ': ' + location + ' type `' + propFullName + '.' + key + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + type + '`.');
-  }
-
-  function createShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      }
-
-      for (var key in shapeTypes) {
-        var checker = shapeTypes[key];
-
-        if (typeof checker !== 'function') {
-          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
-        }
-
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
-
-        if (error) {
-          return error;
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createStrictShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      } // We need to check all keys in case some are required but missing from props.
-
-
-      var allKeys = objectAssign({}, props[propName], shapeTypes);
-
-      for (var key in allKeys) {
-        var checker = shapeTypes[key];
-
-        if (has$1(shapeTypes, key) && typeof checker !== 'function') {
-          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
-        }
-
-        if (!checker) {
-          return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' + '\nBad object: ' + JSON.stringify(props[propName], null, '  ') + '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  '));
-        }
-
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
-
-        if (error) {
-          return error;
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function isNode(propValue) {
-    switch (typeof propValue) {
-      case 'number':
-      case 'string':
-      case 'undefined':
-        return true;
-
-      case 'boolean':
-        return !propValue;
-
-      case 'object':
-        if (Array.isArray(propValue)) {
-          return propValue.every(isNode);
-        }
-
-        if (propValue === null || isValidElement(propValue)) {
-          return true;
-        }
-
-        var iteratorFn = getIteratorFn(propValue);
-
-        if (iteratorFn) {
-          var iterator = iteratorFn.call(propValue);
-          var step;
-
-          if (iteratorFn !== propValue.entries) {
-            while (!(step = iterator.next()).done) {
-              if (!isNode(step.value)) {
-                return false;
-              }
-            }
-          } else {
-            // Iterator will provide entry [k,v] tuples rather than values.
-            while (!(step = iterator.next()).done) {
-              var entry = step.value;
-
-              if (entry) {
-                if (!isNode(entry[1])) {
-                  return false;
-                }
-              }
-            }
-          }
-        } else {
-          return false;
-        }
-
-        return true;
-
-      default:
-        return false;
-    }
-  }
-
-  function isSymbol(propType, propValue) {
-    // Native Symbol.
-    if (propType === 'symbol') {
-      return true;
-    } // falsy value can't be a Symbol
-
-
-    if (!propValue) {
-      return false;
-    } // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
-
-
-    if (propValue['@@toStringTag'] === 'Symbol') {
-      return true;
-    } // Fallback for non-spec compliant Symbols which are polyfilled.
-
-
-    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-      return true;
-    }
-
-    return false;
-  } // Equivalent of `typeof` but with special handling for array and regexp.
-
-
-  function getPropType(propValue) {
-    var propType = typeof propValue;
-
-    if (Array.isArray(propValue)) {
-      return 'array';
-    }
-
-    if (propValue instanceof RegExp) {
-      // Old webkits (at least until Android 4.0) return 'function' rather than
-      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
-      // passes PropTypes.object.
-      return 'object';
-    }
-
-    if (isSymbol(propType, propValue)) {
-      return 'symbol';
-    }
-
-    return propType;
-  } // This handles more types than `getPropType`. Only used for error messages.
-  // See `createPrimitiveTypeChecker`.
-
-
-  function getPreciseType(propValue) {
-    if (typeof propValue === 'undefined' || propValue === null) {
-      return '' + propValue;
-    }
-
-    var propType = getPropType(propValue);
-
-    if (propType === 'object') {
-      if (propValue instanceof Date) {
-        return 'date';
-      } else if (propValue instanceof RegExp) {
-        return 'regexp';
-      }
-    }
-
-    return propType;
-  } // Returns a string that is postfixed to a warning about an invalid type.
-  // For example, "undefined" or "of type array"
-
-
-  function getPostfixForTypeWarning(value) {
-    var type = getPreciseType(value);
-
-    switch (type) {
-      case 'array':
-      case 'object':
-        return 'an ' + type;
-
-      case 'boolean':
-      case 'date':
-      case 'regexp':
-        return 'a ' + type;
-
-      default:
-        return type;
-    }
-  } // Returns class name of the object, if any.
-
-
-  function getClassName(propValue) {
-    if (!propValue.constructor || !propValue.constructor.name) {
-      return ANONYMOUS;
-    }
-
-    return propValue.constructor.name;
-  }
-
-  ReactPropTypes.checkPropTypes = checkPropTypes;
-  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
   ReactPropTypes.PropTypes = ReactPropTypes;
   return ReactPropTypes;
 };
 
-var require$$1 = factoryWithTypeCheckers;
+var require$$2 = factoryWithThrowingShims;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -5534,11 +4730,9 @@ var require$$1 = factoryWithTypeCheckers;
  */
 var propTypes = createCommonjsModule(function (module) {
   {
-    var ReactIs = reactIs; // By explicitly using `prop-types` you are opting into new development behavior.
+    // By explicitly using `prop-types` you are opting into new production behavior.
     // http://fb.me/prop-types-in-prod
-
-    var throwOnDirectAccess = true;
-    module.exports = require$$1(ReactIs.isElement, throwOnDirectAccess);
+    module.exports = require$$2();
   }
 });
 var PropTypes = propTypes;
@@ -5756,7 +4950,7 @@ function styleToObject(style) {
   }, {});
 }
 
-function convert(createElement, element) {
+function convert$1(createElement, element) {
   var extraProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   if (typeof element === 'string') {
@@ -5764,7 +4958,7 @@ function convert(createElement, element) {
   }
 
   var children = (element.children || []).map(function (child) {
-    return convert(createElement, child);
+    return convert$1(createElement, child);
   });
   /* eslint-disable dot-notation */
 
@@ -5808,7 +5002,7 @@ function convert(createElement, element) {
 var PRODUCTION = false;
 
 try {
-  PRODUCTION = "development" === 'production';
+  PRODUCTION = "production" === 'production';
 } catch (e) {}
 
 function log() {
@@ -5966,7 +5160,7 @@ FontAwesomeIcon.defaultProps = {
   transform: null,
   swapOpacity: false
 };
-var convertCurry = convert.bind(null, React__default.createElement);
+var convertCurry = convert$1.bind(null, React__default.createElement);
 
 var faAngleDown={prefix:'fas',iconName:'angle-down',icon:[384,512,[8964],"f107","M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"]};var faAngleRight={prefix:'fas',iconName:'angle-right',icon:[256,512,[8250],"f105","M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z"]};var faAngleUp={prefix:'fas',iconName:'angle-up',icon:[384,512,[8963],"f106","M352 352c-8.188 0-16.38-3.125-22.62-9.375L192 205.3l-137.4 137.4c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25C368.4 348.9 360.2 352 352 352z"]};var faAsterisk={prefix:'fas',iconName:'asterisk',icon:[448,512,[10033,61545],"2a","M417.1 368c-5.937 10.27-16.69 16-27.75 16c-5.422 0-10.92-1.375-15.97-4.281L256 311.4V448c0 17.67-14.33 32-31.1 32S192 465.7 192 448V311.4l-118.3 68.29C68.67 382.6 63.17 384 57.75 384c-11.06 0-21.81-5.734-27.75-16c-8.828-15.31-3.594-34.88 11.72-43.72L159.1 256L41.72 187.7C26.41 178.9 21.17 159.3 29.1 144C36.63 132.5 49.26 126.7 61.65 128.2C65.78 128.7 69.88 130.1 73.72 132.3L192 200.6V64c0-17.67 14.33-32 32-32S256 46.33 256 64v136.6l118.3-68.29c3.838-2.213 7.939-3.539 12.07-4.051C398.7 126.7 411.4 132.5 417.1 144c8.828 15.31 3.594 34.88-11.72 43.72L288 256l118.3 68.28C421.6 333.1 426.8 352.7 417.1 368z"]};var faBomb={prefix:'fas',iconName:'bomb',icon:[512,512,[128163],"f1e2","M440.8 4.994C441.9 1.99 444.8 0 448 0C451.2 0 454.1 1.99 455.2 4.994L469.3 42.67L507 56.79C510 57.92 512 60.79 512 64C512 67.21 510 70.08 507 71.21L469.3 85.33L455.2 123C454.1 126 451.2 128 448 128C444.8 128 441.9 126 440.8 123L426.7 85.33L388.1 71.21C385.1 70.08 384 67.21 384 64C384 60.79 385.1 57.92 388.1 56.79L426.7 42.67L440.8 4.994zM289.4 97.37C301.9 84.88 322.1 84.88 334.6 97.37L363.3 126.1L380.7 108.7C386.9 102.4 397.1 102.4 403.3 108.7C409.6 114.9 409.6 125.1 403.3 131.3L385.9 148.7L414.6 177.4C427.1 189.9 427.1 210.1 414.6 222.6L403.8 233.5C411.7 255.5 416 279.3 416 304C416 418.9 322.9 512 208 512C93.12 512 0 418.9 0 304C0 189.1 93.12 96 208 96C232.7 96 256.5 100.3 278.5 108.3L289.4 97.37zM95.1 296C95.1 238.6 142.6 192 199.1 192H207.1C216.8 192 223.1 184.8 223.1 176C223.1 167.2 216.8 160 207.1 160H199.1C124.9 160 63.1 220.9 63.1 296V304C63.1 312.8 71.16 320 79.1 320C88.84 320 95.1 312.8 95.1 304V296z"]};var faCheck={prefix:'fas',iconName:'check',icon:[448,512,[10004,10003],"f00c","M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"]};var faCircleQuestion={prefix:'fas',iconName:'circle-question',icon:[512,512,[62108,"question-circle"],"f059","M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 400c-18 0-32-14-32-32s13.1-32 32-32c17.1 0 32 14 32 32S273.1 400 256 400zM325.1 258L280 286V288c0 13-11 24-24 24S232 301 232 288V272c0-8 4-16 12-21l57-34C308 213 312 206 312 198C312 186 301.1 176 289.1 176h-51.1C225.1 176 216 186 216 198c0 13-11 24-24 24s-24-11-24-24C168 159 199 128 237.1 128h51.1C329 128 360 159 360 198C360 222 347 245 325.1 258z"]};var faQuestionCircle=faCircleQuestion;var faCode={prefix:'fas',iconName:'code',icon:[640,512,[],"f121","M414.8 40.79L286.8 488.8C281.9 505.8 264.2 515.6 247.2 510.8C230.2 505.9 220.4 488.2 225.2 471.2L353.2 23.21C358.1 6.216 375.8-3.624 392.8 1.232C409.8 6.087 419.6 23.8 414.8 40.79H414.8zM518.6 121.4L630.6 233.4C643.1 245.9 643.1 266.1 630.6 278.6L518.6 390.6C506.1 403.1 485.9 403.1 473.4 390.6C460.9 378.1 460.9 357.9 473.4 345.4L562.7 256L473.4 166.6C460.9 154.1 460.9 133.9 473.4 121.4C485.9 108.9 506.1 108.9 518.6 121.4V121.4zM166.6 166.6L77.25 256L166.6 345.4C179.1 357.9 179.1 378.1 166.6 390.6C154.1 403.1 133.9 403.1 121.4 390.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4L121.4 121.4C133.9 108.9 154.1 108.9 166.6 121.4C179.1 133.9 179.1 154.1 166.6 166.6V166.6z"]};var faCodeBranch={prefix:'fas',iconName:'code-branch',icon:[448,512,[],"f126","M160 80C160 112.8 140.3 140.1 112 153.3V241.1C130.8 230.2 152.7 224 176 224H272C307.3 224 336 195.3 336 160V153.3C307.7 140.1 288 112.8 288 80C288 35.82 323.8 0 368 0C412.2 0 448 35.82 448 80C448 112.8 428.3 140.1 400 153.3V160C400 230.7 342.7 288 272 288H176C140.7 288 112 316.7 112 352V358.7C140.3 371 160 399.2 160 432C160 476.2 124.2 512 80 512C35.82 512 0 476.2 0 432C0 399.2 19.75 371 48 358.7V153.3C19.75 140.1 0 112.8 0 80C0 35.82 35.82 0 80 0C124.2 0 160 35.82 160 80V80zM80 104C93.25 104 104 93.25 104 80C104 66.75 93.25 56 80 56C66.75 56 56 66.75 56 80C56 93.25 66.75 104 80 104zM368 56C354.7 56 344 66.75 344 80C344 93.25 354.7 104 368 104C381.3 104 392 93.25 392 80C392 66.75 381.3 56 368 56zM80 456C93.25 456 104 445.3 104 432C104 418.7 93.25 408 80 408C66.75 408 56 418.7 56 432C56 445.3 66.75 456 80 456z"]};var faCookieBite={prefix:'fas',iconName:'cookie-bite',icon:[512,512,[],"f564","M494.6 255.9c-65.63-.8203-118.6-54.14-118.6-119.9c-65.74 0-119.1-52.97-119.8-118.6c-25.66-3.867-51.8 .2346-74.77 12.07L116.7 62.41C93.35 74.36 74.36 93.35 62.41 116.7L29.6 181.2c-11.95 23.44-16.17 49.92-12.07 75.94l11.37 71.48c4.102 25.9 16.29 49.8 34.81 68.32l51.36 51.39C133.6 466.9 157.3 479 183.2 483.1l71.84 11.37c25.9 4.101 52.27-.1172 75.59-11.95l64.81-33.05c23.32-11.84 42.31-30.82 54.14-54.14l32.93-64.57C494.3 307.7 498.5 281.4 494.6 255.9zM176 367.1c-17.62 0-32-14.37-32-31.1s14.38-31.1 32-31.1s32 14.37 32 31.1S193.6 367.1 176 367.1zM208 208c-17.62 0-32-14.37-32-31.1s14.38-31.1 32-31.1s32 14.37 32 31.1S225.6 208 208 208zM368 335.1c-17.62 0-32-14.37-32-31.1s14.38-31.1 32-31.1s32 14.37 32 31.1S385.6 335.1 368 335.1z"]};var faCopy={prefix:'fas',iconName:'copy',icon:[512,512,[],"f0c5","M384 96L384 0h-112c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48H464c26.51 0 48-21.49 48-48V128h-95.1C398.4 128 384 113.6 384 96zM416 0v96h96L416 0zM192 352V128h-144c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48h192c26.51 0 48-21.49 48-48L288 416h-32C220.7 416 192 387.3 192 352z"]};var faDatabase={prefix:'fas',iconName:'database',icon:[448,512,[],"f1c0","M448 80V128C448 172.2 347.7 208 224 208C100.3 208 0 172.2 0 128V80C0 35.82 100.3 0 224 0C347.7 0 448 35.82 448 80zM393.2 214.7C413.1 207.3 433.1 197.8 448 186.1V288C448 332.2 347.7 368 224 368C100.3 368 0 332.2 0 288V186.1C14.93 197.8 34.02 207.3 54.85 214.7C99.66 230.7 159.5 240 224 240C288.5 240 348.3 230.7 393.2 214.7V214.7zM54.85 374.7C99.66 390.7 159.5 400 224 400C288.5 400 348.3 390.7 393.2 374.7C413.1 367.3 433.1 357.8 448 346.1V432C448 476.2 347.7 512 224 512C100.3 512 0 476.2 0 432V346.1C14.93 357.8 34.02 367.3 54.85 374.7z"]};var faFile={prefix:'fas',iconName:'file',icon:[384,512,[128459,61462,128196],"f15b","M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256z"]};var faHourglass={prefix:'fas',iconName:'hourglass',icon:[384,512,[62032,9203,"hourglass-2","hourglass-half"],"f254","M352 0C369.7 0 384 14.33 384 32C384 49.67 369.7 64 352 64V74.98C352 117.4 335.1 158.1 305.1 188.1L237.3 256L305.1 323.9C335.1 353.9 352 394.6 352 437V448C369.7 448 384 462.3 384 480C384 497.7 369.7 512 352 512H32C14.33 512 0 497.7 0 480C0 462.3 14.33 448 32 448V437C32 394.6 48.86 353.9 78.86 323.9L146.7 256L78.86 188.1C48.86 158.1 32 117.4 32 74.98V64C14.33 64 0 49.67 0 32C0 14.33 14.33 0 32 0H352zM111.1 128H272C282.4 112.4 288 93.98 288 74.98V64H96V74.98C96 93.98 101.6 112.4 111.1 128zM111.1 384H272C268.5 378.7 264.5 373.7 259.9 369.1L192 301.3L124.1 369.1C119.5 373.7 115.5 378.7 111.1 384V384z"]};var faHourglassHalf=faHourglass;var faLayerGroup={prefix:'fas',iconName:'layer-group',icon:[512,512,[],"f5fd","M232.5 5.171C247.4-1.718 264.6-1.718 279.5 5.171L498.1 106.2C506.6 110.1 512 118.6 512 127.1C512 137.3 506.6 145.8 498.1 149.8L279.5 250.8C264.6 257.7 247.4 257.7 232.5 250.8L13.93 149.8C5.438 145.8 0 137.3 0 127.1C0 118.6 5.437 110.1 13.93 106.2L232.5 5.171zM498.1 234.2C506.6 238.1 512 246.6 512 255.1C512 265.3 506.6 273.8 498.1 277.8L279.5 378.8C264.6 385.7 247.4 385.7 232.5 378.8L13.93 277.8C5.438 273.8 0 265.3 0 255.1C0 246.6 5.437 238.1 13.93 234.2L67.13 209.6L219.1 279.8C242.5 290.7 269.5 290.7 292.9 279.8L444.9 209.6L498.1 234.2zM292.9 407.8L444.9 337.6L498.1 362.2C506.6 366.1 512 374.6 512 383.1C512 393.3 506.6 401.8 498.1 405.8L279.5 506.8C264.6 513.7 247.4 513.7 232.5 506.8L13.93 405.8C5.438 401.8 0 393.3 0 383.1C0 374.6 5.437 366.1 13.93 362.2L67.13 337.6L219.1 407.8C242.5 418.7 269.5 418.7 292.9 407.8V407.8z"]};var faLightbulb={prefix:'fas',iconName:'lightbulb',icon:[384,512,[128161],"f0eb","M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"]};var faListUl={prefix:'fas',iconName:'list-ul',icon:[512,512,["list-dots"],"f0ca","M16 96C16 69.49 37.49 48 64 48C90.51 48 112 69.49 112 96C112 122.5 90.51 144 64 144C37.49 144 16 122.5 16 96zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 416C16 389.5 37.49 368 64 368C90.51 368 112 389.5 112 416C112 442.5 90.51 464 64 464C37.49 464 16 442.5 16 416zM112 256C112 282.5 90.51 304 64 304C37.49 304 16 282.5 16 256C16 229.5 37.49 208 64 208C90.51 208 112 229.5 112 256z"]};var faPaintRoller={prefix:'fas',iconName:'paint-roller',icon:[512,512,[],"f5aa","M0 64C0 28.65 28.65 0 64 0H352C387.3 0 416 28.65 416 64V128C416 163.3 387.3 192 352 192H64C28.65 192 0 163.3 0 128V64zM160 352C160 334.3 174.3 320 192 320V304C192 259.8 227.8 224 272 224H416C433.7 224 448 209.7 448 192V69.46C485.3 82.64 512 118.2 512 160V192C512 245 469 288 416 288H272C263.2 288 256 295.2 256 304V320C273.7 320 288 334.3 288 352V480C288 497.7 273.7 512 256 512H192C174.3 512 160 497.7 160 480V352z"]};var faPencil={prefix:'fas',iconName:'pencil',icon:[512,512,[61504,9999,"pencil-alt"],"f303","M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"]};var faPencilAlt=faPencil;var faRightLeft={prefix:'fas',iconName:'right-left',icon:[512,512,["exchange-alt"],"f362","M32 160h319.9l.0791 72c0 9.547 5.652 18.19 14.41 22c8.754 3.812 18.93 2.078 25.93-4.406l112-104c10.24-9.5 10.24-25.69 0-35.19l-112-104c-6.992-6.484-17.17-8.217-25.93-4.408c-8.758 3.816-14.41 12.46-14.41 22L351.9 96H32C14.31 96 0 110.3 0 127.1S14.31 160 32 160zM480 352H160.1L160 279.1c0-9.547-5.652-18.19-14.41-22C136.9 254.2 126.7 255.9 119.7 262.4l-112 104c-10.24 9.5-10.24 25.69 0 35.19l112 104c6.992 6.484 17.17 8.219 25.93 4.406C154.4 506.2 160 497.5 160 488L160.1 416H480c17.69 0 32-14.31 32-32S497.7 352 480 352z"]};var faExchangeAlt=faRightLeft;var faRobot={prefix:'fas',iconName:'robot',icon:[640,512,[129302],"f544","M9.375 233.4C3.375 239.4 0 247.5 0 256v128c0 8.5 3.375 16.62 9.375 22.62S23.5 416 32 416h32V224H32C23.5 224 15.38 227.4 9.375 233.4zM464 96H352V32c0-17.62-14.38-32-32-32S288 14.38 288 32v64H176C131.8 96 96 131.8 96 176V448c0 35.38 28.62 64 64 64h320c35.38 0 64-28.62 64-64V176C544 131.8 508.3 96 464 96zM256 416H192v-32h64V416zM224 296C201.9 296 184 278.1 184 256S201.9 216 224 216S264 233.9 264 256S246.1 296 224 296zM352 416H288v-32h64V416zM448 416h-64v-32h64V416zM416 296c-22.12 0-40-17.88-40-40S393.9 216 416 216S456 233.9 456 256S438.1 296 416 296zM630.6 233.4C624.6 227.4 616.5 224 608 224h-32v192h32c8.5 0 16.62-3.375 22.62-9.375S640 392.5 640 384V256C640 247.5 636.6 239.4 630.6 233.4z"]};var faRotateRight={prefix:'fas',iconName:'rotate-right',icon:[512,512,["redo-alt","rotate-forward"],"f2f9","M468.9 32.11c13.87 0 27.18 10.77 27.18 27.04v145.9c0 10.59-8.584 19.17-19.17 19.17h-145.7c-16.28 0-27.06-13.32-27.06-27.2c0-6.634 2.461-13.4 7.96-18.9l45.12-45.14c-28.22-23.14-63.85-36.64-101.3-36.64c-88.09 0-159.8 71.69-159.8 159.8S167.8 415.9 255.9 415.9c73.14 0 89.44-38.31 115.1-38.31c18.48 0 31.97 15.04 31.97 31.96c0 35.04-81.59 70.41-147 70.41c-123.4 0-223.9-100.5-223.9-223.9S132.6 32.44 256 32.44c54.6 0 106.2 20.39 146.4 55.26l47.6-47.63C455.5 34.57 462.3 32.11 468.9 32.11z"]};var faRedoAlt=faRotateRight;var faSatelliteDish={prefix:'fas',iconName:'satellite-dish',icon:[512,512,[128225],"f7c0","M216 104C202.8 104 192 114.8 192 128s10.75 24 24 24c79.41 0 144 64.59 144 144C360 309.3 370.8 320 384 320s24-10.75 24-24C408 190.1 321.9 104 216 104zM224 0C206.3 0 192 14.31 192 32s14.33 32 32 32c123.5 0 224 100.5 224 224c0 17.69 14.33 32 32 32s32-14.31 32-32C512 129.2 382.8 0 224 0zM188.9 346l27.37-27.37c2.625 .625 5.059 1.506 7.809 1.506c17.75 0 31.99-14.26 31.99-32c0-17.62-14.24-32.01-31.99-32.01c-17.62 0-31.99 14.38-31.99 32.01c0 2.875 .8099 5.25 1.56 7.875L166.2 323.4L49.37 206.5c-7.25-7.25-20.12-6-24.1 3c-41.75 77.88-29.88 176.7 35.75 242.4c65.62 65.62 164.6 77.5 242.4 35.75c9.125-5 10.38-17.75 3-25L188.9 346z"]};var faShuffle={prefix:'fas',iconName:'shuffle',icon:[512,512,[128256,"random"],"f074","M424.1 287c-15.13-15.12-40.1-4.426-40.1 16.97V352H336L153.6 108.8C147.6 100.8 138.1 96 128 96H32C14.31 96 0 110.3 0 128s14.31 32 32 32h80l182.4 243.2C300.4 411.3 309.9 416 320 416h63.97v47.94c0 21.39 25.86 32.12 40.99 17l79.1-79.98c9.387-9.387 9.387-24.59 0-33.97L424.1 287zM336 160h47.97v48.03c0 21.39 25.87 32.09 40.1 16.97l79.1-79.98c9.387-9.391 9.385-24.59-.0013-33.97l-79.1-79.98c-15.13-15.12-40.99-4.391-40.99 17V96H320c-10.06 0-19.56 4.75-25.59 12.81L254 162.7L293.1 216L336 160zM112 352H32c-17.69 0-32 14.31-32 32s14.31 32 32 32h96c10.06 0 19.56-4.75 25.59-12.81l40.4-53.87L154 296L112 352z"]};var faRandom=faShuffle;var faSliders={prefix:'fas',iconName:'sliders',icon:[512,512,["sliders-h"],"f1de","M0 416C0 398.3 14.33 384 32 384H86.66C99 355.7 127.2 336 160 336C192.8 336 220.1 355.7 233.3 384H480C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H233.3C220.1 476.3 192.8 496 160 496C127.2 496 99 476.3 86.66 448H32C14.33 448 0 433.7 0 416V416zM192 416C192 398.3 177.7 384 160 384C142.3 384 128 398.3 128 416C128 433.7 142.3 448 160 448C177.7 448 192 433.7 192 416zM352 176C384.8 176 412.1 195.7 425.3 224H480C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H425.3C412.1 316.3 384.8 336 352 336C319.2 336 291 316.3 278.7 288H32C14.33 288 0 273.7 0 256C0 238.3 14.33 224 32 224H278.7C291 195.7 319.2 176 352 176zM384 256C384 238.3 369.7 224 352 224C334.3 224 320 238.3 320 256C320 273.7 334.3 288 352 288C369.7 288 384 273.7 384 256zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H265.3C252.1 156.3 224.8 176 192 176C159.2 176 131 156.3 118.7 128H32C14.33 128 0 113.7 0 96C0 78.33 14.33 64 32 64H118.7C131 35.75 159.2 16 192 16C224.8 16 252.1 35.75 265.3 64H480zM160 96C160 113.7 174.3 128 192 128C209.7 128 224 113.7 224 96C224 78.33 209.7 64 192 64C174.3 64 160 78.33 160 96z"]};var faSlidersH=faSliders;var faStopwatch={prefix:'fas',iconName:'stopwatch',icon:[448,512,[9201],"f2f2","M272 0C289.7 0 304 14.33 304 32C304 49.67 289.7 64 272 64H256V98.45C293.5 104.2 327.7 120 355.7 143L377.4 121.4C389.9 108.9 410.1 108.9 422.6 121.4C435.1 133.9 435.1 154.1 422.6 166.6L398.5 190.8C419.7 223.3 432 262.2 432 304C432 418.9 338.9 512 224 512C109.1 512 16 418.9 16 304C16 200 92.32 113.8 192 98.45V64H176C158.3 64 144 49.67 144 32C144 14.33 158.3 0 176 0L272 0zM248 192C248 178.7 237.3 168 224 168C210.7 168 200 178.7 200 192V320C200 333.3 210.7 344 224 344C237.3 344 248 333.3 248 320V192z"]};var faTableCells={prefix:'fas',iconName:'table-cells',icon:[512,512,["th"],"f00a","M448 32C483.3 32 512 60.65 512 96V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H448zM152 96H64V160H152V96zM208 160H296V96H208V160zM448 96H360V160H448V96zM64 288H152V224H64V288zM296 224H208V288H296V224zM360 288H448V224H360V288zM152 352H64V416H152V352zM208 416H296V352H208V416zM448 352H360V416H448V352z"]};var faTh=faTableCells;var faTerminal={prefix:'fas',iconName:'terminal',icon:[576,512,[],"f120","M9.372 86.63C-3.124 74.13-3.124 53.87 9.372 41.37C21.87 28.88 42.13 28.88 54.63 41.37L246.6 233.4C259.1 245.9 259.1 266.1 246.6 278.6L54.63 470.6C42.13 483.1 21.87 483.1 9.372 470.6C-3.124 458.1-3.124 437.9 9.372 425.4L178.7 256L9.372 86.63zM544 416C561.7 416 576 430.3 576 448C576 465.7 561.7 480 544 480H256C238.3 480 224 465.7 224 448C224 430.3 238.3 416 256 416H544z"]};var faTriangleExclamation={prefix:'fas',iconName:'triangle-exclamation',icon:[512,512,[9888,"exclamation-triangle","warning"],"f071","M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"]};var faExclamationTriangle=faTriangleExclamation;var faUpRightFromSquare={prefix:'fas',iconName:'up-right-from-square',icon:[512,512,["external-link-alt"],"f35d","M384 320c-17.67 0-32 14.33-32 32v96H64V160h96c17.67 0 32-14.32 32-32s-14.33-32-32-32L64 96c-35.35 0-64 28.65-64 64V448c0 35.34 28.65 64 64 64h288c35.35 0 64-28.66 64-64v-96C416 334.3 401.7 320 384 320zM488 0H352c-12.94 0-24.62 7.797-29.56 19.75c-4.969 11.97-2.219 25.72 6.938 34.88L370.8 96L169.4 297.4c-12.5 12.5-12.5 32.75 0 45.25C175.6 348.9 183.8 352 192 352s16.38-3.125 22.62-9.375L416 141.3l41.38 41.38c9.156 9.141 22.88 11.84 34.88 6.938C504.2 184.6 512 172.9 512 160V24C512 10.74 501.3 0 488 0z"]};var faExternalLinkAlt=faUpRightFromSquare;var faUser={prefix:'fas',iconName:'user',icon:[448,512,[62144,128100],"f007","M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"]};var faWindowMaximize={prefix:'fas',iconName:'window-maximize',icon:[512,512,[128470],"f2d0","M448 32C483.3 32 512 60.65 512 96V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H448zM96 96C78.33 96 64 110.3 64 128C64 145.7 78.33 160 96 160H416C433.7 160 448 145.7 448 128C448 110.3 433.7 96 416 96H96z"]};var faWrench={prefix:'fas',iconName:'wrench',icon:[512,512,[128295],"f0ad","M507.6 122.8c-2.904-12.09-18.25-16.13-27.04-7.338l-76.55 76.56l-83.1-.0002l0-83.1l76.55-76.56c8.791-8.789 4.75-24.14-7.336-27.04c-23.69-5.693-49.34-6.111-75.92 .2484c-61.45 14.7-109.4 66.9-119.2 129.3C189.8 160.8 192.3 186.7 200.1 210.1l-178.1 178.1c-28.12 28.12-28.12 73.69 0 101.8C35.16 504.1 53.56 512 71.1 512s36.84-7.031 50.91-21.09l178.1-178.1c23.46 7.736 49.31 10.24 76.17 6.004c62.41-9.84 114.6-57.8 129.3-119.2C513.7 172.1 513.3 146.5 507.6 122.8zM80 456c-13.25 0-24-10.75-24-24c0-13.26 10.75-24 24-24s24 10.74 24 24C104 445.3 93.25 456 80 456z"]};var faXmark={prefix:'fas',iconName:'xmark',icon:[320,512,[128473,10005,10006,10060,215,"close","multiply","remove","times"],"f00d","M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"]};var faTimes=faXmark;
 
@@ -5985,17 +5179,17 @@ function RelaxedFilePath({
   const extension = fileParts.pop();
   const fileName = fileParts.join('.');
   const tightSpace = String.fromCharCode(8201);
-  return /*#__PURE__*/React__default.createElement("span", {
+  return React__default.createElement("span", {
     className: "inline-flex flex-wrap items-baseline"
-  }, parts.map((part, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  }, parts.map((part, index) => React__default.createElement(React__default.Fragment, {
     key: index
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     key: index
-  }, part), /*#__PURE__*/React__default.createElement("span", null, tightSpace, "/", tightSpace))), /*#__PURE__*/React__default.createElement("span", {
+  }, part), React__default.createElement("span", null, tightSpace, "/", tightSpace))), React__default.createElement("span", {
     className: "font-semibold"
-  }, fileName), /*#__PURE__*/React__default.createElement("span", null, ".", extension), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, fileName), React__default.createElement("span", null, ".", extension), lineNumber && React__default.createElement(React__default.Fragment, null, tightSpace, React__default.createElement("span", {
     className: "whitespace-nowrap"
-  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, ":", tightSpace, React__default.createElement("span", {
     className: "font-mono text-xs"
   }, lineNumber))));
 }
@@ -6006,34 +5200,34 @@ function FrameGroup({
   onSelect
 }) {
   if (frameGroup.type === 'vendor' && !frameGroup.expanded) {
-    return /*#__PURE__*/React__default.createElement("li", {
+    return React__default.createElement("li", {
       className: "group cursor-pointer px-6 @lg:px-10 py-4 flex gap-2 border-b ~border-gray-200 hover:~bg-gray-500/5 items-center",
       onClick: onExpand
-    }, frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame', /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    }, frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame', React__default.createElement(FontAwesomeIcon, {
       icon: faAngleDown,
       className: "~text-gray-500 group-hover:text-indigo-500"
     }));
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, frameGroup.frames.map((frame, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  return React__default.createElement(React__default.Fragment, null, frameGroup.frames.map((frame, index) => React__default.createElement(React__default.Fragment, {
     key: index
-  }, /*#__PURE__*/React__default.createElement("li", {
+  }, React__default.createElement("li", {
     key: frame.frame_number,
     className: `px-6 sm:px-10 py-4
                             ${frame.selected ? 'bg-red-500 text-white' : 'cursor-pointer border-b ~border-gray-200 hover:~bg-red-500/10'}
                         `,
     onClick: () => onSelect(frame.frame_number)
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex items-baseline"
-  }, frame.class ? /*#__PURE__*/React__default.createElement(RelaxedFullyQualifiedClassName, {
+  }, frame.class ? React__default.createElement(RelaxedFullyQualifiedClassName, {
     path: frame.class,
     lineNumber: frame.line_number
-  }) : /*#__PURE__*/React__default.createElement(RelaxedFilePath, {
+  }) : React__default.createElement(RelaxedFilePath, {
     path: frame.file,
     lineNumber: frame.line_number
-  })), /*#__PURE__*/React__default.createElement("div", {
+  })), React__default.createElement("div", {
     className: "font-semibold"
-  }, frame.method)), frame.selected && /*#__PURE__*/React__default.createElement("li", {
+  }, frame.method)), frame.selected && React__default.createElement("li", {
     className: "z-10 mt-[-4px] sticky top-0 bg-red-500 h-[4px]"
   }))));
 }
@@ -8230,10 +7424,10 @@ function EditorLink({
     file: path,
     lineNumber
   });
-  return /*#__PURE__*/React__default.createElement("a", {
+  return React__default.createElement("a", {
     href: editorUrl || '#',
     className: `hover:underline ${className}`
-  }, /*#__PURE__*/React__default.createElement(RelaxedFilePath, {
+  }, React__default.createElement(RelaxedFilePath, {
     path: path,
     lineNumber: lineNumber
   }));
@@ -13446,7 +12640,7 @@ function RoundedButton(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$5);
 
-  return /*#__PURE__*/React__default.createElement("button", _extends$1({
+  return React__default.createElement("button", _extends$1({
     type: props.type || 'button',
     className: `w-6 h-6 rounded-full flex items-center justify-center
             text-xs ~bg-white text-indigo-500 hover:~text-indigo-600 
@@ -13467,20 +12661,20 @@ function FrameCodeSnippetLine({
     file: frame.file,
     lineNumber
   });
-  return /*#__PURE__*/React__default.createElement("span", {
+  return React__default.createElement("span", {
     className: `
                 flex group leading-loose hover:~bg-red-500/10
                 ${highlight ? ' ~bg-red-500/20' : ''}
             `
-  }, editorUrl && /*#__PURE__*/React__default.createElement("span", {
+  }, editorUrl && React__default.createElement("span", {
     className: "z-30 opacity-0 group-hover:opacity-100 sticky left-10 w-0 h-full"
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     href: editorUrl,
     className: "-ml-3 block"
-  }, /*#__PURE__*/React__default.createElement(RoundedButton, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(RoundedButton, null, React__default.createElement(FontAwesomeIcon, {
     className: "text-xs",
     icon: faPencilAlt
-  })))), /*#__PURE__*/React__default.createElement("span", {
+  })))), React__default.createElement("span", {
     className: "pl-6"
   }, createElement({
     node: row,
@@ -13681,7 +12875,7 @@ function FrameCodeSnippet({
   const codeRenderer = useMemo(() => ({
     rows
   }) => {
-    return rows.map((row, index) => /*#__PURE__*/React__default.createElement(FrameCodeSnippetLine, {
+    return rows.map((row, index) => React__default.createElement(FrameCodeSnippetLine, {
       key: lineNumbers[index],
       frame: frame,
       highlight: index === highlightedIndex,
@@ -13689,23 +12883,23 @@ function FrameCodeSnippet({
       lineNumber: lineNumbers[index]
     }));
   }, [frame]);
-  return /*#__PURE__*/React__default.createElement("main", {
+  return React__default.createElement("main", {
     className: "flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-r text-sm"
-  }, /*#__PURE__*/React__default.createElement("nav", {
+  }, React__default.createElement("nav", {
     className: "sticky left-0 flex flex-none z-20 ~bg-white"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "select-none text-right"
-  }, lineNumbers.map(number => /*#__PURE__*/React__default.createElement("p", {
+  }, lineNumbers.map(number => React__default.createElement("p", {
     key: number,
     className: `
                                 px-2 font-mono leading-loose select-none
                                 ${Number(number) === frame.line_number ? ' text-opacity-75 ~text-red-700 ~bg-red-500/30' : ''}
                             `
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "~text-gray-500"
-  }, number))))), /*#__PURE__*/React__default.createElement("div", {
+  }, number))))), React__default.createElement("div", {
     className: "flex-grow pr-10"
-  }, /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, {
+  }, React__default.createElement(SyntaxHighlighter$1, {
     language: getLanguage(frame.relative_file),
     renderer: codeRenderer,
     customStyle: {
@@ -17344,18 +16538,18 @@ function CopyButton({
     setCopied(true);
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: className
-  }, /*#__PURE__*/React__default.createElement(RoundedButton, {
+  }, React__default.createElement(RoundedButton, {
     onClick: copy,
     title: "Copy to clipboard",
     className: `
                     ${alwaysVisible ? '' : 'opacity-0 transform scale-80 transition-animation delay-100'}
                     ${copied ? 'opacity-0' : 'group-hover:opacity-100 group-hover:scale-100'}
                 `
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faCopy
-  })), copied && /*#__PURE__*/React__default.createElement("p", {
+  })), copied && React__default.createElement("p", {
     className: `absolute top-0 ${direction == 'right' ? 'right-0' : 'left-0'} hidden z-10 sm:inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap text-emerald-500`,
     onClick: () => setCopied(false)
   }, "Copied!"));
@@ -17365,7 +16559,7 @@ function HighlightedCode({
   children,
   language
 }) {
-  return /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, {
+  return React__default.createElement(SyntaxHighlighter$1, {
     language: language,
     customStyle: {
       background: 'transparent'
@@ -17419,30 +16613,30 @@ function CodeSnippet({
     selection.addRange(range);
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     ref: containerRef,
     className: `
                 ${isOverflowing ? 'cursor-pointer' : ''}
                 ${transparent ? '' : '~bg-gray-500/5'}
                 group py-2 relative`,
     onClick: handleClick
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: `${overflowX ? 'mask-fade-x' : ''}`
-  }, language === 'sql' && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, isCollapsed ? /*#__PURE__*/React__default.createElement("pre", {
+  }, language === 'sql' && React__default.createElement(React__default.Fragment, null, isCollapsed ? React__default.createElement("pre", {
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'truncate pr-8'}`
-  }, /*#__PURE__*/React__default.createElement("code", {
+  }, React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
+  }, React__default.createElement(HighlightedCode, {
     language: "sql"
-  }, value))) : /*#__PURE__*/React__default.createElement("pre", {
+  }, value))) : React__default.createElement("pre", {
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}`
-  }, /*#__PURE__*/React__default.createElement("code", {
+  }, React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
+  }, React__default.createElement(HighlightedCode, {
     language: "sql"
   }, sqlFormatter$1.format(value, {
     language: 'mysql'
-  }))))), language !== 'sql' && /*#__PURE__*/React__default.createElement("pre", {
+  }))))), language !== 'sql' && React__default.createElement("pre", {
     ref: ref,
     className: `
                             pl-4
@@ -17450,17 +16644,17 @@ function CodeSnippet({
                             ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
                             ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}
                         `
-  }, /*#__PURE__*/React__default.createElement("code", {
+  }, React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, language ? /*#__PURE__*/React__default.createElement(HighlightedCode, {
+  }, language ? React__default.createElement(HighlightedCode, {
     language: language
-  }, value) : value))), /*#__PURE__*/React__default.createElement(CopyButton, {
+  }, value) : value))), React__default.createElement(CopyButton, {
     className: "absolute top-2 right-3",
     value: value
-  }), isOverflowing && /*#__PURE__*/React__default.createElement(RoundedButton, {
+  }), isOverflowing && React__default.createElement(RoundedButton, {
     onClick: () => setIsCollapsed(!isCollapsed),
-    className: " absolute -bottom-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100 "
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    className: "\n                        absolute -bottom-3 left-1/2 -translate-x-1/2\n                        opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100\n                    "
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: `transition-transform duration-300 transform ${isCollapsed ? '' : 'rotate-180'}`
   })));
@@ -17478,7 +16672,7 @@ function DefinitionList(_ref) {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement("dl", _extends$1({
+  return React__default.createElement("dl", _extends$1({
     className: `grid grid-cols-1 gap-2 ${className}`
   }, props), children);
 }
@@ -17508,25 +16702,25 @@ function DefinitionListRow({
   if (React__default.isValidElement(value)) {
     valueOutput = value;
   } else if (typeof value === 'boolean') {
-    valueOutput = /*#__PURE__*/React__default.createElement("span", {
+    valueOutput = React__default.createElement("span", {
       className: `${value ? 'text-emerald-500 bg-emerald-500/5' : 'text-red-500 bg-red-800/5'} text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`
-    }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    }, React__default.createElement(FontAwesomeIcon, {
       className: `${value} ? 'text-emerald-500' : 'text-red-500`,
       icon: value ? faCheck : faTimes
-    }), /*#__PURE__*/React__default.createElement("span", {
+    }), React__default.createElement("span", {
       className: "font-mono"
     }, value ? 'true' : 'false'));
   } else if (type === 'string' || typeof value === 'object') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: jsonStringify(value),
       language: "json"
     });
   } else if (typeof value === 'string') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: value
     });
   } else if (typeof value === 'number') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: String(value)
     });
   }
@@ -17535,9 +16729,9 @@ function DefinitionListRow({
   const expandedSmallLabelClass = 'flex-grow truncate min-w-[2rem] max-w-max';
   const normalLabelClass = 'flex-none truncate w-[8rem]';
   const normalSmallLabelClass = 'flex-none truncate w-[2rem]';
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${stacked ? 'flex flex-col' : `flex items-baseline ${small ? 'gap-3' : 'gap-10'}`}  ${className}`
-  }, /*#__PURE__*/React__default.createElement("dt", {
+  }, React__default.createElement("dt", {
     className: `
                 ${stacked ? 'self-start pt-2 pb-1.5 leading-tight' : expandLabel ? small ? expandedSmallLabelClass : expandedLabelClass : small ? normalSmallLabelClass : normalLabelClass}
             `,
@@ -17547,7 +16741,7 @@ function DefinitionListRow({
     onMouseOut: () => {
       stopExpandLabel();
     }
-  }, label), /*#__PURE__*/React__default.createElement("dd", {
+  }, label), React__default.createElement("dd", {
     className: "flex-grow min-w-0"
   }, valueOutput));
 }
@@ -17557,19 +16751,19 @@ function FrameArguments({
 }) {
   var _frame$arguments;
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, {
+  return React__default.createElement(DefinitionList, {
     className: "pb-10 px-6 @lg:px-10"
-  }, (_frame$arguments = frame.arguments) == null ? void 0 : _frame$arguments.map((argument, key) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, (_frame$arguments = frame.arguments) == null ? void 0 : _frame$arguments.map((argument, key) => React__default.createElement(DefinitionList.Row, {
     key: key,
-    label: /*#__PURE__*/React__default.createElement("div", {
+    label: React__default.createElement("div", {
       className: "font-mono text-sm"
-    }, /*#__PURE__*/React__default.createElement("span", {
+    }, React__default.createElement("span", {
       className: "hljs-function hljs-params hljs-variable"
-    }, /*#__PURE__*/React__default.createElement("span", {
+    }, React__default.createElement("span", {
       title: "by reference"
-    }, argument.is_variadic && '…'), /*#__PURE__*/React__default.createElement("span", null, argument.passed_by_reference && '&'), /*#__PURE__*/React__default.createElement("span", {
+    }, argument.is_variadic && '…'), React__default.createElement("span", null, argument.passed_by_reference && '&'), React__default.createElement("span", {
       title: "variadic"
-    }, "$"), argument.name), /*#__PURE__*/React__default.createElement("span", {
+    }, "$"), argument.name), React__default.createElement("span", {
       className: "text-xs pl-px hljs-function hljs-keyword"
     }, ":", argument.original_type, argument.truncated && ' - truncated')),
     value: argument.value,
@@ -17616,30 +16810,30 @@ function StackTraceExplorer({
       type: 'SELECT_PREVIOUS_FRAME'
     });
   });
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("aside", {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("aside", {
     className: "z-30 flex flex-col border-r ~border-gray-200 relative"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "max-h-[33vh] @4xl:max-h-[none] @4xl:absolute inset-0 flex flex-col overflow-hidden ~bg-white rounded-t-lg"
-  }, /*#__PURE__*/React__default.createElement("header", {
+  }, React__default.createElement("header", {
     className: "flex-none px-6 @lg:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200"
-  }, /*#__PURE__*/React__default.createElement(SmallButton, {
+  }, React__default.createElement(SmallButton, {
     onClick: () => dispatch({
       type: vendorFramesExpanded ? 'COLLAPSE_ALL_VENDOR_FRAMES' : 'EXPAND_ALL_VENDOR_FRAMES'
     })
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: `flex ${vendorFramesExpanded ? 'flex-col-reverse' : 'flex-col'}`
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleUp,
     className: "-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  }), /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }), React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: "-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  })), vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames')), /*#__PURE__*/React__default.createElement("div", {
+  })), vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames')), React__default.createElement("div", {
     id: "frames",
     className: "flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames"
-  }, /*#__PURE__*/React__default.createElement("ol", {
+  }, React__default.createElement("ol", {
     className: "text-sm pb-16"
-  }, frameGroups.map((frameGroup, i) => /*#__PURE__*/React__default.createElement(FrameGroup, {
+  }, frameGroups.map((frameGroup, i) => React__default.createElement(FrameGroup, {
     key: i,
     frameGroup: frameGroup,
     onExpand: () => dispatch({
@@ -17652,21 +16846,21 @@ function StackTraceExplorer({
         frame: frameNumber
       });
     }
-  })))))), /*#__PURE__*/React__default.createElement("section", {
+  })))))), React__default.createElement("section", {
     className: "flex flex-col border-t @4xl:border-t-0 ~border-gray-200 relative"
-  }, selectedFrame && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("header", {
+  }, selectedFrame && React__default.createElement(React__default.Fragment, null, React__default.createElement("header", {
     className: "~text-gray-500 flex-none z-30 h-16 px-6 @lg:px-10 flex items-center justify-end"
-  }, /*#__PURE__*/React__default.createElement(EditorLink, {
+  }, React__default.createElement(EditorLink, {
     path: selectedFrame.file,
     lineNumber: selectedFrame.line_number,
     className: "flex items-center text-sm"
-  })), /*#__PURE__*/React__default.createElement(FrameCodeSnippet, {
+  })), React__default.createElement(FrameCodeSnippet, {
     frame: selectedFrame
-  }))), (selectedFrame == null ? void 0 : selectedFrame.arguments) && selectedFrame.arguments.length > 0 && /*#__PURE__*/React__default.createElement("section", {
+  }))), (selectedFrame == null ? void 0 : selectedFrame.arguments) && selectedFrame.arguments.length > 0 && React__default.createElement("section", {
     className: "border-t ~border-gray-200 @4xl:col-span-2"
-  }, /*#__PURE__*/React__default.createElement("header", {
+  }, React__default.createElement("header", {
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider h-16 px-6 @lg:px-10 flex items-center"
-  }, "arguments"), /*#__PURE__*/React__default.createElement(FrameArguments, {
+  }, "arguments"), React__default.createElement(FrameArguments, {
     frame: selectedFrame
   })));
 }
@@ -17677,11 +16871,11 @@ function StackTrace({
   const {
     frames
   } = useContext(ErrorOccurrenceContext);
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "@container bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "grid grid-cols-1 @4xl:grid-cols-[33.33%_66.66%] @4xl:grid-rows-[57rem] items-stretch overflow-hidden"
-  }, /*#__PURE__*/React__default.createElement(StackTraceExplorer, {
+  }, React__default.createElement(StackTraceExplorer, {
     frames: frames,
     openFrameIndex: openFrameIndex
   })));
@@ -17704,13 +16898,13 @@ function ExceptionMessage({
     setFullException(!fullException);
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `
                 my-4 font-semibold leading-snug text-xl
                 ${className}
             `,
     onClick: handleClick
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: fullException ? 'line-clamp-none' : 'line-clamp-2'
   }, message));
 }
@@ -17733,10 +16927,10 @@ function FormattedExceptionMessage({
       setCleanedUpMessage(message.replace(sqlQueryPattern, '$2'));
     }
   }, [message, exceptionClass]);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ExceptionMessage, {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(ExceptionMessage, {
     message: cleanedUpMessage,
     className: className
-  }), sqlQuery && /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }), sqlQuery && React__default.createElement(CodeSnippet, {
     value: sqlQuery,
     language: "sql"
   }));
@@ -17751,7 +16945,7 @@ function Button(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$3);
 
-  return /*#__PURE__*/React__default.createElement("button", _extends$1({
+  return React__default.createElement("button", _extends$1({
     disabled: disabled,
     className: `px-4 h-8 whitespace-nowrap border-b
             text-xs uppercase tracking-wider font-bold rounded-sm
@@ -24512,9 +23706,9 @@ const _excluded$2 = ["node", "inline", "className", "children"];
 function SolutionDescription({
   solution
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "grid grid-cols-1 gap-2"
-  }, /*#__PURE__*/React__default.createElement(ReactMarkdown, {
+  }, React__default.createElement(ReactMarkdown, {
     children: solution.description,
     components: {
       code(_ref) {
@@ -24526,7 +23720,7 @@ function SolutionDescription({
             props = _objectWithoutPropertiesLoose$2(_ref, _excluded$2);
 
         const match = /language-(\w+)/.exec(className || '');
-        return !inline ? /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, _extends$1({}, props, {
+        return !inline ? React__default.createElement(SyntaxHighlighter$1, _extends$1({}, props, {
           language: match ? match[1] : null,
           children: String(children).replace(/\n$/, ''),
           customStyle: {
@@ -24535,7 +23729,7 @@ function SolutionDescription({
             padding: '0.25rem 0.5rem',
             overflowX: 'scroll'
           }
-        })) : /*#__PURE__*/React__default.createElement("code", _extends$1({}, props, {
+        })) : React__default.createElement("code", _extends$1({}, props, {
           className: className,
           style: {
             background: 'rgba(255,255,255,0.75)',
@@ -24545,11 +23739,11 @@ function SolutionDescription({
       }
 
     }
-  }), solution.action_description && /*#__PURE__*/React__default.createElement("p", null, solution.action_description), /*#__PURE__*/React__default.createElement("ul", {
+  }), solution.action_description && React__default.createElement("p", null, solution.action_description), React__default.createElement("ul", {
     className: "grid grid-cols-1 gap-1 text-sm"
-  }, Object.entries(solution.links).map(([title, link], index) => /*#__PURE__*/React__default.createElement("li", {
+  }, Object.entries(solution.links).map(([title, link], index) => React__default.createElement("li", {
     key: index
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     href: link,
     target: "_blank",
     className: "underline text-emerald-700 hover:text-emerald-800"
@@ -24599,31 +23793,31 @@ function SolutionRunner({
     location.reload();
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, wasExecutionSuccessful === null && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Button, {
+  return React__default.createElement(React__default.Fragment, null, wasExecutionSuccessful === null && React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
     onClick: executeSolution,
     disabled: isRunningSolution,
     className: "mb-4 inline-flex items-center gap-2 bg-emerald-600 border-emerald-500/25 text-white"
-  }, isRunningSolution ? /*#__PURE__*/React__default.createElement("span", null, "Running...") : /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, isRunningSolution ? React__default.createElement("span", null, "Running...") : React__default.createElement(React__default.Fragment, null, React__default.createElement(FontAwesomeIcon, {
     className: "opacity-50",
     icon: faWrench
-  }), solution.run_button_text || 'Run')), /*#__PURE__*/React__default.createElement(SolutionDescription, {
+  }), solution.run_button_text || 'Run')), React__default.createElement(SolutionDescription, {
     solution: solution
-  })), wasExecutionSuccessful === true && /*#__PURE__*/React__default.createElement("p", {
+  })), wasExecutionSuccessful === true && React__default.createElement("p", {
     className: ""
-  }, "The solution was executed ", /*#__PURE__*/React__default.createElement("strong", null, "successfully"), ".", /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement("a", {
+  }, "The solution was executed ", React__default.createElement("strong", null, "successfully"), ".", React__default.createElement("br", null), React__default.createElement("a", {
     href: "#",
     className: "mt-2 inline-flex items-center gap-2 underline text-emerald-700 hover:text-emerald-800",
     onClick: refresh
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faRedoAlt,
     className: "text-sm opacity-50"
-  }), "Refresh now")), wasExecutionSuccessful === false && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("p", {
+  }), "Refresh now")), wasExecutionSuccessful === false && React__default.createElement(React__default.Fragment, null, React__default.createElement("p", {
     className: "bg-red-200 px-4 py-2"
-  }, "Something ", /*#__PURE__*/React__default.createElement("strong", null, "went wrong"), ". Please try refreshing the page and try again.", /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement("a", {
+  }, "Something ", React__default.createElement("strong", null, "went wrong"), ". Please try refreshing the page and try again.", React__default.createElement("br", null), React__default.createElement("a", {
     href: "#",
     className: "mt-2 inline-flex items-center gap-2 underline text-red-700 hover:text-red-800",
     onClick: refresh
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faRedoAlt,
     className: "text-sm opacity-50"
   }), "Refresh now"))));
@@ -24636,39 +23830,39 @@ function Solution({
   canExecute = false
 }) {
   const [isOpen, setIsOpen] = useState(initialIsOpen);
-  return /*#__PURE__*/React__default.createElement("section", null, /*#__PURE__*/React__default.createElement("header", {
+  return React__default.createElement("section", null, React__default.createElement("header", {
     className: "group mb-4"
-  }, isCollapsible ? /*#__PURE__*/React__default.createElement("button", {
+  }, isCollapsible ? React__default.createElement("button", {
     className: "flex items-center justify-start",
     onClick: () => {
       setIsOpen(!isOpen);
     }
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "w-6 -ml-6"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: `group-hover:opacity-50 opacity-0 text-sm transform transition ${isOpen ? '' : '-rotate-90'}`
-  })), /*#__PURE__*/React__default.createElement("h2", {
+  })), React__default.createElement("h2", {
     className: "min-w-0 truncate font-semibold leading-snug"
-  }, solution.title)) : /*#__PURE__*/React__default.createElement("h2", {
+  }, solution.title)) : React__default.createElement("h2", {
     className: "truncate font-semibold leading-snug"
-  }, solution.title)), /*#__PURE__*/React__default.createElement("div", {
+  }, solution.title)), React__default.createElement("div", {
     className: `${isOpen ? '' : 'hidden'}`
-  }, solution.is_runnable && canExecute ? /*#__PURE__*/React__default.createElement(SolutionRunner, {
+  }, solution.is_runnable && canExecute ? React__default.createElement(SolutionRunner, {
     solution: solution
-  }) : /*#__PURE__*/React__default.createElement(SolutionDescription, {
+  }) : React__default.createElement(SolutionDescription, {
     solution: solution
-  }), solution.ai_generated && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("hr", {
+  }), solution.ai_generated && React__default.createElement(React__default.Fragment, null, React__default.createElement("hr", {
     className: "border-emerald-500/50 my-4"
-  }), /*#__PURE__*/React__default.createElement("div", {
+  }), React__default.createElement("div", {
     className: "flex items-center gap-x-2 text-green-700"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     fixedWidth: true,
     icon: faRobot
-  }), /*#__PURE__*/React__default.createElement("span", {
+  }), React__default.createElement("span", {
     id: "ai-message",
     className: "text-xs"
-  }, "This solution was ", /*#__PURE__*/React__default.createElement("a", {
+  }, "This solution was ", React__default.createElement("a", {
     className: "underline",
     target: "_blank",
     href: "https://flareapp.io/docs/ignition/solutions/ai-powered-solutions"
@@ -24698,29 +23892,29 @@ function Solutions() {
       setCanExecuteSolutions(false);
     }
   }, []);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showSolutions ? /*#__PURE__*/React__default.createElement("aside", {
+  return React__default.createElement(React__default.Fragment, null, showSolutions ? React__default.createElement("aside", {
     id: "solution",
     className: "relative flex flex-col lg:w-2/5 flex-none"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800 rounded-bl-lg rounded-br-lg @4xl:rounded-bl-none @4xl:rounded-r-lg"
-  }, /*#__PURE__*/React__default.createElement("button", {
+  }, React__default.createElement("button", {
     onClick: () => setShowSolutions(false),
     className: "absolute top-3 right-4 leading-none text-emerald-500 hover:text-emerald-700 text-sm"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faTimes
-  })), solutions.map((solution, index) => /*#__PURE__*/React__default.createElement("div", {
+  })), solutions.map((solution, index) => React__default.createElement("div", {
     key: index
-  }, /*#__PURE__*/React__default.createElement(Solution, {
+  }, React__default.createElement(Solution, {
     solution: solution,
     canExecute: canExecuteSolutions,
     isOpen: index === 0,
     isCollapsible: solutions.length > 1
-  }), index !== solutions.length - 1 && /*#__PURE__*/React__default.createElement("hr", {
+  }), index !== solutions.length - 1 && React__default.createElement("hr", {
     className: "my-4 border-t border-gray-800/20"
-  }))))) : /*#__PURE__*/React__default.createElement("button", {
+  }))))) : React__default.createElement("button", {
     onClick: () => setShowSolutions(true),
-    className: " absolute -top-3 -right-3 z-20 w-6 h-6 rounded-full flex items-center justify-center text-xs bg-emerald-500 text-white hover:shadow-lg shadow-md active:shadow-sm active:translate-y-px"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    className: "\n        absolute -top-3 -right-3 z-20\n        w-6 h-6 rounded-full flex items-center justify-center\n        text-xs bg-emerald-500 text-white hover:shadow-lg\n        shadow-md\n        active:shadow-sm active:translate-y-px"
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faLightbulb
   })));
 }
@@ -24731,9 +23925,9 @@ function ExceptionSelector() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
 
   {
-    return /*#__PURE__*/React__default.createElement("span", {
+    return React__default.createElement("span", {
       className: "py-1 px-4 items-center flex gap-3 rounded-sm ~bg-gray-500/5"
-    }, /*#__PURE__*/React__default.createElement(RelaxedFullyQualifiedClassName, {
+    }, React__default.createElement(RelaxedFullyQualifiedClassName, {
       path: errorOccurrence.exception_class
     }));
   }
@@ -24742,13 +23936,13 @@ function ExceptionSelector() {
 function ErrorBoundaryCard({
   githubLink
 }) {
-  return /*#__PURE__*/React__default.createElement("section", {
+  return React__default.createElement("section", {
     className: "flex flex-col flex-grow px-6 sm:px-10 py-8 bg-red-600 text-red-100 shadow-lg gap-3"
-  }, /*#__PURE__*/React__default.createElement("h2", {
+  }, React__default.createElement("h2", {
     className: "text-xl font-semibold leading-snug"
-  }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
+  }, "Something went wrong in Ignition!"), React__default.createElement("p", {
     className: "text-base"
-  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
+  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', React__default.createElement("a", {
     href: githubLink,
     target: "_blank",
     className: "underline"
@@ -24802,7 +23996,7 @@ ${navigator.userAgent}
         githubLink = `https://github.com/spatie/ignition/issues/new?title=${title}&labels=bug&body=${encodeURIComponent(body)}`;
       }
 
-      return ((_this$props$fallbackC = (_this$props = this.props).fallbackComponent) == null ? void 0 : _this$props$fallbackC.call(_this$props, githubLink)) || /*#__PURE__*/React__default.createElement(ErrorBoundaryCard, {
+      return ((_this$props$fallbackC = (_this$props = this.props).fallbackComponent) == null ? void 0 : _this$props$fallbackC.call(_this$props, githubLink)) || React__default.createElement(ErrorBoundaryCard, {
         githubLink: githubLink
       });
     }
@@ -24818,44 +24012,86 @@ function ErrorCard() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const hasSolutions = errorOccurrence.solutions.length > 0;
   const isLaravelError = !!((_errorOccurrence$cont = errorOccurrence.context_items.env) != null && _errorOccurrence$cont.laravel_version);
-  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("section", {
+  return React__default.createElement(ErrorBoundary, null, React__default.createElement("section", {
     className: "@container | bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "@4xl:flex items-stretch"
-  }, /*#__PURE__*/React__default.createElement("main", {
+  }, React__default.createElement("main", {
     id: "exception",
     className: "z-10 flex-grow min-w-0"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "overflow-hidden"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "px-6 @lg:px-10 py-8 overflow-x-auto"
-  }, /*#__PURE__*/React__default.createElement("header", {
+  }, React__default.createElement("header", {
     className: "flex items-center justify-between gap-2"
-  }, /*#__PURE__*/React__default.createElement(ExceptionSelector, null), /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement(ExceptionSelector, null), React__default.createElement("div", {
     className: "grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500"
-  }, /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", null, React__default.createElement("span", {
     className: "tracking-wider"
-  }, "PHP"), "\xA0", errorOccurrence.language_version), errorOccurrence.framework_version && /*#__PURE__*/React__default.createElement("span", {
+  }, "PHP"), "\u00A0", errorOccurrence.language_version), errorOccurrence.framework_version && React__default.createElement("span", {
     className: "inline-flex items-center gap-1"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: isLaravelError ? faLaravel : faCodeBranch
-  }), errorOccurrence.framework_version))), /*#__PURE__*/React__default.createElement(FormattedExceptionMessage, {
+  }), errorOccurrence.framework_version))), React__default.createElement(FormattedExceptionMessage, {
     exceptionClass: errorOccurrence.exception_class,
     message: errorOccurrence.exception_message
-  })))), hasSolutions && /*#__PURE__*/React__default.createElement(Solutions, null))));
+  })))), hasSolutions && React__default.createElement(Solutions, null))));
+}
+
+const CAMELCASE_REGEXP_PATTERN = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))';
+
+function replace(value, dictionary) {
+  for (let index = 0, length = value.length; index < length; index++) {
+    const char = value[index];
+    const replacement = dictionary[char] && String(dictionary[char]);
+
+    if (replacement !== undefined) {
+      value = value.slice(0, index) + replacement + value.slice(index + 1);
+      const addedCharsCount = replacement.length - 1;
+      index += addedCharsCount;
+      length += addedCharsCount;
+    }
+  }
+
+  return value;
+}
+
+const LOWERCASE_TRANSFORMER = (fragments, separator) => {
+  return fragments.join(separator).toLowerCase();
+};
+
+
+const COMBINING_CHARS = /[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF]+/g;
+const CONVERT = /[A-Za-z\d]+/g;
+const CONVERT_CAMELCASE = new RegExp('[A-Za-z\\d]*?' + CAMELCASE_REGEXP_PATTERN + '|[A-Za-z\\d]+', 'g');
+
+function convert(value, {
+  camelCase = true,
+  dictionary,
+  separator = '-',
+  transformer = LOWERCASE_TRANSFORMER
+} = {}) {
+  const fragments = (dictionary ? replace(String(value), dictionary) : String(value)).normalize('NFKD').replace(COMBINING_CHARS, '').match(camelCase ? CONVERT_CAMELCASE : CONVERT);
+
+  if (!fragments) {
+    return '';
+  }
+
+  return transformer ? transformer(fragments, String(separator)) : fragments.join(String(separator));
 }
 
 function ErrorBoundarySection({
   className = '',
   githubLink
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className} flex flex-col gap-2 bg-red-50 dark:bg-red-500/10 px-6 py-4`
-  }, /*#__PURE__*/React__default.createElement("h2", {
+  }, React__default.createElement("h2", {
     className: "font-semibold leading-snug"
-  }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
+  }, "Something went wrong in Ignition!"), React__default.createElement("p", {
     className: "text-base"
-  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
+  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', React__default.createElement("a", {
     href: githubLink,
     target: "_blank",
     className: "underline"
@@ -24867,17 +24103,17 @@ function ContextGroup({
   children,
   anchor
 }) {
-  return /*#__PURE__*/React__default.createElement("section", {
+  return React__default.createElement("section", {
     className: "py-10 ~bg-white px-6 @lg:px-10 min-w-0"
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     id: `context-${anchor}`,
     className: "scroll-target"
-  }), /*#__PURE__*/React__default.createElement("h2", {
+  }), React__default.createElement("h2", {
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider"
-  }, title), /*#__PURE__*/React__default.createElement("div", {
+  }, title), React__default.createElement("div", {
     className: "mt-3 grid grid-cols-1 gap-10"
-  }, /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+  }, React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink
     })
   }, children)));
@@ -25083,17 +24319,17 @@ function ContextSection({
   anchor
 }) {
   const ref = useSectionInView(title);
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     ref: ref
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     id: `context-${anchor}`,
     className: "scroll-target"
-  }), /*#__PURE__*/React__default.createElement("h1", {
+  }), React__default.createElement("h1", {
     className: "mb-2 flex items-center gap-2 font-semibold text-lg ~text-indigo-600"
-  }, title, /*#__PURE__*/React__default.createElement("span", {
+  }, title, React__default.createElement("span", {
     className: "opacity-50 ~text-indigo-600 text-sm"
-  }, icon)), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+  }, icon)), React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink
     })
   }, children));
@@ -25112,7 +24348,7 @@ function Tag({
     purple: '~text-violet-600 border-violet-600/50',
     gray: '~text-gray-500 border-gray-500/50'
   }[color];
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className} ${tagColors} px-1.5 py-0.5 rounded-sm bg-opacity-20 border text-xs font-medium uppercase tracking-wider`
   }, children);
 }
@@ -25123,15 +24359,15 @@ function Request({
   headers
 }) {
   const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", null, React__default.createElement("div", {
     className: "text-lg font-semibold flex items-center gap-2"
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "~text-indigo-600"
-  }, request.url), request.method && /*#__PURE__*/React__default.createElement(Tag, {
+  }, request.url), request.method && React__default.createElement(Tag, {
     color: request.method.toUpperCase() == 'DELETE' ? 'red' : 'blue'
-  }, request.method.toUpperCase())), curl && /*#__PURE__*/React__default.createElement("div", {
+  }, request.method.toUpperCase())), curl && React__default.createElement("div", {
     className: "mt-2"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: curl,
     language: "curl"
   })));
@@ -25140,7 +24376,7 @@ function Request({
 function ContextList({
   items
 }) {
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(items || {}).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, Object.entries(items || {}).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
     key: key,
     label: key,
     value: value
@@ -25598,7 +24834,7 @@ function Headers({
 }) {
   let filteredHeaders = omitBy_1(headers, isNil_1);
   filteredHeaders = omitBy_1(filteredHeaders, isEmpty_1);
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: filteredHeaders
   });
 }
@@ -25606,7 +24842,7 @@ function Headers({
 function QueryString({
   requestData
 }) {
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: requestData.queryString || {}
   });
 }
@@ -25621,7 +24857,7 @@ function Body() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  return React__default.createElement(CodeSnippet, {
     value: jsonStringify(body)
   });
 }
@@ -25636,9 +24872,9 @@ function Files() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "col-span-2"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: jsonStringify(files)
   }));
 }
@@ -25646,7 +24882,7 @@ function Files() {
 function Session({
   session
 }) {
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: session
   });
 }
@@ -25654,7 +24890,7 @@ function Session({
 function Cookies({
   cookies
 }) {
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: cookies
   });
 }
@@ -25667,7 +24903,7 @@ function LivewireData() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: livewire.data
   });
 }
@@ -25680,7 +24916,7 @@ function LivewireComponent() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: {
       Component: livewire.component_class,
       Alias: livewire.component_alias,
@@ -25697,10 +24933,10 @@ function LivewireUpdates() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, livewire.updates.map(({
+  return React__default.createElement(DefinitionList, null, livewire.updates.map(({
     payload,
     type
-  }, index) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, index) => React__default.createElement(DefinitionList.Row, {
     key: index,
     label: type,
     value: payload
@@ -25715,7 +24951,7 @@ function UnorderedList(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$1);
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children && /*#__PURE__*/React__default.createElement("ul", _extends$1({
+  return React__default.createElement(React__default.Fragment, null, children && React__default.createElement("ul", _extends$1({
     className: `gap-y-2 flex flex-col ${className}`
   }, props), children));
 }
@@ -25729,17 +24965,17 @@ function UnorderedListItem({
   if (React__default.isValidElement(value)) {
     valueOutput = value;
   } else if (typeof value === 'object') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: jsonStringify(value),
       language: "json"
     });
   } else if (typeof value === 'string') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: value
     });
   }
 
-  return /*#__PURE__*/React__default.createElement("li", null, valueOutput);
+  return React__default.createElement("li", null, valueOutput);
 }
 
 function Routing({
@@ -25747,22 +24983,22 @@ function Routing({
 }) {
   var _route$routeParameter;
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
     value: route.controllerAction,
     label: "Controller"
-  }), route.route && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), route.route && React__default.createElement(DefinitionList.Row, {
     value: route.route,
     label: "Route name"
-  }), !!((_route$routeParameter = route.routeParameters) != null && _route$routeParameter.length) && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(route.routeParameters).map(([key, parameter]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), !!((_route$routeParameter = route.routeParameters) != null && _route$routeParameter.length) && React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(DefinitionList, null, Object.entries(route.routeParameters).map(([key, parameter]) => React__default.createElement(DefinitionList.Row, {
       stacked: true,
       key: key,
       label: key,
       value: parameter
     }))),
     label: "Route parameters"
-  }), route.middleware && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(UnorderedList, null, (route.middleware || []).map((middleware, i) => /*#__PURE__*/React__default.createElement(UnorderedList.Item, {
+  }), route.middleware && React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(UnorderedList, null, (route.middleware || []).map((middleware, i) => React__default.createElement(UnorderedList.Item, {
       key: i,
       value: middleware
     }))),
@@ -25787,7 +25023,7 @@ function SfDump(_ref) {
 
     window.Sfdump(match[0]);
   }, [value]);
-  return /*#__PURE__*/React__default.createElement("div", _extends$1({
+  return React__default.createElement("div", _extends$1({
     className: "~bg-gray-500/5 px-4 py-2",
     dangerouslySetInnerHTML: {
       __html: value
@@ -25803,17 +25039,17 @@ function View() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(EditorLink, {
+  return React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(EditorLink, {
       path: view.view
     }),
     label: "View"
-  }), view.data && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), view.data && React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => React__default.createElement(DefinitionList.Row, {
       stacked: true,
       key: key,
       label: key,
-      value: /*#__PURE__*/React__default.createElement(SfDump, {
+      value: React__default.createElement(SfDump, {
         value: data
       })
     }))),
@@ -26103,19 +25339,19 @@ var md5 = createCommonjsModule(function (module) {
 function User({
   user
 }) {
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, user.email && /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement(React__default.Fragment, null, user.email && React__default.createElement("div", {
     className: "mb-2 flex items-center gap-3"
-  }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("img", {
+  }, React__default.createElement("div", null, React__default.createElement("img", {
     className: "inline-block h-9 w-9 rounded-full",
     alt: user.email,
     src: `https://gravatar.com/avatar/${md5(user.email)}/?s=240`
-  })), /*#__PURE__*/React__default.createElement("div", {
+  })), React__default.createElement("div", {
     className: "leading-tight"
-  }, user.name && /*#__PURE__*/React__default.createElement("p", {
+  }, user.name && React__default.createElement("p", {
     className: "font-semibold"
-  }, user.name), /*#__PURE__*/React__default.createElement("p", {
+  }, user.name), React__default.createElement("p", {
     className: "text-sm"
-  }, user.email))), /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, user.email))), React__default.createElement(CodeSnippet, {
     value: jsonStringify(user),
     language: "json"
   }));
@@ -26125,17 +25361,17 @@ function Alert({
   children,
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className}`
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex items-center gap-2 bg-yellow-50 dark:bg-yellow-500/10 px-4 py-2"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex-shrink-0",
     "aria-hidden": "true"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     className: "text-yellow-500 ",
     icon: faExclamationTriangle
-  })), /*#__PURE__*/React__default.createElement("p", {
+  })), React__default.createElement("p", {
     className: "text-sm"
   }, children)));
 }
@@ -27190,26 +26426,26 @@ function Git({
   const {
     commitUrl
   } = getGitInfo(git.remote, git.hash);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, git.hash && git.message && /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement(React__default.Fragment, null, git.hash && git.message && React__default.createElement("div", {
     className: "flex items-center gap-4"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex-grow font-semibold"
-  }, git.message), /*#__PURE__*/React__default.createElement("div", {
+  }, git.message), React__default.createElement("div", {
     className: "~bg-gray-500/5 flex items-center"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     transparent: true,
     overflowX: false,
     value: git.hash
-  }), commitUrl && /*#__PURE__*/React__default.createElement("a", {
+  }), commitUrl && React__default.createElement("a", {
     href: commitUrl,
     target: "_blank",
     className: "mr-4"
-  }, /*#__PURE__*/React__default.createElement(SmallButton, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(SmallButton, null, React__default.createElement(FontAwesomeIcon, {
     className: "group-hover:text-indigo-500",
     icon: faExternalLinkAlt
-  }), "View commit ", git.hash.substr(0, 7))))), git.isDirty && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(Alert, {
+  }), "View commit ", git.hash.substr(0, 7))))), git.isDirty && React__default.createElement("div", null, React__default.createElement(Alert, {
     className: "mt-4"
-  }, "Last commit is dirty. (Un)staged changes have been made since this commit.")), git.tag && /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, "Last commit is dirty. (Un)staged changes have been made since this commit.")), git.tag && React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
     label: "Latest tag",
     value: git.tag
   })));
@@ -27880,11 +27116,11 @@ function Versions({
   env
 }) {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, errorOccurrence.application_version && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, errorOccurrence.application_version && React__default.createElement(DefinitionList.Row, {
     key: "app_version",
     value: errorOccurrence.application_version,
     label: "App Version"
-  }), Object.entries(env).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), Object.entries(env).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
     key: key,
     value: value,
     label: startCase_1(key)
@@ -27894,7 +27130,7 @@ function Versions({
 function ContextNav({
   children
 }) {
-  return /*#__PURE__*/React__default.createElement("ul", {
+  return React__default.createElement("ul", {
     className: "grid grid-cols-1 gap-10"
   }, children);
 }
@@ -27904,10 +27140,10 @@ function ContextNavGroup({
   children,
   anchor
 }) {
-  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
+  return React__default.createElement("li", null, React__default.createElement("a", {
     href: `#context-${anchor}`,
     className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
-  }, title), /*#__PURE__*/React__default.createElement("ul", {
+  }, title), React__default.createElement("ul", {
     className: "mt-3 grid grid-cols-1 gap-3"
   }, children));
 }
@@ -27918,16 +27154,16 @@ function ContextNavItem({
   anchor,
   active = false
 }) {
-  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
+  return React__default.createElement("li", null, React__default.createElement("a", {
     href: `#context-${anchor}`,
     className: `
                 flex items-center gap-3
                 group text-base hover:text-indigo-500
                 ${active ? '~text-indigo-600' : ''}
             `
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "opacity-50"
-  }, icon), /*#__PURE__*/React__default.createElement("span", null, title)));
+  }, icon), React__default.createElement("span", null, title)));
 }
 
 function ContextSections({
@@ -27936,19 +27172,19 @@ function ContextSections({
   const {
     inView
   } = useContext(InViewContext);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("nav", {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("nav", {
     className: "hidden @2xl:block min-w-[8rem] flex-none mr-10 @4xl:mr-20"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "sticky top-[7.5rem]"
-  }, /*#__PURE__*/React__default.createElement(ContextNav, null, Children.map(children, group => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, group && /*#__PURE__*/React__default.createElement(ContextNavGroup, {
+  }, React__default.createElement(ContextNav, null, Children.map(children, group => React__default.createElement(React__default.Fragment, null, group && React__default.createElement(ContextNavGroup, {
     title: group.props.title,
     anchor: group.props.anchor
-  }, Children.map(group.props.children, section => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, section && section.type === ContextSection && /*#__PURE__*/React__default.createElement(ContextNavItem, {
+  }, Children.map(group.props.children, section => React__default.createElement(React__default.Fragment, null, section && section.type === ContextSection && React__default.createElement(ContextNavItem, {
     icon: section.props.icon,
     active: inView[inView.length - 1] === section.props.title,
     title: section.props.title,
     anchor: section.props.anchor
-  }))))))))), /*#__PURE__*/React__default.createElement("div", {
+  }))))))))), React__default.createElement("div", {
     className: "overflow-hidden grid grid-cols-1 gap-px bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 flex-grow"
   }, children));
 }
@@ -27957,7 +27193,7 @@ function InViewContextProvider({
   children
 }) {
   const [inView, setInView] = useState([]);
-  return /*#__PURE__*/React__default.createElement(InViewContext.Provider, {
+  return React__default.createElement(InViewContext.Provider, {
     value: {
       inView,
       setInView
@@ -27968,7 +27204,7 @@ function InViewContextProvider({
 function LiveWireIcon({
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("svg", {
+  return React__default.createElement("svg", {
     version: "1.1",
     xmlns: "http://www.w3.org/2000/svg",
     x: "0px",
@@ -27976,28 +27212,28 @@ function LiveWireIcon({
     viewBox: "0 0 512 512",
     enableBackground: "new 0 0 512 512",
     className: `${className}`
-  }, /*#__PURE__*/React__default.createElement("path", {
+  }, React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M381.6,334.8c-24.7,0-27.7,33.6-45.2,44.6v52c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-88.6 C395,338.1,389.2,334.8,381.6,334.8z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M381.6,334.8c-24.7,0-27.7,33.6-45.2,44.6v52c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-88.6\n        C395,338.1,389.2,334.8,381.6,334.8z"
+  }), React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M263.2,334.8c-25.5,0-27.8,35.8-46.9,45.7v96.2c0,19.5,15.8,35.3,35.3,35.3s35.3-15.8,35.3-35.3V349.1 C280.9,341.1,273.9,334.8,263.2,334.8z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M263.2,334.8c-25.5,0-27.8,35.8-46.9,45.7v96.2c0,19.5,15.8,35.3,35.3,35.3s35.3-15.8,35.3-35.3V349.1\n        C280.9,341.1,273.9,334.8,263.2,334.8z"
+  }), React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M144.8,334.8c-22.9,0-27.1,28.9-41.6,41.9l0,38c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-67.9 C161.2,339.9,154.5,334.8,144.8,334.8z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M144.8,334.8c-22.9,0-27.1,28.9-41.6,41.9l0,38c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-67.9\n        C161.2,339.9,154.5,334.8,144.8,334.8z"
+  }), React__default.createElement("path", {
     id: "Body-Copy-4",
     fill: "currentcolor",
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M458.9,340.2c-8.3,12.6-14.7,28.2-31.7,28.2 c-28.6,0-30.1-44-58.7-44c-28.6,0-27,44-55.6,44c-28.6,0-30.1-44-58.7-44s-27,44-55.6,44s-30.1-44-58.7-44s-27,44-55.6,44 c-9,0-15.3-4.4-20.6-10.3c-20.4-35.6-32.2-77.2-32.2-121.8C31.6,105.8,132.4,0,256.7,0s225.1,105.8,225.1,236.2 C481.8,273.5,473.6,308.8,458.9,340.2z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M458.9,340.2c-8.3,12.6-14.7,28.2-31.7,28.2\n\t\tc-28.6,0-30.1-44-58.7-44c-28.6,0-27,44-55.6,44c-28.6,0-30.1-44-58.7-44s-27,44-55.6,44s-30.1-44-58.7-44s-27,44-55.6,44\n\t\tc-9,0-15.3-4.4-20.6-10.3c-20.4-35.6-32.2-77.2-32.2-121.8C31.6,105.8,132.4,0,256.7,0s225.1,105.8,225.1,236.2\n\t\tC481.8,273.5,473.6,308.8,458.9,340.2z"
+  }), React__default.createElement("path", {
     id: "Oval",
     fillRule: "evenodd",
     clipRule: "evenodd",
     fill: "#FFFFFF",
-    d: "M244.6,295.1c78.3,0,111.2-45.4,111.2-109.9 S306.1,61.4,244.6,61.4s-111.2,59.4-111.2,123.9S166.4,295.1,244.6,295.1z"
-  }), /*#__PURE__*/React__default.createElement("ellipse", {
+    d: "M244.6,295.1c78.3,0,111.2-45.4,111.2-109.9\n\t\tS306.1,61.4,244.6,61.4s-111.2,59.4-111.2,123.9S166.4,295.1,244.6,295.1z"
+  }), React__default.createElement("ellipse", {
     id: "Oval_1_",
     fill: "currentcolor",
     fillRule: "evenodd",
@@ -28006,7 +27242,7 @@ function LiveWireIcon({
     cy: "142.9",
     rx: "41.7",
     ry: "46"
-  }), /*#__PURE__*/React__default.createElement("ellipse", {
+  }), React__default.createElement("ellipse", {
     id: "Oval_2_",
     fillRule: "evenodd",
     clipRule: "evenodd",
@@ -28021,7 +27257,7 @@ function LiveWireIcon({
 function Custom({
   items
 }) {
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(items).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, Object.entries(items).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
     key: key,
     value: value,
     label: startCase_1(key)
@@ -28031,9 +27267,9 @@ function Custom({
 function Command({
   commandArguments
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "col-span-2"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: commandArguments.join(' ')
   }));
 }
@@ -28045,7 +27281,7 @@ function Browser({
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  return React__default.createElement(CodeSnippet, {
     value: request.useragent
   });
 }
@@ -28056,203 +27292,203 @@ function Context() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const context = errorOccurrence.context_items;
   const requestData = context.request_data;
-  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement(ErrorBoundary, null, React__default.createElement("div", {
     className: "@container flex items-stretch"
-  }, /*#__PURE__*/React__default.createElement(InViewContextProvider, null, /*#__PURE__*/React__default.createElement(ContextSections, null, context.request && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  }, React__default.createElement(InViewContextProvider, null, React__default.createElement(ContextSections, null, context.request && React__default.createElement(ContextGroup, {
     title: "Request",
     anchor: "request"
-  }, /*#__PURE__*/React__default.createElement(Request, {
+  }, React__default.createElement(Request, {
     request: context.request,
     requestData: context.request_data,
     headers: context.headers
-  }), !!context.request.useragent && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!context.request.useragent && React__default.createElement(ContextSection, {
     title: "Browser",
     anchor: "request-browser",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faWindowMaximize
     }),
-    children: /*#__PURE__*/React__default.createElement(Browser, {
+    children: React__default.createElement(Browser, {
       request: context.request
     })
-  }), context.headers && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.headers && React__default.createElement(ContextSection, {
     title: "Headers",
     anchor: "request-headers",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faExchangeAlt
     }),
-    children: /*#__PURE__*/React__default.createElement(Headers, {
+    children: React__default.createElement(Headers, {
       headers: context.headers
     })
-  }), context.request_data && !!Object.values(context.request_data.queryString || []).length && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.request_data && !!Object.values(context.request_data.queryString || []).length && React__default.createElement(ContextSection, {
     title: "Query String",
     anchor: "request-query-string",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faQuestionCircle
     }),
-    children: /*#__PURE__*/React__default.createElement(QueryString, {
+    children: React__default.createElement(QueryString, {
       requestData: context.request_data
     })
-  }), !!((_context$request_data = context.request_data) != null && _context$request_data.body) && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!((_context$request_data = context.request_data) != null && _context$request_data.body) && React__default.createElement(ContextSection, {
     title: "Body",
     anchor: "request-body",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCode
     }),
-    children: /*#__PURE__*/React__default.createElement(Body, null)
-  }), !!(requestData != null && (_requestData$files = requestData.files) != null && _requestData$files.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(Body, null)
+  }), !!(requestData != null && (_requestData$files = requestData.files) != null && _requestData$files.length) && React__default.createElement(ContextSection, {
     title: "Files",
     anchor: "request-files",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faFile
     }),
-    children: /*#__PURE__*/React__default.createElement(Files, null)
-  }), !!((_context$session = context.session) != null && _context$session.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(Files, null)
+  }), !!((_context$session = context.session) != null && _context$session.length) && React__default.createElement(ContextSection, {
     title: "Session",
     anchor: "request-session",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faHourglassHalf
     }),
-    children: /*#__PURE__*/React__default.createElement(Session, {
+    children: React__default.createElement(Session, {
       session: context.session
     })
-  }), !!((_context$cookies = context.cookies) != null && _context$cookies.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!((_context$cookies = context.cookies) != null && _context$cookies.length) && React__default.createElement(ContextSection, {
     title: "Cookies",
     anchor: "request-cookies",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCookieBite
     }),
-    children: /*#__PURE__*/React__default.createElement(Cookies, {
+    children: React__default.createElement(Cookies, {
       cookies: context.cookies
     })
-  })), (context.route || context.view || context.arguments || context.job) && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  })), (context.route || context.view || context.arguments || context.job) && React__default.createElement(ContextGroup, {
     title: "App",
     anchor: "app"
-  }, context.route && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, context.route && React__default.createElement(ContextSection, {
     title: "Routing",
     anchor: "app-routing",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faRandom
     }),
-    children: /*#__PURE__*/React__default.createElement(Routing, {
+    children: React__default.createElement(Routing, {
       route: context.route
     })
-  }), context.view && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.view && React__default.createElement(ContextSection, {
     title: "Views",
     anchor: "app-views",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faPaintRoller
     }),
-    children: /*#__PURE__*/React__default.createElement(View, null)
-  }), context.arguments && /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(View, null)
+  }), context.arguments && React__default.createElement(ContextSection, {
     title: "Command",
     anchor: "context-command",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faTerminal
     }),
-    children: /*#__PURE__*/React__default.createElement(Command, {
+    children: React__default.createElement(Command, {
       commandArguments: context.arguments
     })
-  }), context.job && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.job && React__default.createElement(ContextSection, {
     title: "Job",
     anchor: "context-job",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faLayerGroup
     }),
-    children: /*#__PURE__*/React__default.createElement(Custom, {
+    children: React__default.createElement(Custom, {
       items: context.job || {}
     })
-  })), context.livewire && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  })), context.livewire && React__default.createElement(ContextGroup, {
     title: "Livewire",
     anchor: "livewire"
-  }, /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, React__default.createElement(ContextSection, {
     title: "Component",
     anchor: "livewire-component",
-    icon: /*#__PURE__*/React__default.createElement(LiveWireIcon, {
+    icon: React__default.createElement(LiveWireIcon, {
       className: "svg-inline--fa fa-w-16 fa-fw"
     }),
-    children: /*#__PURE__*/React__default.createElement(LivewireComponent, null)
-  }), /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(LivewireComponent, null)
+  }), React__default.createElement(ContextSection, {
     title: "Updates",
     anchor: "livewire-updates",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faSatelliteDish
     }),
-    children: /*#__PURE__*/React__default.createElement(LivewireUpdates, null)
-  }), /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(LivewireUpdates, null)
+  }), React__default.createElement(ContextSection, {
     title: "Data",
     anchor: "livewire-data",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faTh
     }),
-    children: /*#__PURE__*/React__default.createElement(LivewireData, null)
-  })), !!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && /*#__PURE__*/React__default.createElement(ContextGroup, {
+    children: React__default.createElement(LivewireData, null)
+  })), !!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && React__default.createElement(ContextGroup, {
     title: "Context",
     anchor: "context"
-  }, context.user && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, context.user && React__default.createElement(ContextSection, {
     title: "User",
     anchor: "user-user",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faUser
     }),
-    children: /*#__PURE__*/React__default.createElement(User, {
+    children: React__default.createElement(User, {
       user: context.user
     })
-  }), context.git && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.git && React__default.createElement(ContextSection, {
     title: "Git",
     anchor: "context-git",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCodeBranch
     }),
-    children: /*#__PURE__*/React__default.createElement(Git, {
+    children: React__default.createElement(Git, {
       git: context.git
     })
-  }), !!(context.env || errorOccurrence.application_version) && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!(context.env || errorOccurrence.application_version) && React__default.createElement(ContextSection, {
     title: "Versions",
     anchor: "context-versions",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faSlidersH
     }),
-    children: /*#__PURE__*/React__default.createElement(Versions, {
+    children: React__default.createElement(Versions, {
       env: context.env || {}
     })
-  }), context.exception && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.exception && React__default.createElement(ContextSection, {
     title: "Exception",
     anchor: "context-exception",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faBomb
     }),
-    children: /*#__PURE__*/React__default.createElement(Custom, {
+    children: React__default.createElement(Custom, {
       items: context.exception || {}
     })
-  })), ((_errorOccurrence$cust = errorOccurrence.custom_context_items) == null ? void 0 : _errorOccurrence$cust.length) > 0 && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  })), ((_errorOccurrence$cust = errorOccurrence.custom_context_items) == null ? void 0 : _errorOccurrence$cust.length) > 0 && React__default.createElement(ContextGroup, {
     title: "Custom",
     anchor: "custom-context"
-  }, errorOccurrence.custom_context_items.map(group => /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, errorOccurrence.custom_context_items.map(group => React__default.createElement(ContextSection, {
     key: group.name,
     title: startCase_1(group.name),
-    anchor: `custom-context-${group.name}`,
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    anchor: `custom-context-${convert(group.name)}`,
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faAsterisk
     }),
-    children: /*#__PURE__*/React__default.createElement(Custom, {
+    children: React__default.createElement(Custom, {
       items: group.items
     })
   })))))));
@@ -28274,13 +27510,13 @@ function DebugTabs({
     };
   }).filter(tab => tab.count);
   const Tab = tabs[currentTabIndex].component;
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className} | bg-gray-300/50 dark:bg-black/10 shadow-inner rounded-lg`
-  }, /*#__PURE__*/React__default.createElement("nav", {
+  }, React__default.createElement("nav", {
     className: "z-10 flex justify-center items-center"
-  }, /*#__PURE__*/React__default.createElement("ul", {
+  }, React__default.createElement("ul", {
     className: "-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-500 text-white space-x-px"
-  }, tabs.map((tab, i) => /*#__PURE__*/React__default.createElement("li", {
+  }, tabs.map((tab, i) => React__default.createElement("li", {
     key: i,
     className: `
                                     ${i === currentTabIndex ? 'bg-indigo-600' : 'bg-indigo-500 text-indigo-100'}
@@ -28288,19 +27524,19 @@ function DebugTabs({
                                     ${i === tabs.length - 1 ? 'rounded-r-full' : ''}
                                     hover:text-white
                                 `
-  }, /*#__PURE__*/React__default.createElement("button", {
+  }, React__default.createElement("button", {
     onClick: () => setCurrentTabIndex(i),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium "
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
-  }, tab.count), /*#__PURE__*/React__default.createElement("span", null, tab.name)))))), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+  }, tab.count), React__default.createElement("span", null, tab.name)))))), React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink,
       className: "pt-10"
     })
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "grid grid-cols-1 gap-10 py-10 px-6 @lg:px-10"
-  }, /*#__PURE__*/React__default.createElement(Tab, null))));
+  }, React__default.createElement(Tab, null))));
 }
 
 DebugTabs.Tab = _props => null;
@@ -28326,42 +27562,42 @@ function DebugItem({
     alert: 'red',
     emergency: 'red'
   };
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "min-w-0 grid grid-cols-1 gap-2"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex items-center gap-1"
-  }, /*#__PURE__*/React__default.createElement(Tag, {
+  }, React__default.createElement(Tag, {
     color: level ? logLevelColors[level] : 'gray',
     className: "font-mono"
-  }, time.toLocaleTimeString()), level && /*#__PURE__*/React__default.createElement(Tag, {
+  }, time.toLocaleTimeString()), level && React__default.createElement(Tag, {
     color: logLevelColors[level]
-  }, level), meta && Object.entries(meta).map(([key, value]) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  }, level), meta && Object.entries(meta).map(([key, value]) => React__default.createElement(React__default.Fragment, {
     key: key
-  }, key === 'runtime' && /*#__PURE__*/React__default.createElement(Tag, {
+  }, key === 'runtime' && React__default.createElement(Tag, {
     className: "inline-flex items-center gap-2"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     title: "Runtime",
     className: "opacity-50",
     icon: faStopwatch
-  }), ' ', value), key === 'connection' && /*#__PURE__*/React__default.createElement(Tag, {
+  }), ' ', value), key === 'connection' && React__default.createElement(Tag, {
     className: "inline-flex items-center gap-2"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     title: "Connection",
     className: "opacity-50",
     icon: faDatabase
-  }), ' ', value), key !== 'runtime' && key !== 'connection' && /*#__PURE__*/React__default.createElement(Tag, null, key, ": ", value))), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
+  }), ' ', value), key !== 'runtime' && key !== 'connection' && React__default.createElement(Tag, null, key, ": ", value))), context && React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: "ml-auto"
-  }, /*#__PURE__*/React__default.createElement(SmallButton, {
+  }, React__default.createElement(SmallButton, {
     onClick: () => setShowRawContext(!showRawContext)
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: showRawContext ? faListUl : faCode,
     className: "text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  }), showRawContext ? 'As list' : 'Raw')))), /*#__PURE__*/React__default.createElement("div", null, children), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }), showRawContext ? 'As list' : 'Raw')))), React__default.createElement("div", null, children), context && React__default.createElement(React__default.Fragment, null, showRawContext ? React__default.createElement(CodeSnippet, {
     value: jsonStringify(context),
     language: "json"
-  }) : /*#__PURE__*/React__default.createElement("div", {
+  }) : React__default.createElement("div", {
     className: "pl-4"
-  }, /*#__PURE__*/React__default.createElement(ContextList, {
+  }, React__default.createElement(ContextList, {
     items: context
   }))));
 }
@@ -28369,12 +27605,12 @@ function DebugItem({
 function Logs() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const logs = Object.values(errorOccurrence.context_items.logs);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, logs.map((log, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, logs.map((log, index) => React__default.createElement(DebugItem, {
     key: index,
     context: log.context,
     level: log.level,
     time: unixToDate(log.microtime)
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: log.message
   }))));
 }
@@ -28382,16 +27618,16 @@ function Logs() {
 function Dumps() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const dumps = Object.values(errorOccurrence.context_items.dumps);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, dumps.map((dump, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, dumps.map((dump, index) => React__default.createElement(DebugItem, {
     key: index,
     time: unixToDate(dump.microtime)
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "mb-2"
-  }, /*#__PURE__*/React__default.createElement(EditorLink, {
+  }, React__default.createElement(EditorLink, {
     path: dump.file,
     lineNumber: dump.line_number,
     className: "text-sm"
-  })), /*#__PURE__*/React__default.createElement(SfDump, {
+  })), React__default.createElement(SfDump, {
     value: dump.html_dump
   }))));
 }
@@ -28401,20 +27637,20 @@ function Bindings({
   hidden = false
 }) {
   const [isHidden, setHidden] = useState(hidden);
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("button", {
+  return React__default.createElement("div", null, React__default.createElement("button", {
     type: "button",
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider flex flex-row items-center gap-2 mb-2",
     onClick: () => setHidden(!isHidden)
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleRight,
     className: `transition-transform duration-300 transform ${isHidden ? '' : 'rotate-90'}`
-  }), bindings.length, " query ", bindings.length > 1 ? 'parameters' : 'parameter'), !isHidden && /*#__PURE__*/React__default.createElement(DefinitionList, {
+  }), bindings.length, " query ", bindings.length > 1 ? 'parameters' : 'parameter'), !isHidden && React__default.createElement(DefinitionList, {
     className: "ml-4"
-  }, bindings.map((binding, index) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, bindings.map((binding, index) => React__default.createElement(DefinitionList.Row, {
     small: true,
     key: index,
     value: binding,
-    label: /*#__PURE__*/React__default.createElement("code", {
+    label: React__default.createElement("code", {
       className: "text-sm text-gray-500"
     }, index + 1)
   }))));
@@ -28438,22 +27674,22 @@ function Queries() {
     return sql;
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, queries.map((query, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, queries.map((query, index) => React__default.createElement(DebugItem, {
     key: index,
     time: unixToDate(query.microtime),
     meta: {
       runtime: `${query.time}ms`,
       connection: query.connection_name
     }
-  }, query.bindings && query.bindings.length > 0 ? /*#__PURE__*/React__default.createElement("div", {
+  }, query.bindings && query.bindings.length > 0 ? React__default.createElement("div", {
     className: "grid gap-4 grid-cols-1"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: canReplaceBindings(query) ? replaceBindings(query) : query.sql,
     language: "sql"
-  }), /*#__PURE__*/React__default.createElement(Bindings, {
+  }), React__default.createElement(Bindings, {
     bindings: query.bindings,
     hidden: canReplaceBindings(query)
-  })) : /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  })) : React__default.createElement(CodeSnippet, {
     value: query.sql,
     language: "sql"
   }))));
@@ -28462,12 +27698,12 @@ function Queries() {
 function Glows() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const glows = errorOccurrence.glows;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, glows.map((glow, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, glows.map((glow, index) => React__default.createElement(DebugItem, {
     key: index,
     level: glow.message_level,
     context: glow.meta_data,
     time: unixToDate(glow.microtime)
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: glow.name
   }))));
 }
@@ -28478,21 +27714,21 @@ function Debug() {
   const queries = errorOccurrence.context_items.queries;
   const logs = errorOccurrence.context_items.logs;
   const glows = errorOccurrence.glows;
-  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement(DebugTabs, {
+  return React__default.createElement(ErrorBoundary, null, React__default.createElement(DebugTabs, {
     className: "@container"
-  }, /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }, React__default.createElement(DebugTabs.Tab, {
     component: Dumps,
     name: "Dumps",
     count: Object.keys(dumps || []).length
-  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }), React__default.createElement(DebugTabs.Tab, {
     component: Glows,
     name: "Glows",
     count: glows.length
-  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }), React__default.createElement(DebugTabs.Tab, {
     component: Queries,
     name: "Queries",
     count: Object.keys(queries || []).length
-  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }), React__default.createElement(DebugTabs.Tab, {
     component: Logs,
     name: "Logs",
     count: Object.keys(logs || []).length
@@ -28503,7 +27739,7 @@ function InlineCodeSnippet({
   children,
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("code", {
+  return React__default.createElement("code", {
     className: `font-mono leading-relaxed font-normal ~bg-gray-500/5 px-1 py-1 ${className}`
   }, children);
 }
@@ -28511,126 +27747,126 @@ function InlineCodeSnippet({
 function FlareIcon({
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("svg", {
+  return React__default.createElement("svg", {
     height: "58",
     viewBox: "0 0 38 58",
     width: "38",
     xmlns: "http://www.w3.org/2000/svg",
     className: `w-4 h-5 ml-1.5 ${className}`
-  }, /*#__PURE__*/React__default.createElement("linearGradient", {
+  }, React__default.createElement("linearGradient", {
     id: "a",
     x1: "50%",
     x2: "50%",
     y1: "100%",
     y2: "0%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#48b987"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#137449"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "b",
     x1: "50%",
     x2: "50%",
     y1: "0%",
     y2: "100%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#66ffbc"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#218e5e"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "c",
     x1: "81.686741%",
     x2: "17.119683%",
     y1: "50%",
     y2: "46.893103%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#ccffe7",
     stopOpacity: ".492379"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: ".37576486",
     stopColor: "#fff",
     stopOpacity: ".30736"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#00ff85",
     stopOpacity: "0"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "d",
     x1: "50%",
     x2: "50%",
     y1: "100%",
     y2: "0%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#a189f2"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#3f00f5"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "e",
     x1: "50%",
     x2: "50%",
     y1: "0%",
     y2: "100%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#bbadfa"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#9275f4"
-  })), /*#__PURE__*/React__default.createElement("g", {
+  })), React__default.createElement("g", {
     fill: "none"
-  }, /*#__PURE__*/React__default.createElement("g", {
+  }, React__default.createElement("g", {
     transform: "translate(1 1)"
-  }, /*#__PURE__*/React__default.createElement("path", {
+  }, React__default.createElement("path", {
     d: "m11.9943899 27.9858314-11.9943899-6.9992916v-13.98724823l12.0617111 7.02196133z",
     fill: "url(#a)"
-  }), /*#__PURE__*/React__default.createElement("path", {
+  }), React__default.createElement("path", {
     d: "m23.9775596 20.9808724-23.9775596-13.98158083 11.9943899-6.99929157 24.0056101 13.9815808z",
     fill: "url(#b)",
     stroke: "url(#c)"
-  })), /*#__PURE__*/React__default.createElement("g", {
+  })), React__default.createElement("g", {
     transform: "translate(1 29.014169)"
-  }, /*#__PURE__*/React__default.createElement("path", {
+  }, React__default.createElement("path", {
     d: "m11.9943899 27.9858314-11.9943899-6.9936241v-13.99291573l11.9663394 6.99362413z",
     fill: "url(#d)"
-  }), /*#__PURE__*/React__default.createElement("path", {
+  }), React__default.createElement("path", {
     d: "m11.9663394 13.9929157-11.9663394-6.99362413 11.9943899-6.99929157 11.9943899 6.99929157z",
     fill: "url(#e)"
   }))));
 }
 
 function IgnitionIcon() {
-  return /*#__PURE__*/React__default.createElement("svg", {
+  return React__default.createElement("svg", {
     id: "ignition",
     className: "w-8 h-8 -ml-1",
     viewBox: "0 0 500 500"
-  }, /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("polygon", {
+  }, React__default.createElement("g", null, React__default.createElement("polygon", {
     style: {
       fill: 'transparent'
     },
     points: "466.5,375 466.5,125 250,0 33.5,125 33.5,375 250,500 \t"
-  }), /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("g", null, React__default.createElement("polygon", {
     style: {
       fill: '#ff4590'
     },
     points: "314.2,176 314.2,250 250,287 250,212.6 \t\t"
-  }), /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("polygon", {
     style: {
       fill: '#ffd000'
     },
     points: "185.9,398.1 185.9,324.1 250,287 249.9,360.9 \t\t"
-  }), /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("polygon", {
     style: {
       fill: '#de075d'
     },
     points: "250,139.1 250,287 185.9,250 185.8,101.9 \t\t"
-  }), /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("polygon", {
     style: {
       fill: '#e0b800'
     },

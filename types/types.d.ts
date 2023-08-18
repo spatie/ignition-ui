@@ -1,4 +1,4 @@
-export type IgnitionConfig = {
+export declare type IgnitionConfig = {
     editor: string;
     editorOptions: {
         [editor: string]: {
@@ -13,7 +13,7 @@ export type IgnitionConfig = {
     directorySeparator: string;
     shareEndpoint: string;
 };
-export type ErrorFrameArgument = {
+export declare type ErrorFrameArgument = {
     name: string;
     value: string | number | boolean | object | Array<any> | null;
     passed_by_reference: boolean;
@@ -21,7 +21,7 @@ export type ErrorFrameArgument = {
     truncated: boolean;
     original_type: string;
 };
-export type ErrorFrame = {
+export declare type ErrorFrame = {
     class?: string | null;
     method: string;
     code_snippet: {
@@ -33,7 +33,7 @@ export type ErrorFrame = {
     application_frame: boolean;
     arguments: Array<ErrorFrameArgument> | null;
 };
-export type ErrorOccurrence = {
+export declare type ErrorOccurrence = {
     type: 'web' | 'cli' | 'queue' | null;
     entry_point: string;
     exception_message: string;
@@ -74,10 +74,10 @@ export type ErrorOccurrence = {
     documentation_links: Array<string>;
     frames: Array<ErrorFrame>;
 };
-export type HeadersContext = Record<string, string | number>;
-export type SessionContext = Record<string, string | number>;
-export type CookiesContext = Record<string, string | object | boolean | number>;
-export type RequestContext = {
+export declare type HeadersContext = Record<string, string | number>;
+export declare type SessionContext = Record<string, string | number>;
+export declare type CookiesContext = Record<string, string | object | boolean | number>;
+export declare type RequestContext = {
     url: string;
     ip?: string | null;
     method?: string | null;
@@ -85,12 +85,12 @@ export type RequestContext = {
     referrer?: string | null;
     readyState?: string | null;
 };
-export type RequestDataContext = {
+export declare type RequestDataContext = {
     queryString: Record<string, string>;
     body: null | string | Record<string, string>;
     files: null | string | Array<any>;
 };
-export type EnvContext = {
+export declare type EnvContext = {
     laravel_version?: string;
     laravel_locale?: string;
     laravel_config_cached?: boolean;
@@ -99,30 +99,30 @@ export type EnvContext = {
     php_version?: string;
     [key: string]: any;
 };
-export type UserContext = {
+export declare type UserContext = {
     [key: string]: string | null;
 };
-export type ArgumentsContext = Array<string>;
-export type ExceptionContext = Record<string, any>;
-export type JobContext = Record<string, any>;
-export type GitContext = {
+export declare type ArgumentsContext = Array<string>;
+export declare type ExceptionContext = Record<string, any>;
+export declare type JobContext = Record<string, any>;
+export declare type GitContext = {
     hash: string;
     message: string;
     tag: string | null;
     remote: string | null;
     isDirty: boolean;
 };
-export type RouteContext = {
+export declare type RouteContext = {
     route: string | null;
     routeParameters: null | Record<string, number | string | null>;
     controllerAction: string | null;
     middleware: Array<string>;
 };
-export type ViewContext = {
+export declare type ViewContext = {
     view: string;
     data: Record<string, string>;
 };
-export type LivewireContext = {
+export declare type LivewireContext = {
     component_alias: string;
     component_class: string;
     component_id: string;
@@ -132,22 +132,22 @@ export type LivewireContext = {
         type: string;
     }>;
 };
-export type QueryContext = Array<QueryDebug> | {
+export declare type QueryContext = Array<QueryDebug> | {
     [key: string]: QueryDebug;
 };
-export type DumpContext = Array<DumpDebug> | {
+export declare type DumpContext = Array<DumpDebug> | {
     [key: string]: DumpDebug;
 };
-export type LogContext = Array<LogDebug> | {
+export declare type LogContext = Array<LogDebug> | {
     [key: string]: LogDebug;
 };
-export type ErrorGlow = {
+export declare type ErrorGlow = {
     message_level: LogLevel;
     meta_data: Record<string, string | object>;
     microtime: number;
     name: string;
 };
-export type ErrorSolution = {
+export declare type ErrorSolution = {
     class: string;
     title: string;
     description: string;
@@ -161,8 +161,8 @@ export type ErrorSolution = {
     execute_endpoint?: string;
     run_parameters?: string;
 };
-export type FrameType = 'application' | 'vendor' | 'unknown';
-export type StackFrameGroupType = {
+export declare type FrameType = 'application' | 'vendor' | 'unknown';
+export declare type StackFrameGroupType = {
     type: FrameType;
     relative_file: string;
     expanded: boolean;
@@ -171,30 +171,30 @@ export type StackFrameGroupType = {
         selected: boolean;
     }>;
 };
-export type Tabname = 'stackTraceTab' | 'requestTab' | 'appTab' | 'userTab' | 'contextTab' | 'debugTab';
-export type SharePostData = {
+export declare type Tabname = 'stackTraceTab' | 'requestTab' | 'appTab' | 'userTab' | 'contextTab' | 'debugTab';
+export declare type SharePostData = {
     tabs?: Array<Tabname>;
     selectedTabNames: Array<Tabname>;
     lineSelection: string;
 };
-export type QueryDebug = {
+export declare type QueryDebug = {
     bindings: Array<string> | null;
     microtime: number;
     sql: string;
     time: number;
     connection_name: string;
 };
-export type QueryDebugWithBindings = QueryDebug & {
+export declare type QueryDebugWithBindings = QueryDebug & {
     bindings: Array<string>;
 };
-export type DumpDebug = {
+export declare type DumpDebug = {
     html_dump: string;
     file: string;
     line_number: number;
     microtime: number;
 };
-export type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error' | 'critical' | 'alert' | 'emergency' | 'warn';
-export type LogDebug = {
+export declare type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error' | 'critical' | 'alert' | 'emergency' | 'warn';
+export declare type LogDebug = {
     context: Record<string, string | object>;
     level: LogLevel;
     message: string;

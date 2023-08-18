@@ -1,7 +1,7 @@
-import React from 'react';
+/// <reference types="react" />
 import { RequestContext } from '../../../types';
-type Props = {
+declare type Props = {
     request: RequestContext;
 };
-export default function Browser({ request }: Props): React.JSX.Element | null;
+export default function Browser({ request }: Props): JSX.Element | null;
 export {};
