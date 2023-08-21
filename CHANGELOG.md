@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.9.0 - 2023-08-21
+
+- Feature: Add 'copy to clipboard' option to editors
+
 ## 4.8.2 - 2023-08-18
 
 - Fix: Improve detection of vendor frames for JS frames

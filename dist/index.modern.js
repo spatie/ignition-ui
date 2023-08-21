@@ -66,20 +66,20 @@ var a = () => {
     }
   }, []), s;
 },
-    d$1 = a;
+    d$2 = a;
 
 function IgnitionConfigContextProvider({
   children,
   ignitionConfig: initialIgnitionConfig
 }) {
   const [ignitionConfig, setIgnitionConfig] = useState(initialIgnitionConfig);
-  const scheme = d$1();
+  const scheme = d$2();
   const theme = ignitionConfig.theme === 'auto' ? scheme !== 'no-preference' ? scheme : 'light' : ignitionConfig.theme;
   useEffect(() => {
     document.documentElement.classList.remove('light', 'dark', 'auto');
     document.documentElement.classList.add(theme);
   }, [theme]);
-  return /*#__PURE__*/React__default.createElement(IgnitionConfigContext.Provider, {
+  return React__default.createElement(IgnitionConfigContext.Provider, {
     value: {
       ignitionConfig,
       setIgnitionConfig,
@@ -246,7 +246,7 @@ var _Symbol = Symbol$1;
 var objectProto$e = Object.prototype;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$c = objectProto$e.hasOwnProperty;
+var hasOwnProperty$b = objectProto$e.hasOwnProperty;
 /**
  * Used to resolve the
  * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
@@ -266,7 +266,7 @@ var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
  */
 
 function getRawTag(value) {
-  var isOwn = hasOwnProperty$c.call(value, symToStringTag$1),
+  var isOwn = hasOwnProperty$b.call(value, symToStringTag$1),
       tag = value[symToStringTag$1];
 
   try {
@@ -479,10 +479,10 @@ var funcProto = Function.prototype,
 var funcToString = funcProto.toString;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$b = objectProto$c.hasOwnProperty;
+var hasOwnProperty$a = objectProto$c.hasOwnProperty;
 /** Used to detect if a method is native. */
 
-var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$b).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$a).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
 /**
  * The base implementation of `_.isNative` without bad shim checks.
  *
@@ -579,7 +579,7 @@ var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
 var objectProto$b = Object.prototype;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$a = objectProto$b.hasOwnProperty;
+var hasOwnProperty$9 = objectProto$b.hasOwnProperty;
 /**
  * Gets the hash value for `key`.
  *
@@ -598,7 +598,7 @@ function hashGet(key) {
     return result === HASH_UNDEFINED$2 ? undefined : result;
   }
 
-  return hasOwnProperty$a.call(data, key) ? data[key] : undefined;
+  return hasOwnProperty$9.call(data, key) ? data[key] : undefined;
 }
 
 var _hashGet = hashGet;
@@ -608,7 +608,7 @@ var _hashGet = hashGet;
 var objectProto$a = Object.prototype;
 /** Used to check objects for own properties. */
 
-var hasOwnProperty$9 = objectProto$a.hasOwnProperty;
+var hasOwnProperty$8 = objectProto$a.hasOwnProperty;
 /**
  * Checks if a hash value for `key` exists.
  *
@@ -621,7 +621,7 @@ var hasOwnProperty$9 = objectProto$a.hasOwnProperty;
 
 function hashHas(key) {
   var data = this.__data__;
-  return _nativeCreate ? data[key] !== undefined : hasOwnProperty$9.call(data, key);
+  return _nativeCreate ? data[key] !== undefined : hasOwnProperty$8.call(data, key);
 }
 
 var _hashHas = hashHas;
@@ -1541,7 +1541,7 @@ function SmallButton(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$8);
 
-  return /*#__PURE__*/React__default.createElement("button", _extends$1({
+  return React__default.createElement("button", _extends$1({
     type: props.type || 'button',
     className: `group inline-flex gap-2 items-center h-6 px-2 rounded-sm ~bg-white shadow text-xs font-medium whitespace-nowrap
             transform
@@ -1560,15 +1560,15 @@ function RelaxedFullyQualifiedClassName({
 }) {
   const parts = path.split('\\');
   const tightSpace = String.fromCharCode(8201);
-  return /*#__PURE__*/React__default.createElement("span", {
+  return React__default.createElement("span", {
     className: "inline-flex flex-wrap items-baseline"
-  }, parts.map((part, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  }, parts.map((part, index) => React__default.createElement(React__default.Fragment, {
     key: index
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     key: index
-  }, part), index !== parts.length - 1 && /*#__PURE__*/React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, part), index !== parts.length - 1 && React__default.createElement("span", null, tightSpace, "\\", tightSpace))), lineNumber && React__default.createElement(React__default.Fragment, null, tightSpace, React__default.createElement("span", {
     className: "whitespace-nowrap"
-  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, ":", tightSpace, React__default.createElement("span", {
     className: "font-mono text-xs"
   }, lineNumber))));
 }
@@ -1771,7 +1771,7 @@ var TAGNAMES_TO_SKIP_FOR_PSEUDOELEMENTS = ['HTML', 'HEAD', 'STYLE', 'SCRIPT'];
 
 var PRODUCTION$1 = function () {
   try {
-    return "development" === 'production';
+    return "production" === 'production';
   } catch (e) {
     return false;
   }
@@ -1926,7 +1926,7 @@ function onChange(cb) {
   };
 }
 
-var d = UNITS_IN_GRID;
+var d$1 = UNITS_IN_GRID;
 var meaninglessTransform = {
   size: 16,
   x: 0,
@@ -2047,14 +2047,14 @@ function transformForCss(_ref2) {
   var val = '';
 
   if (startCentered && IS_IE) {
-    val += "translate(".concat(transform.x / d - width / 2, "em, ").concat(transform.y / d - height / 2, "em) ");
+    val += "translate(".concat(transform.x / d$1 - width / 2, "em, ").concat(transform.y / d$1 - height / 2, "em) ");
   } else if (startCentered) {
-    val += "translate(calc(-50% + ".concat(transform.x / d, "em), calc(-50% + ").concat(transform.y / d, "em)) ");
+    val += "translate(calc(-50% + ".concat(transform.x / d$1, "em), calc(-50% + ").concat(transform.y / d$1, "em)) ");
   } else {
-    val += "translate(".concat(transform.x / d, "em, ").concat(transform.y / d, "em) ");
+    val += "translate(".concat(transform.x / d$1, "em, ").concat(transform.y / d$1, "em) ");
   }
 
-  val += "scale(".concat(transform.size / d * (transform.flipX ? -1 : 1), ", ").concat(transform.size / d * (transform.flipY ? -1 : 1), ") ");
+  val += "scale(".concat(transform.size / d$1 * (transform.flipX ? -1 : 1), ", ").concat(transform.size / d$1 * (transform.flipY ? -1 : 1), ") ");
   val += "rotate(".concat(transform.rotate, "deg) ");
   return val;
 }
@@ -2107,12 +2107,12 @@ var InjectCSS = {
     };
   }
 };
-var w = WINDOW || {};
-if (!w[NAMESPACE_IDENTIFIER]) w[NAMESPACE_IDENTIFIER] = {};
-if (!w[NAMESPACE_IDENTIFIER].styles) w[NAMESPACE_IDENTIFIER].styles = {};
-if (!w[NAMESPACE_IDENTIFIER].hooks) w[NAMESPACE_IDENTIFIER].hooks = {};
-if (!w[NAMESPACE_IDENTIFIER].shims) w[NAMESPACE_IDENTIFIER].shims = [];
-var namespace = w[NAMESPACE_IDENTIFIER];
+var w$1 = WINDOW || {};
+if (!w$1[NAMESPACE_IDENTIFIER]) w$1[NAMESPACE_IDENTIFIER] = {};
+if (!w$1[NAMESPACE_IDENTIFIER].styles) w$1[NAMESPACE_IDENTIFIER].styles = {};
+if (!w$1[NAMESPACE_IDENTIFIER].hooks) w$1[NAMESPACE_IDENTIFIER].hooks = {};
+if (!w$1[NAMESPACE_IDENTIFIER].shims) w$1[NAMESPACE_IDENTIFIER].shims = [];
+var namespace = w$1[NAMESPACE_IDENTIFIER];
 var functions = [];
 
 var listener = function listener() {
@@ -3135,22 +3135,22 @@ function findIcon(iconName, prefix) {
 
 var noop$1$1 = function noop() {};
 
-var p = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
+var p$1 = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
   mark: noop$1$1,
   measure: noop$1$1
 };
 var preamble = "FA \"6.1.1\"";
 
 var begin = function begin(name) {
-  p.mark("".concat(preamble, " ").concat(name, " begins"));
+  p$1.mark("".concat(preamble, " ").concat(name, " begins"));
   return function () {
     return end(name);
   };
 };
 
 var end = function end(name) {
-  p.mark("".concat(preamble, " ").concat(name, " ends"));
-  p.measure("".concat(preamble, " ").concat(name), "".concat(preamble, " ").concat(name, " begins"), "".concat(preamble, " ").concat(name, " ends"));
+  p$1.mark("".concat(preamble, " ").concat(name, " ends"));
+  p$1.measure("".concat(preamble, " ").concat(name), "".concat(preamble, " ").concat(name, " begins"), "".concat(preamble, " ").concat(name, " ends"));
 };
 
 var perf = {
@@ -4464,6 +4464,175 @@ var parse$1 = api.parse;
 var icon = api.icon;
 
 /** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var b = "function" === typeof Symbol && Symbol.for,
+    c = b ? Symbol.for("react.element") : 60103,
+    d = b ? Symbol.for("react.portal") : 60106,
+    e = b ? Symbol.for("react.fragment") : 60107,
+    f = b ? Symbol.for("react.strict_mode") : 60108,
+    g = b ? Symbol.for("react.profiler") : 60114,
+    h = b ? Symbol.for("react.provider") : 60109,
+    k = b ? Symbol.for("react.context") : 60110,
+    l = b ? Symbol.for("react.async_mode") : 60111,
+    m = b ? Symbol.for("react.concurrent_mode") : 60111,
+    n = b ? Symbol.for("react.forward_ref") : 60112,
+    p = b ? Symbol.for("react.suspense") : 60113,
+    q = b ? Symbol.for("react.suspense_list") : 60120,
+    r = b ? Symbol.for("react.memo") : 60115,
+    t = b ? Symbol.for("react.lazy") : 60116,
+    v = b ? Symbol.for("react.block") : 60121,
+    w = b ? Symbol.for("react.fundamental") : 60117,
+    x = b ? Symbol.for("react.responder") : 60118,
+    y = b ? Symbol.for("react.scope") : 60119;
+
+function z(a) {
+  if ("object" === typeof a && null !== a) {
+    var u = a.$$typeof;
+
+    switch (u) {
+      case c:
+        switch (a = a.type, a) {
+          case l:
+          case m:
+          case e:
+          case g:
+          case f:
+          case p:
+            return a;
+
+          default:
+            switch (a = a && a.$$typeof, a) {
+              case k:
+              case n:
+              case t:
+              case r:
+              case h:
+                return a;
+
+              default:
+                return u;
+            }
+
+        }
+
+      case d:
+        return u;
+    }
+  }
+}
+
+function A(a) {
+  return z(a) === m;
+}
+
+var AsyncMode = l;
+var ConcurrentMode = m;
+var ContextConsumer = k;
+var ContextProvider = h;
+var Element = c;
+var ForwardRef = n;
+var Fragment = e;
+var Lazy = t;
+var Memo = r;
+var Portal = d;
+var Profiler = g;
+var StrictMode = f;
+var Suspense = p;
+
+var isAsyncMode = function isAsyncMode(a) {
+  return A(a) || z(a) === l;
+};
+
+var isConcurrentMode = A;
+
+var isContextConsumer = function isContextConsumer(a) {
+  return z(a) === k;
+};
+
+var isContextProvider = function isContextProvider(a) {
+  return z(a) === h;
+};
+
+var isElement = function isElement(a) {
+  return "object" === typeof a && null !== a && a.$$typeof === c;
+};
+
+var isForwardRef = function isForwardRef(a) {
+  return z(a) === n;
+};
+
+var isFragment = function isFragment(a) {
+  return z(a) === e;
+};
+
+var isLazy = function isLazy(a) {
+  return z(a) === t;
+};
+
+var isMemo = function isMemo(a) {
+  return z(a) === r;
+};
+
+var isPortal = function isPortal(a) {
+  return z(a) === d;
+};
+
+var isProfiler = function isProfiler(a) {
+  return z(a) === g;
+};
+
+var isStrictMode = function isStrictMode(a) {
+  return z(a) === f;
+};
+
+var isSuspense = function isSuspense(a) {
+  return z(a) === p;
+};
+
+var isValidElementType = function isValidElementType(a) {
+  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === typeof a && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
+};
+
+var typeOf = z;
+var reactIs_production_min = {
+  AsyncMode: AsyncMode,
+  ConcurrentMode: ConcurrentMode,
+  ContextConsumer: ContextConsumer,
+  ContextProvider: ContextProvider,
+  Element: Element,
+  ForwardRef: ForwardRef,
+  Fragment: Fragment,
+  Lazy: Lazy,
+  Memo: Memo,
+  Portal: Portal,
+  Profiler: Profiler,
+  StrictMode: StrictMode,
+  Suspense: Suspense,
+  isAsyncMode: isAsyncMode,
+  isConcurrentMode: isConcurrentMode,
+  isContextConsumer: isContextConsumer,
+  isContextProvider: isContextProvider,
+  isElement: isElement,
+  isForwardRef: isForwardRef,
+  isFragment: isFragment,
+  isLazy: isLazy,
+  isMemo: isMemo,
+  isPortal: isPortal,
+  isProfiler: isProfiler,
+  isStrictMode: isStrictMode,
+  isSuspense: isSuspense,
+  isValidElementType: isValidElementType,
+  typeOf: typeOf
+};
+
+/** @license React v16.13.1
  * react-is.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -4471,289 +4640,27 @@ var icon = api.icon;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var reactIs_development = createCommonjsModule(function (module, exports) {
+createCommonjsModule(function (module, exports) {
+});
+
+createCommonjsModule(function (module) {
 
   {
-    (function () {
-      // nor polyfill, then a plain number is used for performance.
-
-      var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-      var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-      var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-      var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-      var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-      var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-      var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-      var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-      // (unstable) APIs that have been removed. Can we remove the symbols?
-
-      var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
-      var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-      var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-      var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-      var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-      var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-      var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-      var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-      var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-      var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-      var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
-
-      function isValidElementType(type) {
-        return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-      }
-
-      function typeOf(object) {
-        if (typeof object === 'object' && object !== null) {
-          var $$typeof = object.$$typeof;
-
-          switch ($$typeof) {
-            case REACT_ELEMENT_TYPE:
-              var type = object.type;
-
-              switch (type) {
-                case REACT_ASYNC_MODE_TYPE:
-                case REACT_CONCURRENT_MODE_TYPE:
-                case REACT_FRAGMENT_TYPE:
-                case REACT_PROFILER_TYPE:
-                case REACT_STRICT_MODE_TYPE:
-                case REACT_SUSPENSE_TYPE:
-                  return type;
-
-                default:
-                  var $$typeofType = type && type.$$typeof;
-
-                  switch ($$typeofType) {
-                    case REACT_CONTEXT_TYPE:
-                    case REACT_FORWARD_REF_TYPE:
-                    case REACT_LAZY_TYPE:
-                    case REACT_MEMO_TYPE:
-                    case REACT_PROVIDER_TYPE:
-                      return $$typeofType;
-
-                    default:
-                      return $$typeof;
-                  }
-
-              }
-
-            case REACT_PORTAL_TYPE:
-              return $$typeof;
-          }
-        }
-
-        return undefined;
-      } // AsyncMode is deprecated along with isAsyncMode
-
-
-      var AsyncMode = REACT_ASYNC_MODE_TYPE;
-      var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
-      var ContextConsumer = REACT_CONTEXT_TYPE;
-      var ContextProvider = REACT_PROVIDER_TYPE;
-      var Element = REACT_ELEMENT_TYPE;
-      var ForwardRef = REACT_FORWARD_REF_TYPE;
-      var Fragment = REACT_FRAGMENT_TYPE;
-      var Lazy = REACT_LAZY_TYPE;
-      var Memo = REACT_MEMO_TYPE;
-      var Portal = REACT_PORTAL_TYPE;
-      var Profiler = REACT_PROFILER_TYPE;
-      var StrictMode = REACT_STRICT_MODE_TYPE;
-      var Suspense = REACT_SUSPENSE_TYPE;
-      var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
-
-      function isAsyncMode(object) {
-        {
-          if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-            hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
-
-            console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
-          }
-        }
-        return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-      }
-
-      function isConcurrentMode(object) {
-        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-      }
-
-      function isContextConsumer(object) {
-        return typeOf(object) === REACT_CONTEXT_TYPE;
-      }
-
-      function isContextProvider(object) {
-        return typeOf(object) === REACT_PROVIDER_TYPE;
-      }
-
-      function isElement(object) {
-        return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-      }
-
-      function isForwardRef(object) {
-        return typeOf(object) === REACT_FORWARD_REF_TYPE;
-      }
-
-      function isFragment(object) {
-        return typeOf(object) === REACT_FRAGMENT_TYPE;
-      }
-
-      function isLazy(object) {
-        return typeOf(object) === REACT_LAZY_TYPE;
-      }
-
-      function isMemo(object) {
-        return typeOf(object) === REACT_MEMO_TYPE;
-      }
-
-      function isPortal(object) {
-        return typeOf(object) === REACT_PORTAL_TYPE;
-      }
-
-      function isProfiler(object) {
-        return typeOf(object) === REACT_PROFILER_TYPE;
-      }
-
-      function isStrictMode(object) {
-        return typeOf(object) === REACT_STRICT_MODE_TYPE;
-      }
-
-      function isSuspense(object) {
-        return typeOf(object) === REACT_SUSPENSE_TYPE;
-      }
-
-      exports.AsyncMode = AsyncMode;
-      exports.ConcurrentMode = ConcurrentMode;
-      exports.ContextConsumer = ContextConsumer;
-      exports.ContextProvider = ContextProvider;
-      exports.Element = Element;
-      exports.ForwardRef = ForwardRef;
-      exports.Fragment = Fragment;
-      exports.Lazy = Lazy;
-      exports.Memo = Memo;
-      exports.Portal = Portal;
-      exports.Profiler = Profiler;
-      exports.StrictMode = StrictMode;
-      exports.Suspense = Suspense;
-      exports.isAsyncMode = isAsyncMode;
-      exports.isConcurrentMode = isConcurrentMode;
-      exports.isContextConsumer = isContextConsumer;
-      exports.isContextProvider = isContextProvider;
-      exports.isElement = isElement;
-      exports.isForwardRef = isForwardRef;
-      exports.isFragment = isFragment;
-      exports.isLazy = isLazy;
-      exports.isMemo = isMemo;
-      exports.isPortal = isPortal;
-      exports.isProfiler = isProfiler;
-      exports.isStrictMode = isStrictMode;
-      exports.isSuspense = isSuspense;
-      exports.isValidElementType = isValidElementType;
-      exports.typeOf = typeOf;
-    })();
+    module.exports = reactIs_production_min;
   }
 });
 
-var reactIs = createCommonjsModule(function (module) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
-  {
-    module.exports = reactIs_development;
-  }
-});
+var ReactPropTypesSecret$1 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var ReactPropTypesSecret_1 = ReactPropTypesSecret$1;
 
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-/* eslint-disable no-unused-vars */
-
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty$8 = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-  if (val === null || val === undefined) {
-    throw new TypeError('Object.assign cannot be called with null or undefined');
-  }
-
-  return Object(val);
-}
-
-function shouldUseNative() {
-  try {
-    if (!Object.assign) {
-      return false;
-    } // Detect buggy property enumeration order in older V8 versions.
-    // https://bugs.chromium.org/p/v8/issues/detail?id=4118
-
-
-    var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
-
-    test1[5] = 'de';
-
-    if (Object.getOwnPropertyNames(test1)[0] === '5') {
-      return false;
-    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
-
-
-    var test2 = {};
-
-    for (var i = 0; i < 10; i++) {
-      test2['_' + String.fromCharCode(i)] = i;
-    }
-
-    var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-      return test2[n];
-    });
-
-    if (order2.join('') !== '0123456789') {
-      return false;
-    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
-
-
-    var test3 = {};
-    'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-      test3[letter] = letter;
-    });
-
-    if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
-      return false;
-    }
-
-    return true;
-  } catch (err) {
-    // We don't expect any of the above to throw, but better to be safe.
-    return false;
-  }
-}
-
-var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-  var from;
-  var to = toObject(target);
-  var symbols;
-
-  for (var s = 1; s < arguments.length; s++) {
-    from = Object(arguments[s]);
-
-    for (var key in from) {
-      if (hasOwnProperty$8.call(from, key)) {
-        to[key] = from[key];
-      }
-    }
-
-    if (getOwnPropertySymbols) {
-      symbols = getOwnPropertySymbols(from);
-
-      for (var i = 0; i < symbols.length; i++) {
-        if (propIsEnumerable.call(from, symbols[i])) {
-          to[symbols[i]] = from[symbols[i]];
-        }
-      }
-    }
-  }
-
-  return to;
-};
+var ReactPropTypesSecret = ReactPropTypesSecret_1;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -4762,769 +4669,58 @@ var objectAssign = shouldUseNative() ? Object.assign : function (target, source)
  * LICENSE file in the root directory of this source tree.
  */
 
-var ReactPropTypesSecret$2 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-var ReactPropTypesSecret_1 = ReactPropTypesSecret$2;
+function emptyFunction() {}
 
-var has$2 = Function.call.bind(Object.prototype.hasOwnProperty);
+function emptyFunctionWithReset() {}
 
-var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
 
-var has$1 = has$2;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var _printWarning$1 = function printWarning() {};
-
-{
-  var ReactPropTypesSecret = ReactPropTypesSecret$1;
-  var loggedTypeFailures = {};
-  var has = has$1;
-
-  _printWarning$1 = function (text) {
-    var message = 'Warning: ' + text;
-
-    if (typeof console !== 'undefined') {
-      console.error(message);
+var factoryWithThrowingShims = function factoryWithThrowingShims() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
     }
 
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {
-      /**/
-    }
-  };
-}
-/**
- * Assert that the values match with the type specs.
- * Error messages are memorized and will only be shown once.
- *
- * @param {object} typeSpecs Map of name to a ReactPropType
- * @param {object} values Runtime values that need to be type-checked
- * @param {string} location e.g. "prop", "context", "child context"
- * @param {string} componentName Name of the component for error messages.
- * @param {?Function} getStack Returns the component stack.
- * @private
- */
-
-
-function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) {
-  {
-    for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
-        var error; // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          if (typeof typeSpecs[typeSpecName] !== 'function') {
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
-            err.name = 'Invariant Violation';
-            throw err;
-          }
-
-          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
-        } catch (ex) {
-          error = ex;
-        }
-
-        if (error && !(error instanceof Error)) {
-          _printWarning$1((componentName || 'React class') + ': type specification of ' + location + ' `' + typeSpecName + '` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a ' + typeof error + '. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).');
-        }
-
-        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error.message] = true;
-          var stack = getStack ? getStack() : '';
-
-          _printWarning$1('Failed ' + location + ' type: ' + error.message + (stack != null ? stack : ''));
-        }
-      }
-    }
+    var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use PropTypes.checkPropTypes() to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
+    err.name = 'Invariant Violation';
+    throw err;
   }
-}
-/**
- * Resets warning cache when testing.
- *
- * @private
- */
+  shim.isRequired = shim;
 
-
-checkPropTypes$1.resetWarningCache = function () {
-  {
-    loggedTypeFailures = {};
+  function getShim() {
+    return shim;
   }
-};
-
-var checkPropTypes_1 = checkPropTypes$1;
-
-var checkPropTypes = checkPropTypes_1;
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var _printWarning = function printWarning() {};
-
-{
-  _printWarning = function (text) {
-    var message = 'Warning: ' + text;
-
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-}
-
-function emptyFunctionThatReturnsNull() {
-  return null;
-}
-
-var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, throwOnDirectAccess) {
-  /* global Symbol */
-  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-  /**
-   * Returns the iterator method function contained on the iterable object.
-   *
-   * Be sure to invoke the function with the iterable as context:
-   *
-   *     var iteratorFn = getIteratorFn(myIterable);
-   *     if (iteratorFn) {
-   *       var iterator = iteratorFn.call(myIterable);
-   *       ...
-   *     }
-   *
-   * @param {?object} maybeIterable
-   * @return {?function}
-   */
-
-  function getIteratorFn(maybeIterable) {
-    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-
-    if (typeof iteratorFn === 'function') {
-      return iteratorFn;
-    }
-  }
-  /**
-   * Collection of methods that allow declaration and validation of props that are
-   * supplied to React components. Example usage:
-   *
-   *   var Props = require('ReactPropTypes');
-   *   var MyArticle = React.createClass({
-   *     propTypes: {
-   *       // An optional string prop named "description".
-   *       description: Props.string,
-   *
-   *       // A required enum prop named "category".
-   *       category: Props.oneOf(['News','Photos']).isRequired,
-   *
-   *       // A prop named "dialog" that requires an instance of Dialog.
-   *       dialog: Props.instanceOf(Dialog).isRequired
-   *     },
-   *     render: function() { ... }
-   *   });
-   *
-   * A more formal specification of how these methods are used:
-   *
-   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
-   *   decl := ReactPropTypes.{type}(.isRequired)?
-   *
-   * Each and every declaration produces a function with the same signature. This
-   * allows the creation of custom validation functions. For example:
-   *
-   *  var MyLink = React.createClass({
-   *    propTypes: {
-   *      // An optional string or URI prop named "href".
-   *      href: function(props, propName, componentName) {
-   *        var propValue = props[propName];
-   *        if (propValue != null && typeof propValue !== 'string' &&
-   *            !(propValue instanceof URI)) {
-   *          return new Error(
-   *            'Expected a string or an URI for ' + propName + ' in ' +
-   *            componentName
-   *          );
-   *        }
-   *      }
-   *    },
-   *    render: function() {...}
-   *  });
-   *
-   * @internal
-   */
-
-
-  var ANONYMOUS = '<<anonymous>>'; // Important!
-  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
 
   var ReactPropTypes = {
-    array: createPrimitiveTypeChecker('array'),
-    bigint: createPrimitiveTypeChecker('bigint'),
-    bool: createPrimitiveTypeChecker('boolean'),
-    func: createPrimitiveTypeChecker('function'),
-    number: createPrimitiveTypeChecker('number'),
-    object: createPrimitiveTypeChecker('object'),
-    string: createPrimitiveTypeChecker('string'),
-    symbol: createPrimitiveTypeChecker('symbol'),
-    any: createAnyTypeChecker(),
-    arrayOf: createArrayOfTypeChecker,
-    element: createElementTypeChecker(),
-    elementType: createElementTypeTypeChecker(),
-    instanceOf: createInstanceTypeChecker,
-    node: createNodeChecker(),
-    objectOf: createObjectOfTypeChecker,
-    oneOf: createEnumTypeChecker,
-    oneOfType: createUnionTypeChecker,
-    shape: createShapeTypeChecker,
-    exact: createStrictShapeTypeChecker
+    array: shim,
+    bigint: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
   };
-  /**
-   * inlined Object.is polyfill to avoid requiring consumers ship their own
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-   */
-
-  /*eslint-disable no-self-compare*/
-
-  function is(x, y) {
-    // SameValue algorithm
-    if (x === y) {
-      // Steps 1-5, 7-10
-      // Steps 6.b-6.e: +0 != -0
-      return x !== 0 || 1 / x === 1 / y;
-    } else {
-      // Step 6.a: NaN == NaN
-      return x !== x && y !== y;
-    }
-  }
-  /*eslint-enable no-self-compare*/
-
-  /**
-   * We use an Error-like object for backward compatibility as people may call
-   * PropTypes directly and inspect their output. However, we don't use real
-   * Errors anymore. We don't inspect their stack anyway, and creating them
-   * is prohibitively expensive if they are created too often, such as what
-   * happens in oneOfType() for any type before the one that matched.
-   */
-
-
-  function PropTypeError(message, data) {
-    this.message = message;
-    this.data = data && typeof data === 'object' ? data : {};
-    this.stack = '';
-  } // Make `instanceof Error` still work for returned errors.
-
-
-  PropTypeError.prototype = Error.prototype;
-
-  function createChainableTypeChecker(validate) {
-    {
-      var manualPropTypeCallCache = {};
-      var manualPropTypeWarningCount = 0;
-    }
-
-    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-      componentName = componentName || ANONYMOUS;
-      propFullName = propFullName || propName;
-
-      if (secret !== ReactPropTypesSecret$1) {
-        if (throwOnDirectAccess) {
-          // New behavior only for users of `prop-types` package
-          var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
-          err.name = 'Invariant Violation';
-          throw err;
-        } else if (typeof console !== 'undefined') {
-          // Old behavior for people using React.PropTypes
-          var cacheKey = componentName + ':' + propName;
-
-          if (!manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
-          manualPropTypeWarningCount < 3) {
-            _printWarning('You are manually calling a React.PropTypes validation ' + 'function for the `' + propFullName + '` prop on `' + componentName + '`. This is deprecated ' + 'and will throw in the standalone `prop-types` package. ' + 'You may be seeing this warning due to a third-party PropTypes ' + 'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.');
-
-            manualPropTypeCallCache[cacheKey] = true;
-            manualPropTypeWarningCount++;
-          }
-        }
-      }
-
-      if (props[propName] == null) {
-        if (isRequired) {
-          if (props[propName] === null) {
-            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
-          }
-
-          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
-        }
-
-        return null;
-      } else {
-        return validate(props, propName, componentName, location, propFullName);
-      }
-    }
-
-    var chainedCheckType = checkType.bind(null, false);
-    chainedCheckType.isRequired = checkType.bind(null, true);
-    return chainedCheckType;
-  }
-
-  function createPrimitiveTypeChecker(expectedType) {
-    function validate(props, propName, componentName, location, propFullName, secret) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== expectedType) {
-        // `propValue` being instance of, say, date/regexp, pass the 'object'
-        // check, but we can offer a more precise error message here rather than
-        // 'of type `object`'.
-        var preciseType = getPreciseType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'), {
-          expectedType: expectedType
-        });
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
-  }
-
-  function createArrayOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
-      }
-
-      var propValue = props[propName];
-
-      if (!Array.isArray(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
-      }
-
-      for (var i = 0; i < propValue.length; i++) {
-        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret$1);
-
-        if (error instanceof Error) {
-          return error;
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-
-      if (!isValidElement(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-
-      if (!reactIs.isValidElementType(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createInstanceTypeChecker(expectedClass) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!(props[propName] instanceof expectedClass)) {
-        var expectedClassName = expectedClass.name || ANONYMOUS;
-        var actualClassName = getClassName(props[propName]);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createEnumTypeChecker(expectedValues) {
-    if (!Array.isArray(expectedValues)) {
-      {
-        if (arguments.length > 1) {
-          _printWarning('Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' + 'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).');
-        } else {
-          _printWarning('Invalid argument supplied to oneOf, expected an array.');
-        }
-      }
-
-      return emptyFunctionThatReturnsNull;
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-
-      for (var i = 0; i < expectedValues.length; i++) {
-        if (is(propValue, expectedValues[i])) {
-          return null;
-        }
-      }
-
-      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-        var type = getPreciseType(value);
-
-        if (type === 'symbol') {
-          return String(value);
-        }
-
-        return value;
-      });
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createObjectOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
-      }
-
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
-      }
-
-      for (var key in propValue) {
-        if (has$1(propValue, key)) {
-          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
-
-          if (error instanceof Error) {
-            return error;
-          }
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createUnionTypeChecker(arrayOfTypeCheckers) {
-    if (!Array.isArray(arrayOfTypeCheckers)) {
-      _printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') ;
-      return emptyFunctionThatReturnsNull;
-    }
-
-    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-      var checker = arrayOfTypeCheckers[i];
-
-      if (typeof checker !== 'function') {
-        _printWarning('Invalid argument supplied to oneOfType. Expected an array of check functions, but ' + 'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.');
-
-        return emptyFunctionThatReturnsNull;
-      }
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      var expectedTypes = [];
-
-      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-        var checker = arrayOfTypeCheckers[i];
-        var checkerResult = checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret$1);
-
-        if (checkerResult == null) {
-          return null;
-        }
-
-        if (checkerResult.data && has$1(checkerResult.data, 'expectedType')) {
-          expectedTypes.push(checkerResult.data.expectedType);
-        }
-      }
-
-      var expectedTypesMessage = expectedTypes.length > 0 ? ', expected one of type [' + expectedTypes.join(', ') + ']' : '';
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`' + expectedTypesMessage + '.'));
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createNodeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!isNode(props[propName])) {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function invalidValidatorError(componentName, location, propFullName, key, type) {
-    return new PropTypeError((componentName || 'React class') + ': ' + location + ' type `' + propFullName + '.' + key + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + type + '`.');
-  }
-
-  function createShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      }
-
-      for (var key in shapeTypes) {
-        var checker = shapeTypes[key];
-
-        if (typeof checker !== 'function') {
-          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
-        }
-
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
-
-        if (error) {
-          return error;
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function createStrictShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      } // We need to check all keys in case some are required but missing from props.
-
-
-      var allKeys = objectAssign({}, props[propName], shapeTypes);
-
-      for (var key in allKeys) {
-        var checker = shapeTypes[key];
-
-        if (has$1(shapeTypes, key) && typeof checker !== 'function') {
-          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
-        }
-
-        if (!checker) {
-          return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' + '\nBad object: ' + JSON.stringify(props[propName], null, '  ') + '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  '));
-        }
-
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
-
-        if (error) {
-          return error;
-        }
-      }
-
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function isNode(propValue) {
-    switch (typeof propValue) {
-      case 'number':
-      case 'string':
-      case 'undefined':
-        return true;
-
-      case 'boolean':
-        return !propValue;
-
-      case 'object':
-        if (Array.isArray(propValue)) {
-          return propValue.every(isNode);
-        }
-
-        if (propValue === null || isValidElement(propValue)) {
-          return true;
-        }
-
-        var iteratorFn = getIteratorFn(propValue);
-
-        if (iteratorFn) {
-          var iterator = iteratorFn.call(propValue);
-          var step;
-
-          if (iteratorFn !== propValue.entries) {
-            while (!(step = iterator.next()).done) {
-              if (!isNode(step.value)) {
-                return false;
-              }
-            }
-          } else {
-            // Iterator will provide entry [k,v] tuples rather than values.
-            while (!(step = iterator.next()).done) {
-              var entry = step.value;
-
-              if (entry) {
-                if (!isNode(entry[1])) {
-                  return false;
-                }
-              }
-            }
-          }
-        } else {
-          return false;
-        }
-
-        return true;
-
-      default:
-        return false;
-    }
-  }
-
-  function isSymbol(propType, propValue) {
-    // Native Symbol.
-    if (propType === 'symbol') {
-      return true;
-    } // falsy value can't be a Symbol
-
-
-    if (!propValue) {
-      return false;
-    } // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
-
-
-    if (propValue['@@toStringTag'] === 'Symbol') {
-      return true;
-    } // Fallback for non-spec compliant Symbols which are polyfilled.
-
-
-    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-      return true;
-    }
-
-    return false;
-  } // Equivalent of `typeof` but with special handling for array and regexp.
-
-
-  function getPropType(propValue) {
-    var propType = typeof propValue;
-
-    if (Array.isArray(propValue)) {
-      return 'array';
-    }
-
-    if (propValue instanceof RegExp) {
-      // Old webkits (at least until Android 4.0) return 'function' rather than
-      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
-      // passes PropTypes.object.
-      return 'object';
-    }
-
-    if (isSymbol(propType, propValue)) {
-      return 'symbol';
-    }
-
-    return propType;
-  } // This handles more types than `getPropType`. Only used for error messages.
-  // See `createPrimitiveTypeChecker`.
-
-
-  function getPreciseType(propValue) {
-    if (typeof propValue === 'undefined' || propValue === null) {
-      return '' + propValue;
-    }
-
-    var propType = getPropType(propValue);
-
-    if (propType === 'object') {
-      if (propValue instanceof Date) {
-        return 'date';
-      } else if (propValue instanceof RegExp) {
-        return 'regexp';
-      }
-    }
-
-    return propType;
-  } // Returns a string that is postfixed to a warning about an invalid type.
-  // For example, "undefined" or "of type array"
-
-
-  function getPostfixForTypeWarning(value) {
-    var type = getPreciseType(value);
-
-    switch (type) {
-      case 'array':
-      case 'object':
-        return 'an ' + type;
-
-      case 'boolean':
-      case 'date':
-      case 'regexp':
-        return 'a ' + type;
-
-      default:
-        return type;
-    }
-  } // Returns class name of the object, if any.
-
-
-  function getClassName(propValue) {
-    if (!propValue.constructor || !propValue.constructor.name) {
-      return ANONYMOUS;
-    }
-
-    return propValue.constructor.name;
-  }
-
-  ReactPropTypes.checkPropTypes = checkPropTypes;
-  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
   ReactPropTypes.PropTypes = ReactPropTypes;
   return ReactPropTypes;
 };
 
-var require$$1 = factoryWithTypeCheckers;
+var require$$2 = factoryWithThrowingShims;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -5534,11 +4730,9 @@ var require$$1 = factoryWithTypeCheckers;
  */
 var propTypes = createCommonjsModule(function (module) {
   {
-    var ReactIs = reactIs; // By explicitly using `prop-types` you are opting into new development behavior.
+    // By explicitly using `prop-types` you are opting into new production behavior.
     // http://fb.me/prop-types-in-prod
-
-    var throwOnDirectAccess = true;
-    module.exports = require$$1(ReactIs.isElement, throwOnDirectAccess);
+    module.exports = require$$2();
   }
 });
 var PropTypes = propTypes;
@@ -5808,7 +5002,7 @@ function convert$1(createElement, element) {
 var PRODUCTION = false;
 
 try {
-  PRODUCTION = "development" === 'production';
+  PRODUCTION = "production" === 'production';
 } catch (e) {}
 
 function log() {
@@ -5985,17 +5179,17 @@ function RelaxedFilePath({
   const extension = fileParts.pop();
   const fileName = fileParts.join('.');
   const tightSpace = String.fromCharCode(8201);
-  return /*#__PURE__*/React__default.createElement("span", {
+  return React__default.createElement("span", {
     className: "inline-flex flex-wrap items-baseline"
-  }, parts.map((part, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  }, parts.map((part, index) => React__default.createElement(React__default.Fragment, {
     key: index
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     key: index
-  }, part), /*#__PURE__*/React__default.createElement("span", null, tightSpace, "/", tightSpace))), /*#__PURE__*/React__default.createElement("span", {
+  }, part), React__default.createElement("span", null, tightSpace, "/", tightSpace))), React__default.createElement("span", {
     className: "font-semibold"
-  }, fileName), /*#__PURE__*/React__default.createElement("span", null, ".", extension), lineNumber && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, fileName), React__default.createElement("span", null, ".", extension), lineNumber && React__default.createElement(React__default.Fragment, null, tightSpace, React__default.createElement("span", {
     className: "whitespace-nowrap"
-  }, ":", tightSpace, /*#__PURE__*/React__default.createElement("span", {
+  }, ":", tightSpace, React__default.createElement("span", {
     className: "font-mono text-xs"
   }, lineNumber))));
 }
@@ -6006,34 +5200,34 @@ function FrameGroup({
   onSelect
 }) {
   if (frameGroup.type === 'vendor' && !frameGroup.expanded) {
-    return /*#__PURE__*/React__default.createElement("li", {
+    return React__default.createElement("li", {
       className: "group cursor-pointer px-6 @lg:px-10 py-4 flex gap-2 border-b ~border-gray-200 hover:~bg-gray-500/5 items-center",
       onClick: onExpand
-    }, frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame', /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    }, frameGroup.frames.length > 1 ? `${frameGroup.frames.length} vendor frames` : '1 vendor frame', React__default.createElement(FontAwesomeIcon, {
       icon: faAngleDown,
       className: "~text-gray-500 group-hover:text-indigo-500"
     }));
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, frameGroup.frames.map((frame, index) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  return React__default.createElement(React__default.Fragment, null, frameGroup.frames.map((frame, index) => React__default.createElement(React__default.Fragment, {
     key: index
-  }, /*#__PURE__*/React__default.createElement("li", {
+  }, React__default.createElement("li", {
     key: frame.frame_number,
     className: `px-6 sm:px-10 py-4
                             ${frame.selected ? 'bg-red-500 text-white' : 'cursor-pointer border-b ~border-gray-200 hover:~bg-red-500/10'}
                         `,
     onClick: () => onSelect(frame.frame_number)
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex items-baseline"
-  }, frame.class ? /*#__PURE__*/React__default.createElement(RelaxedFullyQualifiedClassName, {
+  }, frame.class ? React__default.createElement(RelaxedFullyQualifiedClassName, {
     path: frame.class,
     lineNumber: frame.line_number
-  }) : /*#__PURE__*/React__default.createElement(RelaxedFilePath, {
+  }) : React__default.createElement(RelaxedFilePath, {
     path: frame.file,
     lineNumber: frame.line_number
-  })), /*#__PURE__*/React__default.createElement("div", {
+  })), React__default.createElement("div", {
     className: "font-semibold"
-  }, frame.method)), frame.selected && /*#__PURE__*/React__default.createElement("li", {
+  }, frame.method)), frame.selected && React__default.createElement("li", {
     className: "z-10 mt-[-4px] sticky top-0 bg-red-500 h-[4px]"
   }))));
 }
@@ -6152,7 +5346,7 @@ function RoundedButton(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$6);
 
-  return /*#__PURE__*/React__default.createElement("button", _extends$1({
+  return React__default.createElement("button", _extends$1({
     type: props.type || 'button',
     className: `w-6 h-6 rounded-full flex items-center justify-center
             text-xs ~bg-white text-indigo-500 hover:~text-indigo-600 
@@ -6188,21 +5382,21 @@ function CopyButton({
     setCopied(true);
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: className
-  }, children && /*#__PURE__*/React__default.createElement("button", {
+  }, children && React__default.createElement("button", {
     onClick: copy,
     title: "Copy to clipboard"
-  }, children), !children && /*#__PURE__*/React__default.createElement(RoundedButton, {
+  }, children), !children && React__default.createElement(RoundedButton, {
     onClick: copy,
     title: "Copy to clipboard",
     className: `
                     ${alwaysVisible ? '' : 'opacity-0 transform scale-80 transition-animation delay-100'}
                     ${copied ? 'opacity-0' : 'group-hover:opacity-100 group-hover:scale-100'}
                 `
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faCopy
-  })), copied && /*#__PURE__*/React__default.createElement("p", {
+  })), copied && React__default.createElement("p", {
     className: `
                         absolute top-0 pointer-events-none select-none
                         ${direction}-0
@@ -6228,22 +5422,22 @@ function EditorLink({
   });
 
   if (clipboard) {
-    return /*#__PURE__*/React__default.createElement(CopyButton, {
+    return React__default.createElement(CopyButton, {
       value: path,
       outside: true,
       direction: "bottom"
-    }, /*#__PURE__*/React__default.createElement("span", {
+    }, React__default.createElement("span", {
       className: `hover:underline ${className}`
-    }, /*#__PURE__*/React__default.createElement(RelaxedFilePath, {
+    }, React__default.createElement(RelaxedFilePath, {
       path: path,
       lineNumber: lineNumber
     })));
   }
 
-  return /*#__PURE__*/React__default.createElement("a", {
+  return React__default.createElement("a", {
     href: url,
     className: `hover:underline ${className}`
-  }, /*#__PURE__*/React__default.createElement(RelaxedFilePath, {
+  }, React__default.createElement(RelaxedFilePath, {
     path: path,
     lineNumber: lineNumber
   }));
@@ -11461,26 +10655,26 @@ function FrameCodeSnippetLine({
     file: frame.file,
     lineNumber
   });
-  return /*#__PURE__*/React__default.createElement("span", {
+  return React__default.createElement("span", {
     className: `
                 flex group leading-loose hover:~bg-red-500/10
                 ${highlight ? ' ~bg-red-500/20' : ''}
             `
-  }, !clipboard && /*#__PURE__*/React__default.createElement("span", {
+  }, !clipboard && React__default.createElement("span", {
     className: "z-30 opacity-0 group-hover:opacity-100 sticky left-10 w-0 h-full"
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     href: editorUrl,
     className: "-ml-3 block"
-  }, /*#__PURE__*/React__default.createElement(RoundedButton, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(RoundedButton, null, React__default.createElement(FontAwesomeIcon, {
     className: "text-xs",
     icon: faPencilAlt
-  })))), clipboard && /*#__PURE__*/React__default.createElement("span", {
+  })))), clipboard && React__default.createElement("span", {
     className: "z-30 opacity-0 group-hover:opacity-100 sticky w-0 h-full"
-  }, /*#__PURE__*/React__default.createElement(CopyButton, {
+  }, React__default.createElement(CopyButton, {
     value: editorUrl,
     outside: true,
     direction: "right"
-  })), /*#__PURE__*/React__default.createElement("span", {
+  })), React__default.createElement("span", {
     className: "pl-6"
   }, createElement({
     node: row,
@@ -11681,7 +10875,7 @@ function FrameCodeSnippet({
   const codeRenderer = useMemo(() => ({
     rows
   }) => {
-    return rows.map((row, index) => /*#__PURE__*/React__default.createElement(FrameCodeSnippetLine, {
+    return rows.map((row, index) => React__default.createElement(FrameCodeSnippetLine, {
       key: lineNumbers[index],
       frame: frame,
       highlight: index === highlightedIndex,
@@ -11689,23 +10883,23 @@ function FrameCodeSnippet({
       lineNumber: lineNumbers[index]
     }));
   }, [frame]);
-  return /*#__PURE__*/React__default.createElement("main", {
+  return React__default.createElement("main", {
     className: "flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-r text-sm"
-  }, /*#__PURE__*/React__default.createElement("nav", {
+  }, React__default.createElement("nav", {
     className: "sticky left-0 flex flex-none z-20 ~bg-white"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "select-none text-right"
-  }, lineNumbers.map(number => /*#__PURE__*/React__default.createElement("p", {
+  }, lineNumbers.map(number => React__default.createElement("p", {
     key: number,
     className: `
                                 px-2 font-mono leading-loose select-none
                                 ${Number(number) === frame.line_number ? ' text-opacity-75 ~text-red-700 ~bg-red-500/30' : ''}
                             `
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "~text-gray-500"
-  }, number))))), /*#__PURE__*/React__default.createElement("div", {
+  }, number))))), React__default.createElement("div", {
     className: "flex-grow pr-10"
-  }, /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, {
+  }, React__default.createElement(SyntaxHighlighter$1, {
     language: getLanguage(frame.relative_file),
     renderer: codeRenderer,
     customStyle: {
@@ -17285,7 +16479,7 @@ function HighlightedCode({
   children,
   language
 }) {
-  return /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, {
+  return React__default.createElement(SyntaxHighlighter$1, {
     language: language,
     customStyle: {
       background: 'transparent'
@@ -17339,30 +16533,30 @@ function CodeSnippet({
     selection.addRange(range);
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     ref: containerRef,
     className: `
                 ${isOverflowing ? 'cursor-pointer' : ''}
                 ${transparent ? '' : '~bg-gray-500/5'}
                 group py-2 relative`,
     onClick: handleClick
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: `${overflowX ? 'mask-fade-x' : ''}`
-  }, language === 'sql' && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, isCollapsed ? /*#__PURE__*/React__default.createElement("pre", {
+  }, language === 'sql' && React__default.createElement(React__default.Fragment, null, isCollapsed ? React__default.createElement("pre", {
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'truncate pr-8'}`
-  }, /*#__PURE__*/React__default.createElement("code", {
+  }, React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
+  }, React__default.createElement(HighlightedCode, {
     language: "sql"
-  }, value))) : /*#__PURE__*/React__default.createElement("pre", {
+  }, value))) : React__default.createElement("pre", {
     className: `pl-4 ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}`
-  }, /*#__PURE__*/React__default.createElement("code", {
+  }, React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, /*#__PURE__*/React__default.createElement(HighlightedCode, {
+  }, React__default.createElement(HighlightedCode, {
     language: "sql"
   }, sqlFormatter$1.format(value, {
     language: 'mysql'
-  }))))), language !== 'sql' && /*#__PURE__*/React__default.createElement("pre", {
+  }))))), language !== 'sql' && React__default.createElement("pre", {
     ref: ref,
     className: `
                             pl-4
@@ -17370,17 +16564,17 @@ function CodeSnippet({
                             ${isCollapsed ? 'overflow-y-hidden max-h-32' : ''}
                             ${overflowX ? 'overflow-x-scroll scrollbar-hidden-x pr-12' : 'pr-8'}
                         `
-  }, /*#__PURE__*/React__default.createElement("code", {
+  }, React__default.createElement("code", {
     className: "font-mono leading-relaxed text-sm font-normal"
-  }, language ? /*#__PURE__*/React__default.createElement(HighlightedCode, {
+  }, language ? React__default.createElement(HighlightedCode, {
     language: language
-  }, value) : value))), /*#__PURE__*/React__default.createElement(CopyButton, {
+  }, value) : value))), React__default.createElement(CopyButton, {
     className: "absolute top-2 right-3",
     value: value
-  }), isOverflowing && /*#__PURE__*/React__default.createElement(RoundedButton, {
+  }), isOverflowing && React__default.createElement(RoundedButton, {
     onClick: () => setIsCollapsed(!isCollapsed),
-    className: " absolute -bottom-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100 "
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    className: "\n                        absolute -bottom-3 left-1/2 -translate-x-1/2\n                        opacity-0 group-hover:opacity-100 scale-80 group-hover:scale-100 delay-100\n                    "
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: `transition-transform duration-300 transform ${isCollapsed ? '' : 'rotate-180'}`
   })));
@@ -17398,7 +16592,7 @@ function DefinitionList(_ref) {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement("dl", _extends$1({
+  return React__default.createElement("dl", _extends$1({
     className: `grid grid-cols-1 gap-2 ${className}`
   }, props), children);
 }
@@ -17428,25 +16622,25 @@ function DefinitionListRow({
   if (React__default.isValidElement(value)) {
     valueOutput = value;
   } else if (typeof value === 'boolean') {
-    valueOutput = /*#__PURE__*/React__default.createElement("span", {
+    valueOutput = React__default.createElement("span", {
       className: `${value ? 'text-emerald-500 bg-emerald-500/5' : 'text-red-500 bg-red-800/5'} text-sm px-3 py-2 inline-flex gap-2 items-center justify-center`
-    }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    }, React__default.createElement(FontAwesomeIcon, {
       className: `${value} ? 'text-emerald-500' : 'text-red-500`,
       icon: value ? faCheck : faTimes
-    }), /*#__PURE__*/React__default.createElement("span", {
+    }), React__default.createElement("span", {
       className: "font-mono"
     }, value ? 'true' : 'false'));
   } else if (type === 'string' || typeof value === 'object') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: jsonStringify(value),
       language: "json"
     });
   } else if (typeof value === 'string') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: value
     });
   } else if (typeof value === 'number') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: String(value)
     });
   }
@@ -17455,9 +16649,9 @@ function DefinitionListRow({
   const expandedSmallLabelClass = 'flex-grow truncate min-w-[2rem] max-w-max';
   const normalLabelClass = 'flex-none truncate w-[8rem]';
   const normalSmallLabelClass = 'flex-none truncate w-[2rem]';
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${stacked ? 'flex flex-col' : `flex items-baseline ${small ? 'gap-3' : 'gap-10'}`}  ${className}`
-  }, /*#__PURE__*/React__default.createElement("dt", {
+  }, React__default.createElement("dt", {
     className: `
                 ${stacked ? 'self-start pt-2 pb-1.5 leading-tight' : expandLabel ? small ? expandedSmallLabelClass : expandedLabelClass : small ? normalSmallLabelClass : normalLabelClass}
             `,
@@ -17467,7 +16661,7 @@ function DefinitionListRow({
     onMouseOut: () => {
       stopExpandLabel();
     }
-  }, label), /*#__PURE__*/React__default.createElement("dd", {
+  }, label), React__default.createElement("dd", {
     className: "flex-grow min-w-0"
   }, valueOutput));
 }
@@ -17477,19 +16671,19 @@ function FrameArguments({
 }) {
   var _frame$arguments;
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, {
+  return React__default.createElement(DefinitionList, {
     className: "pb-10 px-6 @lg:px-10"
-  }, (_frame$arguments = frame.arguments) == null ? void 0 : _frame$arguments.map((argument, key) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, (_frame$arguments = frame.arguments) == null ? void 0 : _frame$arguments.map((argument, key) => React__default.createElement(DefinitionList.Row, {
     key: key,
-    label: /*#__PURE__*/React__default.createElement("div", {
+    label: React__default.createElement("div", {
       className: "font-mono text-sm"
-    }, /*#__PURE__*/React__default.createElement("span", {
+    }, React__default.createElement("span", {
       className: "hljs-function hljs-params hljs-variable"
-    }, /*#__PURE__*/React__default.createElement("span", {
+    }, React__default.createElement("span", {
       title: "by reference"
-    }, argument.is_variadic && '…'), /*#__PURE__*/React__default.createElement("span", null, argument.passed_by_reference && '&'), /*#__PURE__*/React__default.createElement("span", {
+    }, argument.is_variadic && '…'), React__default.createElement("span", null, argument.passed_by_reference && '&'), React__default.createElement("span", {
       title: "variadic"
-    }, "$"), argument.name), /*#__PURE__*/React__default.createElement("span", {
+    }, "$"), argument.name), React__default.createElement("span", {
       className: "text-xs pl-px hljs-function hljs-keyword"
     }, ":", argument.original_type, argument.truncated && ' - truncated')),
     value: argument.value,
@@ -17536,30 +16730,30 @@ function StackTraceExplorer({
       type: 'SELECT_PREVIOUS_FRAME'
     });
   });
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("aside", {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("aside", {
     className: "z-30 flex flex-col border-r ~border-gray-200 relative"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "max-h-[33vh] @4xl:max-h-[none] @4xl:absolute inset-0 flex flex-col overflow-hidden ~bg-white rounded-t-lg"
-  }, /*#__PURE__*/React__default.createElement("header", {
+  }, React__default.createElement("header", {
     className: "flex-none px-6 @lg:px-10 h-16 flex items-center justify-start ~bg-white border-b ~border-gray-200"
-  }, /*#__PURE__*/React__default.createElement(SmallButton, {
+  }, React__default.createElement(SmallButton, {
     onClick: () => dispatch({
       type: vendorFramesExpanded ? 'COLLAPSE_ALL_VENDOR_FRAMES' : 'EXPAND_ALL_VENDOR_FRAMES'
     })
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: `flex ${vendorFramesExpanded ? 'flex-col-reverse' : 'flex-col'}`
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleUp,
     className: "-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  }), /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }), React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: "-my-px text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  })), vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames')), /*#__PURE__*/React__default.createElement("div", {
+  })), vendorFramesExpanded ? 'Collapse vendor frames' : ' Expand vendor frames')), React__default.createElement("div", {
     id: "frames",
     className: "flex-grow overflow-auto scrollbar-hidden-y mask-fade-frames"
-  }, /*#__PURE__*/React__default.createElement("ol", {
+  }, React__default.createElement("ol", {
     className: "text-sm pb-16"
-  }, frameGroups.map((frameGroup, i) => /*#__PURE__*/React__default.createElement(FrameGroup, {
+  }, frameGroups.map((frameGroup, i) => React__default.createElement(FrameGroup, {
     key: i,
     frameGroup: frameGroup,
     onExpand: () => dispatch({
@@ -17572,21 +16766,21 @@ function StackTraceExplorer({
         frame: frameNumber
       });
     }
-  })))))), /*#__PURE__*/React__default.createElement("section", {
+  })))))), React__default.createElement("section", {
     className: "flex flex-col border-t @4xl:border-t-0 ~border-gray-200 relative"
-  }, selectedFrame && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("header", {
+  }, selectedFrame && React__default.createElement(React__default.Fragment, null, React__default.createElement("header", {
     className: "~text-gray-500 flex-none z-30 h-16 px-6 @lg:px-10 flex items-center justify-end"
-  }, /*#__PURE__*/React__default.createElement(EditorLink, {
+  }, React__default.createElement(EditorLink, {
     path: selectedFrame.file,
     lineNumber: selectedFrame.line_number,
     className: "flex items-center text-sm"
-  })), /*#__PURE__*/React__default.createElement(FrameCodeSnippet, {
+  })), React__default.createElement(FrameCodeSnippet, {
     frame: selectedFrame
-  }))), (selectedFrame == null ? void 0 : selectedFrame.arguments) && selectedFrame.arguments.length > 0 && /*#__PURE__*/React__default.createElement("section", {
+  }))), (selectedFrame == null ? void 0 : selectedFrame.arguments) && selectedFrame.arguments.length > 0 && React__default.createElement("section", {
     className: "border-t ~border-gray-200 @4xl:col-span-2"
-  }, /*#__PURE__*/React__default.createElement("header", {
+  }, React__default.createElement("header", {
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider h-16 px-6 @lg:px-10 flex items-center"
-  }, "arguments"), /*#__PURE__*/React__default.createElement(FrameArguments, {
+  }, "arguments"), React__default.createElement(FrameArguments, {
     frame: selectedFrame
   })));
 }
@@ -17597,11 +16791,11 @@ function StackTrace({
   const {
     frames
   } = useContext(ErrorOccurrenceContext);
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "@container bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "grid grid-cols-1 @4xl:grid-cols-[33.33%_66.66%] @4xl:grid-rows-[57rem] items-stretch overflow-hidden"
-  }, /*#__PURE__*/React__default.createElement(StackTraceExplorer, {
+  }, React__default.createElement(StackTraceExplorer, {
     frames: frames,
     openFrameIndex: openFrameIndex
   })));
@@ -17624,13 +16818,13 @@ function ExceptionMessage({
     setFullException(!fullException);
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `
                 my-4 font-semibold leading-snug text-xl
                 ${className}
             `,
     onClick: handleClick
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: fullException ? 'line-clamp-none' : 'line-clamp-2'
   }, message));
 }
@@ -17653,10 +16847,10 @@ function FormattedExceptionMessage({
       setCleanedUpMessage(message.replace(sqlQueryPattern, '$2'));
     }
   }, [message, exceptionClass]);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ExceptionMessage, {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(ExceptionMessage, {
     message: cleanedUpMessage,
     className: className
-  }), sqlQuery && /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }), sqlQuery && React__default.createElement(CodeSnippet, {
     value: sqlQuery,
     language: "sql"
   }));
@@ -17671,7 +16865,7 @@ function Button(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$3);
 
-  return /*#__PURE__*/React__default.createElement("button", _extends$1({
+  return React__default.createElement("button", _extends$1({
     disabled: disabled,
     className: `px-4 h-8 whitespace-nowrap border-b
             text-xs uppercase tracking-wider font-bold rounded-sm
@@ -24432,9 +23626,9 @@ const _excluded$2 = ["node", "inline", "className", "children"];
 function SolutionDescription({
   solution
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "grid grid-cols-1 gap-2"
-  }, /*#__PURE__*/React__default.createElement(ReactMarkdown, {
+  }, React__default.createElement(ReactMarkdown, {
     children: solution.description,
     components: {
       code(_ref) {
@@ -24446,7 +23640,7 @@ function SolutionDescription({
             props = _objectWithoutPropertiesLoose$2(_ref, _excluded$2);
 
         const match = /language-(\w+)/.exec(className || '');
-        return !inline ? /*#__PURE__*/React__default.createElement(SyntaxHighlighter$1, _extends$1({}, props, {
+        return !inline ? React__default.createElement(SyntaxHighlighter$1, _extends$1({}, props, {
           language: match ? match[1] : null,
           children: String(children).replace(/\n$/, ''),
           customStyle: {
@@ -24455,7 +23649,7 @@ function SolutionDescription({
             padding: '0.25rem 0.5rem',
             overflowX: 'scroll'
           }
-        })) : /*#__PURE__*/React__default.createElement("code", _extends$1({}, props, {
+        })) : React__default.createElement("code", _extends$1({}, props, {
           className: className,
           style: {
             background: 'rgba(255,255,255,0.75)',
@@ -24465,11 +23659,11 @@ function SolutionDescription({
       }
 
     }
-  }), solution.action_description && /*#__PURE__*/React__default.createElement("p", null, solution.action_description), /*#__PURE__*/React__default.createElement("ul", {
+  }), solution.action_description && React__default.createElement("p", null, solution.action_description), React__default.createElement("ul", {
     className: "grid grid-cols-1 gap-1 text-sm"
-  }, Object.entries(solution.links).map(([title, link], index) => /*#__PURE__*/React__default.createElement("li", {
+  }, Object.entries(solution.links).map(([title, link], index) => React__default.createElement("li", {
     key: index
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     href: link,
     target: "_blank",
     className: "underline text-emerald-700 hover:text-emerald-800"
@@ -24519,31 +23713,31 @@ function SolutionRunner({
     location.reload();
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, wasExecutionSuccessful === null && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Button, {
+  return React__default.createElement(React__default.Fragment, null, wasExecutionSuccessful === null && React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
     onClick: executeSolution,
     disabled: isRunningSolution,
     className: "mb-4 inline-flex items-center gap-2 bg-emerald-600 border-emerald-500/25 text-white"
-  }, isRunningSolution ? /*#__PURE__*/React__default.createElement("span", null, "Running...") : /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, isRunningSolution ? React__default.createElement("span", null, "Running...") : React__default.createElement(React__default.Fragment, null, React__default.createElement(FontAwesomeIcon, {
     className: "opacity-50",
     icon: faWrench
-  }), solution.run_button_text || 'Run')), /*#__PURE__*/React__default.createElement(SolutionDescription, {
+  }), solution.run_button_text || 'Run')), React__default.createElement(SolutionDescription, {
     solution: solution
-  })), wasExecutionSuccessful === true && /*#__PURE__*/React__default.createElement("p", {
+  })), wasExecutionSuccessful === true && React__default.createElement("p", {
     className: ""
-  }, "The solution was executed ", /*#__PURE__*/React__default.createElement("strong", null, "successfully"), ".", /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement("a", {
+  }, "The solution was executed ", React__default.createElement("strong", null, "successfully"), ".", React__default.createElement("br", null), React__default.createElement("a", {
     href: "#",
     className: "mt-2 inline-flex items-center gap-2 underline text-emerald-700 hover:text-emerald-800",
     onClick: refresh
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faRedoAlt,
     className: "text-sm opacity-50"
-  }), "Refresh now")), wasExecutionSuccessful === false && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("p", {
+  }), "Refresh now")), wasExecutionSuccessful === false && React__default.createElement(React__default.Fragment, null, React__default.createElement("p", {
     className: "bg-red-200 px-4 py-2"
-  }, "Something ", /*#__PURE__*/React__default.createElement("strong", null, "went wrong"), ". Please try refreshing the page and try again.", /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement("a", {
+  }, "Something ", React__default.createElement("strong", null, "went wrong"), ". Please try refreshing the page and try again.", React__default.createElement("br", null), React__default.createElement("a", {
     href: "#",
     className: "mt-2 inline-flex items-center gap-2 underline text-red-700 hover:text-red-800",
     onClick: refresh
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faRedoAlt,
     className: "text-sm opacity-50"
   }), "Refresh now"))));
@@ -24556,39 +23750,39 @@ function Solution({
   canExecute = false
 }) {
   const [isOpen, setIsOpen] = useState(initialIsOpen);
-  return /*#__PURE__*/React__default.createElement("section", null, /*#__PURE__*/React__default.createElement("header", {
+  return React__default.createElement("section", null, React__default.createElement("header", {
     className: "group mb-4"
-  }, isCollapsible ? /*#__PURE__*/React__default.createElement("button", {
+  }, isCollapsible ? React__default.createElement("button", {
     className: "flex items-center justify-start",
     onClick: () => {
       setIsOpen(!isOpen);
     }
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "w-6 -ml-6"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleDown,
     className: `group-hover:opacity-50 opacity-0 text-sm transform transition ${isOpen ? '' : '-rotate-90'}`
-  })), /*#__PURE__*/React__default.createElement("h2", {
+  })), React__default.createElement("h2", {
     className: "min-w-0 truncate font-semibold leading-snug"
-  }, solution.title)) : /*#__PURE__*/React__default.createElement("h2", {
+  }, solution.title)) : React__default.createElement("h2", {
     className: "truncate font-semibold leading-snug"
-  }, solution.title)), /*#__PURE__*/React__default.createElement("div", {
+  }, solution.title)), React__default.createElement("div", {
     className: `${isOpen ? '' : 'hidden'}`
-  }, solution.is_runnable && canExecute ? /*#__PURE__*/React__default.createElement(SolutionRunner, {
+  }, solution.is_runnable && canExecute ? React__default.createElement(SolutionRunner, {
     solution: solution
-  }) : /*#__PURE__*/React__default.createElement(SolutionDescription, {
+  }) : React__default.createElement(SolutionDescription, {
     solution: solution
-  }), solution.ai_generated && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("hr", {
+  }), solution.ai_generated && React__default.createElement(React__default.Fragment, null, React__default.createElement("hr", {
     className: "border-emerald-500/50 my-4"
-  }), /*#__PURE__*/React__default.createElement("div", {
+  }), React__default.createElement("div", {
     className: "flex items-center gap-x-2 text-green-700"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     fixedWidth: true,
     icon: faRobot
-  }), /*#__PURE__*/React__default.createElement("span", {
+  }), React__default.createElement("span", {
     id: "ai-message",
     className: "text-xs"
-  }, "This solution was ", /*#__PURE__*/React__default.createElement("a", {
+  }, "This solution was ", React__default.createElement("a", {
     className: "underline",
     target: "_blank",
     href: "https://flareapp.io/docs/ignition/solutions/ai-powered-solutions"
@@ -24618,29 +23812,29 @@ function Solutions() {
       setCanExecuteSolutions(false);
     }
   }, []);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showSolutions ? /*#__PURE__*/React__default.createElement("aside", {
+  return React__default.createElement(React__default.Fragment, null, showSolutions ? React__default.createElement("aside", {
     id: "solution",
     className: "relative flex flex-col lg:w-2/5 flex-none"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex-grow px-6 sm:px-10 py-8 bg-emerald-300 text-gray-800 rounded-bl-lg rounded-br-lg @4xl:rounded-bl-none @4xl:rounded-r-lg"
-  }, /*#__PURE__*/React__default.createElement("button", {
+  }, React__default.createElement("button", {
     onClick: () => setShowSolutions(false),
     className: "absolute top-3 right-4 leading-none text-emerald-500 hover:text-emerald-700 text-sm"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faTimes
-  })), solutions.map((solution, index) => /*#__PURE__*/React__default.createElement("div", {
+  })), solutions.map((solution, index) => React__default.createElement("div", {
     key: index
-  }, /*#__PURE__*/React__default.createElement(Solution, {
+  }, React__default.createElement(Solution, {
     solution: solution,
     canExecute: canExecuteSolutions,
     isOpen: index === 0,
     isCollapsible: solutions.length > 1
-  }), index !== solutions.length - 1 && /*#__PURE__*/React__default.createElement("hr", {
+  }), index !== solutions.length - 1 && React__default.createElement("hr", {
     className: "my-4 border-t border-gray-800/20"
-  }))))) : /*#__PURE__*/React__default.createElement("button", {
+  }))))) : React__default.createElement("button", {
     onClick: () => setShowSolutions(true),
-    className: " absolute -top-3 -right-3 z-20 w-6 h-6 rounded-full flex items-center justify-center text-xs bg-emerald-500 text-white hover:shadow-lg shadow-md active:shadow-sm active:translate-y-px"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    className: "\n        absolute -top-3 -right-3 z-20\n        w-6 h-6 rounded-full flex items-center justify-center\n        text-xs bg-emerald-500 text-white hover:shadow-lg\n        shadow-md\n        active:shadow-sm active:translate-y-px"
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faLightbulb
   })));
 }
@@ -24651,9 +23845,9 @@ function ExceptionSelector() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
 
   {
-    return /*#__PURE__*/React__default.createElement("span", {
+    return React__default.createElement("span", {
       className: "py-1 px-4 items-center flex gap-3 rounded-sm ~bg-gray-500/5"
-    }, /*#__PURE__*/React__default.createElement(RelaxedFullyQualifiedClassName, {
+    }, React__default.createElement(RelaxedFullyQualifiedClassName, {
       path: errorOccurrence.exception_class
     }));
   }
@@ -24662,13 +23856,13 @@ function ExceptionSelector() {
 function ErrorBoundaryCard({
   githubLink
 }) {
-  return /*#__PURE__*/React__default.createElement("section", {
+  return React__default.createElement("section", {
     className: "flex flex-col flex-grow px-6 sm:px-10 py-8 bg-red-600 text-red-100 shadow-lg gap-3"
-  }, /*#__PURE__*/React__default.createElement("h2", {
+  }, React__default.createElement("h2", {
     className: "text-xl font-semibold leading-snug"
-  }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
+  }, "Something went wrong in Ignition!"), React__default.createElement("p", {
     className: "text-base"
-  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
+  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', React__default.createElement("a", {
     href: githubLink,
     target: "_blank",
     className: "underline"
@@ -24722,7 +23916,7 @@ ${navigator.userAgent}
         githubLink = `https://github.com/spatie/ignition/issues/new?title=${title}&labels=bug&body=${encodeURIComponent(body)}`;
       }
 
-      return ((_this$props$fallbackC = (_this$props = this.props).fallbackComponent) == null ? void 0 : _this$props$fallbackC.call(_this$props, githubLink)) || /*#__PURE__*/React__default.createElement(ErrorBoundaryCard, {
+      return ((_this$props$fallbackC = (_this$props = this.props).fallbackComponent) == null ? void 0 : _this$props$fallbackC.call(_this$props, githubLink)) || React__default.createElement(ErrorBoundaryCard, {
         githubLink: githubLink
       });
     }
@@ -24738,31 +23932,31 @@ function ErrorCard() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const hasSolutions = errorOccurrence.solutions.length > 0;
   const isLaravelError = !!((_errorOccurrence$cont = errorOccurrence.context_items.env) != null && _errorOccurrence$cont.laravel_version);
-  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("section", {
+  return React__default.createElement(ErrorBoundary, null, React__default.createElement("section", {
     className: "@container | bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "@4xl:flex items-stretch"
-  }, /*#__PURE__*/React__default.createElement("main", {
+  }, React__default.createElement("main", {
     id: "exception",
     className: "z-10 flex-grow min-w-0"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "overflow-hidden"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "px-6 @lg:px-10 py-8 overflow-x-auto"
-  }, /*#__PURE__*/React__default.createElement("header", {
+  }, React__default.createElement("header", {
     className: "flex items-center justify-between gap-2"
-  }, /*#__PURE__*/React__default.createElement(ExceptionSelector, null), /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement(ExceptionSelector, null), React__default.createElement("div", {
     className: "grid grid-flow-col justify-end gap-4 text-sm ~text-gray-500"
-  }, /*#__PURE__*/React__default.createElement("span", null, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", null, React__default.createElement("span", {
     className: "tracking-wider"
-  }, "PHP"), "\xA0", errorOccurrence.language_version), errorOccurrence.framework_version && /*#__PURE__*/React__default.createElement("span", {
+  }, "PHP"), "\u00A0", errorOccurrence.language_version), errorOccurrence.framework_version && React__default.createElement("span", {
     className: "inline-flex items-center gap-1"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: isLaravelError ? faLaravel : faCodeBranch
-  }), errorOccurrence.framework_version))), /*#__PURE__*/React__default.createElement(FormattedExceptionMessage, {
+  }), errorOccurrence.framework_version))), React__default.createElement(FormattedExceptionMessage, {
     exceptionClass: errorOccurrence.exception_class,
     message: errorOccurrence.exception_message
-  })))), hasSolutions && /*#__PURE__*/React__default.createElement(Solutions, null))));
+  })))), hasSolutions && React__default.createElement(Solutions, null))));
 }
 
 const CAMELCASE_REGEXP_PATTERN = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))';
@@ -24811,13 +24005,13 @@ function ErrorBoundarySection({
   className = '',
   githubLink
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className} flex flex-col gap-2 bg-red-50 dark:bg-red-500/10 px-6 py-4`
-  }, /*#__PURE__*/React__default.createElement("h2", {
+  }, React__default.createElement("h2", {
     className: "font-semibold leading-snug"
-  }, "Something went wrong in Ignition!"), /*#__PURE__*/React__default.createElement("p", {
+  }, "Something went wrong in Ignition!"), React__default.createElement("p", {
     className: "text-base"
-  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', /*#__PURE__*/React__default.createElement("a", {
+  }, "An error occurred in Ignition's UI. Please open an issue on", ' ', React__default.createElement("a", {
     href: githubLink,
     target: "_blank",
     className: "underline"
@@ -24829,17 +24023,17 @@ function ContextGroup({
   children,
   anchor
 }) {
-  return /*#__PURE__*/React__default.createElement("section", {
+  return React__default.createElement("section", {
     className: "py-10 ~bg-white px-6 @lg:px-10 min-w-0"
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     id: `context-${anchor}`,
     className: "scroll-target"
-  }), /*#__PURE__*/React__default.createElement("h2", {
+  }), React__default.createElement("h2", {
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider"
-  }, title), /*#__PURE__*/React__default.createElement("div", {
+  }, title), React__default.createElement("div", {
     className: "mt-3 grid grid-cols-1 gap-10"
-  }, /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+  }, React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink
     })
   }, children)));
@@ -25045,17 +24239,17 @@ function ContextSection({
   anchor
 }) {
   const ref = useSectionInView(title);
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     ref: ref
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, React__default.createElement("a", {
     id: `context-${anchor}`,
     className: "scroll-target"
-  }), /*#__PURE__*/React__default.createElement("h1", {
+  }), React__default.createElement("h1", {
     className: "mb-2 flex items-center gap-2 font-semibold text-lg ~text-indigo-600"
-  }, title, /*#__PURE__*/React__default.createElement("span", {
+  }, title, React__default.createElement("span", {
     className: "opacity-50 ~text-indigo-600 text-sm"
-  }, icon)), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+  }, icon)), React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink
     })
   }, children));
@@ -25074,7 +24268,7 @@ function Tag({
     purple: '~text-violet-600 border-violet-600/50',
     gray: '~text-gray-500 border-gray-500/50'
   }[color];
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className} ${tagColors} px-1.5 py-0.5 rounded-sm bg-opacity-20 border text-xs font-medium uppercase tracking-wider`
   }, children);
 }
@@ -25085,15 +24279,15 @@ function Request({
   headers
 }) {
   const curl = useMemo(() => curlCommand(request, requestData, headers), [request, requestData, headers]);
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", null, React__default.createElement("div", {
     className: "text-lg font-semibold flex items-center gap-2"
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "~text-indigo-600"
-  }, request.url), request.method && /*#__PURE__*/React__default.createElement(Tag, {
+  }, request.url), request.method && React__default.createElement(Tag, {
     color: request.method.toUpperCase() == 'DELETE' ? 'red' : 'blue'
-  }, request.method.toUpperCase())), curl && /*#__PURE__*/React__default.createElement("div", {
+  }, request.method.toUpperCase())), curl && React__default.createElement("div", {
     className: "mt-2"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: curl,
     language: "curl"
   })));
@@ -25102,7 +24296,7 @@ function Request({
 function ContextList({
   items
 }) {
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(items || {}).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, Object.entries(items || {}).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
     key: key,
     label: key,
     value: value
@@ -25595,7 +24789,7 @@ function Headers({
 }) {
   let filteredHeaders = omitBy_1(headers, isNil_1);
   filteredHeaders = omitBy_1(filteredHeaders, isEmpty_1);
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: filteredHeaders
   });
 }
@@ -25603,7 +24797,7 @@ function Headers({
 function QueryString({
   requestData
 }) {
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: requestData.queryString || {}
   });
 }
@@ -25618,7 +24812,7 @@ function Body() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  return React__default.createElement(CodeSnippet, {
     value: jsonStringify(body)
   });
 }
@@ -25633,9 +24827,9 @@ function Files() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "col-span-2"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: jsonStringify(files)
   }));
 }
@@ -25643,7 +24837,7 @@ function Files() {
 function Session({
   session
 }) {
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: session
   });
 }
@@ -25651,7 +24845,7 @@ function Session({
 function Cookies({
   cookies
 }) {
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: cookies
   });
 }
@@ -25664,7 +24858,7 @@ function LivewireData() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: livewire.data
   });
 }
@@ -25677,7 +24871,7 @@ function LivewireComponent() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(ContextList, {
+  return React__default.createElement(ContextList, {
     items: {
       Component: livewire.component_class,
       Alias: livewire.component_alias,
@@ -25694,10 +24888,10 @@ function LivewireUpdates() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, livewire.updates.map(({
+  return React__default.createElement(DefinitionList, null, livewire.updates.map(({
     payload,
     type
-  }, index) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, index) => React__default.createElement(DefinitionList.Row, {
     key: index,
     label: type,
     value: payload
@@ -25712,7 +24906,7 @@ function UnorderedList(_ref) {
   } = _ref,
       props = _objectWithoutPropertiesLoose$2(_ref, _excluded$1);
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children && /*#__PURE__*/React__default.createElement("ul", _extends$1({
+  return React__default.createElement(React__default.Fragment, null, children && React__default.createElement("ul", _extends$1({
     className: `gap-y-2 flex flex-col ${className}`
   }, props), children));
 }
@@ -25726,17 +24920,17 @@ function UnorderedListItem({
   if (React__default.isValidElement(value)) {
     valueOutput = value;
   } else if (typeof value === 'object') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: jsonStringify(value),
       language: "json"
     });
   } else if (typeof value === 'string') {
-    valueOutput = /*#__PURE__*/React__default.createElement(CodeSnippet, {
+    valueOutput = React__default.createElement(CodeSnippet, {
       value: value
     });
   }
 
-  return /*#__PURE__*/React__default.createElement("li", null, valueOutput);
+  return React__default.createElement("li", null, valueOutput);
 }
 
 function Routing({
@@ -25744,22 +24938,22 @@ function Routing({
 }) {
   var _route$routeParameter;
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
     value: route.controllerAction,
     label: "Controller"
-  }), route.route && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), route.route && React__default.createElement(DefinitionList.Row, {
     value: route.route,
     label: "Route name"
-  }), !!((_route$routeParameter = route.routeParameters) != null && _route$routeParameter.length) && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(route.routeParameters).map(([key, parameter]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), !!((_route$routeParameter = route.routeParameters) != null && _route$routeParameter.length) && React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(DefinitionList, null, Object.entries(route.routeParameters).map(([key, parameter]) => React__default.createElement(DefinitionList.Row, {
       stacked: true,
       key: key,
       label: key,
       value: parameter
     }))),
     label: "Route parameters"
-  }), route.middleware && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(UnorderedList, null, (route.middleware || []).map((middleware, i) => /*#__PURE__*/React__default.createElement(UnorderedList.Item, {
+  }), route.middleware && React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(UnorderedList, null, (route.middleware || []).map((middleware, i) => React__default.createElement(UnorderedList.Item, {
       key: i,
       value: middleware
     }))),
@@ -25784,7 +24978,7 @@ function SfDump(_ref) {
 
     window.Sfdump(match[0]);
   }, [value]);
-  return /*#__PURE__*/React__default.createElement("div", _extends$1({
+  return React__default.createElement("div", _extends$1({
     className: "~bg-gray-500/5 px-4 py-2",
     dangerouslySetInnerHTML: {
       __html: value
@@ -25800,17 +24994,17 @@ function View() {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(EditorLink, {
+  return React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(EditorLink, {
       path: view.view
     }),
     label: "View"
-  }), view.data && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
-    value: /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), view.data && React__default.createElement(DefinitionList.Row, {
+    value: React__default.createElement(DefinitionList, null, Object.entries(view.data).map(([key, data]) => React__default.createElement(DefinitionList.Row, {
       stacked: true,
       key: key,
       label: key,
-      value: /*#__PURE__*/React__default.createElement(SfDump, {
+      value: React__default.createElement(SfDump, {
         value: data
       })
     }))),
@@ -26100,19 +25294,19 @@ var md5 = createCommonjsModule(function (module) {
 function User({
   user
 }) {
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, user.email && /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement(React__default.Fragment, null, user.email && React__default.createElement("div", {
     className: "mb-2 flex items-center gap-3"
-  }, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("img", {
+  }, React__default.createElement("div", null, React__default.createElement("img", {
     className: "inline-block h-9 w-9 rounded-full",
     alt: user.email,
     src: `https://gravatar.com/avatar/${md5(user.email)}/?s=240`
-  })), /*#__PURE__*/React__default.createElement("div", {
+  })), React__default.createElement("div", {
     className: "leading-tight"
-  }, user.name && /*#__PURE__*/React__default.createElement("p", {
+  }, user.name && React__default.createElement("p", {
     className: "font-semibold"
-  }, user.name), /*#__PURE__*/React__default.createElement("p", {
+  }, user.name), React__default.createElement("p", {
     className: "text-sm"
-  }, user.email))), /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, user.email))), React__default.createElement(CodeSnippet, {
     value: jsonStringify(user),
     language: "json"
   }));
@@ -26122,17 +25316,17 @@ function Alert({
   children,
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className}`
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex items-center gap-2 bg-yellow-50 dark:bg-yellow-500/10 px-4 py-2"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex-shrink-0",
     "aria-hidden": "true"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     className: "text-yellow-500 ",
     icon: faExclamationTriangle
-  })), /*#__PURE__*/React__default.createElement("p", {
+  })), React__default.createElement("p", {
     className: "text-sm"
   }, children)));
 }
@@ -27187,26 +26381,26 @@ function Git({
   const {
     commitUrl
   } = getGitInfo(git.remote, git.hash);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, git.hash && git.message && /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement(React__default.Fragment, null, git.hash && git.message && React__default.createElement("div", {
     className: "flex items-center gap-4"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex-grow font-semibold"
-  }, git.message), /*#__PURE__*/React__default.createElement("div", {
+  }, git.message), React__default.createElement("div", {
     className: "~bg-gray-500/5 flex items-center"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     transparent: true,
     overflowX: false,
     value: git.hash
-  }), commitUrl && /*#__PURE__*/React__default.createElement("a", {
+  }), commitUrl && React__default.createElement("a", {
     href: commitUrl,
     target: "_blank",
     className: "mr-4"
-  }, /*#__PURE__*/React__default.createElement(SmallButton, null, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(SmallButton, null, React__default.createElement(FontAwesomeIcon, {
     className: "group-hover:text-indigo-500",
     icon: faExternalLinkAlt
-  }), "View commit ", git.hash.substr(0, 7))))), git.isDirty && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(Alert, {
+  }), "View commit ", git.hash.substr(0, 7))))), git.isDirty && React__default.createElement("div", null, React__default.createElement(Alert, {
     className: "mt-4"
-  }, "Last commit is dirty. (Un)staged changes have been made since this commit.")), git.tag && /*#__PURE__*/React__default.createElement(DefinitionList, null, /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, "Last commit is dirty. (Un)staged changes have been made since this commit.")), git.tag && React__default.createElement(DefinitionList, null, React__default.createElement(DefinitionList.Row, {
     label: "Latest tag",
     value: git.tag
   })));
@@ -27877,11 +27071,11 @@ function Versions({
   env
 }) {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, errorOccurrence.application_version && /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, errorOccurrence.application_version && React__default.createElement(DefinitionList.Row, {
     key: "app_version",
     value: errorOccurrence.application_version,
     label: "App Version"
-  }), Object.entries(env).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }), Object.entries(env).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
     key: key,
     value: value,
     label: startCase_1(key)
@@ -27891,7 +27085,7 @@ function Versions({
 function ContextNav({
   children
 }) {
-  return /*#__PURE__*/React__default.createElement("ul", {
+  return React__default.createElement("ul", {
     className: "grid grid-cols-1 gap-10"
   }, children);
 }
@@ -27901,10 +27095,10 @@ function ContextNavGroup({
   children,
   anchor
 }) {
-  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
+  return React__default.createElement("li", null, React__default.createElement("a", {
     href: `#context-${anchor}`,
     className: "uppercase tracking-wider ~text-gray-500 text-xs font-bold"
-  }, title), /*#__PURE__*/React__default.createElement("ul", {
+  }, title), React__default.createElement("ul", {
     className: "mt-3 grid grid-cols-1 gap-3"
   }, children));
 }
@@ -27915,16 +27109,16 @@ function ContextNavItem({
   anchor,
   active = false
 }) {
-  return /*#__PURE__*/React__default.createElement("li", null, /*#__PURE__*/React__default.createElement("a", {
+  return React__default.createElement("li", null, React__default.createElement("a", {
     href: `#context-${anchor}`,
     className: `
                 flex items-center gap-3
                 group text-base hover:text-indigo-500
                 ${active ? '~text-indigo-600' : ''}
             `
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "opacity-50"
-  }, icon), /*#__PURE__*/React__default.createElement("span", null, title)));
+  }, icon), React__default.createElement("span", null, title)));
 }
 
 function ContextSections({
@@ -27933,19 +27127,19 @@ function ContextSections({
   const {
     inView
   } = useContext(InViewContext);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("nav", {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("nav", {
     className: "hidden @2xl:block min-w-[8rem] flex-none mr-10 @4xl:mr-20"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "sticky top-[7.5rem]"
-  }, /*#__PURE__*/React__default.createElement(ContextNav, null, Children.map(children, group => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, group && /*#__PURE__*/React__default.createElement(ContextNavGroup, {
+  }, React__default.createElement(ContextNav, null, Children.map(children, group => React__default.createElement(React__default.Fragment, null, group && React__default.createElement(ContextNavGroup, {
     title: group.props.title,
     anchor: group.props.anchor
-  }, Children.map(group.props.children, section => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, section && section.type === ContextSection && /*#__PURE__*/React__default.createElement(ContextNavItem, {
+  }, Children.map(group.props.children, section => React__default.createElement(React__default.Fragment, null, section && section.type === ContextSection && React__default.createElement(ContextNavItem, {
     icon: section.props.icon,
     active: inView[inView.length - 1] === section.props.title,
     title: section.props.title,
     anchor: section.props.anchor
-  }))))))))), /*#__PURE__*/React__default.createElement("div", {
+  }))))))))), React__default.createElement("div", {
     className: "overflow-hidden grid grid-cols-1 gap-px bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 flex-grow"
   }, children));
 }
@@ -27954,7 +27148,7 @@ function InViewContextProvider({
   children
 }) {
   const [inView, setInView] = useState([]);
-  return /*#__PURE__*/React__default.createElement(InViewContext.Provider, {
+  return React__default.createElement(InViewContext.Provider, {
     value: {
       inView,
       setInView
@@ -27965,7 +27159,7 @@ function InViewContextProvider({
 function LiveWireIcon({
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("svg", {
+  return React__default.createElement("svg", {
     version: "1.1",
     xmlns: "http://www.w3.org/2000/svg",
     x: "0px",
@@ -27973,28 +27167,28 @@ function LiveWireIcon({
     viewBox: "0 0 512 512",
     enableBackground: "new 0 0 512 512",
     className: `${className}`
-  }, /*#__PURE__*/React__default.createElement("path", {
+  }, React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M381.6,334.8c-24.7,0-27.7,33.6-45.2,44.6v52c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-88.6 C395,338.1,389.2,334.8,381.6,334.8z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M381.6,334.8c-24.7,0-27.7,33.6-45.2,44.6v52c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-88.6\n        C395,338.1,389.2,334.8,381.6,334.8z"
+  }), React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M263.2,334.8c-25.5,0-27.8,35.8-46.9,45.7v96.2c0,19.5,15.8,35.3,35.3,35.3s35.3-15.8,35.3-35.3V349.1 C280.9,341.1,273.9,334.8,263.2,334.8z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M263.2,334.8c-25.5,0-27.8,35.8-46.9,45.7v96.2c0,19.5,15.8,35.3,35.3,35.3s35.3-15.8,35.3-35.3V349.1\n        C280.9,341.1,273.9,334.8,263.2,334.8z"
+  }), React__default.createElement("path", {
     fill: "currentcolor",
-    d: "M144.8,334.8c-22.9,0-27.1,28.9-41.6,41.9l0,38c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-67.9 C161.2,339.9,154.5,334.8,144.8,334.8z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M144.8,334.8c-22.9,0-27.1,28.9-41.6,41.9l0,38c0,17.6,14.2,31.8,31.8,31.8c17.6,0,31.8-14.2,31.8-31.8v-67.9\n        C161.2,339.9,154.5,334.8,144.8,334.8z"
+  }), React__default.createElement("path", {
     id: "Body-Copy-4",
     fill: "currentcolor",
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M458.9,340.2c-8.3,12.6-14.7,28.2-31.7,28.2 c-28.6,0-30.1-44-58.7-44c-28.6,0-27,44-55.6,44c-28.6,0-30.1-44-58.7-44s-27,44-55.6,44s-30.1-44-58.7-44s-27,44-55.6,44 c-9,0-15.3-4.4-20.6-10.3c-20.4-35.6-32.2-77.2-32.2-121.8C31.6,105.8,132.4,0,256.7,0s225.1,105.8,225.1,236.2 C481.8,273.5,473.6,308.8,458.9,340.2z"
-  }), /*#__PURE__*/React__default.createElement("path", {
+    d: "M458.9,340.2c-8.3,12.6-14.7,28.2-31.7,28.2\n\t\tc-28.6,0-30.1-44-58.7-44c-28.6,0-27,44-55.6,44c-28.6,0-30.1-44-58.7-44s-27,44-55.6,44s-30.1-44-58.7-44s-27,44-55.6,44\n\t\tc-9,0-15.3-4.4-20.6-10.3c-20.4-35.6-32.2-77.2-32.2-121.8C31.6,105.8,132.4,0,256.7,0s225.1,105.8,225.1,236.2\n\t\tC481.8,273.5,473.6,308.8,458.9,340.2z"
+  }), React__default.createElement("path", {
     id: "Oval",
     fillRule: "evenodd",
     clipRule: "evenodd",
     fill: "#FFFFFF",
-    d: "M244.6,295.1c78.3,0,111.2-45.4,111.2-109.9 S306.1,61.4,244.6,61.4s-111.2,59.4-111.2,123.9S166.4,295.1,244.6,295.1z"
-  }), /*#__PURE__*/React__default.createElement("ellipse", {
+    d: "M244.6,295.1c78.3,0,111.2-45.4,111.2-109.9\n\t\tS306.1,61.4,244.6,61.4s-111.2,59.4-111.2,123.9S166.4,295.1,244.6,295.1z"
+  }), React__default.createElement("ellipse", {
     id: "Oval_1_",
     fill: "currentcolor",
     fillRule: "evenodd",
@@ -28003,7 +27197,7 @@ function LiveWireIcon({
     cy: "142.9",
     rx: "41.7",
     ry: "46"
-  }), /*#__PURE__*/React__default.createElement("ellipse", {
+  }), React__default.createElement("ellipse", {
     id: "Oval_2_",
     fillRule: "evenodd",
     clipRule: "evenodd",
@@ -28018,7 +27212,7 @@ function LiveWireIcon({
 function Custom({
   items
 }) {
-  return /*#__PURE__*/React__default.createElement(DefinitionList, null, Object.entries(items).map(([key, value]) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  return React__default.createElement(DefinitionList, null, Object.entries(items).map(([key, value]) => React__default.createElement(DefinitionList.Row, {
     key: key,
     value: value,
     label: startCase_1(key)
@@ -28028,9 +27222,9 @@ function Custom({
 function Command({
   commandArguments
 }) {
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "col-span-2"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: commandArguments.join(' ')
   }));
 }
@@ -28042,7 +27236,7 @@ function Browser({
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  return React__default.createElement(CodeSnippet, {
     value: request.useragent
   });
 }
@@ -28053,203 +27247,203 @@ function Context() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const context = errorOccurrence.context_items;
   const requestData = context.request_data;
-  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement(ErrorBoundary, null, React__default.createElement("div", {
     className: "@container flex items-stretch"
-  }, /*#__PURE__*/React__default.createElement(InViewContextProvider, null, /*#__PURE__*/React__default.createElement(ContextSections, null, context.request && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  }, React__default.createElement(InViewContextProvider, null, React__default.createElement(ContextSections, null, context.request && React__default.createElement(ContextGroup, {
     title: "Request",
     anchor: "request"
-  }, /*#__PURE__*/React__default.createElement(Request, {
+  }, React__default.createElement(Request, {
     request: context.request,
     requestData: context.request_data,
     headers: context.headers
-  }), !!context.request.useragent && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!context.request.useragent && React__default.createElement(ContextSection, {
     title: "Browser",
     anchor: "request-browser",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faWindowMaximize
     }),
-    children: /*#__PURE__*/React__default.createElement(Browser, {
+    children: React__default.createElement(Browser, {
       request: context.request
     })
-  }), context.headers && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.headers && React__default.createElement(ContextSection, {
     title: "Headers",
     anchor: "request-headers",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faExchangeAlt
     }),
-    children: /*#__PURE__*/React__default.createElement(Headers, {
+    children: React__default.createElement(Headers, {
       headers: context.headers
     })
-  }), context.request_data && !!Object.values(context.request_data.queryString || []).length && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.request_data && !!Object.values(context.request_data.queryString || []).length && React__default.createElement(ContextSection, {
     title: "Query String",
     anchor: "request-query-string",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faQuestionCircle
     }),
-    children: /*#__PURE__*/React__default.createElement(QueryString, {
+    children: React__default.createElement(QueryString, {
       requestData: context.request_data
     })
-  }), !!((_context$request_data = context.request_data) != null && _context$request_data.body) && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!((_context$request_data = context.request_data) != null && _context$request_data.body) && React__default.createElement(ContextSection, {
     title: "Body",
     anchor: "request-body",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCode
     }),
-    children: /*#__PURE__*/React__default.createElement(Body, null)
-  }), !!(requestData != null && (_requestData$files = requestData.files) != null && _requestData$files.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(Body, null)
+  }), !!(requestData != null && (_requestData$files = requestData.files) != null && _requestData$files.length) && React__default.createElement(ContextSection, {
     title: "Files",
     anchor: "request-files",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faFile
     }),
-    children: /*#__PURE__*/React__default.createElement(Files, null)
-  }), !!((_context$session = context.session) != null && _context$session.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(Files, null)
+  }), !!((_context$session = context.session) != null && _context$session.length) && React__default.createElement(ContextSection, {
     title: "Session",
     anchor: "request-session",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faHourglassHalf
     }),
-    children: /*#__PURE__*/React__default.createElement(Session, {
+    children: React__default.createElement(Session, {
       session: context.session
     })
-  }), !!((_context$cookies = context.cookies) != null && _context$cookies.length) && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!((_context$cookies = context.cookies) != null && _context$cookies.length) && React__default.createElement(ContextSection, {
     title: "Cookies",
     anchor: "request-cookies",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCookieBite
     }),
-    children: /*#__PURE__*/React__default.createElement(Cookies, {
+    children: React__default.createElement(Cookies, {
       cookies: context.cookies
     })
-  })), (context.route || context.view || context.arguments || context.job) && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  })), (context.route || context.view || context.arguments || context.job) && React__default.createElement(ContextGroup, {
     title: "App",
     anchor: "app"
-  }, context.route && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, context.route && React__default.createElement(ContextSection, {
     title: "Routing",
     anchor: "app-routing",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faRandom
     }),
-    children: /*#__PURE__*/React__default.createElement(Routing, {
+    children: React__default.createElement(Routing, {
       route: context.route
     })
-  }), context.view && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.view && React__default.createElement(ContextSection, {
     title: "Views",
     anchor: "app-views",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faPaintRoller
     }),
-    children: /*#__PURE__*/React__default.createElement(View, null)
-  }), context.arguments && /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(View, null)
+  }), context.arguments && React__default.createElement(ContextSection, {
     title: "Command",
     anchor: "context-command",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faTerminal
     }),
-    children: /*#__PURE__*/React__default.createElement(Command, {
+    children: React__default.createElement(Command, {
       commandArguments: context.arguments
     })
-  }), context.job && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.job && React__default.createElement(ContextSection, {
     title: "Job",
     anchor: "context-job",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faLayerGroup
     }),
-    children: /*#__PURE__*/React__default.createElement(Custom, {
+    children: React__default.createElement(Custom, {
       items: context.job || {}
     })
-  })), context.livewire && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  })), context.livewire && React__default.createElement(ContextGroup, {
     title: "Livewire",
     anchor: "livewire"
-  }, /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, React__default.createElement(ContextSection, {
     title: "Component",
     anchor: "livewire-component",
-    icon: /*#__PURE__*/React__default.createElement(LiveWireIcon, {
+    icon: React__default.createElement(LiveWireIcon, {
       className: "svg-inline--fa fa-w-16 fa-fw"
     }),
-    children: /*#__PURE__*/React__default.createElement(LivewireComponent, null)
-  }), /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(LivewireComponent, null)
+  }), React__default.createElement(ContextSection, {
     title: "Updates",
     anchor: "livewire-updates",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faSatelliteDish
     }),
-    children: /*#__PURE__*/React__default.createElement(LivewireUpdates, null)
-  }), /*#__PURE__*/React__default.createElement(ContextSection, {
+    children: React__default.createElement(LivewireUpdates, null)
+  }), React__default.createElement(ContextSection, {
     title: "Data",
     anchor: "livewire-data",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faTh
     }),
-    children: /*#__PURE__*/React__default.createElement(LivewireData, null)
-  })), !!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && /*#__PURE__*/React__default.createElement(ContextGroup, {
+    children: React__default.createElement(LivewireData, null)
+  })), !!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && React__default.createElement(ContextGroup, {
     title: "Context",
     anchor: "context"
-  }, context.user && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, context.user && React__default.createElement(ContextSection, {
     title: "User",
     anchor: "user-user",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faUser
     }),
-    children: /*#__PURE__*/React__default.createElement(User, {
+    children: React__default.createElement(User, {
       user: context.user
     })
-  }), context.git && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.git && React__default.createElement(ContextSection, {
     title: "Git",
     anchor: "context-git",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faCodeBranch
     }),
-    children: /*#__PURE__*/React__default.createElement(Git, {
+    children: React__default.createElement(Git, {
       git: context.git
     })
-  }), !!(context.env || errorOccurrence.application_version) && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), !!(context.env || errorOccurrence.application_version) && React__default.createElement(ContextSection, {
     title: "Versions",
     anchor: "context-versions",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faSlidersH
     }),
-    children: /*#__PURE__*/React__default.createElement(Versions, {
+    children: React__default.createElement(Versions, {
       env: context.env || {}
     })
-  }), context.exception && /*#__PURE__*/React__default.createElement(ContextSection, {
+  }), context.exception && React__default.createElement(ContextSection, {
     title: "Exception",
     anchor: "context-exception",
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faBomb
     }),
-    children: /*#__PURE__*/React__default.createElement(Custom, {
+    children: React__default.createElement(Custom, {
       items: context.exception || {}
     })
-  })), ((_errorOccurrence$cust = errorOccurrence.custom_context_items) == null ? void 0 : _errorOccurrence$cust.length) > 0 && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  })), ((_errorOccurrence$cust = errorOccurrence.custom_context_items) == null ? void 0 : _errorOccurrence$cust.length) > 0 && React__default.createElement(ContextGroup, {
     title: "Custom",
     anchor: "custom-context"
-  }, errorOccurrence.custom_context_items.map(group => /*#__PURE__*/React__default.createElement(ContextSection, {
+  }, errorOccurrence.custom_context_items.map(group => React__default.createElement(ContextSection, {
     key: group.name,
     title: startCase_1(group.name),
     anchor: `custom-context-${convert(group.name)}`,
-    icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+    icon: React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
       icon: faAsterisk
     }),
-    children: /*#__PURE__*/React__default.createElement(Custom, {
+    children: React__default.createElement(Custom, {
       items: group.items
     })
   })))))));
@@ -28271,13 +27465,13 @@ function DebugTabs({
     };
   }).filter(tab => tab.count);
   const Tab = tabs[currentTabIndex].component;
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: `${className} | bg-gray-300/50 dark:bg-black/10 shadow-inner rounded-lg`
-  }, /*#__PURE__*/React__default.createElement("nav", {
+  }, React__default.createElement("nav", {
     className: "z-10 flex justify-center items-center"
-  }, /*#__PURE__*/React__default.createElement("ul", {
+  }, React__default.createElement("ul", {
     className: "-my-5 flex justify-start items-center rounded-full shadow-lg bg-indigo-500 text-white space-x-px"
-  }, tabs.map((tab, i) => /*#__PURE__*/React__default.createElement("li", {
+  }, tabs.map((tab, i) => React__default.createElement("li", {
     key: i,
     className: `
                                     ${i === currentTabIndex ? 'bg-indigo-600' : 'bg-indigo-500 text-indigo-100'}
@@ -28285,19 +27479,19 @@ function DebugTabs({
                                     ${i === tabs.length - 1 ? 'rounded-r-full' : ''}
                                     hover:text-white
                                 `
-  }, /*#__PURE__*/React__default.createElement("button", {
+  }, React__default.createElement("button", {
     onClick: () => setCurrentTabIndex(i),
     className: "group flex items-center px-3 sm:px-5 h-10 uppercase tracking-wider text-xs font-medium "
-  }, /*#__PURE__*/React__default.createElement("span", {
+  }, React__default.createElement("span", {
     className: "mr-1.5 inline-flex items-center justify-center px-1 min-w-[1rem] h-4 bg-gray-900/30 text-white rounded-full text-xs"
-  }, tab.count), /*#__PURE__*/React__default.createElement("span", null, tab.name)))))), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
-    fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
+  }, tab.count), React__default.createElement("span", null, tab.name)))))), React__default.createElement(ErrorBoundary, {
+    fallbackComponent: githubLink => React__default.createElement(ErrorBoundarySection, {
       githubLink: githubLink,
       className: "pt-10"
     })
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "grid grid-cols-1 gap-10 py-10 px-6 @lg:px-10"
-  }, /*#__PURE__*/React__default.createElement(Tab, null))));
+  }, React__default.createElement(Tab, null))));
 }
 
 DebugTabs.Tab = _props => null;
@@ -28323,42 +27517,42 @@ function DebugItem({
     alert: 'red',
     emergency: 'red'
   };
-  return /*#__PURE__*/React__default.createElement("div", {
+  return React__default.createElement("div", {
     className: "min-w-0 grid grid-cols-1 gap-2"
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "flex items-center gap-1"
-  }, /*#__PURE__*/React__default.createElement(Tag, {
+  }, React__default.createElement(Tag, {
     color: level ? logLevelColors[level] : 'gray',
     className: "font-mono"
-  }, time.toLocaleTimeString()), level && /*#__PURE__*/React__default.createElement(Tag, {
+  }, time.toLocaleTimeString()), level && React__default.createElement(Tag, {
     color: logLevelColors[level]
-  }, level), meta && Object.entries(meta).map(([key, value]) => /*#__PURE__*/React__default.createElement(React__default.Fragment, {
+  }, level), meta && Object.entries(meta).map(([key, value]) => React__default.createElement(React__default.Fragment, {
     key: key
-  }, key === 'runtime' && /*#__PURE__*/React__default.createElement(Tag, {
+  }, key === 'runtime' && React__default.createElement(Tag, {
     className: "inline-flex items-center gap-2"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     title: "Runtime",
     className: "opacity-50",
     icon: faStopwatch
-  }), ' ', value), key === 'connection' && /*#__PURE__*/React__default.createElement(Tag, {
+  }), ' ', value), key === 'connection' && React__default.createElement(Tag, {
     className: "inline-flex items-center gap-2"
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     title: "Connection",
     className: "opacity-50",
     icon: faDatabase
-  }), ' ', value), key !== 'runtime' && key !== 'connection' && /*#__PURE__*/React__default.createElement(Tag, null, key, ": ", value))), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
+  }), ' ', value), key !== 'runtime' && key !== 'connection' && React__default.createElement(Tag, null, key, ": ", value))), context && React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: "ml-auto"
-  }, /*#__PURE__*/React__default.createElement(SmallButton, {
+  }, React__default.createElement(SmallButton, {
     onClick: () => setShowRawContext(!showRawContext)
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: showRawContext ? faListUl : faCode,
     className: "text-[8px] ~text-gray-500 group-hover:text-indigo-500"
-  }), showRawContext ? 'As list' : 'Raw')))), /*#__PURE__*/React__default.createElement("div", null, children), context && /*#__PURE__*/React__default.createElement(React__default.Fragment, null, showRawContext ? /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }), showRawContext ? 'As list' : 'Raw')))), React__default.createElement("div", null, children), context && React__default.createElement(React__default.Fragment, null, showRawContext ? React__default.createElement(CodeSnippet, {
     value: jsonStringify(context),
     language: "json"
-  }) : /*#__PURE__*/React__default.createElement("div", {
+  }) : React__default.createElement("div", {
     className: "pl-4"
-  }, /*#__PURE__*/React__default.createElement(ContextList, {
+  }, React__default.createElement(ContextList, {
     items: context
   }))));
 }
@@ -28366,12 +27560,12 @@ function DebugItem({
 function Logs() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const logs = Object.values(errorOccurrence.context_items.logs);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, logs.map((log, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, logs.map((log, index) => React__default.createElement(DebugItem, {
     key: index,
     context: log.context,
     level: log.level,
     time: unixToDate(log.microtime)
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: log.message
   }))));
 }
@@ -28379,16 +27573,16 @@ function Logs() {
 function Dumps() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const dumps = Object.values(errorOccurrence.context_items.dumps);
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, dumps.map((dump, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, dumps.map((dump, index) => React__default.createElement(DebugItem, {
     key: index,
     time: unixToDate(dump.microtime)
-  }, /*#__PURE__*/React__default.createElement("div", {
+  }, React__default.createElement("div", {
     className: "mb-2"
-  }, /*#__PURE__*/React__default.createElement(EditorLink, {
+  }, React__default.createElement(EditorLink, {
     path: dump.file,
     lineNumber: dump.line_number,
     className: "text-sm"
-  })), /*#__PURE__*/React__default.createElement(SfDump, {
+  })), React__default.createElement(SfDump, {
     value: dump.html_dump
   }))));
 }
@@ -28398,20 +27592,20 @@ function Bindings({
   hidden = false
 }) {
   const [isHidden, setHidden] = useState(hidden);
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("button", {
+  return React__default.createElement("div", null, React__default.createElement("button", {
     type: "button",
     className: "font-bold text-xs ~text-gray-500 uppercase tracking-wider flex flex-row items-center gap-2 mb-2",
     onClick: () => setHidden(!isHidden)
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, React__default.createElement(FontAwesomeIcon, {
     icon: faAngleRight,
     className: `transition-transform duration-300 transform ${isHidden ? '' : 'rotate-90'}`
-  }), bindings.length, " query ", bindings.length > 1 ? 'parameters' : 'parameter'), !isHidden && /*#__PURE__*/React__default.createElement(DefinitionList, {
+  }), bindings.length, " query ", bindings.length > 1 ? 'parameters' : 'parameter'), !isHidden && React__default.createElement(DefinitionList, {
     className: "ml-4"
-  }, bindings.map((binding, index) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+  }, bindings.map((binding, index) => React__default.createElement(DefinitionList.Row, {
     small: true,
     key: index,
     value: binding,
-    label: /*#__PURE__*/React__default.createElement("code", {
+    label: React__default.createElement("code", {
       className: "text-sm text-gray-500"
     }, index + 1)
   }))));
@@ -28435,22 +27629,22 @@ function Queries() {
     return sql;
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, queries.map((query, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, queries.map((query, index) => React__default.createElement(DebugItem, {
     key: index,
     time: unixToDate(query.microtime),
     meta: {
       runtime: `${query.time}ms`,
       connection: query.connection_name
     }
-  }, query.bindings && query.bindings.length > 0 ? /*#__PURE__*/React__default.createElement("div", {
+  }, query.bindings && query.bindings.length > 0 ? React__default.createElement("div", {
     className: "grid gap-4 grid-cols-1"
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: canReplaceBindings(query) ? replaceBindings(query) : query.sql,
     language: "sql"
-  }), /*#__PURE__*/React__default.createElement(Bindings, {
+  }), React__default.createElement(Bindings, {
     bindings: query.bindings,
     hidden: canReplaceBindings(query)
-  })) : /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  })) : React__default.createElement(CodeSnippet, {
     value: query.sql,
     language: "sql"
   }))));
@@ -28459,12 +27653,12 @@ function Queries() {
 function Glows() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const glows = errorOccurrence.glows;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, glows.map((glow, index) => /*#__PURE__*/React__default.createElement(DebugItem, {
+  return React__default.createElement(React__default.Fragment, null, glows.map((glow, index) => React__default.createElement(DebugItem, {
     key: index,
     level: glow.message_level,
     context: glow.meta_data,
     time: unixToDate(glow.microtime)
-  }, /*#__PURE__*/React__default.createElement(CodeSnippet, {
+  }, React__default.createElement(CodeSnippet, {
     value: glow.name
   }))));
 }
@@ -28475,21 +27669,21 @@ function Debug() {
   const queries = errorOccurrence.context_items.queries;
   const logs = errorOccurrence.context_items.logs;
   const glows = errorOccurrence.glows;
-  return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement(DebugTabs, {
+  return React__default.createElement(ErrorBoundary, null, React__default.createElement(DebugTabs, {
     className: "@container"
-  }, /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }, React__default.createElement(DebugTabs.Tab, {
     component: Dumps,
     name: "Dumps",
     count: Object.keys(dumps || []).length
-  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }), React__default.createElement(DebugTabs.Tab, {
     component: Glows,
     name: "Glows",
     count: glows.length
-  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }), React__default.createElement(DebugTabs.Tab, {
     component: Queries,
     name: "Queries",
     count: Object.keys(queries || []).length
-  }), /*#__PURE__*/React__default.createElement(DebugTabs.Tab, {
+  }), React__default.createElement(DebugTabs.Tab, {
     component: Logs,
     name: "Logs",
     count: Object.keys(logs || []).length
@@ -28500,7 +27694,7 @@ function InlineCodeSnippet({
   children,
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("code", {
+  return React__default.createElement("code", {
     className: `font-mono leading-relaxed font-normal ~bg-gray-500/5 px-1 py-1 ${className}`
   }, children);
 }
@@ -28508,126 +27702,126 @@ function InlineCodeSnippet({
 function FlareIcon({
   className = ''
 }) {
-  return /*#__PURE__*/React__default.createElement("svg", {
+  return React__default.createElement("svg", {
     height: "58",
     viewBox: "0 0 38 58",
     width: "38",
     xmlns: "http://www.w3.org/2000/svg",
     className: `w-4 h-5 ml-1.5 ${className}`
-  }, /*#__PURE__*/React__default.createElement("linearGradient", {
+  }, React__default.createElement("linearGradient", {
     id: "a",
     x1: "50%",
     x2: "50%",
     y1: "100%",
     y2: "0%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#48b987"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#137449"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "b",
     x1: "50%",
     x2: "50%",
     y1: "0%",
     y2: "100%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#66ffbc"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#218e5e"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "c",
     x1: "81.686741%",
     x2: "17.119683%",
     y1: "50%",
     y2: "46.893103%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#ccffe7",
     stopOpacity: ".492379"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: ".37576486",
     stopColor: "#fff",
     stopOpacity: ".30736"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#00ff85",
     stopOpacity: "0"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "d",
     x1: "50%",
     x2: "50%",
     y1: "100%",
     y2: "0%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#a189f2"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#3f00f5"
-  })), /*#__PURE__*/React__default.createElement("linearGradient", {
+  })), React__default.createElement("linearGradient", {
     id: "e",
     x1: "50%",
     x2: "50%",
     y1: "0%",
     y2: "100%"
-  }, /*#__PURE__*/React__default.createElement("stop", {
+  }, React__default.createElement("stop", {
     offset: "0",
     stopColor: "#bbadfa"
-  }), /*#__PURE__*/React__default.createElement("stop", {
+  }), React__default.createElement("stop", {
     offset: "1",
     stopColor: "#9275f4"
-  })), /*#__PURE__*/React__default.createElement("g", {
+  })), React__default.createElement("g", {
     fill: "none"
-  }, /*#__PURE__*/React__default.createElement("g", {
+  }, React__default.createElement("g", {
     transform: "translate(1 1)"
-  }, /*#__PURE__*/React__default.createElement("path", {
+  }, React__default.createElement("path", {
     d: "m11.9943899 27.9858314-11.9943899-6.9992916v-13.98724823l12.0617111 7.02196133z",
     fill: "url(#a)"
-  }), /*#__PURE__*/React__default.createElement("path", {
+  }), React__default.createElement("path", {
     d: "m23.9775596 20.9808724-23.9775596-13.98158083 11.9943899-6.99929157 24.0056101 13.9815808z",
     fill: "url(#b)",
     stroke: "url(#c)"
-  })), /*#__PURE__*/React__default.createElement("g", {
+  })), React__default.createElement("g", {
     transform: "translate(1 29.014169)"
-  }, /*#__PURE__*/React__default.createElement("path", {
+  }, React__default.createElement("path", {
     d: "m11.9943899 27.9858314-11.9943899-6.9936241v-13.99291573l11.9663394 6.99362413z",
     fill: "url(#d)"
-  }), /*#__PURE__*/React__default.createElement("path", {
+  }), React__default.createElement("path", {
     d: "m11.9663394 13.9929157-11.9663394-6.99362413 11.9943899-6.99929157 11.9943899 6.99929157z",
     fill: "url(#e)"
   }))));
 }
 
 function IgnitionIcon() {
-  return /*#__PURE__*/React__default.createElement("svg", {
+  return React__default.createElement("svg", {
     id: "ignition",
     className: "w-8 h-8 -ml-1",
     viewBox: "0 0 500 500"
-  }, /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("polygon", {
+  }, React__default.createElement("g", null, React__default.createElement("polygon", {
     style: {
       fill: 'transparent'
     },
     points: "466.5,375 466.5,125 250,0 33.5,125 33.5,375 250,500 \t"
-  }), /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("g", null, React__default.createElement("polygon", {
     style: {
       fill: '#ff4590'
     },
     points: "314.2,176 314.2,250 250,287 250,212.6 \t\t"
-  }), /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("polygon", {
     style: {
       fill: '#ffd000'
     },
     points: "185.9,398.1 185.9,324.1 250,287 249.9,360.9 \t\t"
-  }), /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("polygon", {
     style: {
       fill: '#de075d'
     },
     points: "250,139.1 250,287 185.9,250 185.8,101.9 \t\t"
-  }), /*#__PURE__*/React__default.createElement("polygon", {
+  }), React__default.createElement("polygon", {
     style: {
       fill: '#e0b800'
     },
