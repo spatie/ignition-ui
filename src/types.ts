@@ -1,6 +1,14 @@
+export type EditorOption = {
+    label: string;
+    url: string;
+    clipboard?: boolean;
+};
+
 export type IgnitionConfig = {
-    editor: string;
-    editorOptions: { [editor: string]: { label: string; url: string } };
+    editor?: string | null;
+    editorOptions?: {
+        [editor: string]: EditorOption;
+    } | null;
     remoteSitesPath: string;
     localSitesPath: string;
     theme: 'light' | 'dark' | 'auto';
@@ -19,14 +27,16 @@ export type ErrorFrameArgument = {
 }
 
 export type ErrorFrame = {
-    class?: string|null;
+    class?: string | null;
     method: string;
-    code_snippet: { [lineNumber: string]: string };
+    code_snippet: {
+        [lineNumber: string]: string
+    };
     file: string;
     relative_file: string;
     line_number: number;
     application_frame: boolean;
-    arguments: Array<ErrorFrameArgument>|null;
+    arguments: Array<ErrorFrameArgument> | null;
 };
 
 // The ErrorOccurrence Ignition UI needs to render.
@@ -57,7 +67,7 @@ export type ErrorOccurrence = {
         route: null | RouteContext;
         git: null | GitContext;
         exception: null | ExceptionContext;
-        arguments: null |  ArgumentsContext;
+        arguments: null | ArgumentsContext;
         job: null | JobContext;
     };
     custom_context_items: Array<{
@@ -80,12 +90,12 @@ export type RequestContext = {
     // PHP context
     url: string;
     ip?: string | null;
-    method?: string|null;
-    useragent?: string|null;
+    method?: string | null;
+    useragent?: string | null;
 
     // JS context
-    referrer?: string|null;
-    readyState?: string|null;
+    referrer?: string | null;
+    readyState?: string | null;
 };
 
 export type RequestDataContext = {
@@ -117,8 +127,8 @@ export type JobContext = Record<string, any>;
 export type GitContext = {
     hash: string;
     message: string;
-    tag: string|null;
-    remote: string|null;
+    tag: string | null;
+    remote: string | null;
     isDirty: boolean;
 };
 
@@ -145,11 +155,17 @@ export type LivewireContext = {
     }>;
 };
 
-export type QueryContext = Array<QueryDebug> | { [key: string]: QueryDebug };
+export type QueryContext = Array<QueryDebug> | {
+    [key: string]: QueryDebug
+};
 
-export type DumpContext = Array<DumpDebug> | { [key: string]: DumpDebug };
+export type DumpContext = Array<DumpDebug> | {
+    [key: string]: DumpDebug
+};
 
-export type LogContext = Array<LogDebug> | { [key: string]: LogDebug };
+export type LogContext = Array<LogDebug> | {
+    [key: string]: LogDebug
+};
 
 export type ErrorGlow = {
     message_level: LogLevel;
@@ -162,7 +178,9 @@ export type ErrorSolution = {
     class: string;
     title: string;
     description: string;
-    links: { [label: string]: string };
+    links: {
+        [label: string]: string
+    };
     ai_generated?: boolean;
     is_runnable: boolean;
     action_description?: string;
@@ -177,7 +195,10 @@ export type StackFrameGroupType = {
     type: FrameType;
     relative_file: string;
     expanded: boolean;
-    frames: Array<ErrorFrame & { frame_number: number; selected: boolean }>;
+    frames: Array<ErrorFrame & {
+        frame_number: number;
+        selected: boolean
+    }>;
 };
 
 export type Tabname = 'stackTraceTab' | 'requestTab' | 'appTab' | 'userTab' | 'contextTab' | 'debugTab';

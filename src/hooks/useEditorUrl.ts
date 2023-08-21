@@ -1,27 +1,44 @@
 import {useContext} from 'react';
 import IgnitionConfigContext from '../contexts/IgnitionConfigContext';
-import mapValues from 'lodash/mapValues';
+import {EditorOption, IgnitionConfig} from "../types";
 
 type Props = {
     file: string;
     lineNumber?: number;
 };
 
-export default function useEditorUrl({file, lineNumber = 1}: Props) {
+export default function useEditorUrl({file, lineNumber = 1}: Props): {url: string; clipboard: boolean;} {
     const {ignitionConfig: config} = useContext(IgnitionConfigContext);
-    const editor = config.editor;
 
-    const editors: Record<string, string> = mapValues(config.editorOptions, (e) => e.url);
+    const editorConfig = getEditorConfig(config);
+
+    if (! editorConfig) {
+        return {
+            url: file + ':' + lineNumber,
+            clipboard: true,
+        }
+    }
 
     file = (config.remoteSitesPath || '').length > 0 && (config.localSitesPath || '').length > 0
         ? file.replace(config.remoteSitesPath, config.localSitesPath)
         : file;
 
-    if (!Object.keys(editors).includes(editor)) {
-        console.warn(`Editor '${editor}' is not supported. Support editors are: ${Object.keys(editors).join(', ')}`);
+    let url = editorConfig.url.replace('%path', encodeURIComponent(file)).replace('%line', encodeURIComponent(lineNumber));
+
+    return {
+        url: url,
+        clipboard: editorConfig.clipboard || false,
+    }
+}
+
+function getEditorConfig(config: IgnitionConfig): null|EditorOption {
+    const editor = config.editor || '';
+
+    if (! Object.keys(config.editorOptions || {}).includes(editor)) {
+        console.warn(`Editor '${editor}' is not supported. Support editors are: ${Object.keys(config.editorOptions || {}).join(', ')}`);
 
         return null;
     }
 
-    return editors[editor].replace('%path', encodeURIComponent(file)).replace('%line', encodeURIComponent(lineNumber));
+    return config.editorOptions![editor];
 }

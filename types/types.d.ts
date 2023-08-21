@@ -1,11 +1,13 @@
+export declare type EditorOption = {
+    label: string;
+    url: string;
+    clipboard?: boolean;
+};
 export declare type IgnitionConfig = {
-    editor: string;
-    editorOptions: {
-        [editor: string]: {
-            label: string;
-            url: string;
-        };
-    };
+    editor?: string | null;
+    editorOptions?: {
+        [editor: string]: EditorOption;
+    } | null;
     remoteSitesPath: string;
     localSitesPath: string;
     theme: 'light' | 'dark' | 'auto';

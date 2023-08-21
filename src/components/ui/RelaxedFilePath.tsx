@@ -27,7 +27,7 @@ export default function RelaxedFilePath({ path: fullPath, lineNumber = null }: P
             ))}
             <span className="font-semibold">{fileName}</span>
             <span>.{extension}</span>
-            {lineNumber && 
+            {lineNumber &&
                 <>
                     {tightSpace}
                     <span className="whitespace-nowrap">
