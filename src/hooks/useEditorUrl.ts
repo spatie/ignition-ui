@@ -10,6 +10,10 @@ type Props = {
 export default function useEditorUrl({file, lineNumber = 1}: Props): {url: string; clipboard: boolean;} {
     const {ignitionConfig: config} = useContext(IgnitionConfigContext);
 
+    file = (config.remoteSitesPath || '').length > 0 && (config.localSitesPath || '').length > 0
+        ? file.replace(config.remoteSitesPath, config.localSitesPath)
+        : file;
+
     const editorConfig = getEditorConfig(config);
 
     if (! editorConfig) {
@@ -19,15 +23,21 @@ export default function useEditorUrl({file, lineNumber = 1}: Props): {url: strin
         }
     }
 
-    file = (config.remoteSitesPath || '').length > 0 && (config.localSitesPath || '').length > 0
-        ? file.replace(config.remoteSitesPath, config.localSitesPath)
-        : file;
+    if (editorConfig.clipboard) {
+        // Don't URL encode values for clipboard
+        let url = editorConfig.url.replace('%path', file).replace('%line', lineNumber.toString());
+
+        return {
+            url: url,
+            clipboard: true,
+        }
+    }
 
     let url = editorConfig.url.replace('%path', encodeURIComponent(file)).replace('%line', encodeURIComponent(lineNumber));
 
     return {
         url: url,
-        clipboard: editorConfig.clipboard || false,
+        clipboard: false,
     }
 }
 
