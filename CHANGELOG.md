@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.9.1 - 2023-08-21
+
+- Fix URL encoding in copied paths
+
 ## 4.9.0 - 2023-08-21
 
 - Feature: Add 'copy to clipboard' option to editors
