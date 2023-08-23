@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.9.2 - 2023-08-23
+
+- Fix: apply changes made to the Ignition config immediately
+
 ## 4.9.1 - 2023-08-21
 
 - Fix URL encoding in copied paths

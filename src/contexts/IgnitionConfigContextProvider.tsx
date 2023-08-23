@@ -20,6 +20,10 @@ export default function IgnitionConfigContextProvider({ children, ignitionConfig
         document.documentElement.classList.add(theme);
     }, [theme]);
 
+    useEffect(() => {
+        setIgnitionConfig(initialIgnitionConfig);
+    }, [initialIgnitionConfig]);
+
     return (
         <IgnitionConfigContext.Provider value={{ ignitionConfig, setIgnitionConfig, theme }}>
             {children}
