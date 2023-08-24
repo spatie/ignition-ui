@@ -13,8 +13,8 @@ export default function FormattedExceptionMessage({ message, exceptionClass, cla
     const [sqlQuery, setSqlQuery] = useState<string | null>(null);
 
     useEffect(() => {
-        if (exceptionClass === 'Illuminate\\Database\\QueryException' || message.match(/SQLSTATE\[.*\].*SQL: .*\)/)) {
-            const sqlQueryPattern = /\((?:|Connection: .*?, )SQL: (?<query>.*?)\)($| \(View: .*\)$)/;
+        if (exceptionClass === 'Illuminate\\Database\\QueryException' || message.match(/SQLSTATE\[.*\].*SQL: .*\)/s)) {
+            const sqlQueryPattern = /\((?:|Connection: .*?, )SQL: (?<query>.*?)\)($| \(View: .*\)$)/s;
             const [, query] = message.match(sqlQueryPattern) || [];
             setSqlQuery(query);
             setCleanedUpMessage(message.replace(sqlQueryPattern, '$2'));

@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.9.3 - 2023-08-24
+
+- Fix: parsing and formatting multiline SQL queries
+
 ## 4.9.2 - 2023-08-23
 
 - Fix: apply changes made to the Ignition config immediately

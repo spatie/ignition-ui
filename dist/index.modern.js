@@ -79,6 +79,9 @@ function IgnitionConfigContextProvider({
     document.documentElement.classList.remove('light', 'dark', 'auto');
     document.documentElement.classList.add(theme);
   }, [theme]);
+  useEffect(() => {
+    setIgnitionConfig(initialIgnitionConfig);
+  }, [initialIgnitionConfig]);
   return /*#__PURE__*/React__default.createElement(IgnitionConfigContext.Provider, {
     value: {
       ignitionConfig,
@@ -17653,8 +17656,8 @@ function FormattedExceptionMessage({
   const [cleanedUpMessage, setCleanedUpMessage] = useState(message);
   const [sqlQuery, setSqlQuery] = useState(null);
   useEffect(() => {
-    if (exceptionClass === 'Illuminate\\Database\\QueryException' || message.match(/SQLSTATE\[.*\].*SQL: .*\)/)) {
-      const sqlQueryPattern = /*#__PURE__*/_wrapRegExp(/\((?:|Connection: .*?, )SQL: (.*?)\)($| \(View: .*\)$)/, {
+    if (exceptionClass === 'Illuminate\\Database\\QueryException' || message.match(/SQLSTATE\[[\s\S]*\][\s\S]*SQL: [\s\S]*\)/)) {
+      const sqlQueryPattern = /*#__PURE__*/_wrapRegExp(/\((?:|Connection: [\s\S]*?, )SQL: ([\s\S]*?)\)($| \(View: [\s\S]*\)$)/, {
         query: 1
       });
 
