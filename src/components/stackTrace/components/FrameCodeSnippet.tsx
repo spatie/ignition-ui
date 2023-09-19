@@ -56,7 +56,7 @@ export default function FrameCodeSnippet({ frame }: Props) {
 
     return (
         <main className="flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-r text-sm">
-            <nav className="sticky left-0 flex flex-none z-20 ~bg-white">
+            <nav className="sticky left-0 flex flex-none z-20">
                 <div className="select-none text-right">
                     {lineNumbers.map((number) => (
                         <p

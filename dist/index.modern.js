@@ -11705,7 +11705,7 @@ function FrameCodeSnippet({
   return /*#__PURE__*/React__default.createElement("main", {
     className: "flex items-stretch flex-grow overflow-x-auto overflow-y-hidden scrollbar-hidden-x mask-fade-r text-sm"
   }, /*#__PURE__*/React__default.createElement("nav", {
-    className: "sticky left-0 flex flex-none z-20 ~bg-white"
+    className: "sticky left-0 flex flex-none z-20"
   }, /*#__PURE__*/React__default.createElement("div", {
     className: "select-none text-right"
   }, lineNumbers.map(number => /*#__PURE__*/React__default.createElement("p", {
@@ -17611,7 +17611,7 @@ function StackTrace({
     frames
   } = useContext(ErrorOccurrenceContext);
   return /*#__PURE__*/React__default.createElement("div", {
-    className: "@container bg-white dark:shadow-none dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
+    className: "@container bg-gray-25 dark:shadow-none dark:bg-gray-800/50 bg-gradient-to-bl from-white dark:from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20"
   }, /*#__PURE__*/React__default.createElement("div", {
     className: "grid grid-cols-1 @4xl:grid-cols-[33.33%_66.66%] @4xl:grid-rows-[57rem] items-stretch overflow-hidden"
   }, /*#__PURE__*/React__default.createElement(StackTraceExplorer, {
