@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.9.4 - 2023-09-19
+
+- Subtle stacktrace background gradient
+
 ## 4.9.3 - 2023-08-24
 
 - Fix: parsing and formatting multiline SQL queries
