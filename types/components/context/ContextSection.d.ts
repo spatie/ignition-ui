@@ -5,4 +5,4 @@ export type ContextSectionProps = {
     children: React.ReactNode;
     anchor: string;
 };
-export default function ContextSection({ icon, title, children, anchor }: ContextSectionProps): JSX.Element;
+export default function ContextSection({ icon, title, children, anchor }: ContextSectionProps): React.JSX.Element;

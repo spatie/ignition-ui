@@ -1,53 +1,55 @@
-import React, {useContext} from 'react';
-import urlSlug from 'url-slug';
-import ContextGroup from './ContextGroup';
-import ContextSection from './ContextSection';
-import Request from './sections/Request';
-import Headers from './sections/Headers';
-import QueryString from './sections/QueryString';
-import Body from './sections/Body';
-import Files from './sections/Files';
-import Session from './sections/Session';
-import Cookies from './sections/Cookies';
-import LivewireData from './sections/LivewireData';
-import LivewireComponent from './sections/LivewireComponent';
-import LivewireUpdates from './sections/LivewireUpdates';
-import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
-import Routing from './sections/Routing';
-import View from './sections/View';
-import User from './sections/User';
-import Git from './sections/Git';
-import Versions from './sections/Versions';
-import ContextSections from './ContextSections';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
-    faExchangeAlt,
-    faQuestionCircle,
-    faCode,
-    faFile,
-    faHourglassHalf,
-    faCookieBite,
-    faRandom,
-    faPaintRoller,
-    faUser,
-    faCodeBranch,
-    faSatelliteDish,
-    faTh,
-    faSlidersH,
     faAsterisk,
     faBomb,
-    faTerminal,
-    faLightbulb,
+    faCode,
+    faCodeBranch,
+    faCookieBite,
+    faExchangeAlt,
+    faFile,
+    faHourglassHalf,
     faLayerGroup,
+    faLightbulb,
+    faPaintRoller,
+    faQuestionCircle,
+    faRandom,
+    faSatelliteDish,
+    faSlidersH,
+    faTerminal,
+    faTh,
+    faUser,
     faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
-import InViewContextProvider from '../../contexts/InViewContextProvider';
-import LiveWireIcon from 'components/ui/icons/LivewireIcon';
-import ErrorBoundary from '../ui/ErrorBoundary';
-import Custom from "components/context/sections/Custom";
-import startCase from 'lodash/startCase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Command from "components/context/sections/Command";
+import Custom from "components/context/sections/Custom";
+import LiveWireIcon from 'components/ui/icons/LivewireIcon';
+import startCase from 'lodash/startCase';
+import React, { useContext } from 'react';
+import urlSlug from 'url-slug';
+import ErrorOccurrenceContext from '../../contexts/ErrorOccurrenceContext';
+import InViewContextProvider from '../../contexts/InViewContextProvider';
+import ErrorBoundary from '../ui/ErrorBoundary';
+import ContextGroup from './ContextGroup';
+import ContextSection from './ContextSection';
+import ContextSections from './ContextSections';
+import Body from './sections/Body';
 import Browser from "./sections/Browser";
+import Cookies from './sections/Cookies';
+import Files from './sections/Files';
+import Git from './sections/Git';
+import Headers from './sections/Headers';
+import LivewireCalls from "./sections/LivewireCalls";
+import LivewireComponent from './sections/LivewireComponent';
+import LivewireData from './sections/LivewireData';
+import LivewireMemo from "./sections/LivewireMemo";
+import LivewireUpdates from './sections/LivewireUpdates';
+import QueryString from './sections/QueryString';
+import Request from './sections/Request';
+import Routing from './sections/Routing';
+import Session from './sections/Session';
+import User from './sections/User';
+import Versions from './sections/Versions';
+import View from './sections/View';
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -190,6 +192,44 @@ export default function Context() {
                                         children={<Cookies cookies={context.cookies}/>}
                                     />
                                 )}
+                            </ContextGroup>
+                        )}
+                        {context.livewire && (
+                            <ContextGroup title="Livewire" anchor="livewire">
+                                <ContextSection
+                                    title="Component"
+                                    anchor="livewire-component"
+                                    icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
+                                    children={<LivewireComponent/>}
+                                />
+                                {context.livewire.updates.length > 0 && (
+                                    <ContextSection
+                                        title="Updates"
+                                        anchor="livewire-updates"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
+                                        children={<LivewireUpdates/>}
+                                    />
+                                )}
+                                {!!(context.livewire.calls) && (
+                                    <ContextSection
+                                        title="Calls"
+                                        anchor="livewire-updates"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
+                                        children={<LivewireCalls/>}
+                                    />
+                                )}
+                                <ContextSection
+                                    title="Data"
+                                    anchor="livewire-data"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
+                                    children={<LivewireData/>}
+                                />
+                                <ContextSection
+                                    title="Memo"
+                                    anchor="livewire-memo"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
+                                    children={<LivewireMemo/>}
+                                />
                             </ContextGroup>
                         )}
                         {!!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && (

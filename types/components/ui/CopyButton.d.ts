@@ -7,5 +7,5 @@ type Props = {
     outside?: boolean;
     children?: React.ReactNode;
 };
-export default function CopyButton({ value, className, alwaysVisible, direction, outside, children }: Props): JSX.Element;
+export default function CopyButton({ value, className, alwaysVisible, direction, outside, children }: Props): React.JSX.Element;
 export {};

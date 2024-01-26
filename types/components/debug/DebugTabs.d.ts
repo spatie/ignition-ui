@@ -8,7 +8,7 @@ type Tab = {
     count: number;
     component: React.ComponentType<any>;
 };
-declare function DebugTabs({ children, className }: Props): JSX.Element;
+declare function DebugTabs({ children, className }: Props): React.JSX.Element;
 declare namespace DebugTabs {
     var Tab: (_props: Tab) => null;
 }

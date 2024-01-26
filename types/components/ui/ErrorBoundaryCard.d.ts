@@ -1,6 +1,6 @@
-/// <reference types="react" />
+import React from 'react';
 type Props = {
     githubLink: string;
 };
-export default function ErrorBoundaryCard({ githubLink }: Props): JSX.Element;
+export default function ErrorBoundaryCard({ githubLink }: Props): React.JSX.Element;
 export {};

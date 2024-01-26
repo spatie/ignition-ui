@@ -127,13 +127,19 @@ export type ViewContext = {
     data: Record<string, string>;
 };
 export type LivewireContext = {
-    component_alias: string;
-    component_class: string;
+    component_alias?: string;
+    component_class?: string;
     component_id: string;
     data: Record<string, string | object>;
+    memo?: Record<string, string | object>;
     updates: Array<{
         payload: Record<string, any>;
         type: string;
+    }>;
+    calls?: Array<{
+        path: string;
+        method: string;
+        params: Record<string, any>;
     }>;
 };
 export type QueryContext = Array<QueryDebug> | {
