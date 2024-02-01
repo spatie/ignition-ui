@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.9.5 - 2024-02-01
+
+- Add `noopener` and `noreferrer` to external links
+
 ## 4.9.4 - 2023-09-19
 
 - Subtle stacktrace background gradient
