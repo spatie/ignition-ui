@@ -2,14 +2,14 @@ export default dark;
 declare const dark: {
     hljs: {};
     'hljs-subst': {
-        color: any;
+        color: "#f3f4f6";
     };
     'hljs-comment': {
-        color: any;
+        color: "#6b7280";
     };
     'hljs-keyword': {
         fontWeight: string;
-        color: any;
+        color: "#93c5fd";
     };
     'hljs-attribute': {
         fontWeight: string;
@@ -19,7 +19,7 @@ declare const dark: {
     };
     'hljs-meta-keyword': {
         fontWeight: string;
-        color: any;
+        color: "#93c5fd";
     };
     'hljs-doctag': {
         fontWeight: string;
@@ -28,78 +28,78 @@ declare const dark: {
         fontWeight: string;
     };
     'hljs-type': {
-        color: any;
+        color: "#6ee7b7";
     };
     'hljs-string': {
-        color: any;
+        color: "#fca5a5";
     };
     'hljs-number': {
-        color: any;
+        color: "#6ee7b7";
     };
     'hljs-selector-id': {
-        color: any;
+        color: "#fef08a";
     };
     'hljs-selector-class': {
-        color: any;
+        color: "#fef08a";
     };
     'hljs-quote': {
-        color: any;
+        color: "#6ee7b7";
     };
     'hljs-template-tag': {
-        color: any;
+        color: "#6ee7b7";
     };
     'hljs-deletion': {
-        color: any;
+        color: "#6ee7b7";
     };
     'hljs-title': {
-        color: any;
+        color: "#6ee7b7";
         fontWeight: string;
     };
     'hljs-section': {
-        color: any;
+        color: "#6ee7b7";
         fontWeight: string;
     };
     'hljs-regexp': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-symbol': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-variable': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-template-variable': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-link': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-selector-attr': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-selector-pseudo': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-literal': {
-        color: any;
+        color: "#a78bfa";
     };
     'hljs-built_in': {
-        color: any;
+        color: "#93c5fd";
     };
     'hljs-bullet': {
-        color: any;
+        color: "#93c5fd";
     };
     'hljs-code': {
-        color: any;
+        color: "#93c5fd";
     };
     'hljs-addition': {
-        color: any;
+        color: "#93c5fd";
     };
     'hljs-meta': {
-        color: any;
+        color: "#60a5fa";
     };
     'hljs-meta-string': {
-        color: any;
+        color: "#bfdbfe";
     };
     'hljs-emphasis': {
         fontStyle: string;

@@ -9,8 +9,8 @@ See [spatie/ignition](https://github.com/spatie/ignition) for more information.
 - `yarn dev`
 - make required changes
 - update CHANGELOG.md
-- set new version in `package.json`
-- `npm publish`
+- `yarn publish`
+- enter the new version you decided on in CHANGELOG.md
 - update `@flareapp/ignition-ui` dependency in `spatie/ignition`
 - in `spatie/ignition` run `yarn bundle` (or wait for the GH action)
 - publish new version of `spatie/ignition` to packagist
