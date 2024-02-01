@@ -12,7 +12,7 @@ export default function ErrorBoundaryCard({githubLink}: Props) {
             </h2>
             <p className="text-base">
                 An error occurred in Ignition's UI. Please open an issue on{' '}
-                <a href={githubLink} target="_blank" className="underline">the Ignition GitHub repo</a>{' '}
+                <a href={githubLink} target="_blank" rel="noopener noreferrer" className="underline">the Ignition GitHub repo</a>{' '}
                 and make sure to include any errors or warnings in the developer console.
             </p>
         </section>

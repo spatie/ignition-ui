@@ -46,7 +46,7 @@ export default function SolutionDescription({ solution }: Props) {
             <ul className="grid grid-cols-1 gap-1 text-sm">
                 {Object.entries(solution.links).map(([title, link], index) => (
                     <li key={index}>
-                        <a href={link} target="_blank" className="underline text-emerald-700 hover:text-emerald-800">
+                        <a href={link} target="_blank" rel="noopener noreferrer" className="underline text-emerald-700 hover:text-emerald-800">
                             {title}
                         </a>
                     </li>

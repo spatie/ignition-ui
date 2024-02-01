@@ -44,7 +44,7 @@ export default function Git({ git }: Props) {
                     <div className="~bg-gray-500/5 flex items-center">
                         <CodeSnippet transparent overflowX={false} value={git.hash} />
                         {commitUrl && (
-                            <a href={commitUrl} target="_blank" className="mr-4">
+                            <a href={commitUrl} target="_blank" rel="noopener noreferrer" className="mr-4">
                                 <SmallButton>
                                     <FontAwesomeIcon className="group-hover:text-indigo-500" icon={faExternalLinkAlt} />
                                     View commit {git.hash.substr(0, 7)}
