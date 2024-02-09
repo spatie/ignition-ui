@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { HeadersContext } from '../../../types';
-declare type Props = {
+type Props = {
     headers: HeadersContext;
 };
 export default function Headers({ headers }: Props): JSX.Element;

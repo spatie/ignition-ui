@@ -1,9 +1,9 @@
 import React from 'react';
-declare type Props = {
+type Props = {
     children: Array<React.ReactElement | false>;
     className?: string;
 };
-declare type Tab = {
+type Tab = {
     name: string | React.ReactElement;
     count: number;
     component: React.ComponentType<any>;

@@ -1,9 +1,9 @@
-export declare type EditorOption = {
+export type EditorOption = {
     label: string;
     url: string;
     clipboard?: boolean;
 };
-export declare type IgnitionConfig = {
+export type IgnitionConfig = {
     editor?: string | null;
     editorOptions?: {
         [editor: string]: EditorOption;
@@ -15,7 +15,7 @@ export declare type IgnitionConfig = {
     directorySeparator: string;
     shareEndpoint: string;
 };
-export declare type ErrorFrameArgument = {
+export type ErrorFrameArgument = {
     name: string;
     value: string | number | boolean | object | Array<any> | null;
     passed_by_reference: boolean;
@@ -23,7 +23,7 @@ export declare type ErrorFrameArgument = {
     truncated: boolean;
     original_type: string;
 };
-export declare type ErrorFrame = {
+export type ErrorFrame = {
     class?: string | null;
     method: string;
     code_snippet: {
@@ -35,7 +35,7 @@ export declare type ErrorFrame = {
     application_frame: boolean;
     arguments: Array<ErrorFrameArgument> | null;
 };
-export declare type ErrorOccurrence = {
+export type ErrorOccurrence = {
     type: 'web' | 'cli' | 'queue' | null;
     entry_point: string;
     exception_message: string;
@@ -76,10 +76,10 @@ export declare type ErrorOccurrence = {
     documentation_links: Array<string>;
     frames: Array<ErrorFrame>;
 };
-export declare type HeadersContext = Record<string, string | number>;
-export declare type SessionContext = Record<string, string | number>;
-export declare type CookiesContext = Record<string, string | object | boolean | number>;
-export declare type RequestContext = {
+export type HeadersContext = Record<string, string | number>;
+export type SessionContext = Record<string, string | number>;
+export type CookiesContext = Record<string, string | object | boolean | number>;
+export type RequestContext = {
     url: string;
     ip?: string | null;
     method?: string | null;
@@ -87,12 +87,12 @@ export declare type RequestContext = {
     referrer?: string | null;
     readyState?: string | null;
 };
-export declare type RequestDataContext = {
+export type RequestDataContext = {
     queryString: Record<string, string>;
     body: null | string | Record<string, string>;
     files: null | string | Array<any>;
 };
-export declare type EnvContext = {
+export type EnvContext = {
     laravel_version?: string;
     laravel_locale?: string;
     laravel_config_cached?: boolean;
@@ -101,55 +101,61 @@ export declare type EnvContext = {
     php_version?: string;
     [key: string]: any;
 };
-export declare type UserContext = {
+export type UserContext = {
     [key: string]: string | null;
 };
-export declare type ArgumentsContext = Array<string>;
-export declare type ExceptionContext = Record<string, any>;
-export declare type JobContext = Record<string, any>;
-export declare type GitContext = {
+export type ArgumentsContext = Array<string>;
+export type ExceptionContext = Record<string, any>;
+export type JobContext = Record<string, any>;
+export type GitContext = {
     hash: string;
     message: string;
     tag: string | null;
     remote: string | null;
     isDirty: boolean;
 };
-export declare type RouteContext = {
+export type RouteContext = {
     route: string | null;
     routeParameters: null | Record<string, number | string | null>;
     controllerAction: string | null;
     middleware: Array<string>;
 };
-export declare type ViewContext = {
+export type ViewContext = {
     view: string;
     data: Record<string, string>;
 };
-export declare type LivewireContext = {
-    component_alias: string;
-    component_class: string;
+export type LivewireContext = {
+    component_alias?: string;
+    component_class?: string;
     component_id: string;
     data: Record<string, string | object>;
+    memo?: Record<string, string | object>;
     updates: Array<{
         payload: Record<string, any>;
         type: string;
     }>;
+    calls?: Array<{
+        path: string;
+        method: string;
+        params: Record<string, any>;
+    }>;
 };
-export declare type QueryContext = Array<QueryDebug> | {
+export type QueryContext = Array<QueryDebug> | {
     [key: string]: QueryDebug;
 };
-export declare type DumpContext = Array<DumpDebug> | {
+export type DumpContext = Array<DumpDebug> | {
     [key: string]: DumpDebug;
 };
-export declare type LogContext = Array<LogDebug> | {
+export type LogContext = Array<LogDebug> | {
     [key: string]: LogDebug;
 };
-export declare type ErrorGlow = {
+export type ErrorGlow = {
     message_level: LogLevel;
     meta_data: Record<string, string | object>;
     microtime: number;
     name: string;
 };
-export declare type ErrorSolution = {
+export type ErrorSolution = {
     class: string;
     title: string;
     description: string;
@@ -163,8 +169,8 @@ export declare type ErrorSolution = {
     execute_endpoint?: string;
     run_parameters?: string;
 };
-export declare type FrameType = 'application' | 'vendor' | 'unknown';
-export declare type StackFrameGroupType = {
+export type FrameType = 'application' | 'vendor' | 'unknown';
+export type StackFrameGroupType = {
     type: FrameType;
     relative_file: string;
     expanded: boolean;
@@ -173,30 +179,30 @@ export declare type StackFrameGroupType = {
         selected: boolean;
     }>;
 };
-export declare type Tabname = 'stackTraceTab' | 'requestTab' | 'appTab' | 'userTab' | 'contextTab' | 'debugTab';
-export declare type SharePostData = {
+export type Tabname = 'stackTraceTab' | 'requestTab' | 'appTab' | 'userTab' | 'contextTab' | 'debugTab';
+export type SharePostData = {
     tabs?: Array<Tabname>;
     selectedTabNames: Array<Tabname>;
     lineSelection: string;
 };
-export declare type QueryDebug = {
+export type QueryDebug = {
     bindings: Array<string> | null;
     microtime: number;
     sql: string;
     time: number;
     connection_name: string;
 };
-export declare type QueryDebugWithBindings = QueryDebug & {
+export type QueryDebugWithBindings = QueryDebug & {
     bindings: Array<string>;
 };
-export declare type DumpDebug = {
+export type DumpDebug = {
     html_dump: string;
     file: string;
     line_number: number;
     microtime: number;
 };
-export declare type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error' | 'critical' | 'alert' | 'emergency' | 'warn';
-export declare type LogDebug = {
+export type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error' | 'critical' | 'alert' | 'emergency' | 'warn';
+export type LogDebug = {
     context: Record<string, string | object>;
     level: LogLevel;
     message: string;

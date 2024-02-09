@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type Props = {
+type Props = {
     openFrameIndex?: number;
 };
 export default function StackTrace({ openFrameIndex }: Props): JSX.Element;

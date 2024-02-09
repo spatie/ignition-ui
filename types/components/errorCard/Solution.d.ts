@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { ErrorSolution } from '../../types';
-declare type Props = {
+type Props = {
     solution: ErrorSolution;
     isOpen?: boolean;
     isCollapsible?: boolean;

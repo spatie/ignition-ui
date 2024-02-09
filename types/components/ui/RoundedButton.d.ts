@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react';
-declare type Props = {
+type Props = {
     children: React.ReactNode;
     className?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;

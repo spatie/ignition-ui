@@ -47,6 +47,8 @@ import Custom from "components/context/sections/Custom";
 import startCase from 'lodash/startCase';
 import Command from "components/context/sections/Command";
 import Browser from "./sections/Browser";
+import LivewireCalls from "./sections/LivewireCalls";
+import LivewireMemo from "./sections/LivewireMemo";
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -169,17 +171,33 @@ export default function Context() {
                                     icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
                                     children={<LivewireComponent/>}
                                 />
-                                <ContextSection
-                                    title="Updates"
-                                    anchor="livewire-updates"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
-                                    children={<LivewireUpdates/>}
-                                />
+                                {context.livewire.updates.length > 0 && (
+                                    <ContextSection
+                                        title="Updates"
+                                        anchor="livewire-updates"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
+                                        children={<LivewireUpdates/>}
+                                    />
+                                )}
+                                {!!(context.livewire.calls) && (
+                                    <ContextSection
+                                        title="Calls"
+                                        anchor="livewire-updates"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
+                                        children={<LivewireCalls/>}
+                                    />
+                                )}
                                 <ContextSection
                                     title="Data"
                                     anchor="livewire-data"
                                     icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
                                     children={<LivewireData/>}
+                                />
+                                <ContextSection
+                                    title="Memo"
+                                    anchor="livewire-memo"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
+                                    children={<LivewireMemo/>}
                                 />
                             </ContextGroup>
                         )}

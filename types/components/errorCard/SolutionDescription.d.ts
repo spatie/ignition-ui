@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { ErrorSolution } from '../../types';
-declare type Props = {
+type Props = {
     solution: ErrorSolution;
 };
 export default function SolutionDescription({ solution }: Props): JSX.Element;

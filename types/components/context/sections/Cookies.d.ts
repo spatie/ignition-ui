@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { CookiesContext } from '../../../types';
-declare type Props = {
+type Props = {
     cookies: CookiesContext;
 };
 export default function Cookies({ cookies }: Props): JSX.Element;
