@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.10.0 - 2024-03-28
+
+- Add support for Laravel Context
+
 ## 4.9.5 - 2024-02-01
 
 - Add `noopener` and `noreferrer` to external links
