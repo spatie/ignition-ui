@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type Props = {
+type Props = {
     className?: string;
 };
 export default function LiveWireIcon({ className }: Props): JSX.Element;

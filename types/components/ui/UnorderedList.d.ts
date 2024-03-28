@@ -1,5 +1,5 @@
 import React from 'react';
-declare type Props = {
+type Props = {
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode | React.ReactNodeArray;
@@ -9,8 +9,8 @@ declare namespace UnorderedList {
     var Item: typeof UnorderedListItem;
 }
 export default UnorderedList;
-declare type Value = string | React.ReactNode | Array<any> | Object;
-declare type UnorderedListItemProps = {
+type Value = string | React.ReactNode | Array<any> | Object;
+type UnorderedListItemProps = {
     value?: Value;
 };
 declare function UnorderedListItem({ value }: UnorderedListItemProps): JSX.Element;

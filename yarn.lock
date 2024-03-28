@@ -3657,7 +3657,7 @@ react-markdown@^8.0.7:
     unist-util-visit "^4.0.0"
     vfile "^5.0.0"
 
-react-syntax-highlighter@^15.4.5:
+react-syntax-highlighter@^15.5.0:
   version "15.5.0"
   resolved "https://registry.yarnpkg.com/react-syntax-highlighter/-/react-syntax-highlighter-15.5.0.tgz#4b3eccc2325fa2ec8eff1e2d6c18fa4a9e07ab20"
   integrity sha512-+zq2myprEnQmH5yw6Gqc8lD55QHnpKaU8TOcFeC/Lg/MQSs8UknEA0JC4nTZGFAXC2J2Hyj/ijJ7NlabyPi2gg==
@@ -4367,6 +4367,11 @@ universalify@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
   integrity sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
+
+url-slug@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/url-slug/-/url-slug-4.0.1.tgz#e6c52589d671598339fe97a32edc415687a3489a"
+  integrity sha512-OkHgffjR6bce7jNTp5BUDBhg2IcnqSAi9DEhLH8Rhxrq84uPBMbHFzvOxniEIRpSSGBcG13LhrtNR5XzUdztfQ==
 
 use-prefers-color-scheme@^1.1.2:
   version "1.1.3"
