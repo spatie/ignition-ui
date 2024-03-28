@@ -47,6 +47,7 @@ import Custom from "components/context/sections/Custom";
 import startCase from 'lodash/startCase';
 import Command from "components/context/sections/Command";
 import Browser from "./sections/Browser";
+import { faLaravel } from '@fortawesome/free-brands-svg-icons';
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -58,6 +59,72 @@ export default function Context() {
             <div className="@container flex items-stretch">
                 <InViewContextProvider>
                     <ContextSections>
+                        {(context.route || context.view || context.laravel_context || context.arguments || context.job) && (
+                            <ContextGroup title="App" anchor="app">
+                                {context.route && (
+                                    <ContextSection
+                                        title="Routing"
+                                        anchor="app-routing"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faRandom}/>}
+                                        children={<Routing route={context.route}/>}
+                                    />
+                                )}
+                                {context.view && (
+                                    <ContextSection
+                                        title="Views"
+                                        anchor="app-views"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faPaintRoller}/>}
+                                        children={<View/>}
+                                    />
+                                )}
+                                {context.laravel_context && (
+                                    <ContextSection
+                                        title="Laravel Context"
+                                        anchor="app-laravel-context"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faLaravel}/>}
+                                        children={<Custom items={context.laravel_context}/>}
+                                    />
+                                )}
+                                {context.arguments && (
+                                    <ContextSection
+                                        title="Command"
+                                        anchor="context-command"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faTerminal}/>}
+                                        children={<Command commandArguments={context.arguments}/>}
+                                    />
+                                )}
+                                {context.job && (
+                                    <ContextSection
+                                        title="Job"
+                                        anchor="context-job"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faLayerGroup}/>}
+                                        children={<Custom items={context.job || {}}/>}
+                                    />
+                                )}
+                            </ContextGroup>
+                        )}
+                        {context.livewire && (
+                            <ContextGroup title="Livewire" anchor="livewire">
+                                <ContextSection
+                                    title="Component"
+                                    anchor="livewire-component"
+                                    icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
+                                    children={<LivewireComponent/>}
+                                />
+                                <ContextSection
+                                    title="Updates"
+                                    anchor="livewire-updates"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
+                                    children={<LivewireUpdates/>}
+                                />
+                                <ContextSection
+                                    title="Data"
+                                    anchor="livewire-data"
+                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
+                                    children={<LivewireData/>}
+                                />
+                            </ContextGroup>
+                        )}
                         {context.request && (
                             <ContextGroup title="Request" anchor="request">
                                 <Request
@@ -123,64 +190,6 @@ export default function Context() {
                                         children={<Cookies cookies={context.cookies}/>}
                                     />
                                 )}
-                            </ContextGroup>
-                        )}
-                        {(context.route || context.view || context.arguments || context.job) && (
-                            <ContextGroup title="App" anchor="app">
-                                {context.route && (
-                                    <ContextSection
-                                        title="Routing"
-                                        anchor="app-routing"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faRandom}/>}
-                                        children={<Routing route={context.route}/>}
-                                    />
-                                )}
-                                {context.view && (
-                                    <ContextSection
-                                        title="Views"
-                                        anchor="app-views"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faPaintRoller}/>}
-                                        children={<View/>}
-                                    />
-                                )}
-                                {context.arguments && (
-                                    <ContextSection
-                                        title="Command"
-                                        anchor="context-command"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faTerminal}/>}
-                                        children={<Command commandArguments={context.arguments}/>}
-                                    />
-                                )}
-                                {context.job && (
-                                    <ContextSection
-                                        title="Job"
-                                        anchor="context-job"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faLayerGroup}/>}
-                                        children={<Custom items={context.job || {}}/>}
-                                    />
-                                )}
-                            </ContextGroup>
-                        )}
-                        {context.livewire && (
-                            <ContextGroup title="Livewire" anchor="livewire">
-                                <ContextSection
-                                    title="Component"
-                                    anchor="livewire-component"
-                                    icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
-                                    children={<LivewireComponent/>}
-                                />
-                                <ContextSection
-                                    title="Updates"
-                                    anchor="livewire-updates"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
-                                    children={<LivewireUpdates/>}
-                                />
-                                <ContextSection
-                                    title="Data"
-                                    anchor="livewire-data"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
-                                    children={<LivewireData/>}
-                                />
                             </ContextGroup>
                         )}
                         {!!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && (

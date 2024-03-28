@@ -56,6 +56,7 @@ export type ErrorOccurrence = {
         dumps: null | DumpContext;
         request: null | RequestContext;
         request_data: null | RequestDataContext;
+        laravel_context: null | LaravelContext;
         logs: null | LogContext;
         queries: null | QueryContext;
         livewire: null | LivewireContext;
@@ -103,6 +104,8 @@ export type RequestDataContext = {
     body: null | string | Record<string, string>;
     files: null | string | Array<any>; // TODO: figure out what this is
 };
+
+export type LaravelContext = Record<string, any>;
 
 export type EnvContext = {
     laravel_version?: string;

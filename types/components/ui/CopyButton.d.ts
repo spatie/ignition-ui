@@ -1,5 +1,5 @@
 import React from 'react';
-declare type Props = {
+type Props = {
     value: string;
     className?: string;
     alwaysVisible?: boolean;
