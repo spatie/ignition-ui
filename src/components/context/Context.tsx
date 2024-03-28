@@ -47,6 +47,7 @@ import Custom from "components/context/sections/Custom";
 import startCase from 'lodash/startCase';
 import Command from "components/context/sections/Command";
 import Browser from "./sections/Browser";
+import { faLaravel } from '@fortawesome/free-brands-svg-icons';
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -81,7 +82,7 @@ export default function Context() {
                                         title="Laravel Context"
                                         anchor="app-laravel-context"
                                         icon={<FontAwesomeIcon fixedWidth icon={faLaravel}/>}
-                                        children={<Custom items={context.laravel_context.items}/>}
+                                        children={<Custom items={context.laravel_context}/>}
                                     />
                                 )}
                                 {context.arguments && (
