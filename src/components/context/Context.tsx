@@ -58,7 +58,7 @@ export default function Context() {
             <div className="@container flex items-stretch">
                 <InViewContextProvider>
                     <ContextSections>
-                        {(context.route || context.view || context.arguments || context.job) && (
+                        {(context.route || context.view || context.laravel_context || context.arguments || context.job) && (
                             <ContextGroup title="App" anchor="app">
                                 {context.route && (
                                     <ContextSection
@@ -74,6 +74,14 @@ export default function Context() {
                                         anchor="app-views"
                                         icon={<FontAwesomeIcon fixedWidth icon={faPaintRoller}/>}
                                         children={<View/>}
+                                    />
+                                )}
+                                {context.laravel_context && (
+                                    <ContextSection
+                                        title="Laravel Context"
+                                        anchor="app-laravel-context"
+                                        icon={<FontAwesomeIcon fixedWidth icon={faLaravel}/>}
+                                        children={<Custom items={context.laravel_context.items}/>}
                                     />
                                 )}
                                 {context.arguments && (
