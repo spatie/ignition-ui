@@ -28230,11 +28230,11 @@ function Context() {
     }),
     children: /*#__PURE__*/React__default.createElement(View, null)
   }), context.laravel_context && /*#__PURE__*/React__default.createElement(ContextSection, {
-    title: "Laravel Context",
+    title: "Context",
     anchor: "app-laravel-context",
     icon: /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
       fixedWidth: true,
-      icon: faLaravel
+      icon: faLightbulb
     }),
     children: /*#__PURE__*/React__default.createElement(Custom, {
       items: context.laravel_context

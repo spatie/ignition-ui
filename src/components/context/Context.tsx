@@ -37,6 +37,7 @@ import {
     faAsterisk,
     faBomb,
     faTerminal,
+    faLightbulb,
     faLayerGroup,
     faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
@@ -47,7 +48,6 @@ import Custom from "components/context/sections/Custom";
 import startCase from 'lodash/startCase';
 import Command from "components/context/sections/Command";
 import Browser from "./sections/Browser";
-import { faLaravel } from '@fortawesome/free-brands-svg-icons';
 
 export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
@@ -79,9 +79,9 @@ export default function Context() {
                                 )}
                                 {context.laravel_context && (
                                     <ContextSection
-                                        title="Laravel Context"
+                                        title="Context"
                                         anchor="app-laravel-context"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faLaravel}/>}
+                                        icon={<FontAwesomeIcon fixedWidth icon={faLightbulb}/>}
                                         children={<Custom items={context.laravel_context}/>}
                                     />
                                 )}
