@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.10.1 - 2024-03-29
+
+- Change context icon
+
 ## 4.10.0 - 2024-03-28
 
 - Add support for Laravel Context
