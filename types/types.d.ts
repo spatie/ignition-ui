@@ -93,10 +93,7 @@ export type RequestDataContext = {
     body: null | string | Record<string, string>;
     files: null | string | Array<any>;
 };
-<<<<<<< HEAD
 export type LaravelContext = Record<string, any>;
-=======
->>>>>>> 0626d75 (Types?)
 export type EnvContext = {
     laravel_version?: string;
     laravel_locale?: string;
