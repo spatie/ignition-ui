@@ -54,7 +54,7 @@ export type ErrorOccurrence = {
         laravel_context: null | LaravelContext;
         logs: null | LogContext;
         queries: null | QueryContext;
-        livewire: null | LivewireContext;
+        livewire: null | Array<LivewireContext>;
         view: null | ViewContext;
         headers: null | HeadersContext;
         session: null | SessionContext;

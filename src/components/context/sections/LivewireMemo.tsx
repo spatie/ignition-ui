@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { LivewireContext } from 'types';
 import ContextList from '../ContextList';
-import ErrorOccurrenceContext from '../../../contexts/ErrorOccurrenceContext';
 
-export default function LivewireMemo() {
-    const errorOccurrence = useContext(ErrorOccurrenceContext);
+type Props = {
+    component: LivewireContext;
+}
 
-    const livewire = errorOccurrence.context_items.livewire;
+export default function LivewireMemo(props: Props) {
+    const livewire = props.component;
 
     if (!livewire) {
         return null;

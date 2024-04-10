@@ -17,7 +17,7 @@ import {
     faTerminal,
     faTh,
     faUser,
-    faWindowMaximize,
+    faWindowMaximize
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Command from "components/context/sections/Command";
@@ -38,10 +38,10 @@ import Cookies from './sections/Cookies';
 import Files from './sections/Files';
 import Git from './sections/Git';
 import Headers from './sections/Headers';
-import LivewireCalls from "./sections/LivewireCalls";
+import LivewireCalls from './sections/LivewireCalls';
 import LivewireComponent from './sections/LivewireComponent';
 import LivewireData from './sections/LivewireData';
-import LivewireMemo from "./sections/LivewireMemo";
+import LivewireMemo from './sections/LivewireMemo';
 import LivewireUpdates from './sections/LivewireUpdates';
 import QueryString from './sections/QueryString';
 import Request from './sections/Request';
@@ -103,28 +103,6 @@ export default function Context() {
                                         children={<Custom items={context.job || {}}/>}
                                     />
                                 )}
-                            </ContextGroup>
-                        )}
-                        {context.livewire && (
-                            <ContextGroup title="Livewire" anchor="livewire">
-                                <ContextSection
-                                    title="Component"
-                                    anchor="livewire-component"
-                                    icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
-                                    children={<LivewireComponent/>}
-                                />
-                                <ContextSection
-                                    title="Updates"
-                                    anchor="livewire-updates"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
-                                    children={<LivewireUpdates/>}
-                                />
-                                <ContextSection
-                                    title="Data"
-                                    anchor="livewire-data"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
-                                    children={<LivewireData/>}
-                                />
                             </ContextGroup>
                         )}
                         {context.request && (
@@ -194,42 +172,46 @@ export default function Context() {
                                 )}
                             </ContextGroup>
                         )}
-                        {context.livewire && (
+                        {context.livewire && context.livewire.length > 0 && (
                             <ContextGroup title="Livewire" anchor="livewire">
-                                <ContextSection
-                                    title="Component"
-                                    anchor="livewire-component"
-                                    icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
-                                    children={<LivewireComponent/>}
-                                />
-                                {context.livewire.updates.length > 0 && (
-                                    <ContextSection
-                                        title="Updates"
-                                        anchor="livewire-updates"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
-                                        children={<LivewireUpdates/>}
-                                    />
-                                )}
-                                {!!(context.livewire.calls) && (
-                                    <ContextSection
-                                        title="Calls"
-                                        anchor="livewire-updates"
-                                        icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
-                                        children={<LivewireCalls/>}
-                                    />
-                                )}
-                                <ContextSection
-                                    title="Data"
-                                    anchor="livewire-data"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
-                                    children={<LivewireData/>}
-                                />
-                                <ContextSection
-                                    title="Memo"
-                                    anchor="livewire-memo"
-                                    icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
-                                    children={<LivewireMemo/>}
-                                />
+                                {context.livewire.map((component) => (
+                                    <>
+                                        <ContextSection
+                                            title="Component"
+                                            anchor="livewire-component"
+                                            icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
+                                            children={<LivewireComponent component={component} />}
+                                        />
+                                        {component.updates.length > 0 && (
+                                            <ContextSection
+                                                title="Updates"
+                                                anchor="livewire-updates"
+                                                icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish} />}
+                                                children={<LivewireUpdates component={component} />}
+                                            />
+                                        )}
+                                        {!!(component.calls) && (
+                                            <ContextSection
+                                                title="Calls"
+                                                anchor="livewire-updates"
+                                                icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
+                                                children={<LivewireCalls component={component} />}
+                                            />
+                                        )}
+                                        <ContextSection
+                                            title="Data"
+                                            anchor="livewire-data"
+                                            icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
+                                            children={<LivewireData component={component} />}
+                                        />
+                                        <ContextSection
+                                            title="Memo"
+                                            anchor="livewire-memo"
+                                            icon={<FontAwesomeIcon fixedWidth icon={faTh} />}
+                                            children={<LivewireMemo  component={component} />}
+                                        />
+                                    </>
+                                ))}
                             </ContextGroup>
                         )}
                         {!!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && (
