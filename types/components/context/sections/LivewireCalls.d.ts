@@ -1,2 +1,7 @@
 import React from 'react';
-export default function LivewireCalls(): React.JSX.Element | null;
+import { LivewireContext } from 'types';
+type Props = {
+    component: LivewireContext;
+};
+export default function LivewireCalls(props: Props): React.JSX.Element | null;
+export {};

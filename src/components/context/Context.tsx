@@ -12,10 +12,8 @@ import {
     faPaintRoller,
     faQuestionCircle,
     faRandom,
-    faSatelliteDish,
     faSlidersH,
     faTerminal,
-    faTh,
     faUser,
     faWindowMaximize
 } from '@fortawesome/free-solid-svg-icons';
@@ -55,6 +53,8 @@ export default function Context() {
     const errorOccurrence = useContext(ErrorOccurrenceContext);
     const context = errorOccurrence.context_items;
     const requestData = context.request_data;
+
+    console.debug('145');
 
     return (
         <ErrorBoundary>
@@ -175,42 +175,49 @@ export default function Context() {
                         {context.livewire && context.livewire.length > 0 && (
                             <ContextGroup title="Livewire" anchor="livewire">
                                 {context.livewire.map((component) => (
-                                    <>
-                                        <ContextSection
-                                            title="Component"
-                                            anchor="livewire-component"
-                                            icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
-                                            children={<LivewireComponent component={component} />}
-                                        />
-                                        {component.updates.length > 0 && (
+                                    <ContextSection
+                                        key={component.memo?.name + ''}
+                                        title={component.memo?.name + '' ?? 'Component'}
+                                        anchor={component.memo?.name + "-request-livewire"}
+                                        icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
+                                    >
+                                        <div className="mt-3 grid grid-cols-1 gap-10">
                                             <ContextSection
-                                                title="Updates"
-                                                anchor="livewire-updates"
-                                                icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish} />}
-                                                children={<LivewireUpdates component={component} />}
+                                                title="Component"
+                                                anchor={component.memo?.name + "-livewire-component"}
+                                                secondaryTitle={true}
+                                                children={<LivewireComponent component={component} />}
                                             />
-                                        )}
-                                        {!!(component.calls) && (
+                                            {component.updates.length > 0 && (
+                                                <ContextSection
+                                                    title="Updates"
+                                                    anchor={component.memo?.name + "-livewire-updates"}
+                                                    secondaryTitle={true}
+                                                    children={<LivewireUpdates component={component} />}
+                                                />
+                                            )}
+                                            {!!(component.calls && component.calls.length > 0) && (
+                                                <ContextSection
+                                                    title="Calls"
+                                                    anchor={component.memo?.name + "-livewire-updates"}
+                                                    secondaryTitle={true}
+                                                    children={<LivewireCalls component={component} />}
+                                                />
+                                            )}
                                             <ContextSection
-                                                title="Calls"
-                                                anchor="livewire-updates"
-                                                icon={<FontAwesomeIcon fixedWidth icon={faSatelliteDish}/>}
-                                                children={<LivewireCalls component={component} />}
+                                                title="Data"
+                                                anchor={component.memo?.name + "-livewire-data"}
+                                                secondaryTitle={true}
+                                                children={<LivewireData component={component} />}
                                             />
-                                        )}
-                                        <ContextSection
-                                            title="Data"
-                                            anchor="livewire-data"
-                                            icon={<FontAwesomeIcon fixedWidth icon={faTh}/>}
-                                            children={<LivewireData component={component} />}
-                                        />
-                                        <ContextSection
-                                            title="Memo"
-                                            anchor="livewire-memo"
-                                            icon={<FontAwesomeIcon fixedWidth icon={faTh} />}
-                                            children={<LivewireMemo  component={component} />}
-                                        />
-                                    </>
+                                            <ContextSection
+                                                title="Memo"
+                                                anchor={component.memo?.name + "-livewire-memo"}
+                                                secondaryTitle={true}
+                                                children={<LivewireMemo  component={component} />}
+                                            />
+                                        </div>
+                                    </ContextSection>
                                 ))}
                             </ContextGroup>
                         )}

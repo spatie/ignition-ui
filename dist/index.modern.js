@@ -23051,17 +23051,19 @@ function ContextSection({
   icon,
   title,
   children,
-  anchor
+  anchor,
+  secondaryTitle = false
 }) {
   const ref = useSectionInView(title);
+  const titleClass = "mb-2 flex items-center gap-2 font-semibold " + (secondaryTitle ? "text-base ~text-gray-600" : "text-lg ~text-indigo-600");
   return /*#__PURE__*/React__default.createElement("div", {
     ref: ref
   }, /*#__PURE__*/React__default.createElement("a", {
     id: `context-${anchor}`,
     className: "scroll-target"
   }), /*#__PURE__*/React__default.createElement("h1", {
-    className: "mb-2 flex items-center gap-2 font-semibold text-lg ~text-indigo-600"
-  }, title, /*#__PURE__*/React__default.createElement("span", {
+    className: titleClass
+  }, title, icon && /*#__PURE__*/React__default.createElement("span", {
     className: "opacity-50 ~text-indigo-600 text-sm"
   }, icon)), /*#__PURE__*/React__default.createElement(ErrorBoundary, {
     fallbackComponent: githubLink => /*#__PURE__*/React__default.createElement(ErrorBoundarySection, {
@@ -24575,6 +24577,24 @@ function Headers({
   });
 }
 
+function LivewireCalls(props) {
+  const livewire = props.component;
+  if (!livewire || !livewire.calls) {
+    return null;
+  }
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, livewire.calls.map((call, index) => {
+    var _call$path;
+    return /*#__PURE__*/React__default.createElement(ContextList, {
+      key: index,
+      items: {
+        Method: call.method,
+        Params: call.params,
+        Path: (_call$path = call.path) != null ? _call$path : undefined
+      }
+    });
+  }));
+}
+
 function LivewireComponent(props) {
   const livewire = props.component;
   if (!livewire) {
@@ -24587,6 +24607,44 @@ function LivewireComponent(props) {
       ID: livewire.component_id
     }
   });
+}
+
+function LivewireData(props) {
+  const livewire = props.component;
+  if (!livewire) {
+    return null;
+  }
+  return /*#__PURE__*/React__default.createElement(ContextList, {
+    items: livewire.data
+  });
+}
+
+function LivewireMemo(props) {
+  const livewire = props.component;
+  if (!livewire) {
+    return null;
+  }
+  if (!livewire.memo) {
+    return null;
+  }
+  return /*#__PURE__*/React__default.createElement(ContextList, {
+    items: livewire.memo
+  });
+}
+
+function LivewireUpdates(props) {
+  const livewire = props.component;
+  if (!livewire) {
+    return null;
+  }
+  return /*#__PURE__*/React__default.createElement(DefinitionList, null, livewire.updates.map(({
+    payload,
+    type
+  }, index) => /*#__PURE__*/React__default.createElement(DefinitionList.Row, {
+    key: index,
+    label: type,
+    value: payload
+  })));
 }
 
 function QueryString({
@@ -25051,7 +25109,7 @@ function Context() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const context = errorOccurrence.context_items;
   const requestData = context.request_data;
-  console.debug('1', context.livewire);
+  console.debug('145');
   return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("div", {
     className: "@container flex items-stretch"
   }, /*#__PURE__*/React__default.createElement(InViewContextProvider, null, /*#__PURE__*/React__default.createElement(ContextSections, null, (context.route || context.view || context.laravel_context || context.arguments || context.job) && /*#__PURE__*/React__default.createElement(ContextGroup, {
@@ -25181,16 +25239,54 @@ function Context() {
   })), context.livewire && context.livewire.length > 0 && /*#__PURE__*/React__default.createElement(ContextGroup, {
     title: "Livewire",
     anchor: "livewire"
-  }, context.livewire.map(component => /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(ContextSection, {
-    title: "Component",
-    anchor: "livewire-component",
-    icon: /*#__PURE__*/React__default.createElement(LiveWireIcon, {
-      className: "svg-inline--fa fa-w-16 fa-fw"
-    }),
-    children: /*#__PURE__*/React__default.createElement(LivewireComponent, {
-      component: component
-    })
-  })))), !!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && /*#__PURE__*/React__default.createElement(ContextGroup, {
+  }, context.livewire.map(component => {
+    var _component$memo, _ref, _component$memo2, _component$memo3, _component$memo4, _component$memo5, _component$memo6, _component$memo7, _component$memo8;
+    return /*#__PURE__*/React__default.createElement(ContextSection, {
+      key: ((_component$memo = component.memo) == null ? void 0 : _component$memo.name) + '',
+      title: (_ref = ((_component$memo2 = component.memo) == null ? void 0 : _component$memo2.name) + '') != null ? _ref : 'Component',
+      anchor: ((_component$memo3 = component.memo) == null ? void 0 : _component$memo3.name) + "-request-livewire",
+      icon: /*#__PURE__*/React__default.createElement(LiveWireIcon, {
+        className: "svg-inline--fa fa-w-16 fa-fw"
+      })
+    }, /*#__PURE__*/React__default.createElement("div", {
+      className: "mt-3 grid grid-cols-1 gap-10"
+    }, /*#__PURE__*/React__default.createElement(ContextSection, {
+      title: "Component",
+      anchor: ((_component$memo4 = component.memo) == null ? void 0 : _component$memo4.name) + "-livewire-component",
+      secondaryTitle: true,
+      children: /*#__PURE__*/React__default.createElement(LivewireComponent, {
+        component: component
+      })
+    }), component.updates.length > 0 && /*#__PURE__*/React__default.createElement(ContextSection, {
+      title: "Updates",
+      anchor: ((_component$memo5 = component.memo) == null ? void 0 : _component$memo5.name) + "-livewire-updates",
+      secondaryTitle: true,
+      children: /*#__PURE__*/React__default.createElement(LivewireUpdates, {
+        component: component
+      })
+    }), !!(component.calls && component.calls.length > 0) && /*#__PURE__*/React__default.createElement(ContextSection, {
+      title: "Calls",
+      anchor: ((_component$memo6 = component.memo) == null ? void 0 : _component$memo6.name) + "-livewire-updates",
+      secondaryTitle: true,
+      children: /*#__PURE__*/React__default.createElement(LivewireCalls, {
+        component: component
+      })
+    }), /*#__PURE__*/React__default.createElement(ContextSection, {
+      title: "Data",
+      anchor: ((_component$memo7 = component.memo) == null ? void 0 : _component$memo7.name) + "-livewire-data",
+      secondaryTitle: true,
+      children: /*#__PURE__*/React__default.createElement(LivewireData, {
+        component: component
+      })
+    }), /*#__PURE__*/React__default.createElement(ContextSection, {
+      title: "Memo",
+      anchor: ((_component$memo8 = component.memo) == null ? void 0 : _component$memo8.name) + "-livewire-memo",
+      secondaryTitle: true,
+      children: /*#__PURE__*/React__default.createElement(LivewireMemo, {
+        component: component
+      })
+    })));
+  })), !!(context.user || context.git || context.env || errorOccurrence.application_version || context.exception) && /*#__PURE__*/React__default.createElement(ContextGroup, {
     title: "Context",
     anchor: "context"
   }, context.user && /*#__PURE__*/React__default.createElement(ContextSection, {
