@@ -25109,7 +25109,6 @@ function Context() {
   const errorOccurrence = useContext(ErrorOccurrenceContext);
   const context = errorOccurrence.context_items;
   const requestData = context.request_data;
-  console.debug('145');
   return /*#__PURE__*/React__default.createElement(ErrorBoundary, null, /*#__PURE__*/React__default.createElement("div", {
     className: "@container flex items-stretch"
   }, /*#__PURE__*/React__default.createElement(InViewContextProvider, null, /*#__PURE__*/React__default.createElement(ContextSections, null, (context.route || context.view || context.laravel_context || context.arguments || context.job) && /*#__PURE__*/React__default.createElement(ContextGroup, {
@@ -25240,11 +25239,11 @@ function Context() {
     title: "Livewire",
     anchor: "livewire"
   }, context.livewire.map(component => {
-    var _component$memo, _ref, _component$memo2, _component$memo3, _component$memo4, _component$memo5, _component$memo6, _component$memo7, _component$memo8;
+    var _component$memo$name, _component$memo, _ref, _component$memo$name2, _component$memo2, _component$memo$name3, _component$memo3, _component$memo$name4, _component$memo4, _component$memo$name5, _component$memo5, _component$memo$name6, _component$memo6, _component$memo$name7, _component$memo7, _component$memo$name8, _component$memo8;
     return /*#__PURE__*/React__default.createElement(ContextSection, {
-      key: ((_component$memo = component.memo) == null ? void 0 : _component$memo.name) + '',
-      title: (_ref = ((_component$memo2 = component.memo) == null ? void 0 : _component$memo2.name) + '') != null ? _ref : 'Component',
-      anchor: ((_component$memo3 = component.memo) == null ? void 0 : _component$memo3.name) + "-request-livewire",
+      key: ((_component$memo$name = (_component$memo = component.memo) == null ? void 0 : _component$memo.name) != null ? _component$memo$name : component.component_alias) + '',
+      title: (_ref = ((_component$memo$name2 = (_component$memo2 = component.memo) == null ? void 0 : _component$memo2.name) != null ? _component$memo$name2 : component.component_alias) + '') != null ? _ref : 'Component',
+      anchor: ((_component$memo$name3 = (_component$memo3 = component.memo) == null ? void 0 : _component$memo3.name) != null ? _component$memo$name3 : component.component_alias) + "-request-livewire",
       icon: /*#__PURE__*/React__default.createElement(LiveWireIcon, {
         className: "svg-inline--fa fa-w-16 fa-fw"
       })
@@ -25252,35 +25251,35 @@ function Context() {
       className: "mt-3 grid grid-cols-1 gap-10"
     }, /*#__PURE__*/React__default.createElement(ContextSection, {
       title: "Component",
-      anchor: ((_component$memo4 = component.memo) == null ? void 0 : _component$memo4.name) + "-livewire-component",
+      anchor: ((_component$memo$name4 = (_component$memo4 = component.memo) == null ? void 0 : _component$memo4.name) != null ? _component$memo$name4 : component.component_alias) + "-livewire-component",
       secondaryTitle: true,
       children: /*#__PURE__*/React__default.createElement(LivewireComponent, {
         component: component
       })
     }), component.updates.length > 0 && /*#__PURE__*/React__default.createElement(ContextSection, {
       title: "Updates",
-      anchor: ((_component$memo5 = component.memo) == null ? void 0 : _component$memo5.name) + "-livewire-updates",
+      anchor: ((_component$memo$name5 = (_component$memo5 = component.memo) == null ? void 0 : _component$memo5.name) != null ? _component$memo$name5 : component.component_alias) + "-livewire-updates",
       secondaryTitle: true,
       children: /*#__PURE__*/React__default.createElement(LivewireUpdates, {
         component: component
       })
     }), !!(component.calls && component.calls.length > 0) && /*#__PURE__*/React__default.createElement(ContextSection, {
       title: "Calls",
-      anchor: ((_component$memo6 = component.memo) == null ? void 0 : _component$memo6.name) + "-livewire-updates",
+      anchor: ((_component$memo$name6 = (_component$memo6 = component.memo) == null ? void 0 : _component$memo6.name) != null ? _component$memo$name6 : component.component_alias) + "-livewire-updates",
       secondaryTitle: true,
       children: /*#__PURE__*/React__default.createElement(LivewireCalls, {
         component: component
       })
     }), /*#__PURE__*/React__default.createElement(ContextSection, {
       title: "Data",
-      anchor: ((_component$memo7 = component.memo) == null ? void 0 : _component$memo7.name) + "-livewire-data",
+      anchor: ((_component$memo$name7 = (_component$memo7 = component.memo) == null ? void 0 : _component$memo7.name) != null ? _component$memo$name7 : component.component_alias) + "-livewire-data",
       secondaryTitle: true,
       children: /*#__PURE__*/React__default.createElement(LivewireData, {
         component: component
       })
-    }), /*#__PURE__*/React__default.createElement(ContextSection, {
+    }), component.memo && /*#__PURE__*/React__default.createElement(ContextSection, {
       title: "Memo",
-      anchor: ((_component$memo8 = component.memo) == null ? void 0 : _component$memo8.name) + "-livewire-memo",
+      anchor: ((_component$memo$name8 = (_component$memo8 = component.memo) == null ? void 0 : _component$memo8.name) != null ? _component$memo$name8 : component.component_alias) + '-livewire-memo',
       secondaryTitle: true,
       children: /*#__PURE__*/React__default.createElement(LivewireMemo, {
         component: component

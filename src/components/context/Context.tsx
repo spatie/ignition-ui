@@ -54,8 +54,6 @@ export default function Context() {
     const context = errorOccurrence.context_items;
     const requestData = context.request_data;
 
-    console.debug('145');
-
     return (
         <ErrorBoundary>
             <div className="@container flex items-stretch">
@@ -176,22 +174,22 @@ export default function Context() {
                             <ContextGroup title="Livewire" anchor="livewire">
                                 {context.livewire.map((component) => (
                                     <ContextSection
-                                        key={component.memo?.name + ''}
-                                        title={component.memo?.name + '' ?? 'Component'}
-                                        anchor={component.memo?.name + "-request-livewire"}
+                                        key={(component.memo?.name ?? component.component_alias) + ''}
+                                        title={(component.memo?.name ?? component.component_alias) + '' ?? 'Component'}
+                                        anchor={(component.memo?.name ?? component.component_alias) + "-request-livewire"}
                                         icon={<LiveWireIcon className="svg-inline--fa fa-w-16 fa-fw"/>}
                                     >
                                         <div className="mt-3 grid grid-cols-1 gap-10">
                                             <ContextSection
                                                 title="Component"
-                                                anchor={component.memo?.name + "-livewire-component"}
+                                                anchor={(component.memo?.name ?? component.component_alias) + "-livewire-component"}
                                                 secondaryTitle={true}
                                                 children={<LivewireComponent component={component} />}
                                             />
                                             {component.updates.length > 0 && (
                                                 <ContextSection
                                                     title="Updates"
-                                                    anchor={component.memo?.name + "-livewire-updates"}
+                                                    anchor={(component.memo?.name ?? component.component_alias) + "-livewire-updates"}
                                                     secondaryTitle={true}
                                                     children={<LivewireUpdates component={component} />}
                                                 />
@@ -199,23 +197,23 @@ export default function Context() {
                                             {!!(component.calls && component.calls.length > 0) && (
                                                 <ContextSection
                                                     title="Calls"
-                                                    anchor={component.memo?.name + "-livewire-updates"}
+                                                    anchor={(component.memo?.name ?? component.component_alias) + "-livewire-updates"}
                                                     secondaryTitle={true}
                                                     children={<LivewireCalls component={component} />}
                                                 />
                                             )}
                                             <ContextSection
                                                 title="Data"
-                                                anchor={component.memo?.name + "-livewire-data"}
+                                                anchor={(component.memo?.name ?? component.component_alias) + "-livewire-data"}
                                                 secondaryTitle={true}
                                                 children={<LivewireData component={component} />}
                                             />
-                                            <ContextSection
+                                            {(component.memo) && <ContextSection
                                                 title="Memo"
-                                                anchor={component.memo?.name + "-livewire-memo"}
+                                                anchor={(component.memo?.name ?? component.component_alias) + '-livewire-memo'}
                                                 secondaryTitle={true}
-                                                children={<LivewireMemo  component={component} />}
-                                            />
+                                                children={<LivewireMemo component={component} />}
+                                            />}
                                         </div>
                                     </ContextSection>
                                 ))}
