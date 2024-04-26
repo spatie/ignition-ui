@@ -1,2 +1,2 @@
-/// <reference types="react" />
-export default function ErrorCard(): JSX.Element;
+import React from 'react';
+export default function ErrorCard(): React.JSX.Element;

@@ -1,2 +1,2 @@
-/// <reference types="react" />
-export default function Glows(): JSX.Element;
+import React from 'react';
+export default function Glows(): React.JSX.Element;

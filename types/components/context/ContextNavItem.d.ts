@@ -5,5 +5,5 @@ type Props = {
     anchor: string;
     active?: boolean;
 };
-export default function ContextNavItem({ icon, title, anchor, active }: Props): JSX.Element;
+export default function ContextNavItem({ icon, title, anchor, active }: Props): React.JSX.Element;
 export {};

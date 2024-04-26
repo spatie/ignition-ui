@@ -1,10 +1,10 @@
 import React, { Children, useContext } from 'react';
+import InViewContext from '../../contexts/InViewContext';
+import { ContextGroupProps } from './ContextGroup';
 import ContextNav from './ContextNav';
 import ContextNavGroup from './ContextNavGroup';
 import ContextNavItem from './ContextNavItem';
-import { ContextGroupProps } from './ContextGroup';
 import ContextSection from './ContextSection';
-import InViewContext from '../../contexts/InViewContext';
 
 type Props = {
     children: Array<React.ReactElement<ContextGroupProps> | null | false>;

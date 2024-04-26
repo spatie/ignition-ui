@@ -1,2 +1,7 @@
-/// <reference types="react" />
-export default function LivewireData(): JSX.Element | null;
+import React from 'react';
+import { LivewireContext } from 'types';
+type Props = {
+    component: LivewireContext;
+};
+export default function LivewireData(props: Props): React.JSX.Element | null;
+export {};

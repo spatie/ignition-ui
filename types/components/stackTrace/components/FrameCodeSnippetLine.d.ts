@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { ErrorFrame } from '../../../types';
 import { Row } from './FrameCodeSnippet';
 type Props = {
@@ -7,5 +7,5 @@ type Props = {
     lineNumber: number;
     row: Row;
 };
-export default function FrameCodeSnippetLine({ highlight, row, frame, lineNumber }: Props): JSX.Element;
+export default function FrameCodeSnippetLine({ highlight, row, frame, lineNumber }: Props): React.JSX.Element;
 export {};

@@ -59,7 +59,7 @@ export type ErrorOccurrence = {
         laravel_context: null | LaravelContext;
         logs: null | LogContext;
         queries: null | QueryContext;
-        livewire: null | LivewireContext;
+        livewire: null | Array<LivewireContext>;
         view: null | ViewContext;
         headers: null | HeadersContext;
         session: null | SessionContext;
@@ -148,14 +148,20 @@ export type ViewContext = {
 };
 
 export type LivewireContext = {
-    component_alias: string;
-    component_class: string;
+    component_alias?: string;
+    component_class?: string;
     component_id: string;
     data: Record<string, string | object>;
+    memo?: Record<string, string | object>;
     updates: Array<{
         payload: Record<string, any>;
         type: string;
     }>;
+    calls?: Array<{
+        path: string,
+        method: string,
+        params: Record<string, any>;
+    }>
 };
 
 export type QueryContext = Array<QueryDebug> | {

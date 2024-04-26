@@ -6,12 +6,16 @@ type Props = {
     component: LivewireContext;
 }
 
-export default function LivewireData(props: Props) {
+export default function LivewireMemo(props: Props) {
     const livewire = props.component;
 
     if (!livewire) {
         return null;
     }
 
-    return <ContextList items={livewire.data} />;
+    if (!livewire.memo) {
+        return null;
+    }
+
+    return <ContextList items={livewire.memo} />;
 }

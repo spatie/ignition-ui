@@ -4,7 +4,7 @@ type Props = {
     style?: React.CSSProperties;
     children?: React.ReactNode | React.ReactNodeArray;
 };
-declare function UnorderedList({ children, className, ...props }: Props): JSX.Element;
+declare function UnorderedList({ children, className, ...props }: Props): React.JSX.Element;
 declare namespace UnorderedList {
     var Item: typeof UnorderedListItem;
 }
@@ -13,4 +13,4 @@ type Value = string | React.ReactNode | Array<any> | Object;
 type UnorderedListItemProps = {
     value?: Value;
 };
-declare function UnorderedListItem({ value }: UnorderedListItemProps): JSX.Element;
+declare function UnorderedListItem({ value }: UnorderedListItemProps): React.JSX.Element;

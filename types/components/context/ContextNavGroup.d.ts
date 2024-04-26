@@ -4,5 +4,5 @@ type Props = {
     title: string;
     anchor: string;
 };
-export default function ContextNavGroup({ title, children, anchor }: Props): JSX.Element;
+export default function ContextNavGroup({ title, children, anchor }: Props): React.JSX.Element;
 export {};
