@@ -2,6 +2,10 @@
 
 All notable changes to `ignition-ui` will be documented in this file.
 
+## 4.11.0 - 2024-04-26
+
+- Add support for LiveWire 3
+
 ## 4.10.1 - 2024-03-29
 
 - Change context icon
